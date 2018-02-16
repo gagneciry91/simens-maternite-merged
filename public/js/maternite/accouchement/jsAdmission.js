@@ -3,7 +3,7 @@
 
 	
 	function creerDossierPatient(){
-		var vart=tabUrl[0]+'public/accouchement/ajouter';
+		var vart=tabUrl[0]+'public/postnatale/ajouter';
 		$(location).attr("href",vart);
 	}
 	
@@ -27,7 +27,7 @@ function confirmation(id){
 function visualiser(id){
 	 confirmation(id);
 	 var cle = id;
-    var chemin = tabUrl[0]+'public/accouchement/declarer-deces';
+    var chemin = tabUrl[0]+'public/postnatale/declarer-deces';
     $.ajax({
         type: 'POST',
         url: chemin ,
@@ -99,7 +99,7 @@ function initialisation(){
 				}
 		   },
 
-		"sAjaxSource": ""+tabUrl[0]+"public/accouchement/liste-admission-ajax", 
+		"sAjaxSource": ""+tabUrl[0]+"public/postnatale/liste-admission-ajax", 
 
 		"fnDrawCallback": function() 
 		{
@@ -214,7 +214,7 @@ $("#titre").replaceWith("<div id='titre2' style='font-family: police2; color: gr
 
 //R�cup�ration des donn�es du patient
 var cle = id;
-var chemin = tabUrl[0]+'public/accouchement/admission-grossesse-normal';
+var chemin = tabUrl[0]+'public/postnatale/admission-grossesse-normal';
 $.ajax({
     type: 'POST',
     url: chemin ,
@@ -240,7 +240,7 @@ $.ajax({
 $("#annuler").click(function(){
 	$("#annuler").css({"border-color":"#ccc", "background":"-webkit-linear-gradient( #555, #CCC)", "box-shadow":"1px 1px 5px black inset,0 1px 0 rgba( 255, 255, 255, 0.4)"});
 	
-    vart = tabUrl[0]+'public/accouchement/admission-grossesse-normal';
+    vart = tabUrl[0]+'public/postnatale/admission-grossesse-normal';
     $(location).attr("href",vart);
     return false;
 });
@@ -251,7 +251,7 @@ $("#id_patient").val(id);
 
 
   /* function visualiser(id){
-   	vart=tabUrl[0]+'public/accouchement/info-patient-admis/id_patient/'+id;
+   	vart=tabUrl[0]+'public/postnatale/info-patient-admis/id_patient/'+id;
        $(location).attr("href",vart);
    }*/
 function declarer(id){
@@ -261,7 +261,7 @@ function declarer(id){
 
     //R�cup�ration des donn�es du patient
     var cle = id;
-    var chemin = tabUrl[0]+'public/accouchement/admission-grossesse-normal';
+    var chemin = tabUrl[0]+'public/postnatale/admission-grossesse-normal';
     $.ajax({
         type: 'POST',
         url: chemin ,
@@ -287,7 +287,7 @@ function declarer(id){
     $("#annuler").click(function(){
     	$("#annuler").css({"border-color":"#ccc", "background":"-webkit-linear-gradient( #555, #CCC)", "box-shadow":"1px 1px 5px black inset,0 1px 0 rgba( 255, 255, 255, 0.4)"});
     	
-	    vart = tabUrl[0]+'public/accouchement/admission-grossesse-normal';
+	    vart = tabUrl[0]+'public/postnatale/admission-grossesse-normal';
 	    $(location).attr("href",vart);
         return false;
     });

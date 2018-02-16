@@ -50,8 +50,8 @@ class DiagnosticsTable {
 	public function addDecision($donne,$id_cons) {
 		$db = $this->tableGateway->getAdapter ();
 		$this->tableGateway->delete ( array (
-				'id_cons' => $donne ['id_cons']
-		) );
+				//'id_cons' => $donne ['id_cons']
+		) );  
 		$sql = new Sql ( $db );
 		$sQuery = $sql->insert ()->into ( 'decision' )->values ( array (
 				'id_cons' => $id_cons,

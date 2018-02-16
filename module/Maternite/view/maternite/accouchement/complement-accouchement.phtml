@@ -5,17 +5,8 @@
 <!-- SCRIPT DU NOUVEAU CODE POUR LA GESTION DES IMAGES  -->
 <!-- SCRIPT DU NOUVEAU CODE POUR LA GESTION DES IMAGES  -->
 <!-- SCRIPT DU NOUVEAU CODE POUR LA GESTION DES IMAGES  -->
-<?php
-//echo $this->headLink()->appendStylesheet($this->basePath().'/css/pikachoose/bottom.css');
-
-//echo  $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/jquery.jcarousel.min.js');
-//echo  $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/jquery.pikachoose.min.js');
-?>
 
 <!-- les scripts des images dans examen morphologique   -->
-<?php //echo $this->headScript()->appendFile($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.js');?>
-
-<?php //echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/bootstrap-datepicker.js');?>
 <?php
 echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/accouchement/complementcons_accordeon_controle.js');
 
@@ -1024,11 +1015,6 @@ echo $this->form ()->openTag ( $form );
 					<!--****** ================== ANTECEDENTS PERSONNELS ================== ****** -->
 					<!--****** ================== ANTECEDENTS PERSONNELS ================== ****** -->
 					<table id="MenuAntecedentPersonnel" style="width: 100%;">
-						<!--     <tr style="width:100%;">
-                  <td style="">
-                     <img class="image_fleche" style='cursor: pointer;' src='<?php // echo $this->basepath().'/images_icons/flecheg.png'?>' title ="pr&eacute;c&eacute;dent" style=''/>
-                  </td>
-                </tr>-->
 
 						<tr style="width: 100%;">
 							
@@ -1263,7 +1249,7 @@ echo $this->form ()->openTag ( $form );
 							<td></td>
 						
 						
-						<tr>
+						</tr>
 					
 					</table>
 
@@ -1385,7 +1371,8 @@ echo $this->form ()->openTag ( $form );
 								<div style="float: left" id="DivNoteHtaAF">
 									<label style="width: 260px; height: 30px; text-align: right;">Note <?php echo $this->formRow($form->get('NoteHtaAF'));?></label>
 								</div>
-							</td></tr></tbody>
+							</td></tr>
+							</tbody>
 					<tbody id="" style="width: 0%;float:right;">
 						<tr>
 							<td id="BUcheckbox" style="width: 50%;">
@@ -2305,20 +2292,6 @@ echo $this->form ()->openTag ( $form );
         <!--  **************** NOUVELLE ACCORDEON *********************  -->
         <div class="accordionssssssssss">
 
-            <!-- ************** Partogramme **************** -->
-            <!-- **1** -->
-              <!--  <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Partogramme</div>
-            <div style="max-height: 180px;">
-
-                
-            
-              
-                <table id="" style="width: 100%;">
-                
-                
-                </table>
-
-            </div>-->
               <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Avortement </div>
            <div style="max-height: 100px;">
 
@@ -2386,7 +2359,7 @@ echo $this->form ()->openTag ( $form );
 									<label style="width: 90%; height: 30px; text-align: right;"><?php echo $this->formRow($form->get('type_accouchement'));?></label>
 								</div>	
 		      <div style="float: right; width: 62%; " id="rh">
-				   <label class="TypeAccouchement" style="width: 90%; height: 30px; text-align: left;">Motif &nbsp;&nbsp;&nbsp;<?php echo $this->formRow($form->get('motif_type'));?> </label>
+				   <label class="TypeAccouchement" style="width: 90%; height: 30px; text-align: left;">Motif &nbsp;<?php echo $this->formRow($form->get('motif_type'));?> </label>
 			   </div>				
 					</td>	
 					

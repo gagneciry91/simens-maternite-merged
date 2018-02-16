@@ -778,7 +778,7 @@ class MaterniteController extends AbstractActionController
         $user = $this->layout()->user;
         $IdDuService = $user ['IdService'];
         $id_medecin = $user ['id_personne'];
-var_dump('test');exit();
+//var_dump('test');exit();
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********
@@ -788,7 +788,7 @@ var_dump('test');exit();
         // les antecedents medicaux du patient a ajouter addAntecedentMedicauxPersonne
         $this->getConsultationTable()->addAntecedentMedicaux($formData);
         $this->getConsultationTable()->addAntecedentMedicauxPersonne($formData);
-
+       
         // mettre a jour les motifs d'admission
         $this->getMotifAdmissionTable()->deleteMotifAdmission($id_cons);
 
@@ -800,10 +800,10 @@ var_dump('test');exit();
         );
 
         $this->getMotifAdmissionTable()->addMotifAdmission($motisAdmission);
-
+      
         // mettre a jour la consultation
-        $this->getConsultationTable()->updateConsultation($form);
-
+        $this->getConsultationTable()->updateLesConsultation($form);
+       
         // Recuperer les donnees sur les bandelettes urinaires
         // Recuperer les donnees sur les bandelettes urinaires
         $bandelettes = array(
@@ -818,7 +818,7 @@ var_dump('test');exit();
         // mettre a jour les bandelettes urinaires
         $this->getConsultationTable()->deleteBandelette($id_cons);
         $this->getConsultationTable()->addBandelette($bandelettes);
-
+      
         // POUR LES EXAMENS PHYSIQUES
         // POUR LES EXAMENS PHYSIQUES
         // POUR LES EXAMENS PHYSIQUES
@@ -835,7 +835,7 @@ var_dump('test');exit();
             'donnee9' => $this->params()->fromPost('examen_maternite_donnee9')
         );
         $this->getDonneesExamensPhysiquesTable()->updateExamenPhysiquePourCons($info_donnees_examen_physique);
-
+        var_dump('test');exit();
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
@@ -2449,7 +2449,7 @@ var_dump('test');exit();
     {
         $user = $this->layout()->user;
         $serviceMedecin = $user ['NomService'];
-
+var_dump('test');exit();
         $nomMedecin = $user ['Nom'];
         $prenomMedecin = $user ['Prenom'];
         $donneesMedecin = array(

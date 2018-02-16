@@ -7,7 +7,6 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Sql;
 
 use Maternite\View\Helpers\DateHelper;
-use Zend\Db\Sql\Where;
 
 class AccouchementTable {
 	
@@ -39,11 +38,11 @@ class AccouchementTable {
 	}
 	
 	
-		public function getLesAccouchement() {
+		public function getLesAccouchement($monthToday,$yearToday) {
 			
 			$today = new \DateTime ();
 			$dateToday = $today->format ( 'Y-m-d' );
-			list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
+			//list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
 			$dates=array();
 			$date=$this->getDAteAcc();
 			$month=array();
@@ -53,11 +52,11 @@ class AccouchementTable {
 	               $dates[$i]=$date[$i];
                }
 			}
-			
 			return $dates;
 		}
 	
 	public function getAccouchement($id_cons) {
+		
 		$adapter = $this->tableGateway->getAdapter ();	
 		$sql = new Sql ( $adapter );
 		$select = $sql->select ();
@@ -72,9 +71,10 @@ class AccouchementTable {
 				'acc.id_cons' => $id_cons
 		) );
 		$select->order ( 'acc.id_accouchement ASC' );
+		
 		$stat = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stat->execute()->current();
-		
+		//var_dump($result);exit();
 		return $result;
 	}
 
@@ -83,16 +83,21 @@ class AccouchementTable {
 	
 	
     public function updateAccouchement($donnees,$id_grossesse) {
-	
     	$Control = new DateHelper();
     	
 		$this->tableGateway->delete ( array (
 				'id_cons' => $donnees ['id_cons'], 
 				
-		) );
+		) );    	
+				
 		$date_accouchement = $donnees['date_accouchement'];
-		if($date_accouchement){ $date_accouchement = $Control->convertDateInAnglais($date_accouchement); }else{ $date_accouchement = null;}		
-			
+		
+		if($date_accouchement)
+		{ 
+			$date_accouchement = $Control->convertDateInAnglais($date_accouchement); 
+		 }
+		//else{ $date_accouchement = null;}		
+		 //var_dump('test');exit();
 	if( $donnees['type_accouchement']!=0){
 			$dataac = array (
 					'id_cons' => $donnees ['id_cons'],
@@ -122,6 +127,7 @@ class AccouchementTable {
 			);//var_dump($dataac);exit();
 	
 			return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $dataac ));
+		
 	}
 	}
 	
@@ -139,6 +145,7 @@ public function addPrenomme($donne,$id_acc) {
 	}
 	
 	public function getPrenomme($id_acc) {
+		
 		$adapter = $this->tableGateway->getAdapter ();
 		$sql = new Sql ( $adapter );
 		$select = $sql->select ();
@@ -203,6 +210,59 @@ public function addPrenomme($donne,$id_acc) {
 
 		return count($dates);
 	}
+	
+	
+	
+	
+	
+	public function getNbPatientsAccGatPa(){
+	
+	
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('p' => 'patient'));
+		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type','date_accouchement'));
+		$select->where(array('delivrance' => 'GATPA'));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+	
+	
+		$variable =array();$i=1;
+		foreach ($result as $r){
+			$variable[$i] = $r['date_accouchement'];$i++;
+		}
+		//var_dump(count($variable));exit();
+		$today = new \DateTime ();
+		$dateToday = $today->format ( 'Y-m-d' );
+		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
+		$dates=array();
+		$month=array();
+		for($i=1;$i<=count($variable);$i++){
+			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
+			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
+	
+				$dates[$i]=$variable[$i];
+			}
+		}
+	
+	
+		return count($dates);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

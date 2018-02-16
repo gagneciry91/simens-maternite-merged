@@ -74,7 +74,7 @@ class NaissanceTable {
 	
 
 public function saveNaissance($values,$id_cons,$id_patient,$id_grossesse) {
-	
+
 	$tab_IdBebe = array();
 	for($i = 1; $i <=  $values['nombre_enfant'] ; $i ++){
 		$datanaissance = array (
@@ -127,7 +127,7 @@ public function saveNaissance($values,$id_cons,$id_patient,$id_grossesse) {
 		);
 		
 		$this->tableGateway->insert($datanaissance);
-		$tab_IdBebe [] = $this->tableGateway->getLastInsertValue();
+		$tab_IdBebe [] = $this->tableGateway->getLastInsertValue();	
 	}
 	return $tab_IdBebe;
 

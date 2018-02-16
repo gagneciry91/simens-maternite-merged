@@ -143,12 +143,7 @@ $(function() {
     		}
           
   	});
-  	
-  	
  
-  	
-  
-    
   	//MENU GAUCHE
   	//MENU GAUCHE
   	
@@ -235,6 +230,41 @@ $(function() {
     					maxDate: 0
     			}
     	);
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+		
+  		
+  		$('#datestat').datepicker(
+    			$.datepicker.regional['fr'] = {
+    					closeText: 'Fermer',
+    					changeYear: true,
+    					yearRange: 'c-80:c',
+    					prevText: '&#x3c;Préc',
+    					nextText: 'Suiv&#x3e;',
+    					currentText: 'Courant',
+    					monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
+    					'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
+    					monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Juin',
+    					'Jul','Aout','Sep','Oct','Nov','Dec'],
+    					weekHeader: 'Sm',
+    					dateFormat: 'dd/mm',
+    					firstDay: 1,
+    					isRTL: false,
+    					showMonthAfterYear: false,
+    					yearRange: '1900:2050',
+    					showAnim : 'bounce',
+    					changeMonth: true,
+    					changeYear: true,
+    					yearSuffix: '',
+    					maxDate: 0
+    			}
+    	);
+  		
   		
   		
   		

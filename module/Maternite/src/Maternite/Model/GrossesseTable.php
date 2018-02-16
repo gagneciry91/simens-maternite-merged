@@ -13,7 +13,7 @@ class GrossesseTable {
 		$this->tableGateway = $tableGateway;
 	}
 
-	
+
 	
 	public function getAdmission() {
 	
@@ -140,6 +140,46 @@ class GrossesseTable {
 					
 	
 	
+	}
+	
+	
+	
+	//statistique
+
+	public function getNbGrossesseGemellaire(){
+	
+	
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('p' => 'patient'));
+		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type','date_accouchement'));
+		$select->where(array('gro.nombre_bb' => 2));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+	
+	
+		$variable =array();$i=1;
+		foreach ($result as $r){
+			$variable[$i] = $r['date_accouchement'];$i++;
+		}
+		//var_dump(count($variable));exit();
+		$today = new \DateTime ();
+		$dateToday = $today->format ( 'Y-m-d' );
+		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
+		$dates=array();
+		$month=array();
+		for($i=1;$i<=count($variable);$i++){
+			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
+			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
+	
+				$dates[$i]=$variable[$i];
+			}
+		}
+	
+	
+		return count($dates);
 	}
 	
 	public function getAvortement($id_cons){

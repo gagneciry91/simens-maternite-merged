@@ -13,6 +13,7 @@ class Patient implements InputFilterAwareInterface {
 	public $numero_dossier;
 	public $mois;
 	public $annee;
+	public $date_enregistrement;
 	protected $inputFilter;
 	
 	public function exchangeArray($data) {
@@ -21,6 +22,8 @@ class Patient implements InputFilterAwareInterface {
 		$this->numero_dossier = (! empty ( $data ['NUMERO_DOSSIER'] )) ? $data ['NUMERO_DOSSIER'] : null;
 		$this->mois = (! empty ( $data ['MOIS'] )) ? $data ['MOIS'] : null;
 		$this->annee = (! empty ( $data ['ANNEE'] )) ? $data ['ANNEE'] : null;
+		$this->date_enregistrement = (! empty ( $data ['DATE_ENREGISTREMENT'] )) ? $data ['DATE_ENREGISTREMENT'] : null;
+		
 	}
 	public function getArrayCopy() {
 		return get_object_vars ( $this );

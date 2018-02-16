@@ -1,3 +1,4 @@
+
 <script>
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
 $('#plus_menu_statistiques').toggle(true);
@@ -5,15 +6,50 @@ $("#menu_statistiques").replaceWith("<li id='menu_statistiques' style='backgroun
 dep_menu_statistiques1();
 $('#menu_statistiques_style').css({'font-weight':'bold','color':'white','font-size':'21px'});
 </script>
-
 <!-- MES STYLES -->
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/jquery-ui.css');?>
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleAdmission.css');?>
 <!-- MES JS -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');?>
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/jquery.canvasjs.min.js');?>
+
 <?php use Maternite\View\Helpers\DateHelper;
-$Control = new DateHelper();?>
+$Control = new DateHelper();
+$today = new \DateTime ( 'now' );
+//var_dump($today);exit();
+?>
+
+
+
 <style>
 #contenuInterface{ visibility: hidden; }
+#date_stat{
+  border-bottom-left-radius: 5px; 
+  border-bottom-right-radius: 5px;
+	 border-top-left-radius: 5px; 
+	 background-color: #eefeee;
+	  border-top-right-radius: 5px;
+	   width: 10%; /* la largeur du champ input*/
+}
+
+#thoughtbot button
+{
+    width:auto;
+    padding:8px 0;
+    text-align:center;
+    display: inline-block;
+    float:left;
+    margin:0 8px 0 0;
+    border-radius:7px;
+    font-size: 0.85em;
+	font-weight: bold;
+    width:80px;
+    color:#000;
+    font-family: Arial,sans-serif;
+	box-shadow: 0 0 1px rgba( 0, 0, 0, 0.2), 0 -1px 0 rgba( 255, 255, 255, 0.1);
+    text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.3);
+}
+
 </style>
 
 <script>
@@ -26,12 +62,11 @@ $(window).load(function () {
 </script>
 
 
-<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span>  STATISTIQUES DES ACCOUCHEMENTS</span></div>
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Statistiques des Accouchements pour la p&eacute;riode     <?php echo $this->date; ?> </span>   
+</div>
 <div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
 <div id="contenuInterface" >
 <div id="contenu" >
-
-    
 
     <script >
 
@@ -41,63 +76,115 @@ $(window).load(function () {
     var nbPatientAccF = <?php echo $this->nbPatientAccF; ?> //Nombre de patientes accouchées par forceps
     var nbPatientAccV = <?php echo $this->nbPatientAccV; ?> //Nombre de patientes accouchées par Ventouse
     var nbPatientAccM = <?php echo $this->nbPatientAccM; ?>//Nombre de patientes accouchées par manoeuvre
+    var nbPatientAccGatPa = <?php echo $this->nbPatientAccGatPa; ?>//Nombre de patientes accouchées par GATPA
+    var nbGrossesseGemellaire = <?php echo $this->nbGrossesseGemellaire; ?>//Nombre de patientes accouchées par GATPA
 
+    var pourcentageAccN=(nbPatientAccN/nbPatientAcc)*100;
+    p=pourcentageAccN.toFixed(2);
+
+  
     </script>
-	
-	<div style="width: 100%; background: red; ">
+    
+
+    
+
+		
+   
+    
+    
+    <div style="float:center;">
+    <table style="float:center;">
+    <tr style="float:center;">
+  
+    </tr>
+    </table>
+    </div>
+	<div style="width: 100%;  ">
 	<table style="width: 38%; height: 20%; float:left;">
 
 	 <tr style="width: 30%; ">
 	         <th style="width: 30%;height: 40px; font-family: Goudy Old Style; font-size: 25px;text-align: left;">
-	          
-	       Accouchements:   <?php echo $this->nbPatientAcc; ?>
-	         
+	       Accouchements: 
+	         </th>
+	          <th style="width: 30%;height: 40px; font-family: Goudy Old Style; font-size: 25px;text-align: left;">
+	         <?php echo $this->nbPatientAcc; ?>
 	         </th>
 	       </tr>
 	       
 	         <tr style="width: 30%; ">
 	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
 	          
-	        Normal  <?php echo $this->nbPatientAccN; ?>
-	         
+	        Normal  
+	         </td>
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	         <?php echo $this->nbPatientAccN; ?>
+	         </td>
+	           <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	      <script type="text/javascript">document.write(p+'%');</script>
 	         </td>
 	       </tr>
 	       
 	        <tr style="width: 30%; ">
 	         <td style="width:30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
 	          
-	        Ventouse   <?php echo $this->nbPatientAccV; ?> 
-	         
+	        Ventouse  
+	         </td>
+	          <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	        <?php echo $this->nbPatientAccV; ?> 
 	         </td>
 	       </tr>
 	        <tr style="width: 30%; ">
 	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
 	          
-	         Forceps   <?php echo $this->nbPatientAccF; ?> 
-	         
+	         Forceps  
+	         </td>
+	          <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	      <?php echo $this->nbPatientAccF; ?> 
 	         </td>
 	       </tr>
 	        <tr style="width: 30%; ">
 	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
 	          
-	     Manoeuvre   <?php echo $this->nbPatientAccM; ?> 
-	         
+	     Manoeuvre   
+	         </td>
+	           <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	<?php echo $this->nbPatientAccM; ?> 
 	         </td>
 	       </tr>
 	       <tr style="width: 30%; ">
 	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
-	          
-	       CÃ©sarienne   <?php echo $this->nbPatientAccCes; ?> 
-	         
+	       CÃ©sarienne   
+	         </td>
+	               <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	<?php echo $this->nbPatientAccCes; ?> 
 	         </td>
 	       </tr>
-
+  <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	      GATPA   
+	         </td>
+	               <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	<?php echo $this->nbPatientAccGatPa; ?> 
+	         </td>
+	       </tr>
+	       
+	       
+	        <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	      Grossesses g&eacute;mellaires   
+	         </td>
+	               <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	<?php echo $this->nbGrossesseGemellaire; ?> 
+	         </td>
+	       </tr>
+	       
+	       
 
 	</table>
 	
-	<table style="width: 60%; background:orange; float:left;">
-	   <tr style="width: 60%; height: 250px;">
-	     <td> 
+	<table style="width: 60%; float:left;">
+	   <tr style="width: 60%; height: 250px; ">
+	     <td > 
 	         <script >
 
 	     $(document).ready(function($) {
@@ -106,17 +193,17 @@ $(window).load(function () {
     	      var Accouchement = new CanvasJS.Chart("chartContainer",
     	      {
     		title:{
-    			text: "Pie Chart"
+    			text: "Accouchement"
     		},
     		data: [
     		{
-    			type: "pie",
+    			type: "column",
     			dataPoints: [
-    				{  y: nbPatientAccN, indexLabel: "Naturels" },
-    				{  y: nbPatientAccV, indexLabel: "Ventouses" },
-    				{  y: nbPatientAccF, indexLabel: "Forceps" },
-    				{  y: nbPatientAccM, indexLabel: "Manoeuvres" },
-    				{  y: nbPatientAccCes, indexLabel: "Cesariennes" },
+    				{  y: nbPatientAccN, label: "Naturels" },
+    				{  y: nbPatientAccV, label: "Ventouses" },
+    				{  y: nbPatientAccM, label: "Manoeuvres" },
+    				{  y: nbPatientAccCes, label: "Cesariennes" },
+    				{  y: nbPatientAccF, label: "Forceps" },
     			]
     		}
     		]
@@ -134,7 +221,7 @@ $(window).load(function () {
 	     
 	     
 	     
-	     <div id="chartContainer" style="height: 250px; width: 100%;"></div>
+	     <div id="chartContainer" style="height: 250px; width: 50%;"></div>
 	     
 	     
 	     </td>
@@ -332,7 +419,6 @@ $(window).load(function () {
 
 
 	</table>
-	
 	
 	
 

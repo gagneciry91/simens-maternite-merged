@@ -212,7 +212,7 @@ class AdminController extends AbstractActionController
     	}
     	else if($user['role'] == "gynecologue")
     	{
-    		return $this->redirect()->toRoute('accouchement', array('action' => 'accoucher'));
+    		return $this->redirect()->toRoute('postnatale', array('action' => 'postnatale'));
     	}
     	
     	echo '<div style="font-size: 25px; color: green; padding-bottom: 15px;" >vous n\'avez aucun privil�ge. Contacter l\'administrateur ----> Merci !!! </div>'; 

@@ -245,6 +245,7 @@ class AdmissionTable {
 	//Ajouter la consultation dans la table << consultation >> pour permettre au medecin de pouvoir lui même ajouter les constantes
 	//Ajouter la consultation dans la table << consultation >> pour permettre au medecin de pouvoir lui même ajouter les constantes
 	public function addConsultation($values , $IdDuService,$id_admission){
+	
 		$today = new \DateTime ( 'now' );
 		$date = $today->format ( 'Y-m-d H:i:s' );
 		$dateOnly = $today->format ( 'Y-m-d' );
@@ -252,11 +253,11 @@ class AdmissionTable {
 		$db = $this->tableGateway->getAdapter();
 		$this->tableGateway->getAdapter()->getDriver()->getConnection()->beginTransaction();
 		try {
-	
+		
 			$dataconsultation = array(
 					'ID_CONS'=> $values->get ( "id_cons" )->getValue (),
 					'ID_PATIENT'=> $values->get ( "id_patient" )->getValue (),
-					'DATE'=> $date,
+					'DATE_ENREGISTREMENT'=> $date,
  					'DATEONLY' => $dateOnly,
 					'HEURECONS' => $values->get ( "heure_cons" )->getValue (),
 					'ID_SERVICE' => $IdDuService,
@@ -267,12 +268,13 @@ class AdmissionTable {
 			$sQuery = $sql->insert()
 			->into('consultation')
 			->values($dataconsultation);
-			$sql->prepareStatementForSqlObject($sQuery)->execute();
 	
+			$sql->prepareStatementForSqlObject($sQuery)->execute();
+	//var_dump($dataconsultation);exit();
 			$this->tableGateway->getAdapter()->getDriver()->getConnection()->commit();
 		} catch (\Exception $e) {
 			$this->tableGateway->getAdapter()->getDriver()->getConnection()->rollback();
-		}
+	}
 	}
 	
 	public function addConsultationMaternite($id_cons){
@@ -282,7 +284,8 @@ class AdmissionTable {
 		$sQuery = $sql->insert()
 		->into('consultation_maternite')
 		->values(array('id_cons' => $id_cons));
-	
+		//var_dump('test');exit();
+		
 		$requete = $sql->prepareStatementForSqlObject($sQuery);
 		$requete->execute();
 	}

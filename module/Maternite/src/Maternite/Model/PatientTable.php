@@ -119,7 +119,7 @@ class PatientTable {
 					}
 	
 					else if ($aColumns[$i] == 'id') {
-						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/accoucher/".$aRow[ 'id_admission' ]."'>";
+						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/postnatale/postnatale/".$aRow[ 'id_admission' ]."'>";
 						$html .="<img style='margin-right: 15%;' src='".$tabURI[0]."public/images_icons/doctor_16.png' title='d&eacute;tails'></a> </infoBulleVue>";
 	
 						$html .="<img style='display: inline; margin-right: 15%; color: white; opacity: 0.15;' src='".$tabURI[0]."public/images_icons/modifier.png'>";
@@ -196,7 +196,7 @@ class PatientTable {
 					}
 		
 					else if ($aColumns[$i] == 'id') {
-						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/complement-accouchement?id_patient=".$aRow[ 'id' ]."&id_cons=".$aRow[ 'Id_cons' ]."'>";
+						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/postnatale/complement-postnatale?id_patient=".$aRow[ 'id' ]."&id_cons=".$aRow[ 'Id_cons' ]."'>";
 						$html .="<img style='margin-right: 15%;' src='".$tabURI[0]."public/images_icons/modifier.png' title='d&eacute;tails'></a> </infoBulleVue>";
 		
 						$html .="<img style='display: inline; margin-right: 15%; color: white; opacity: 0.15;' src='".$tabURI[0]."public/images_icons/modifier.png'>";
@@ -329,13 +329,12 @@ class PatientTable {
 		$sQuery = $sql->insert()
 		->into('personne')
 		->values( $donnees );
-
 		$stat = $sql->prepareStatementForSqlObject($sQuery);
 		
 		$id_personne = $stat->execute()->getGeneratedValue();
 		
 		$dernierPatient = $this->getDernierPatient($mois, $annee);
-	  
+		
 		if($dernierPatient){ 
 			$suivant = $this->numeroOrdreCinqChiffre( ( (int)$dernierPatient['ORDRE'] )+1 );
 			$numeroDossier = $suivant.' '.$mois.''.$annee;
@@ -343,7 +342,8 @@ class PatientTable {
 		}else{
 			$numeroDossier = $this->numeroOrdreCinqChiffre('1').' '.$mois.''.$annee;
 			//$numeroDossier = $this->numeroOrdreCinqChiffre( $numeroDossier );
-			$this->tableGateway->insert ( array('ID_PERSONNE' => $id_personne , 'NUMERO_DOSSIER' => $numeroDossier, 'ORDRE' => 1, 'MOIS' => $mois, 'ANNEE' => $annee , 'DATE_ENREGISTREMENT' => $date_enregistrement , 'ID_EMPLOYE' => $id_employe) );
+			$this->tableGateway->insert ( array('ID_PERSONNE' => $id_personne , 'NUMERO_DOSSIER' => $numeroDossier, 'ORDRE' => 1, 'MOIS' => $mois, 'ANNEE' => $annee , 'DATE_ENREGISTREMENT' => $date_enregistrement , 'ID_EMPLOYE' => $id_employe) );		
+			
 		}
 		//$this->tableGateway->insert ( array('ID_PERSONNE' => $id_personne , 'DATE_ENREGISTREMENT' => $date_enregistrement , 'ID_EMPLOYE' => $id_employe) );
 	}
@@ -415,7 +415,7 @@ class PatientTable {
 	
 	public function getListePatient(){
 		$db = $this->tableGateway->getAdapter();
-		$aColumns = array('NUMERO_DOSSIER', 'Nom','Prenom','Age', 'Adresse', 'id', 'id2');
+		$aColumns = array('NUMERO_DOSSIER', 'Nom','Prenom','Age','Sexe', 'Adresse', 'id', 'id2');
 		/* Indexed column (used for fast and accurate table cardinality) */
 		$sIndexColumn = "id";
 		/*
@@ -452,7 +452,7 @@ class PatientTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat' => 'patient'))->columns(array('*'))
-		->join(array('p' => 'personne'), 'pat.id_personne = p.id_personne' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Adresse'=>'ADRESSE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE', 'Age'=>'AGE'))
+		->join(array('p' => 'personne'), 'pat.id_personne = p.id_personne' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Adresse'=>'ADRESSE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE',  'Sexe'=>'SEXE','Age'=>'AGE'))
 		->order('pat.id_personne DESC');
 	
 		/* Data set length after filtering */
@@ -506,10 +506,10 @@ class PatientTable {
 					}
 					else if ($aColumns[$i] == 'id') {
 						
-						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/postnatale/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a></infoBulleVue>";
 						
-						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/postnatale/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/pencil_16.png' title='Modifier'></a></infoBulleVue>";
 						
 // 						if(!$this->verifierExisteAdmission($aRow[ $aColumns[$i] ])){
@@ -640,7 +640,120 @@ class PatientTable {
 		
 	}
 	
+
+	// postnatale
 	
+
+	public function getPatientPostnatale(){
+	
+		$db = $this->tableGateway->getAdapter();
+		$aColumns = array('NUMERO_DOSSIER', 'Nom','Prenom','Age', 'Adresse', 'id', 'id2');
+		/* Indexed column (used for fast and accurate table cardinality) */
+		$sIndexColumn = "id";
+		/*
+		 * Paging
+		*/
+		$sLimit = array();
+		if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' )
+		{
+			$sLimit[0] = $_GET['iDisplayLength'];
+			$sLimit[1] = $_GET['iDisplayStart'];
+		}
+		/*
+		 * Ordering
+		*/
+		if ( isset( $_GET['iSortCol_0'] ) )
+		{
+			$sOrder = array();
+			$j = 0;
+			for ( $i=0 ; $i<intval( $_GET['iSortingCols'] ) ; $i++ )
+			{
+				if ( $_GET[ 'bSortable_'.intval($_GET['iSortCol_'.$i]) ] == "true" )
+				{
+					$sOrder[$j++] = $aColumns[ intval( $_GET['iSortCol_'.$i] ) ]."
+								 	".$_GET['sSortDir_'.$i];
+				}
+			}
+		}
+	
+		/*
+		 * SQL queries
+		*/
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+	
+		->from(array('pat' => 'patient'))->columns(array('*'))
+		->join(array('p' => 'personne'), 'pat.id_personne = p.id_personne' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Adresse'=>'ADRESSE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE', 'Age'=>'AGE'))
+		->join(array('cons' => 'consultation'), 'pat.id_personne = cons.ID_PATIENT',array('id_cons'=>'ID_CONS') )
+		->join(array('pos' => 'postnatale'), 'pos.ID_CONS = cons.ID_CONS' )
+		->group('cons.ID_PATIENT')
+		->order('pat.id_personne DESC');
+	
+		/* Data set length after filtering */
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$rResultFt = $stat->execute();
+		$iFilteredTotal = count($rResultFt);
+	
+		$rResult = $rResultFt;
+	
+		$output = array(
+	
+				"iTotalDisplayRecords" => $iFilteredTotal,
+				"aaData" => array()
+		);
+	
+		/*
+		 * $Control pour convertir la date en fran�ais
+		*/
+		$Control = new DateHelper();
+	
+		/*
+		 * ADRESSE URL RELATIF
+		*/
+		$baseUrl = $_SERVER['REQUEST_URI'];
+		$tabURI  = explode('public', $baseUrl);
+	
+		/*
+		 * Pr�parer la liste
+		*/
+		foreach ( $rResult as $aRow )
+		{
+			$row = array();
+			for ( $i=0 ; $i<count($aColumns) ; $i++ )
+			{
+				if ( $aColumns[$i] != ' ' )
+				{
+					/* General output */
+					if ($aColumns[$i] == 'Nom'){
+						$row[] = "<khass id='nomMaj'>".$aRow[ $aColumns[$i]]."</khass>";
+					}
+	
+	
+					else if ($aColumns[$i] == 'Adresse') {
+						$row[] = $this->adresseText($aRow[ $aColumns[$i] ]);
+					}
+					else if ($aColumns[$i] == 'id') {
+	
+						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/postnatale/info-postnatale/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a></infoBulleVue>";
+	
+						// 						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						// 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/pencil_16.png' title='Modifier'></a></infoBulleVue>";
+	
+	
+						$row[] = $html;
+					}
+					else {
+						$row[] = $aRow[ $aColumns[$i] ];
+					}
+				}
+			}
+			$output['aaData'][] = $row;
+		}
+		return $output;
+	
+	
+	}
 	
 	
 	/**
@@ -936,7 +1049,7 @@ class PatientTable {
 					}
 	
 				else if ($aColumns[$i] == 'id') {
-					$html ="<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+					$html ="<infoBulleVue> <a href='".$tabURI[0]."public/postnatale/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'>";
               $html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a></infoBulleVue>";
 				
 						$html .= "<infoBulleVue> <a href='javascript:modifier(".$aRow[ $aColumns[$i] ].")' >";
@@ -2480,7 +2593,7 @@ class PatientTable {
 						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/complement-accouchement/id_patient/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a></infoBulleVue>";
 		
-						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/postnatale/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/pencil_16.png' title='Modifier'></a></infoBulleVue>";
 		
 						// 						if(!$this->verifierExisteAdmission($aRow[ $aColumns[$i] ])){

@@ -116,6 +116,20 @@ class AdmissionForm extends Form{
 		
 		
 		$this->add ( array (
+				'name' => 'date_stat',
+				'type' => 'Text',
+				'options' => array (
+						//'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Service d\'origine' )
+				),
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'date_stat'
+				)
+		) );
+		
+		
+		
+		$this->add ( array (
 				'name' => 'service_dorigine',
 				'type' => 'Text',
 				'options' => array (

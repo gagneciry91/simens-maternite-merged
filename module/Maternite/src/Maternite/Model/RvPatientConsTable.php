@@ -13,6 +13,19 @@ class RvPatientConsTable {
 	public function __construct(TableGateway $tableGateway) {
 		$this->tableGateway = $tableGateway;
 	}
+	public function getDateCpon($id) {
+	
+		$rowset = $this->tableGateway->select ( array (
+				'ID_CONS' => $id
+		) );
+		$row = $rowset->current ();
+	
+		if (! $row) {
+			// throw new \Exception ( "Could not find row $id" );
+			return $row;
+		}
+		return $row;
+	}
 	public function getRendezVous($id) {
 		$rowset = $this->tableGateway->select ( array (
 				'ID_CONS' => $id 

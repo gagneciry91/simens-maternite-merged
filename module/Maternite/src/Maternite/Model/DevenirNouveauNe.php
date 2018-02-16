@@ -15,8 +15,15 @@ class DevenirNouveauNe {
 	public $note_viv_bien_portant;
 	public $note_viv_mal_formation;
 	public $note_malade;
-
+	//
+	public $poid;
+	public $temperature;
+	public $etat_de_l_enfant;
+	public $etat_cordon;
+	public $infection;
+	public $BCG_polio;
 	
+
 	
 	
 	public function exchangeArray($data) {
@@ -32,6 +39,19 @@ class DevenirNouveauNe {
 		$this->note_viv_bien_portant = (! empty ( $data ['note_viv_bien_portant'] )) ? $data ['note_viv_bien_portant'] : null;
 		$this->note_viv_mal_formation = (! empty ( $data ['note_viv_mal_formation'] )) ? $data ['note_viv_mal_formation'] : null;
 		$this->note_malade = (! empty ( $data ['note_malade'] )) ? $data ['note_malade'] : null;
+		$this->infection = (! empty ( $data ['infection'] )) ? $data ['infection'] : null;
+		$this->poid = (! empty ( $data ['poid'] )) ? $data ['poid'] : null;
+		$this->temperature = (! empty ( $data ['temperature'] )) ? $data ['temperature'] : null;
+		$this->etat_de_l_enfant = (! empty ( $data ['etat_de_l_enfant'] )) ? $data ['etat_de_l_enfant'] : null;
+		$this->etat_cordon = (! empty ( $data ['etat_cordon'] )) ? $data ['etat_cordon'] : null;
+		$this->BCG_polio = (! empty ( $data ['BCG_polio'] )) ? $data ['BCG_polio'] : null;
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 }

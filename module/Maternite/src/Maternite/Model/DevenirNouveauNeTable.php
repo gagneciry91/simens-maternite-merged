@@ -92,8 +92,8 @@ $select->join ( array (
 	
 	
 	public function saveNouveauNe($values,$id_cons,$tabIdEnfant) {
-		$Control = new DateHelper();
-		
+		$Control = new DateHelper();       	
+	
 		for($i = 1; $i <= $values['nombre_enfant'] ; $i ++){
 			$date_dece = $values ['date_deces_'. $i];
 			if($date_dece){ $date_dece = $Control->convertDateInAnglais($date_dece); }else{ $date_dece = null;}
@@ -106,15 +106,19 @@ $select->join ( array (
 					'note_malade' => $values['n_malade_'. $i],
 					'decede' => $values ['decede_'. $i],					
 					'id_bebe' => $tabIdEnfant[$i-1],						
-			);
+			);			
+					
 			
 			
 			if($values['decede_'. $i]=='Oui'){
 				$datanouveauNe['date_deces'] =  $date_dece;
 				$datanouveauNe['heure_deces' ]= $values['heure_deces_'. $i];
-				$datanouveauNe['cause_deces' ]=$values['cause_deces_'. $i];
+				$datanouveauNe['cause_deces' ]=$values['cause_deces_'. $i];			
+						
+				
 			}
 			
-			$this->tableGateway->insert ( $datanouveauNe );}
+			$this->tableGateway->insert ( $datanouveauNe );
+		}
 	}
 }

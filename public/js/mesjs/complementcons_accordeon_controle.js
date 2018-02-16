@@ -440,20 +440,22 @@ $("#terminer,#bouton_constantes_valider, #terminer2, #terminer3, #terminer4").cl
         $("#erreur_tensionminimale").fadeOut();
     }
 
-    return false;
+    return true;
 });
-$(" #terminer2,#terminer3").click(function (){});
+
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*-*--*-*-*-*--*-*-*-*-*-**--*-**-*--**-*-*-*-*-*-*-*-*-*-*-*-*-*--**-*-*-*-*-
 //Method envoi POST pour updatecomplementconsultation
 //Method envoi POST pour updatecomplementconsultation
 //Method envoi POST pour updatecomplementconsultation
 function updateexecuterRequetePost(donnees) {
-    // Le formulaire monFormulaire existe deja dans la page
-       var formulaire = document.createElement("form");
 
+
+	//Le formulaire a envoyer pour enregistrer les données
+	var formulaire = document.createElement("form");
     formulaire.setAttribute("action", tabUrl[0] + "public/maternite/update-complement-consultation");
-    formulaire.setAttribute("method", "POST");
-
+    
+    formulaire.setAttribute("method", "POST");   
+    document.body.appendChild(formulaire);    
     for (donnee in donnees) {
         // Ajout dynamique de champs dans le formulaire
         var champ = document.createElement("input");
@@ -464,10 +466,13 @@ function updateexecuterRequetePost(donnees) {
     }
 
     // Envoi de la requete
-    formulaire.submit();
+     formulaire.submit(); 
     // Suppression du formulaire
     document.body.removeChild(formulaire);
+
+    
 }
+
 
 /***LORS DU CLICK SUR 'Terminer' ****/
 /***LORS DU CLICK SUR 'Terminer' ****/
@@ -478,13 +483,12 @@ $("#terminer2, #terminer3").click(function () {
         $('#constantesClick').trigger('click');
         return false;
     }
-
     $(' #bouton_ExamenBio_valider_demande button, #bouton_morpho_valider_demande button').trigger('click');
 
     var donnees = new Array();
     donnees['id_cons'] = $("#id_cons").val();
     donnees['terminer'] = 'save';
-
+   
     // **********-- Donnees de l'examen physique --*******
     // **********-- Donnees de l'examen physique --*******
     donnees['examen_maternite_donnee1'] = $("#examen_maternite_donnee1").val();
@@ -505,7 +509,7 @@ $("#terminer2, #terminer3").click(function () {
     donnees['bilan_hepatique'] = $("#bilan_hepatique").val();
     donnees['bilan_renal'] = $("#bilan_renal").val();
     donnees['bilan_inflammatoire'] = $("#bilan_inflammatoire").val();
-
+  
     //**********-- ANALYSE MORPHOLOGIQUE --************
     //**********-- ANALYSE MORPHOLOGIQUE --************
     donnees['radio_'] = $("#radio").val();
@@ -610,7 +614,7 @@ $("#terminer2, #terminer3").click(function () {
     donnees['pouls'] = $("#pouls").val();
     donnees['frequence_respiratoire'] = $("#frequence_respiratoire").val();
     donnees['glycemie_capillaire'] = $("#glycemie_capillaire").val();
-
+   
     //Recuperer les donnees sur les bandelettes urinaires
     //Recuperer les donnees sur les bandelettes urinaires
     donnees['albumine'] = $('#BUcheckbox input[name=albumine]:checked').val();
@@ -762,7 +766,7 @@ $("#terminer2, #terminer3").click(function () {
     }
     donnees['NoteAutresAF'] = $("#NoteAutresAF").val();
 
-    updateexecuterRequetePost(donnees);
+    updateexecuterRequetePost(donnees); 
 });
 
 //Annuler le transfert au clic

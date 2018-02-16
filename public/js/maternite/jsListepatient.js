@@ -14,7 +14,7 @@
 	        "Oui": function() {
 	            $( this ).dialog( "close" );
 	            
-	            var chemin = tabUrl[0]+'public/accouchement/supprimer';
+	            var chemin = tabUrl[0]+'public/postnatale/supprimer';
 	            $.ajax({
 	                type: 'POST',
 	                url: chemin ,
@@ -23,7 +23,7 @@
 	                	     var result = jQuery.parseJSON(data);  
 	                	     
 	                	     $("#"+id_patient).parent().parent().parent().fadeOut(function(){
-	                	    	 vart = tabUrl[0]+'public/accouchement/liste-patient';
+	                	    	 vart = tabUrl[0]+'public/postnatale/liste-patient';
 	                	         $(location).attr("href",vart);
 		                	 });
 	                },
@@ -119,14 +119,14 @@
     	
     }
 
-    
+   
     function visualiser(id){
-    	vart=tabUrl[0]+'public/accouchement/info-patient/id_patient/'+id;
+    	vart=tabUrl[0]+'public/postnatale/info-patient/id_patient/'+id;
         $(location).attr("href",vart);
     }
     
     function modifier(id){
-    	vart=tabUrl[0]+'public/accouchement/modifier/id_patient/'+id;
+    	vart=tabUrl[0]+'public/postnatale/modifier/id_patient/'+id;
         $(location).attr("href",vart);
     }
     

@@ -761,12 +761,9 @@ $("#terminer2, #terminer3").click(function () {
        
         return false;
     }
-    if (choix == false) {
-        
-        $('#Accouchement').trigger('click');
-        return false;
-    }
-    $('#bouton_Acte_valider_demande button, #bouton_ExamenBio_valider_demande button, #bouton_morpho_valider_demande button').trigger('click');
+   
+
+    $(' #bouton_ExamenBio_valider_demande button, #bouton_morpho_valider_demande button').trigger('click');
 
     var donnees = new Array();
     donnees['id_cons'] = $("#id_cons").val();
@@ -905,14 +902,14 @@ $("#terminer2, #terminer3").click(function () {
     //Recuperer les valeurs des champs
     //Recuperer les valeurs des champs
     
-   // donnees['poids'] = $("#poids").val();
-   // donnees['taille'] = $("#taille").val();
+    donnees['poids'] = $("#poids").val();
+    donnees['taille'] = $("#taille").val();
     donnees['hu'] = $("#hu").val();
     donnees['paleur'] = $("#paleur").val();
     donnees['temperature'] = $("#temperature").val();
     donnees['tensionmaximale'] = $("#tensionmaximale").val();
     donnees['tensionminimale'] = $("#tensionminimale").val();
-    //donnees['pouls'] = $("#pouls").val();
+    donnees['pouls'] = $("#pouls").val();
     //donnees['frequence_respiratoire'] = $("#frequence_respiratoire").val();
     donnees['glycemie_capillaire'] = $("#glycemie_capillaire").val();
    

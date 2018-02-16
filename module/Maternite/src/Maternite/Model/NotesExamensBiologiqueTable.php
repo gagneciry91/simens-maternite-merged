@@ -11,6 +11,7 @@ class NotesExamensBiologiqueTable {
 		$this->tableGateway = $tableGateway;
 	}
 	public function getNotesExamensBiologiques($id_cons) {
+		//var_dump('test');exit();
 		$adapter = $this->tableGateway->getAdapter ();
 		$sql = new Sql ( $adapter );
 		$select = $sql->select ();
@@ -58,7 +59,7 @@ class NotesExamensBiologiqueTable {
 		}
 		return $tab;
 	}
-	public function updateNotesExamensBiologiques($donnees) {//var_dump('test');exit();
+	public function updateNotesExamensBiologiques($donnees) {var_dump('test');exit();
 		$this->tableGateway->delete ( array (
 				'id_cons' => $donnees ['id_cons'] 
 		) );

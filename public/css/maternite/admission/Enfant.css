@@ -1,0 +1,267 @@
+@CHARSET "ISO-8859-1";
+
+
+/*pour le table et les tr td*/
+#styleEnf {
+    width: 100%;
+	   
+}
+#styleEnf tr{
+    width: 100%;
+   
+}
+#styleEnf td{
+   /* width: 50%; */
+	 
+}
+/*pour les div*/
+#styleEnf .styleEnfDiv1{
+    width: 10%;
+	 float: left;
+}
+#styleEnf .styleEnfDiv2{
+    width: 15%;
+	 float: left;
+	margin-right:5%;
+
+}
+#styleEnf .styleEnfDiv3{
+    width: 60%;
+	 float: left;
+
+	
+}
+#styleEnf .styleEnfDiv4{
+    width: 19%;
+	 float: left;
+}
+#styleEnf .styleEnfDiv5{
+    width: 12%;
+	 float: left;
+
+}
+#styleEnf .styleEnfDiv6{
+    width: 60%;
+	 float: right;
+	margin-left:5%;
+}
+#styleEnf .styleEnfDivcons{
+     min-width: 300px;
+	 float: left;
+
+}
+/*pour les label de chaque div*/
+ #styleEnf .styleEnfDiv1 .styleLabel1 {
+     width: 90%;
+	height: 30px;
+	text-align: left;
+
+}
+#styleEnf .styleEnfDiv2 .styleLabel2{
+     width: 90%;
+	height: 30px;
+	text-align: left;
+
+}
+
+
+#styleEnf .styleEnfDiv3 .styleLabel3{
+     width: 100%;
+	height: 30px;
+	text-align: left;
+    margin-left:5%
+}
+
+#styleEnf .styleEnfDiv4 .styleLabel4{
+     width: 95%;
+	height: 30px;
+	text-align: left;
+
+}
+#styleEnf .styleEnfDiv5 .styleLabel5{
+     width: 95%;
+	height: 30px;
+	text-align: left;
+
+}
+#styleEnf .styleEnfDiv6 .styleLabel6{
+     width: 95%;
+	height: 30px;
+	text-align: right;
+ margin-left:5%
+}
+ #consult_j1_j2label {
+   width: 93%;
+  
+}
+  #consult_j1_j2label .consult_j1_j2 {
+   width: 340px;
+   height:150px;
+  	  box-shadow: 1px 1px 2px rgba(204, 204, 204, 0.8);
+}
+
+
+
+
+/* style pour les div de perimetre */
+
+
+#styleEnf .div1{
+    width: 20%;
+	 float: left;
+
+}
+
+#styleEnf .div2{
+    width: 20%;
+	 float: left;
+ margin-left:3%;
+}
+
+#styleEnf .div3{
+    width: 15%;
+	 float: left;
+    
+}
+#styleEnf .div4{
+    width: 25%;
+	 float: left;
+ margin-left:-3%;
+}
+#styleEnf .div5{
+    width: 13%;
+	 float: left;
+
+}
+#styleEnf .div6{
+    width: 19%;
+	 float: left;
+
+}
+#styleEnf .div7{
+    width: 12%;
+	 float: left;
+
+}
+#styleEnf .div8{
+   width: 60%;
+	 float: right;
+	margin-left:5%;
+
+}
+/* pour les label de perimetre*/
+#styleEnf .div1 .label1{
+     width: 89%;
+	height: 30px;
+	text-align: left;
+
+}
+#styleEnf .div2 .label2{
+     width: 95%;
+	height: 30px;
+	text-align: left;
+ margin-left:12%
+}
+
+#styleEnf .div3 .label3{
+     width: 95%;
+	height: 30px;
+	text-align: left;
+
+}
+
+
+#styleEnf .div4 .label4{
+     width: 95%;
+	height: 30px;
+	text-align: left;
+    margin-left:40%;
+}
+#styleEnf .div5 .label5{
+     width: 100%;
+	height: 30px;
+	text-align: left;
+
+}
+
+#styleEnf .div6 .label6{
+     width: 95%;
+	height: 30px;
+	text-align: left;
+
+}
+
+#styleEnf .div7 .label7{
+     width: 95%;
+	height: 30px;
+	text-align: left;
+
+}
+#styleEnf .div8 .label8{
+    width: 95%;
+	height: 30px;
+	text-align: right;
+ margin-left:5%
+
+}
+
+
+
+/* style pour les div de  l'apgar*/
+
+
+#styleEnf .diva1{
+    width: 20%;
+	 float: left;
+
+}
+
+#styleEnf .diva2{
+    width: 35%;
+	 float: left;
+	 margin-left:5%;
+
+}
+
+#styleEnf .diva3{
+    width: 30%;
+	 float: left;
+     margin-left:3%;
+}
+#styleEnf .diva4{
+  width: 60%;
+	 float: right;
+	margin-left:5%;
+
+}
+/* pour les label de perimetre*/
+#styleEnf .diva1 .labela1{
+     width: 90%;
+	height: 30px;
+	text-align: left;
+
+}
+#styleEnf .diva2 .labela2{
+     width: 90%;
+	height: 30px;
+	text-align: left;
+	
+}
+
+#styleEnf .diva3 .labela3{
+     width: 95%;
+	height: 30px;
+	text-align: left;
+	margin-left:5%;
+
+}
+
+
+#styleEnf .diva4 .labela4{
+        width: 95%;
+	height: 30px;
+	text-align: right;
+ margin-left:5%
+
+   
+}

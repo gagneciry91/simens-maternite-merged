@@ -1,0 +1,532 @@
+<!-- MES STYLES -->
+<?php 
+echo $this->headLink()->appendStylesheet($this->basePath().'/css/facturation/styleFacturation.css');
+echo $this->headLink()->appendStylesheet($this->basePath().'/css/facturation/styleInformationsStatistiques.css');
+?>
+
+<style type='text/css'>
+/*** Bouton input submit***/
+/*** Bouton input submit***/
+/*** Bouton input submit***/
+.transf,.rendezvous,.ordonnance {
+	width: 32px;
+	height: 32px;
+	background: url(<?php echo  $this->basePath()."/images_icons/pdf.PNG"?>)
+		no-repeat right top;
+}
+</style>
+<!-- MES JS -->
+<?php
+echo $this->headScript()->appendFile($this->basePath().'/js/facturation/jsAdmission.js');
+echo $this->headScript ()->appendFile ( $this->basePath () . '/js/facturation/jsFacturation.js' );
+echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/jquery.canvasjs.min.js');
+echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jsPDF-master/jspdf.min.js');
+echo $this->headLink ()->appendStylesheet ( $this->basePath () . '/css/facturation/DatePicker.css' );
+echo $this->headScript()->appendFile($this->basePath().'/js/facturation/informationsStatistiques.js');
+
+?>
+
+<script>
+info_bulle();
+controle_saisie();
+
+var base_url = window.location.toString();
+var tabUrl = base_url.split("public");
+//POUR LE MENU GAUCHE dans -elementgauche.phtml
+$('#plus_statistiques').toggle(true);
+$("#statistiques").replaceWith("<li id='statistiques' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.PNG';?>'  /> Statistiques </span></a></li>");
+dep_statistiques1();
+$('#statistiques_style').css({'font-weight':'bold','color':'white','font-size':'21px'});
+
+</script>
+
+<style>
+#menuGeneral, #contenuInterface{ visibility: hidden; }
+</style>
+
+<script>
+$(window).load(function () {
+
+	$('#wait').toggle(false);
+	setTimeout(function(){ $('#menuGeneral').fadeIn().css({'visibility':'visible'}); });
+	 
+});
+</script>
+
+
+
+
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 30px;'><iS style='font-size: 25px;'>&curren;</iS><span id="menu_infos"> MENU INFOS STAT </span></div>
+<div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
+
+
+
+
+<div id="menuGeneral">
+
+  <table style="width: 100%;">
+    <tr style="width: 100%; height: 50px;" >
+      <td style="width: 25%;">
+      
+            <div id="menuOption1" style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+		                   <img style="width: 40px; height: 40px; margin-top: -15px;" src='../images_icons/grapheimg.jpg' /> Sous Dossier 
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+      
+      <td style="width: 25%;" > 
+      
+            <div id="menuOption2" style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+   		                   <img style="width: 40px; height: 40px; margin-top: -15px;" src='../images_icons/diag.png' /> Diagnostics
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+      
+      <td style="width: 25%;" >
+      
+            <div id="menuOption3" style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+		                   <img src='../images_icons/photoajout.png' > Sexe 
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+      
+      <td style="width: 25%;" >
+      
+            <div style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+		                   <img src='../images_icons/Table16X16.png' > Tranche Age
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+      
+    </tr>
+  </table>
+
+</div>
+
+
+
+
+
+
+<div id="contenuInterface" >
+
+<!-- LA PREMIERE PAGE POUR LES SOUS DOSSIERS -->
+<!-- LA PREMIERE PAGE POUR LES SOUS DOSSIERS -->
+<!-- LA PREMIERE PAGE POUR LES SOUS DOSSIERS -->
+<div id="contenuPageA" >
+<img id="retourPageAMenuInfos" style=" width: 16px; height: 16px; cursor: pointer; " src='../images_icons/72.png' />
+
+<div style='width: 100%; height: 20px;'>
+        
+      <img onclick="imprimerRapportStatistique();" style=" cursor: pointer;" src='../images_icons/pdf.png' />
+    </div>
+	<div style='width: 100%; height: 10px; '>
+	
+	
+	<script type="text/javascript"> 
+     var ordonnees = [];
+     var abcisses  = [];
+     var i = 1;
+     var j = 1;
+     </script>
+     
+                                      
+     
+	<table style='width:50%; margin-left: 10px; align:center; float: left; margin-top: 15px;' class="table table-bordered tab_list_mini" id="patient">
+			<thead >
+			    <tr> 
+				    
+					<th id="nom" align="center">Num&eacute;ro ordre</th>
+					<th id="date" align="center">Sous dossier</th>
+					<th id="prenom" align="center" name="date">Nombre</th>
+
+				</tr>
+
+			</thead>
+
+			<tbody id="donnees" class="liste_patient">
+
+	          <?php $tabDonnees = $this->infos;?>
+	          <?php for($i=0 ; $i<count($tabDonnees[0]) ; $i++) { ?>
+	          <tr >
+					<td>
+					  <?php echo $i+1; ?> 
+					  
+					  <script type="text/javascript"> ordonnees  [i++] = "<?php echo $tabDonnees[0][$i]; ?>"; </script>
+					  <script type="text/javascript"> abcisses [j++] = <?php echo $tabDonnees[1][$tabDonnees[0][$i]]; ?>; </script>
+					</td>
+					<td><?php echo $tabDonnees[0][$i]; ?></td>
+					<td><?php echo $tabDonnees[1][$tabDonnees[0][$i]]; ?></td>
+			  </tr>
+			  <?php } ?>
+
+			</tbody>
+			
+		</table>
+		
+		<script type="text/javascript">
+		var Pile = [];
+
+    	for(var k = 1 ; k < ordonnees.length ; k++){
+    		var tabValeur = { y: abcisses[k], label: ordonnees[k] };
+    		Pile.push(tabValeur);
+    	}
+
+		</script>
+		
+	    <table id="AntecedentMedicaux" style="width: 48%; height: 220px;  float: left;">
+	      <tr style="width: 100%; height: 150px;">
+	         <td style="width: 100%; height: 100px; vertical-align: top; ">
+	            <div id="chartContainerDiv" style="height: 400px; width: 100%;">   </div>
+	         </td>
+          </tr>
+          
+           <tr class="form-rendezvous" style="width: 100%;">
+                                                
+                            
+            </tr>
+	    </table>
+	
+								
+	
+	
+    
+<script>    
+
+$(window).load(function () {
+	$('#wait').toggle(false);
+	$('#contenu').fadeIn().css({'visibility':'visible'});
+	
+	      
+	$(document).ready(function($) {
+		var chart = new CanvasJS.Chart("chartContainerDiv", {
+/*
+			title: {
+				text: "Basic Column Chart"
+			},
+			*/
+			data: [{
+				type: "column",
+				dataPoints: Pile 
+			}]
+		});
+		
+		chart.render();
+
+		
+	 });
+});    
+    
+</script>  
+
+
+    
+    
+       
+    
+    
+    </div>
+    
+    <div style="display: none;">
+       <form id="imprimerRapportInformationsStatistiques"> <button></button> </form>
+    </div>
+</div>
+
+
+
+<!-- LA DEUXIEME PAGE POUR LES SOUS DOSSIERS -->
+<!-- LA DEUXIEME PAGE POUR LES SOUS DOSSIERS -->
+<!-- LA DEUXIEME PAGE POUR LES SOUS DOSSIERS -->
+<div id="contenuPageB" >
+<table style="width: 100%; height: 20%;">
+	 <tr style="background: white; width: 100%;">
+	 <td colspan="2"> <img id="retourPageBMenuInfos" style="width: 16px;position: absolute; height: 16px; float: left; cursor: pointer; " src='../images_icons/72.png' > </td></tr>
+	 <tr id="interfaceStatInformationOptionnelle" style="width: 100%; height: 20%; background: white;">
+	 
+	   <!-- PREMIERE COLONNE -->
+	   <!-- PREMIERE COLONNE -->
+	 <td  style="width: 35%; height: 20%; vertical-align: top;" >
+	 <table style="width: 100%; ">
+	 <tr style="width: 100%; ">
+	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+	         </td>
+	       </tr>
+	 
+	 
+	 <tr style="width: 100%; ">
+	         <td style="width: 100%; height: 40px; background: yello; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+	          
+	             <?php $form = $this->formStatistique;
+		               $form->prepare();
+		               echo $this->form()->openTag($form);
+		         ?>
+		         <div align="center" style='width: 100%; background: re;'>
+		           <form>
+		           <table id="form_choix" style="width:95%;">
+		             <tr style='width: 100%;'>
+		                 <td colspan="3" class="comment-form-choix" style='width: 100%;'><?php echo $this->formRow($form->get('id_sous_dossier'));?></td>
+		             </tr>
+		             
+		              <tr style='width: 100%;'>
+		                 <td class="comment-form-choix" style='width: 46%;'><?php echo $this->formRow($form->get('date_debut_rapport'));?></td>
+		                 <td class="comment-form-choix" style='width: 46%;'><?php echo $this->formRow($form->get('date_fin_rapport'));?> </td>
+		                 <td style='width: 8%;' class="boutonAfficherInfosInervalleDateIntervention" > <img onclick="getInformationsDatedebutDatefinRapport();" style="cursor: pointer; width: 32px; height: 32px; padding-top: 25px;" src='../images_icons/right_32.png'  title="Visualiser"> </td>
+		             </tr>
+		             
+		               <tr style='width: 100%;'>
+		                 <td colspan="3" class="comment-form-choix" style='width: 100%;' ><?php echo $this->formRow($form->get('diagnostic_rapport'));?></td>
+		              </tr>
+		             
+		             
+		             
+		             </table>
+		             <button style="display: none;" id="ValidationInformation"> </button>
+		             </form>
+		             </div>
+		             <?php echo $this->form()->closeTag(); ?>
+		         </td>
+		         
+		         </tr>
+	 
+	 </table>
+	 </td>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+   <!-- DEUXIEME COLONNE -->
+   	   <!-- DEUXIEME COLONNE -->
+	   <td id="resultatOptionsChoisis" style="width: 65%; height: 20%; border-left: 3px solid #cccccc; vertical-align: top;" >
+	     <table id="resultatOptionChoisiParDefaut" style="width: 100%; background: white;">
+	     
+	       <tr id="titreResultatRapportOptionChoisi"  style="width: 100%; ">
+	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+                 <div  style="width: 100%; overflow: auto; margin-left: 15px; height: 25px; margin-left: 12px; background: yello;" >
+                       <span> Rapport des diagnostics </span> <img onclick="imprimerRapportStatistiqueDiagnostics();" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
+                 </div>
+	         </td>
+	       </tr>
+	       
+	       <tr id="tableauResultatRapportOptionChoisi" style="width: 100%; top;">
+	         <td align="center" style="width: 100%; height: 200px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center; vertical-align: top;">
+	             <div class="contenuTableauResultatOptionChoisi" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
+	              
+	              <!-- Emplacement des infos statistiques -->
+	              
+	             </div> 
+	         </td>
+	       </tr>
+	     
+	     </table> 
+	   </td>
+
+</tr>		
+</table>
+
+
+</div>
+
+
+
+<!-- LA TROISIEME PAGE POUR LE SEXE -->
+<!-- LA TROISIEME PAGE POUR LE SEXE -->
+<!-- LA TROISIEME PAGE POUR LE SEXE -->
+<div id="contenuPageC" >
+
+<table style="width: 100%; height: 20%;">
+	 <tr style="background: white; width: 100%;">
+	 <td colspan="2"> <img id="retourPageCMenuInfos" style="width: 16px;position: absolute; height: 16px; float: left; cursor: pointer; " src='../images_icons/72.png' > </td></tr>
+	 <tr id="interfaceStatInformationOptionnelle" style="width: 100%; height: 20%; background: white;">
+	 
+	   <!-- PREMIERE COLONNE -->
+	   <!-- PREMIERE COLONNE -->
+	 <td  style="width: 35%; height: 20%; vertical-align: top;" >
+	 <table style="width: 100%; ">
+	 <tr style="width: 100%; ">
+	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+	         </td>
+	       </tr>
+	 
+	 
+	 <tr style="width: 100%; ">
+	         <td style="width: 100%; height: 40px; background: yello; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+	          
+	             <?php $form = $this->formStatistique;
+		               $form->prepare();
+		               echo $this->form()->openTag($form);
+		         ?>
+		         <div align="center" style='width: 100%; background: re;'>
+		           <form>
+		           <table id="form_choix" style="width:95%;">
+		           
+		           	 <tr style='width: 100%;'>
+		                 <td colspan="3" class="comment-form-choix" style='width: 100%;'><?php echo $this->formRow($form->get('id_sous_dossier_genre'));?></td>
+		             </tr>
+		             
+		             <tr style='width: 100%;'>
+		                 <td class="comment-form-choix" style='width: 46%;'><?php echo $this->formRow($form->get('date_debut_genre'));?></td>
+		                 <td class="comment-form-choix" style='width: 46%;'><?php echo $this->formRow($form->get('date_fin_genre'));?> </td>
+		                 <td style='width: 8%;' class="boutonAfficherInfosInervalleDate" > <img onclick="getInformationsDatedebutDatefinRapportGenre();" style="cursor: pointer; width: 32px; height: 32px; padding-top: 25px;" src='../images_icons/right_32.png'  title="Visualiser"> </td>
+		             </tr>
+		             <tr style='width: 100%;'>
+		                 <td class="comment-form-choix" style='width: 46%;'><?php echo $this->formRow($form->get('age_min'));?></td>
+		                 <td class="comment-form-choix" style='width: 46%; vertical-align: top;'><?php echo $this->formRow($form->get('age_max'));?><span id="iconeReinitialiserAge" style=" position: absolute; cursor: pointer; " title="Reinitialiser" >&#10006;</span></td>
+		                 <td style='width: 8%;' class="boutonAfficherInfosInervalleAge" > <img onclick="getInformationsStatistiquesParAge();" style="cursor: pointer; width: 32px; height: 32px; padding-top: 25px;" src='../images_icons/right_32.png'  title="Visualiser"> </td>
+		                 
+ 		             </tr>
+
+		             
+ 
+		             
+		          
+		             
+		             
+		             
+		             </table>
+		             <button style="display: none;" id="ValidationInformation"> </button>
+		             </form>
+		             </div>
+		             <?php echo $this->form()->closeTag(); ?>
+		         </td>
+		         
+		         </tr>
+	 
+	 </table>
+	 </td>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+   <!-- DEUXIEME COLONNE -->
+   <!-- DEUXIEME COLONNE -->
+	   <td id="resultatOptionsChoisis" style="width: 65%; height: 20%; border-left: 3px solid #cccccc; vertical-align: top;" >
+	     <table id="resultatOptionChoisiParDefaut" style="width: 100%; background: white;">
+	     
+	       <tr id="titreResultatRapportOptionChoisiGenre"  style="width: 100%; ">
+	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+                 <div  style="width: 100%; overflow: auto; margin-left: 15px; height: 25px; margin-left: 12px; background: yello;" >
+                       <span> Rapport   </span> <img onclick="imprimerRapportStatistiqueGenre();" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
+                 </div>
+                  <?php echo $this->nbPatient; ?> patients consultés
+	         </td>
+	       </tr>
+	       
+	     
+           
+           	       
+	       
+	       	 <tr id="tableauResultatOptionGenreChoisi" style="width: 100%; ">
+	         <td style="width: 100%; height: 40px; font-family: Consolas; font-weight: normal; font-size: 17px; text-align: center;">
+	             <div  align="center" >
+                 <div class="contenuTableauResultatOptionChoisi" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
+	              
+	              <!-- Emplacement des infos statistiques -->
+	              
+	             </div> 
+	             </div> 
+	         </td>
+	       </tr>
+
+	      <tr style="width: 100%; vertical-align:">
+	        <td style="width: 100%; height: 40px; font-family: Consolas; font-weight: normal; font-size: 17px; text-align: center;">
+	         
+	          <div  id="patientConsulte" align="center" style="height: 400px; margin-left: 55px; "></div>
+	         
+	         </td>
+	       </tr>
+	       
+	       
+	     
+	     </table> 
+	   </td>
+	   
+
+</tr>		
+</table>
+
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+initialisation();
+//$('#contenuInterface').toggle(false);
+setTimeout(function(){ $('#contenuPageA,#contenuPageB,#contenuPageC,#visualiserResultatParAge').toggle(false); });
+</script>
+<div align="center" id="scritpPatientConsulte"></div>
+

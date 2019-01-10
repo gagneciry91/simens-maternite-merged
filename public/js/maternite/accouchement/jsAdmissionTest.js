@@ -28,7 +28,7 @@ function confirmation(id){
 function visualiser(id){
 	 confirmation(id);
 	 var cle = id;
-    var chemin = tabUrl[0]+'public/postnatale/declarer-deces';
+    var chemin = tabUrl[0]+'public/accouchement/declarer-deces';
     $.ajax({
         type: 'POST',
         url: chemin ,
@@ -86,7 +86,7 @@ function initialisation(){
 				}
 		   },
 
-		"sAjaxSource": ""+tabUrl[0]+"public/postnatale/liste-admission-ajax", 
+		"sAjaxSource": ""+tabUrl[0]+"public/accouchement/liste-admission-ajax", 
 
 		"fnDrawCallback": function() 
 		{
@@ -196,7 +196,7 @@ function declarer(id){
     //$("#termineradmission").replaceWith("<button id='termineradmission' style='height:35px;'>Terminer</button>");
     //R�cup�ration des donn�es du patient
     var cle = id;
-    var chemin = tabUrl[0]+'public/postnatale/admission';
+    var chemin = tabUrl[0]+'public/accouchement/admission';
     $.ajax({
         type: 'POST',
         url: chemin ,
@@ -222,7 +222,7 @@ function declarer(id){
     $("#annuler").click(function(){
     	$("#annuler").css({"border-color":"#ccc", "background":"-webkit-linear-gradient( #555, #CCC)", "box-shadow":"1px 1px 5px black inset,0 1px 0 rgba( 255, 255, 255, 0.4)"});
     	
-	    vart = tabUrl[0]+'public/postnatale/admission';
+	    vart = tabUrl[0]+'public/accouchement/admission';
 	    $(location).attr("href",vart);
         return false;
     });

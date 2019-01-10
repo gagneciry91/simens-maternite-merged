@@ -57,6 +57,7 @@ $(window).load(function () {
 	<table class="table table-bordered  tab_list_mini" id="patient">
 		<thead>
 			<tr style="height: 50px; width: 100%;">
+			<th id="nom" align="center">Num Dossier</th>
 				<th id="nom" align="center">Nom</th>
 				<th id="prenom" align="center">Pr&eacute;nom</th>
 				<th id="date" align="center" name="date">Date. naiss</th>
@@ -95,8 +96,12 @@ $(window).load(function () {
 						<img id="image-alert" style="vertical-align: top;"
 							src='<?php echo $this->basePath().'/images_icons/alert_rv_r.png'?>' />
 					</div>
-				       <?php echo $this->escapeHtml($donnees['Nom']);?>
+					    
+					 <?php echo $this->escapeHtml($donnees['numero_dossier']);?>
+				    
+				       
 				    </td>
+				 <td>  <?php echo $this->escapeHtml($donnees['Nom']);?></td>
 				<td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
 				<td><?php echo $this->escapeHtml($date_naissance);?></td>
 				<td><?php echo $this->escapeHtml($donnees['Sexe']);?></td>
@@ -169,9 +174,11 @@ $(window).load(function () {
 						<img id="image-alert" style="vertical-align: top;"
 							src='<?php echo $this->basePath().'/images_icons/alert_rv_r.png'?>' />
 					</div>
-				       <?php echo $this->escapeHtml($donnees['Nom']);?>
+						<?php echo $this->escapeHtml($donnees['numero_dossier']);?>
+					
 				    </td>
-				<td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
+				<td><?php echo $this->escapeHtml($donnees['Nom']);?> </td>
+			    <td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
 				<td><?php echo $this->escapeHtml($date_naissance);?></td>
 				<td><?php echo $this->escapeHtml($donnees['Sexe']);?></td>
 				<td><?php echo AdresseText($this->escapeHtml($donnees['Adresse']));?></td>
@@ -228,6 +235,8 @@ $(window).load(function () {
 
 		<tfoot class="foot_style">
 			<tr>
+			    <th id="nom_" style='width: 13%;'><input type="text"
+					name="search_browser" value=" Num dossier" class="search_init" /></th>
 				<th id="nom_" style='width: 13%;'><input type="text"
 					name="search_browser" value=" Nom" class="search_init" /></th>
 				<th id="prenom_" style='width: 15%;'><input type="text"
@@ -236,11 +245,11 @@ $(window).load(function () {
 					name="search_browser" value=" Date naissance" class="search_init" /></th>
 				<th id="sexe_" style='width: 7%;'><input type="text"
 					name="search_browser" value=" Sexe" class="search_init" /></th>
-				<th id="adresse_" style='width: 28%;'><input type="text"
+				<th id="adresse_" style='width: 20%;'><input type="text"
 					name="search_browser" value=" Adresse" class="search_init" /></th>
-				<th id="nationalite_" style='width: 15%;'><input type="text"
+				<th id="nationalite_" style='width: 10%;'><input type="text"
 					name="search_browser" value=" Nationalite" class="search_init" /></th>
-				<th id="effectuer_" style='width: 10%;'><input type="hidden"
+				<th id="effectuer_" style='width: 18%;'><input type="hidden"
 					name="search_browser" value="" class="" /></th>
 
 			</tr>

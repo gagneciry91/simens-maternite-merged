@@ -1,5 +1,4 @@
-function chargerMedicaments(myArrayMedicament, myArrayForme, myArrayTypeQuantiteMedicament){
-	
+function (myArrayMedicament, myArrayForme, myArrayTypeQuantiteMedicament){
 $(function(){
   $( "LesMedicaments khass input" ).autocomplete({
 	  source: myArrayMedicament

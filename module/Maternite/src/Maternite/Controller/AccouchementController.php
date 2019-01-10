@@ -69,7 +69,7 @@ class AccouchementController extends AbstractActionController
     protected $hospitalisationlitTable;
     protected $litTable;
     protected $salleTable;
-
+    protected $postnataleTable;
     protected $tarifConsultationTable;
     protected $resultatVpaTable;
     protected $demandeActeTable;
@@ -93,6 +93,13 @@ class AccouchementController extends AbstractActionController
 			$this->admissionTable = $sm->get ( 'Maternite\Model\AdmissionTable' );
 		}
 		return $this->admissionTable;
+	}
+	public function getPostnataleTable() {
+		if (! $this->postnataleTable) {
+			$sm = $this->getServiceLocator ();
+			$this->postnataleTable = $sm->get ( 'Maternite\Model\PostnataleTable' );
+		}
+		return $this->postnataleTable;
 	}
 	
 	public function getAntecedentType1Table() {
@@ -1189,6 +1196,7 @@ public function declarerDecesAction() {
 		$idService = $user ['IdService'];
 		
 		$lespatients = $this->getConsultationTable()->listeDesAccouchement($idService);
+		//var_dump(count($lespatients))
 		// RECUPERER TOUS LES PATIENTS AYANT UN RV aujourd'hui
 		$tabPatientRV = $this->getConsultationTable()->getPatientsRV($idService);
 		//var_dump($user); exit();
@@ -1216,10 +1224,11 @@ public function declarerDecesAction() {
 	
 	
 	public function listeDesAccouchementsAction() {
+		
 		$layout = $this->layout ();
 		$layout->setTemplate ( 'layout/accouchement' );
 		$view = new ViewModel ();
-
+		
 		return $view;
 	}
 	
@@ -1228,7 +1237,7 @@ public function declarerDecesAction() {
 	public function listeDesAccouchementsAjaxAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
 		
-	
+		//var_dump('test');exit();
 		$output = $this->getPatientTable()->getPatientAccouchee();
 		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
 				'enableJsonExprFinder' => true
@@ -1250,7 +1259,7 @@ public function declarerDecesAction() {
 		$id = $this->params()->fromQuery('id_cons');
 		$inf=$this->getConsultationTable()->infpat($id_pat, $id);
 		
-		//var_dump($inf['id_admission']);exit();	
+		//var_dump($id);exit();	
 		$id_admi = $this->params()->fromQuery('id_admission', 0);
 		$listeMedicament = $this->getConsultationTable()->listeDeTousLesMedicaments();
 		
@@ -1905,10 +1914,11 @@ foreach ($Nouveau as $Nv){
 		) );
 	}
 
-	/* public function majComplementAccouchementAction()
+	 public function majComplementAccouchementAction()
 	{$this->layout()->setTemplate('layout/accouchement');}
-	 */
+	 
 	
+
 	public function updateComplementAccouchementAction()
 	{
 		$this->layout()->setTemplate('layout/accouchement');
@@ -1932,6 +1942,7 @@ foreach ($Nouveau as $Nv){
         // les antecedents medicaux du patient a ajouter addAntecedentMedicauxPersonne
         $this->getConsultationTable()->addAntecedentMedicaux($formData);
         $this->getConsultationTable()->addAntecedentMedicauxPersonne($formData);
+        
        // $this->getMotifAdmissionTable()->deleteMotifAdmission($id_cons);
       
       
@@ -1948,6 +1959,7 @@ foreach ($Nouveau as $Nv){
             'croixsucre' => $this->params()->fromPost('croixsucre'),
             'croixcorpscetonique' => $this->params()->fromPost('croixcorpscetonique')
         );
+      
         // mettre a jour les bandelettes urinaires
         $this->getConsultationTable()->deleteBandelette($id_cons);
         $this->getConsultationTable()->addBandelette($bandelettes);
@@ -1955,36 +1967,32 @@ foreach ($Nouveau as $Nv){
         $id_grossesse= $this->getGrossesseTable()->updateGrossesse($formData);
         $this->getGrossesseTable()->updateAvortement($formData,$id_cons,$id_grossesse);
         $this->getConsultationMaterniteTable()->addConsultationMaternite($id_cons,$id_grossesse);
-
+        
         $id_antecedent1 = $this->getAntecedentType1Table ()-> updateAntecedentType1($formData); 
     $id_antecedent2 = $this->getAntecedentType2Table ()-> updateAntecedentType2($formData);
     $this->getDonneesExamensPhysiquesTable()->updateExamenPhysique($formData);
-    
-   $id_acc= $this->getAccouchementTable()->updateAccouchement($formData,$id_grossesse);
-   //var_dump('test');exit();
-  $this->getAccouchementTable()->addPrenomme($formData['prenome'],$id_acc);
   
-   // var_dump($formData['prenome']); exit();
-        $enfant=$formData['nombre_enfant'];       
-        
+   $id_acc= $this->getAccouchementTable()->updateAccouchement($formData,$id_grossesse);  //var_dump('test');exit();
+  $this->getAccouchementTable()->addPrenomme($formData['prenome'],$id_acc);
+    // var_dump($formData['prenome']); exit();
+        $enfant=$formData['nombre_enfant'];
        	$tab_bebes = $this->getNaissanceTable()->saveNaissance($formData,$id_cons,$id_patient,$id_grossesse);
-      
-       	//$this->getDevenirNouveauNeTable()->saveNouveauNe($formData, $id_cons, $tab_bebes);  
+       	
+       	//$this->getDevenirNouveauNeTable()->saveNouveauNe($formData, $id_cons, $tab_bebes);      	
+       // var_dump($formData);exit;
        
-     
-       	
         //Nouveau ne
-       	
+    
       //pour les conclusion: complication et deces maternel
       $nombre_cause = $this->params()->fromPost('nb_comp');
       $nombre_causeDC = $this->params()->fromPost('nbcauseDC');
       //$this->conclusionTable()->updateConclusionComp($formData, $id_cons,$nombre_cause,$id_patient);
-      
       //$this->conclusionTable()->updateConclusionDeces($formData, $id_cons,$nombre_causeDC,$id_patient);
+//var_dump('test');exit();
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
-      
+
         $donneesDesAntecedents = array(
             // **=== ANTECEDENTS PERSONNELS
             // **=== ANTECEDENTS PERSONNELS
@@ -2022,12 +2030,13 @@ foreach ($Nouveau as $Nv){
             'NoteAutresAF' => $this->params()->fromPost('NoteAutresAF'),
             'text_chirur' => $this->params()->fromPost('text_chirur')
             
-        );      
-            
+        );
 //var_dump($donneesDesAntecedents);exit();
+       
         $id_personne = $this->getAntecedantPersonnelTable()->getIdPersonneParIdCons($id_cons);
         $this->getAntecedantPersonnelTable()->addAntecedentsPersonnels($donneesDesAntecedents, $id_personne, $id_medecin);
         $this->getAntecedantsFamiliauxTable()->addAntecedentsFamiliaux($donneesDesAntecedents, $id_personne, $id_medecin);
+
         // POUR LES RESULTATS DES EXAMENS MORPHOLOGIQUES
         // POUR LES RESULTATS DES EXAMENS MORPHOLOGIQUES
         // POUR LES RESULTATS DES EXAMENS MORPHOLOGIQUES
@@ -2067,14 +2076,12 @@ foreach ($Nouveau as $Nv){
             'diagnostic2' => $this->params()->fromPost('diagnostic2'),
             'diagnostic3' => $this->params()->fromPost('diagnostic3'),
             'diagnostic4' => $this->params()->fromPost('diagnostic4'),
-        );       
-            
+        );
 
         $id_diagn= $this->getDiagnosticsTable()->updateDiagnostics($info_diagnostics);
-        
         $decision=$this->params()->fromPost('decisions');
         $this->getDiagnosticsTable()->addDecision($decision,$id_cons);
-        
+     
         // POUR LES TRAITEMENTS
         // POUR LES TRAITEMENTS
         // POUR LES TRAITEMENTS
@@ -2090,8 +2097,7 @@ foreach ($Nouveau as $Nv){
             'duree_traitement' => $dureeTraitement
         );
 
-        $Consommable = $this->getOrdonConsommableTable();       
-        
+        $Consommable = $this->getOrdonConsommableTable();
         $tab = array();
         $j = 1;
 
@@ -2131,7 +2137,7 @@ foreach ($Nouveau as $Nv){
 
         /* Mettre a jour la duree du traitement de l'ordonnance */
         $idOrdonnance = $this->getOrdonnanceTable()->updateOrdonnance($tab, $donnees);
-      
+
         /* Mettre a jour les medicaments */
         $resultat = $Consommable->updateOrdonConsommable($tab, $idOrdonnance, $nomMedicament);
 
@@ -2147,8 +2153,8 @@ foreach ($Nouveau as $Nv){
             'ID_CONS' => $id_cons
         );
 
-        //$this->getDemandeVisitePreanesthesiqueTable()->updateDemandeVisitePreanesthesique($infoDemande);
-       
+       // $this->getDemandeVisitePreanesthesiqueTable()->updateDemandeVisitePreanesthesique($infoDemande);
+
         // POUR LES COMPTES RENDU DES TRAITEMENTS
         // POUR LES COMPTES RENDU DES TRAITEMENTS
         $note_compte_rendu1 = $this->params()->fromPost('note_compte_rendu_operatoire');
@@ -2156,6 +2162,7 @@ foreach ($Nouveau as $Nv){
 
         $this->getConsultationTable()->addCompteRenduOperatoire($note_compte_rendu1, 1, $id_cons);
         $this->getConsultationTable()->addCompteRenduOperatoire($note_compte_rendu2, 2, $id_cons);
+
         // POUR LES RENDEZ VOUS
         // POUR LES RENDEZ VOUS
         // POUR LES RENDEZ VOUS
@@ -2172,6 +2179,7 @@ foreach ($Nouveau as $Nv){
             'HEURE' => $this->params()->fromPost('heure_rv'),
             'DATE' => $date_RV
         );
+     
         $this->getRvPatientConsTable()->updateRendezVous($infos_rv);
 
         // POUR LES TRANSFERT
@@ -2185,8 +2193,7 @@ foreach ($Nouveau as $Nv){
         );
 
         $this->getTransfererPatientServiceTable()->updateTransfertPatientService($info_transfert);
-        
-        
+
         // POUR LES HOSPITALISATION
         // POUR LES HOSPITALISATION
         // POUR LES HOSPITALISATION
@@ -2220,7 +2227,7 @@ foreach ($Nouveau as $Nv){
         ));
 
 	}
-
+	
 	
 	function imprimerCertifatAccouchementAction(){
 
@@ -2740,38 +2747,108 @@ foreach ($Nouveau as $Nv){
                                     
     }
     
+
+  
+  public function informationsStatistiquesAction() {
+  
+  	$this->layout ()->setTemplate ( 'layout/facturation' );
+  	$patientTable = $this->getPatientTable();
+  	$infos = $this->getConsultationTable()->getInfosSousDossier();
+  	//$listeDiagnostic = $this->getPatientTable ()->getListePatientNouvelle ();
+  	//$nomDuService= $this->getPatientTable()->getServiceParId( 6 )['NOM'];
+  	$nomDuSousDossier= $this->getPatientTable()->getSousDossierParId();
+  	$formStatistique = new StatistiqueForm ();
+  	$sousDossier = $this->getConsultationTable()->fetchSousDossier();
+  	$formStatistique->get ( 'id_sous_dossier' )->setValueOptions ( $sousDossier );
+  	//$formStatistique->get ( 'id_sous_dossier_genre' )->setValueOptions ( $sousDossier );
+  		
+  	//$sexe = $this->getConsultationTable()->fetchSexe();
+  	//$formStatistique->get ( 'id_personne' )->setValueOptions ( $sexe );
+  		
+  	//      $nbPatientPA = $this->getPatientTable()->nbPatientConsulteSousDossierParAgeParPeriode('2','2017-02-12','2018-03-23','3','19');
+  	//   	var_dump($nbPatientPA);exit();
+  	 
+  		
+  		
+  		
+  		
+  		
+  
+  
+  	return array (
+  			'infos' => $infos,
+  			//'diagnostics' => $listeDiagnostic,
+  			'sousDossier' => $nomDuSousDossier,
+  			'formStatistique' => $formStatistique,
+  	);
+  
+  
+  }
+  
   public function statistiqueAction(){
   	$this->getDateHelper();
   	$this->layout ()->setTemplate ( 'layout/accouchement' );
   	$formAdmission = new AdmissionForm();
   
-  return array (
-  	
-  		'form' => $formAdmission,
-  );
+  	return array (
+  			 
+  			'form' => $formAdmission,
+  	);
   }
+  
+  
     
-    public function infoStatistiqueAction() {
+ public function infoStatistiqueAction() {
     	$this->getDateHelper();
+    	$user = $this->layout()->user;
+    	 
     	//$this->layout ()->setTemplate ( 'layout/accouchement' );
     	$formAdmission = new AdmissionForm();
+    	$idService = $user ['IdService'];
+    	 
     		$val = $this->params ()->fromPost ( 'date_stat' );
     		list($month, $year) = explode(' ', $val);
- 
+    		//$id_cons = $form->get ( "id_cons" )->getValue ();
     		
-    	var_dump($month);exit();
+    	//$nbrpost=count($post);	
+    	//var_dump($post);exit();
     	$acc=count( $this->getAccouchementTable()->getLesAccouchement($month,$year));
     	$nbPatientAcc   =$acc;
     	$nbPatientAccCes  =  $this->getAccouchementTable()->getNbPatientsAccCes();
+    	$nbPatientPost=$this->getConsultationTable()->getNbPatientsPost();
+    	 
+    	$nbPatientAccou  = $this->getConsultationTable()->getNbPatientsAcc();
     	$nbPatientAccN  = $this->getAccouchementTable()->getNbPatientsAccN();
     	$nbPatientAccF = $this->getAccouchementTable()->getNbPatientsAccF();
+    	$nbPatientPre = $this->getConsultationTable()->getNbPatientsPre();
     	$nbPatientAccV = $this->getAccouchementTable()->getNbPatientsAccV();
+    	$nbPatientPla= $this->getConsultationTable()->getNbPatientsPla();
+    	 
     	$nbPatientAccM = $this->getAccouchementTable()->getNbPatientsAccM();
     	$nbGatPa = $this->getAccouchementTable()->getNbPatientsAccGatPa();
     	$nbGrossesseGemellaire=$this->getGrossesseTable()->getNbGrossesseGemellaire();
-    	
+    	//$nbr=$nbPatientAccCes+$nbPatientAccN+$nbPatientAccF+$nbPatientAccV+$nbPatientAccM;
+    	 //var_dump($nbPatientPla);exit();
+    
+     	
+    	return array (
+    			//'nbr'=>$nbr,
+    			//'nbrpost'=>$nbrpost,
+    			//'nbPatientAcc'   => $nbPatientAcc,
+    			'nbPatientPost'  => $nbPatientPost,
+    			'nbPatientAccou'  => $nbPatientAccou,
+    			'nbPatientPre' => $nbPatientPre,
+    			'nbPatientPla' => $nbPatientPla,
+    			//'nbPatientAccM' => $nbPatientAccM,
+    			//'nbPatientAccGatPa' => $nbGatPa,
+    			//'nbGrossesseGemellaire' => $nbGrossesseGemellaire,
+    			'form' => $formAdmission,
+    			'date' => $val,
+    	); 
     	//Pour les Accouchements
     	return array (
+    			//'nbr'=>$nbr,
+    			//'nbrpost'=>$nbrpost,
     			'nbPatientAcc'   => $nbPatientAcc,
     			'nbPatientAccCes'  => $nbPatientAccCes,
     			'nbPatientAccN'  => $nbPatientAccN,
@@ -2796,6 +2873,7 @@ foreach ($Nouveau as $Nv){
     	
     
     } 
+    
     
     
     

@@ -835,7 +835,7 @@ class MaterniteController extends AbstractActionController
             'donnee9' => $this->params()->fromPost('examen_maternite_donnee9')
         );
         $this->getDonneesExamensPhysiquesTable()->updateExamenPhysiquePourCons($info_donnees_examen_physique);
-        var_dump('test');exit();
+        //var_dump('test');exit();
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
@@ -2449,7 +2449,7 @@ class MaterniteController extends AbstractActionController
     {
         $user = $this->layout()->user;
         $serviceMedecin = $user ['NomService'];
-var_dump('test');exit();
+
         $nomMedecin = $user ['Nom'];
         $prenomMedecin = $user ['Prenom'];
         $donneesMedecin = array(
@@ -2462,11 +2462,14 @@ var_dump('test');exit();
         // ***DONNEES COMMUNES A TOUS LES PDF***
         // *************************************
         // *************************************
+        
         $id_patient = $this->params()->fromPost('id_patient', 0);
         $id_cons = $this->params()->fromPost('id_cons', 0);
 
         // *************************************
         $donneesPatientOR = $this->getConsultationTable()->getInfoPatient($id_patient);
+        
+        
         // var_dump($donneesPatientOR); exit();
         // **********ORDONNANCE*****************
         // **********ORDONNANCE*****************

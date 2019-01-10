@@ -1,0 +1,455 @@
+
+<script>
+//POUR LE MENU GAUCHE dans -elementgauche.phtml
+$('#plus_menu_statistiques').toggle(true);
+$("#menu_statistiques").replaceWith("<li id='menu_statistiques' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.PNG';?>'  /> Statistiques </span></a></li>");
+dep_menu_statistiques1();
+$('#menu_statistiques_style').css({'font-weight':'bold','color':'white','font-size':'21px'});
+</script>
+<!-- MES STYLES -->
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/jquery-ui.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleAdmission.css');?>
+<!-- MES JS -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/jquery.canvasjs.min.js');?>
+
+<?php use Maternite\View\Helpers\DateHelper;
+$Control = new DateHelper();
+$today = new \DateTime ( 'now' );
+//var_dump($today);exit();
+?>
+
+
+
+<style>
+#contenuInterface{ visibility: hidden; }
+#date_stat{
+  border-bottom-left-radius: 5px; 
+  border-bottom-right-radius: 5px;
+	 border-top-left-radius: 5px; 
+	 background-color: #eefeee;
+	  border-top-right-radius: 5px;
+	   width: 10%; /* la largeur du champ input*/
+}
+
+#thoughtbot button
+{
+    width:auto;
+    padding:8px 0;
+    text-align:center;
+    display: inline-block;
+    float:left;
+    margin:0 8px 0 0;
+    border-radius:7px;
+    font-size: 0.85em;
+	font-weight: bold;
+    width:80px;
+    color:#000;
+    font-family: Arial,sans-serif;
+	box-shadow: 0 0 1px rgba( 0, 0, 0, 0.2), 0 -1px 0 rgba( 255, 255, 255, 0.1);
+    text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.3);
+}
+
+</style>
+
+<script>
+$(window).load(function () {
+
+	$('#wait').toggle(false);
+	$('#contenuInterface').fadeIn().css({'visibility':'visible'});
+	 
+});
+</script>
+
+
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Statistiques des Accouchements pour la p&eacute;riode     <?php echo $this->date; ?> </span>   
+</div>
+<div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
+<div id="contenuInterface" >
+<div id="contenu" >
+
+    <script >
+
+    var nbPatientAcc   = <?php echo $this->nbPatientAcc;   ?> //Nombre de patientes accouch�es
+    var nbPatientAccCes  = <?php echo $this->nbPatientAccCes;  ?> //Nombre de patientes accouch�es par cesarienne
+    var nbPatientAccN  = <?php echo $this->nbPatientAccN;  ?> //Nombre de patientes accouch�es normalement
+    var nbPatientAccF = <?php echo $this->nbPatientAccF; ?> //Nombre de patientes accouch�es par forceps
+    var nbPatientAccV = <?php echo $this->nbPatientAccV; ?> //Nombre de patientes accouch�es par Ventouse
+    var nbPatientAccM = <?php echo $this->nbPatientAccM; ?>//Nombre de patientes accouch�es par manoeuvre
+    var nbPatientAccGatPa = <?php echo $this->nbPatientAccGatPa; ?>//Nombre de patientes accouch�es par GATPA
+    var nbGrossesseGemellaire = <?php echo $this->nbGrossesseGemellaire; ?>//Nombre de patientes accouch�es par GATPA
+    var pourcentageAccN=(nbPatientAccN/nbPatientAcc)*100;
+    p=pourcentageAccN.toFixed(2);
+
+  
+    </script>
+    
+
+    
+
+		
+   
+    
+    
+    <div style="float:center;">
+    <table style="float:center;">
+    <!--<tr style="float:center;">
+  <td style="width: 25%;">
+      
+            <div id="menuOption1" style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+		                   <img style="width: 40px; height: 40px; margin-top: -15px;" src='../images_icons/grapheimg.jpg' /> Sous Dossier 
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+    </tr>-->
+    </table>
+    </div>
+	<div style="width: 100%;  ">
+	<table style="width: 38%; height: 20%; float:left;">
+
+	 <tr style="width: 30%; ">
+	         <th style="width: 30%;height: 40px; font-family: Goudy Old Style; font-size: 25px;text-align: left;">
+	       Accouchements: 
+	         </th>
+	          <th style="width: 30%;height: 40px; font-family: Goudy Old Style; font-size: 25px;text-align: left;">
+	         <?php echo $this->nbPatientAcc; ?>
+	         </th>
+	       </tr>
+	       
+	         <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	        Normal  
+	         </td>
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	         <?php echo $this->nbPatientAccN; ?>
+	         </td>
+	           <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	      <script type="text/javascript">document.write(p+'%');</script>
+	         </td>
+	       </tr>
+	       
+	        <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	        Postnatale  
+	         </td>
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	         <?php //echo $this->nbrpost; ?>
+	         </td>
+	           <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	      <script type="text/javascript">document.write(p+'%');</script>
+	         </td>
+	       </tr>
+	       
+	        <tr style="width: 30%; ">
+	         <td style="width:30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	        Ventouse  
+	         </td>
+	          <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	        <?php echo $this->nbPatientAccV; ?> 
+	         </td>
+	       </tr>
+	        <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	         Forceps  
+	         </td>
+	          <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	      <?php echo $this->nbPatientAccF; ?> 
+	         </td>
+	       </tr>
+	        <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	     Manoeuvre   
+	         </td>
+	           <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	<?php echo $this->nbPatientAccM; ?> 
+	         </td>
+	       </tr>
+	       <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	       Césarienne   
+	         </td>
+	               <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	<?php echo $this->nbPatientAccCes; ?> 
+	         </td>
+	       </tr>
+  <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	      GATPA   
+	         </td>
+	               <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	<?php echo $this->nbPatientAccGatPa; ?> 
+	         </td>
+	       </tr>
+	       
+	       
+	        <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	      Grossesses g&eacute;mellaires   
+	         </td>
+	               <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	<?php echo $this->nbGrossesseGemellaire; ?> 
+	         </td>
+	       </tr>
+	       
+	       
+
+	</table>
+	
+	<table style="width: 60%; float:left;">
+	   <tr style="width: 60%; height: 250px; ">
+	     <td > 
+	         <script >
+
+	     $(document).ready(function($) {
+
+       function Accouchement() {
+    	      var Accouchement = new CanvasJS.Chart("chartContainer",
+    	      {
+    		title:{
+    			text: "Accouchement"
+    		},
+    		data: [
+    		{
+    			type: "column",
+    			dataPoints: [
+    				{  y: nbPatientAccN, label: "Naturels" },
+    				{  y: nbPatientAccV, label: "Ventouses" },
+    				//{  y: nbPatientAccM, label: "Manoeuvres" },
+    				{  y: nbPatientAccCes, label: "Cesariennes" },
+    				{  y: nbPatientAccF, label: "Forceps" },
+    				//{  y: nbrpost, label:"postnatale"},
+    			]
+    		}
+    		]
+    	});
+    	      Accouchement.render();
+    }
+
+
+	
+       Accouchement();  
+	     });       
+	</script>
+	     
+	     
+	     
+	     
+	     
+	     <div id="chartContainer" style="height: 250px; width: 50%;"></div>
+	     
+	     
+	     </td>
+	   </tr>
+	</table>
+	
+</div>
+	
+	
+	<table style="width: 100%; height: 20%; align:left;">
+
+	 <tr style="width: 30%; ">
+	            <th style="width: 30%;height: 40px; font-family: Goudy Old Style; font-size: 25px;text-align: left;">
+	          
+	      Nouveaux-nés:  
+	         
+	         </th>
+	          
+	       </tr>
+	
+	         <tr><td></td></tr>    <tr><td></td></tr>    <tr><td></td></tr>
+	       <tr style="width: 30%;text-align:left; ">
+	         <th>
+	          
+	        Naissances vivantes
+	         
+	         </th>
+	          <th style ="text-align: center;">
+	          
+	      Mort-nés:
+	         
+	         </th>
+	       </tr>
+	       
+	        <tr style="width: 30%;text-align:left; ">
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	        Nouveaux-nés sexe masculin
+	         
+	         </td>
+	       </tr>
+	       
+	        <tr style="width: 30%;text-align:left; ">
+	    <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	        Nouveaux-nés sexe féminin
+	         
+	         </td>
+	       </tr>
+	         <tr style="width: 30%;text-align:left; ">
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	       Poids inf. ou égal &agrave; 2500g :
+	         
+	         </td>
+	       </tr>
+	       
+	        <tr style="width: 30%;text-align:left; ">
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	       Poids sup. ou égal &agrave; 4000g :
+	         
+	         </td>
+	       </tr>
+	       
+	        <tr style="width: 30%;text-align:left; ">
+	         <th style="">
+	          
+	        Décés nouveaux-nés
+	         
+	         </th>
+	       </tr>
+	       <tr style="width: 30%;text-align:left; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	   
+	         
+	         </td>
+	       </tr>
+	       <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	      
+	         
+	         </td>
+	       </tr>
+
+
+	</table>
+	
+	
+	
+<table style="width: 100%; height: 20%; align:left;">
+
+	 <tr style="width: 30%; ">
+	            <th style="width: 30%;height: 40px; font-family: Goudy Old Style; font-size: 25px;text-align: left;">
+	          
+	      Avortements:  
+	         
+	         </th>
+	          
+	       </tr>
+	
+	         <tr><td></td></tr>    <tr><td></td></tr>    <tr><td></td></tr>
+	       <tr style="width: 30%;text-align:left; ">
+	         <th>
+	          
+	 Premier trimestre:
+	         
+	         </th>
+	          <th style ="text-align: center;">
+	          
+	      Deuxiéme trimestre:
+	         
+	         </th>
+	       </tr>
+	       
+	        <tr style="width: 30%;text-align:left; ">
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	        Nouveaux-nés sexe masculin
+	         
+	         </td>
+	          <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: center;">
+	          
+	    A.M.I.U
+	         
+	         </td>
+	       </tr>
+	       
+	        <tr style="width: 30%;text-align:left; ">
+	    <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	      Spontanés
+	         
+	         </td>
+	             <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: center;">
+	          
+	   Curage
+	         
+	         </td>
+	       </tr>
+	         <tr style="width: 30%;text-align:left; ">
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	      Molaires
+	         
+	         </td>
+	             <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: center;">
+	Curtage
+	         
+	         </td>
+	       </tr>
+	       
+	        <tr style="width: 30%;text-align:left; ">
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	       Provoqués
+	         
+	         </td>
+	             <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: center;">
+	          
+	  Ttt médical
+	         
+	         </td>
+	       </tr>
+	       
+	      
+	        <tr style="width: 30%;text-align:left; ">
+	        <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	       Thérapeutiques
+	         
+	         </td>
+	                   <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: center;">
+	          
+	  A.élécrique
+	         
+	         </td>
+	       </tr>
+	       <tr style="width: 30%;text-align:left; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	   
+	         
+	         </td>
+	       </tr>
+	       <tr style="width: 30%; ">
+	         <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+	          
+	      
+	         
+	         </td>
+	       </tr>
+
+
+	</table>
+	
+	
+
+</div>
+</div>

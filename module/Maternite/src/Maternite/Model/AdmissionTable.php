@@ -244,7 +244,7 @@ class AdmissionTable {
 	
 	//Ajouter la consultation dans la table << consultation >> pour permettre au medecin de pouvoir lui même ajouter les constantes
 	//Ajouter la consultation dans la table << consultation >> pour permettre au medecin de pouvoir lui même ajouter les constantes
-	public function addConsultation($values , $IdDuService,$id_admission){
+public function addConsultation($values , $IdDuService,$id_admission){
 	
 		$today = new \DateTime ( 'now' );
 		$date = $today->format ( 'Y-m-d H:i:s' );
@@ -268,7 +268,7 @@ class AdmissionTable {
 			$sQuery = $sql->insert()
 			->into('consultation')
 			->values($dataconsultation);
-	
+			//var_dump($dataconsultation);exit();
 			$sql->prepareStatementForSqlObject($sQuery)->execute();
 	//var_dump($dataconsultation);exit();
 			$this->tableGateway->getAdapter()->getDriver()->getConnection()->commit();
@@ -283,11 +283,11 @@ class AdmissionTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->insert()
 		->into('consultation_maternite')
-		->values(array('id_cons' => $id_cons));
-		//var_dump('test');exit();
+		->values(array('id_cons' => $id_cons));//var_dump($id_cons);exit();
+		
 		
 		$requete = $sql->prepareStatementForSqlObject($sQuery);
-		$requete->execute();
+		$requete->execute();//var_dump($id_cons);exit();
 	}
 		
 	//CONCERVE LA PARTIE POUR LE BLOC OPERATOIRE

@@ -1,0 +1,147 @@
+    var nb="_TOTAL_";
+    var asInitVals = new Array();
+    //var base_url = window.location.toString();
+	//var tabUrl = base_url.split("public");
+	//BOITE DE DIALOG POUR LA CONFIRMATION DE SUPPRESSION
+    function confirmation(id, idPatient, idService){
+	  $( "#confirmation" ).dialog({
+	    resizable: false,
+	    height:170,
+	    width:435,
+	    autoOpen: false,
+	    modal: true,
+	    buttons: {
+	        "Oui": function() {
+	            $( this ).dialog( "close" );
+	            
+	            var cle = id;
+	            var chemin = tabUrl[0]+'public/postnatale/supprimer';
+	            $.ajax({
+	                type: 'POST',
+	                url: chemin ,
+	                data: $(this).serialize(),  
+	                data:{'id':cle, 'idPatient':idPatient, 'idService':idService},
+	                success: function(data) {
+	                	     var result = jQuery.parseJSON(data);  
+	                	     if(result == 1){
+	                	    	 alert('impossible de supprimer le patient est deja consulter'); return false;
+	                	     } else {
+		                	     $("#"+cle).fadeOut(function(){$("#"+cle).empty();}); 
+	                	     }
+	                	     
+	                },
+	                error:function(e){console.log(e);alert("Une erreur interne est survenue!");},
+	                dataType: "html"
+	            });
+	    	     //return false;
+	    	     
+	        },
+	        "Annuler": function() {
+                $( this ).dialog( "close" );
+            }
+	   }
+	  });
+    }
+    
+    function envoyer(id, idPatient, idService){
+   	   confirmation(id, idPatient, idService);
+       $("#confirmation").dialog('open');
+   	}
+    
+    /**********************************************************************************/
+    
+    function affichervue(idPatient, idAdmission){
+    	//alert('impossible de supprimer le patient est deja consulter'); 
+        var chemin = tabUrl[0]+'public/postnatale/vue-patient-admis';
+        $.ajax({
+            type: 'POST',
+            url: chemin ,
+            data: $(this).serialize(),  
+            data:{'idPatient':idPatient, 'idAdmission':idAdmission},
+            success: function(data) {
+       	    
+            	     $("#titre").replaceWith("<div id='titre2' style='font-family: police2; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> INFORMATIONS SUR LE PATIENT </div>");
+            	  
+            	     var result = jQuery.parseJSON(data);  
+            	    
+            	     $("#contenu").fadeOut(function(){$("#vue_patient").html(result).fadeIn("fast"); }); 
+            	     
+            },
+            error:function(e){console.log(e);alert("Une erreur interne est survenue!");},
+            dataType: "html"
+        });
+	    //return false;
+    }
+    
+    function listepatient(){
+    	//Lorsqu'on clique sur terminer �a ram�ne la liste des aptients admis 
+	    $("#terminer").click(function(){
+	    	$("#titre2").replaceWith("<div id='titre' style='font-family: police2; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> LISTE DES PATIENTS ADMIS </div>");
+  	    	$("#vue_patient").fadeOut(function(){$("#contenu").fadeIn("fast"); });
+  	    });
+    }
+    
+    /**********************************************************************************/
+    function initialisation(){	
+    	
+     var asInitVals = new Array();
+	 var  oTable = $('#patientdeces').dataTable
+	  ( {
+		        
+		  "sPaginationType": "full_numbers",
+			"aLengthMenu": [5,7,10,15],
+				"aaSorting": [], //On ne trie pas la liste automatiquement
+			"oLanguage": {
+				"sInfo": "_START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+				"sInfoEmpty": "0 &eacute;l&eacute;ment &agrave; afficher",
+				"sInfoFiltered": "",
+				"sUrl": "",
+				"oPaginate": {
+					"sFirst":    "|<",
+					"sPrevious": "<",
+					"sNext":     ">",
+					"sLast":     ">|"
+					}
+			   },
+					   	
+	} );
+
+	//le filtre du select
+	$('#filter_statut').change(function() 
+	{					
+		oTable.fnFilter( this.value );
+	});
+	
+	
+	
+	$("thead input").keyup( function () {
+		/* Filter on the column (the index) of this element */
+		oTable.fnFilter( this.value, $("thead input").index(this) );
+	} );
+	
+	/*
+	 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in 
+	 * the footer
+	 */
+	$("thead input").each( function (i) {
+		asInitVals[i] = this.value;
+	} );
+	
+	$("thead input").focus( function () {
+		if ( this.className == "search_init" )
+		{
+			this.className = "";
+			this.value = "";
+		}
+	} );
+	
+	$("thead input").blur( function (i) {
+		if ( this.value == "" )
+		{
+			this.className = "search_init";
+			this.value = asInitVals[$("thead input").index(this)];
+		}
+	} );
+	
+
+    }

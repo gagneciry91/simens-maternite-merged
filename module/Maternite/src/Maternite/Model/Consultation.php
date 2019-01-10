@@ -13,9 +13,7 @@ class Consultation implements InputFilterAwareInterface {
 	public $id_surveillant;
 	public $id_patient;
 	public $date;
-	public $poids;
-	public $j1_j3;
-	
+	public $poids;	
     public $taille;
 	public $paleur;
 	public $temperature;
@@ -28,6 +26,7 @@ class Consultation implements InputFilterAwareInterface {
 	public $heurecons;
 	public $id_service;
 	public $archivage;
+	
 	protected $inputFilter;
 	public function exchangeArray($data) {
 		$this->id_cons = (! empty ( $data ['ID_CONS'] )) ? $data ['ID_CONS'] : null;
@@ -48,7 +47,6 @@ class Consultation implements InputFilterAwareInterface {
 		$this->consprise = (! empty ( $data ['CONSPRISE'] )) ? $data ['CONSPRISE'] : null;
 		$this->dateonly = (! empty ( $data ['DATEONLY'] )) ? $data ['DATEONLY'] : null;
 		$this->heurecons = (! empty ( $data ['HEURECONS'] )) ? $data ['HEURECONS'] : null;
-		$this->id_service = (! empty ( $data ['ID_SERVICE'] )) ? $data ['ID_SERVICE'] : null;
 		$this->archivage = (! empty ( $data ['ARCHIVAGE'] )) ? $data ['ARCHIVAGE'] : null;
 	}
 	public function getArrayCopy() {

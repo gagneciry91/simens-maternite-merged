@@ -102,7 +102,9 @@ use Maternite\Model\ContraceptionTable;
 use Maternite\Model\Contraception;
 use Maternite\Model\HereditaireTable;
 use Maternite\Model\Hereditaire;
-
+use Maternite\Model\Planification;
+use Maternite\Model\PlanificationTable;
+use Maternite\Controller\PlanificationController;
 
 
 
@@ -274,17 +276,17 @@ class Module implements AutoloaderProviderInterface {
 						},
 						
 						
-						'Maternite\Model\DateCponTable' => function ($sm) {
-							$tableGateway = $sm->get( 'DateCponTableGateway' );
-							$table = new DateCponTable($tableGateway);
+						' Maternite\Model\PlanificationTable;' => function ($sm) {
+							$tableGateway = $sm->get( 'PlanificationTableGateway' );
+							$table = new Planification;
 							return $table;
 						},
 							
-						'DateCponTableGateway' => function ($sm) {
+						'PlanificationTableGateway' => function ($sm) {
 							$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
 							$resultSetPrototype = new ResultSet ();
-							$resultSetPrototype->setArrayObjectPrototype ( new DateCpon());
-							return new TableGateway ( 'date_cpon', $dbAdapter, null, $resultSetPrototype );
+							$resultSetPrototype->setArrayObjectPrototype ( new Planification());
+							return new TableGateway ( 'Planification', $dbAdapter, null, $resultSetPrototype );
 						},
 						
 						

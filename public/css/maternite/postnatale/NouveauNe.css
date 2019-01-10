@@ -1,0 +1,118 @@
+@CHARSET "ISO-8859-1";
+
+
+
+/*pour le table et les tr td*/
+#styleNv {
+    width: 100%;
+	   
+}
+
+#styleNv tr{
+    width: 100%;
+	   
+}
+
+#styleNv td{
+    width: 70%;
+	   
+}
+/* pour les div*/
+#styleNv .nvDiv1{
+	width:45%;
+	float:left;
+}
+
+#styleNv .nvDiv2{
+	width:7%;
+	float:left;
+}
+#styleNv .nvDiv3{
+	width:40%;
+	float:left;
+}
+
+
+
+#styleNv .nvDateDiv1{
+	width:5%;
+	float:left;
+}
+#styleNv .nvDateDiv2{
+	width:27%;
+	float:left;
+	margin-right:-10%;
+}
+
+
+#styleNv .nvHeureDiv1{
+	width:10%;
+	float:left;
+}
+
+#styleNv .nvHeureDiv2{
+	width:26%;
+	float:left;
+	margin-left:-3%;
+}
+
+#styleNv .nvCauseDiv{
+	width:60%;
+	float:left;
+}
+
+/* pour les label*/
+
+
+#styleNv .nvDiv1 .nvDiv1label{
+	width:80%;
+	text-align:right;
+	height: 30px;
+}
+#styleNv .nvDiv2 .nvDiv2label{
+	width:90%;
+	text-align:left;
+	height: 30px;
+}
+#styleNv .nvDiv3 .nvDiv3label{
+	width:90%;
+	text-align:left;
+	height: 30px;
+}
+
+#styleNv .nvDiv3 .nvDiv3label{
+	width:90%;
+	text-align:left;
+	height: 30px;
+}
+
+#styleNv .nvDateDiv1 .nvDateLabel1{
+	width:90%;
+	text-align:left;
+	height: 30px;
+}
+#styleNv .nvDateDiv2 .nvDateLabel2{
+	width:60%;
+	text-align:left;
+	height: 30px;
+}
+
+
+
+#styleNv .nvHeureDiv1 .nvHeureDiv1label{
+	width:40%;
+	text-align:left;
+	height: 30px;
+	margin-left:6%;
+}
+#styleNv .nvHeureDiv2 .nvHeureDiv2label{
+	width:53%;
+	text-align:left;
+	height: 30px;
+}
+
+#styleNv .nvCauseDiv .nvCauseLabel{
+	width:60%;
+	text-align:left;
+	height: 30px;
+}

@@ -23,7 +23,7 @@ class ConsultationTable {
 		if (! $row) {
 			throw new \Exception ( "Could not find row $id" );
 		}
-		return $row;
+		return $row;var_dump($id);exit();
 	}
 	public function getConsultationPatient($id_pat, $id_cons) {
 		$adapter = $this->tableGateway->getAdapter ();
@@ -69,7 +69,7 @@ class ConsultationTable {
 		
 		$stat = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stat->execute ();
-		//var_dump($stat);exit();
+		//var_dump($id_cons);exit();
 		return $result;
 	}
 	public function getConsultationDuJour() {
@@ -175,25 +175,27 @@ class ConsultationTable {
 		);//var_dump($donnees);exit();
 		$this->tableGateway->update ( $donnees, array (
 				'ID_CONS' => $values->get ( "id_cons" )->getValue ()
-		) );
+		) );//var_dump($donnees);exit();
 	}
 	
 	
 	public function updateConsultation($values) {
 		
 		$donnees = array (
-				'POIDS' => $values->get ( "poids" )->getValue (),
-				'TAILLE' => $values->get ( "taille" )->getValue (),
+				//'POIDS' => $values->get ( "poids" )->getValue (),
+				//'TAILLE' => $values->get ( "taille" )->getValue (),
 				'PALEUR' => $values->get ( "paleur" )->getValue (),
  				'TEMPERATURE' => $values->get ( "temperature" )->getValue (),
 				'PRESSION_ARTERIELLE' => $values->get ( "tensionmaximale" )->getValue () . '/' . $values->get ( "tensionminimale" )->getValue (),
- 				'POULS' => $values->get ( "pouls" )->getValue (),
+ 				//'POULS' => $values->get ( "pouls" )->getValue (),
  				'FREQUENCE_RESPIRATOIRE' => $values->get ( "frequence_respiratoire" )->getValue (),
 				'GLYCEMIE_CAPILLAIRE' => $values->get ( "glycemie_capillaire" )->getValue () 
 		);
-		$this->tableGateway->update ( $donnees, array (
-				'ID_CONS' => $values->get ( "id_cons" )->getValue () 
+		//var_dump($donnees);exit();
+		$this->tableGateway->update ( $donnees, array ('ID_CONS' => $values->get ( "id_cons" )->getValue () 
 		) );
+		//var_dump($donnees);exit();
+		
 	}
 	public function validerConsultation($values) {
 		$donnees = array (
@@ -210,7 +212,6 @@ class ConsultationTable {
 			
 			$dataconsultation = array (
 					'ID_CONS' => $values->get ( "id_cons" )->getValue (),
-					'J1_J3' => $values->get ( "j1_j3" )->getValue (),
 						
 					'ID_SURVEILLANT' => $values->get ( "id_surveillant" )->getValue (),
 					'ID_PATIENT' => $values->get ( "id_patient" )->getValue (),
@@ -228,7 +229,7 @@ class ConsultationTable {
 					'ID_SERVICE' => $IdDuService 
 			);
 			$this->tableGateway->insert ( $dataconsultation );
-			
+			//var_dump($dataconsultation);exit();
 			$this->tableGateway->getAdapter ()->getDriver ()->getConnection ()->commit ();
 		} catch ( \Exception $e ) {
 			$this->tableGateway->getAdapter ()->getDriver ()->getConnection ()->rollback ();
@@ -484,24 +485,30 @@ class ConsultationTable {
 	}
 	
 
-	public function listeDesPostnatale($idService){
 	
-		$today = new \DateTime ();
+
+
+
+	
+	
+	public function listeDesPostnatale($idService){
+	$today = new \DateTime ();
+	
 		$date = $today->format ( 'Y-m-d' );
 		$adapter = $this->tableGateway->getAdapter ();
 		$sql = new Sql ( $adapter );
 		$select = $sql->select ();
 		$select->from ( array (
 				'p' => 'patient'
-	
+		
 		) );
 		$select->columns ( array ('numero_dossier'=>'NUMERO_DOSSIER') );
-	
+		
 		$select->join ( array (
-	
+		
 				'pers' => 'personne'
 		), 'pers.ID_PERSONNE = p.ID_PERSONNE', array (
-	
+		
 				'Nom' => 'NOM',
 				'Prenom' => 'PRENOM',
 				'Age' => 'AGE',
@@ -511,7 +518,75 @@ class ConsultationTable {
 				'Nationalite' => 'NATIONALITE_ACTUELLE',
 				'Id' => 'ID_PERSONNE'
 		) );
+		
+		
+		$select->join ( array (
+				'c' => 'consultation'
+		), 'p.ID_PERSONNE = c.ID_PATIENT', array (
+				'Id_cons' => 'ID_CONS',
+				'dateonly' => 'DATEONLY',
+				'Consprise' => 'CONSPRISE',
+				//'date' => 'DATE'
+		) );
+// 		$select->join ( array (
+// 				'cons_eff' => 'consultation_maternite'
+// 		), 'cons_eff.ID_CONS = c.ID_CONS', array (
+// 				'*'
+// 		) );
+		$select->join ( array (
+				'a' => 'admission'
+		), 'c.id_admission= a.id_admission', array (
+				'Id_admission' => 'id_admission'
+		) );
+		$select->where ( array (
+				'c.ID_SERVICE' => $idService,
+				'DATEONLY' => $date,
+				'a.date_cons' => $date,
+				'a.sous_dossier' => 3,
+				'c.ARCHIVAGE' => 0
+		) );
+		$select->group('c.ID_PATIENT');
+		$select->order ( 'id_admission ASC' );
+		
+		$stmt = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stmt->execute ();//var_dump($result);exit();
+		var_dump(count($result));exit();
+		return $result;
+		
+	}
 	
+
+	
+			
+
+	public function listeDesPlanification($idService){
+	
+		$today = new \DateTime ();
+		$date = $today->format ( 'Y-m-d' );
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from ( array (
+				'p' => 'patient'
+		
+		) );
+		$select->columns ( array ('numero_dossier'=>'NUMERO_DOSSIER') );
+		
+		$select->join ( array (
+		
+				'pers' => 'personne'
+		), 'pers.ID_PERSONNE = p.ID_PERSONNE', array (
+		
+				'Nom' => 'NOM',
+				'Prenom' => 'PRENOM',
+				'Age' => 'AGE',
+				'Datenaissance'=>'DATE_NAISSANCE',
+				'Sexe' => 'SEXE',
+				'Adresse' => 'ADRESSE',
+				'Nationalite' => 'NATIONALITE_ACTUELLE',
+				'Id' => 'ID_PERSONNE'
+		) );
+		
 		$select->join ( array (
 				'c' => 'consultation'
 		), 'p.ID_PERSONNE = c.ID_PATIENT', array (
@@ -520,11 +595,11 @@ class ConsultationTable {
 				'Consprise' => 'CONSPRISE',
 				'date' => 'DATE'
 		) );
-		// 		$select->join ( array (
-		// 				'cons_eff' => 'consultation_maternite'
-		// 		), 'cons_eff.ID_CONS = c.ID_CONS', array (
-		// 				'*'
-		// 		) );
+// 		$select->join ( array (
+// 				'cons_eff' => 'consultation_maternite'
+// 		), 'cons_eff.ID_CONS = c.ID_CONS', array (
+// 				'*'
+// 		) );
 		$select->join ( array (
 				'a' => 'admission'
 		), 'c.ID_PATIENT = a.id_patient', array (
@@ -532,31 +607,162 @@ class ConsultationTable {
 		) );
 		$select->where ( array (
 				'c.ID_SERVICE' => $idService,
-				//'DATEONLY' => $date,
+				'DATEONLY' => $date,
 				'a.date_cons' => $date,
-				'a.sous_dossier' => 3,
+				'a.sous_dossier' => 4,
 				'c.ARCHIVAGE' => 0
 		) );
 		$select->group('c.ID_PATIENT');
 		$select->order ( 'id_admission ASC' );
-	
+		
 		$stmt = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stmt->execute ();
 		return $result;
+		
+	}
 	
+
+	public function getNbPatientsPre(){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		//$select->from(array('p' => 'patient'));
+		$select->from(array('a' => 'admission') );
+		$select->join(array('cons' => 'consultation'), 'cons.id_admission = a.id_admission',array('DATEONLY'));
+		$select->where(array('a.sous_dossier' => 1));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+	
+		//var_dump('test');exit();
+	
+		$variable =array();$i=1;
+		foreach ($result as $r){
+			$variable[$i] = $r['DATEONLY'];$i++;
+		}
+		///var_dump(count($variable));exit();
+		$today = new \DateTime ();
+		$dateToday = $today->format ( 'Y-m-d' );
+		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
+		$dates=array();
+		$month=array();
+		for($i=1;$i<=count($variable);$i++){
+			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
+			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
+	
+				$dates[$i]=$variable[$i];
+			}
+		}
+	
+	
+		return count($dates);
 	}
 	
 	
+	public function getNbPatientsAcc(){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		//$select->from(array('p' => 'patient'));
+		$select->from(array('a' => 'admission') );
+		$select->join(array('cons' => 'consultation'), 'cons.id_admission = a.id_admission',array('DATEONLY'));
+				$select->where(array('a.sous_dossier' => 2));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+	
+		//var_dump('test');exit();
+		
+		$variable =array();$i=1;
+		foreach ($result as $r){
+			$variable[$i] = $r['DATEONLY'];$i++;
+		}
+		///var_dump(count($variable));exit();
+		$today = new \DateTime ();
+		$dateToday = $today->format ( 'Y-m-d' );
+		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
+		$dates=array();
+		$month=array();
+		for($i=1;$i<=count($variable);$i++){
+			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
+			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
+	
+				$dates[$i]=$variable[$i];
+			}
+		}
+	
+	
+		return count($dates);
+	}
+	
+	public function getNbPatientsPost(){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		//$select->from(array('p' => 'patient'));
+		$select->from(array('a' => 'admission') );
+		$select->join(array('cons' => 'consultation'), 'cons.id_admission = a.id_admission',array('DATEONLY'));
+		$select->where(array('a.sous_dossier' => 3));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+	
+		//var_dump('test');exit();
+	
+		$variable =array();$i=1;
+		foreach ($result as $r){
+			$variable[$i] = $r['DATEONLY'];$i++;
+		}
+		//var_dump(count($variable));exit();
+		$today = new \DateTime ();
+		$dateToday = $today->format ( 'Y-m-d' );
+		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
+		$dates=array();
+		$month=array();
+		for($i=1;$i<=count($variable);$i++){
+			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
+			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
+	
+				$dates[$i]=$variable[$i];
+			}
+		}
+	
+	
+		return count($dates);
+	}	
 	
 
+	public function getNbPatientsPla(){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		//$select->from(array('p' => 'patient'));
+		$select->from(array('a' => 'admission') );
+		$select->join(array('cons' => 'consultation'), 'cons.id_admission = a.id_admission',array('DATEONLY'));
+		$select->where(array('a.sous_dossier' => 4));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+	
+		//var_dump('test');exit();
+	
+		$variable =array();$i=1;
+		foreach ($result as $r){
+			$variable[$i] = $r['DATEONLY'];$i++;
+		}
+		///var_dump(count($variable));exit();
+		$today = new \DateTime ();
+		$dateToday = $today->format ( 'Y-m-d' );
+		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
+		$dates=array();
+		$month=array();
+		for($i=1;$i<=count($variable);$i++){
+			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
+			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
+	
+				$dates[$i]=$variable[$i];
+			}
+		}
 	
 	
-	
-	
-	
-	
-	
-	
+		return count($dates);
+	}
 	
 	
 	// liste des patients à consulter par le medecin dans le service de ce dernier
@@ -682,7 +888,25 @@ class ConsultationTable {
 		
 		return $result;
 	}
+	/**
+	 * RECUPERER LES Dates de visite
+	 */
+	public function datesvisites() {
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->columns ( array (
+				'dates'
+		) );
+		$select->from ( array (
+				'dater' => 'date'
+		) );
 	
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute ();
+	
+		return $result;
+	}
 	/**
 	 * RECUPERER LES TYPES DE QUANTITE DES MEDICAMENTS
 	 */
@@ -812,7 +1036,7 @@ class ConsultationTable {
 		
 		$stat = $sql->prepareStatementForSqlObject ( $sQuery );
 		$resultat = $stat->execute ()->current ();
-		
+		//var_dump($id_cons);exit();
 		return $resultat;
 		
 	}
@@ -1488,12 +1712,12 @@ class ConsultationTable {
 // 		) );
 		
 		$select->join ( array (
-				'pos' => 'postnatale'
-		), 'c.ID_CONS = pos.ID_CONS', array (
+				'post' => 'postnatale'
+		), 'c.ID_CONS = post.ID_CONS', array (
 				'id_pos' => 'id_postnatale',
 				'date_acc' => 'date_accouchement',
 				//'type_acc' => 'type_accouchement',
-		) );
+		) );//var_dump('test'); exit();
 		
 		$select->join ( array (
 				'acc' => 'accouchement'
@@ -1523,8 +1747,9 @@ class ConsultationTable {
 		$select->order ( 'id_postnatale ASC' );
 		
 		$stmt = $sql->prepareStatementForSqlObject ( $select );
-		$result = $stmt->execute ();
 		
+		$result = $stmt->execute ();
+		//var_dump(count($result));exit();
 		return $result;
 		
 	}

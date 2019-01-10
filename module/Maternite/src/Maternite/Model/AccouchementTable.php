@@ -89,7 +89,7 @@ class AccouchementTable {
 				'id_cons' => $donnees ['id_cons'], 
 				
 		) );    	
-				
+		
 		$date_accouchement = $donnees['date_accouchement'];
 		
 		if($date_accouchement)
@@ -107,27 +107,27 @@ class AccouchementTable {
  					'motif_type' => $donnees['motif_type'],
  					'date_accouchement' => $date_accouchement,
 					'heure_accouchement' => $donnees['heure_accouchement'],
- 					'delivrance' => $donnees['delivrance'],
-					'ru' => $donnees['ru'],
-					'quantite_hemo' => $donnees['quantite_hemo'],
-					'hemoragie' => $donnees['hemoragie'],
-					'ocytocique_per' => $donnees['ocytocique_per'],
-					'ocytocique_post' => $donnees['ocytocique_post'],
-					'antibiotique' => $donnees['antibiotique'],
-					'anticonvulsant' => $donnees ['anticonvulsant'],
-					'transfusion' => $donnees['transfusion'],
-					'note_delivrance' => $donnees['note_delivrance'],
-					'note_hemorragie' => $donnees['note_hemorragie'],
-					'text_observation' => $donnees['text_observation'],
-					'suite_de_couche' => $donnees['suite_de_couche'],
-					'note_ocytocique' => $donnees['note_ocytocique'],
-					'note_antibiotique' => $donnees['note_antibiotique'],
-					'note_anticonv' => $donnees['note_anticonv'],
-					'note_transfusion' => $donnees['note_transfusion'],				
-			);//var_dump($dataac);exit();
+ 					//'delivrance' => $donnees['delivrance'],
+					//'ru' => $donnees['ru'],
+					//'quantite_hemo' => $donnees['quantite_hemo'],
+					//'hemoragie' => $donnees['hemoragie'],
+					//'ocytocique_per' => $donnees['ocytocique_per'],
+					//'ocytocique_post' => $donnees['ocytocique_post'],
+					//'antibiotique' => $donnees['antibiotique'],
+					//'anticonvulsant' => $donnees ['anticonvulsant'],
+					//'transfusion' => $donnees['transfusion'],
+					//'note_delivrance' => $donnees['note_delivrance'],
+					//'note_hemorragie' => $donnees['note_hemorragie'],
+					//'text_observation' => $donnees['text_observation'],
+					//'suite_de_couche' => $donnees['suite_de_couche'],
+					//'note_ocytocique' => $donnees['note_ocytocique'],
+					//'note_antibiotique' => $donnees['note_antibiotique'],
+					//'note_anticonv' => $donnees['note_anticonv'],
+					//'note_transfusion' => $donnees['note_transfusion'],				
+			);
 	
 			return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $dataac ));
-		
+			var_dump($dataac);exit();
 	}
 	}
 	
@@ -374,6 +374,7 @@ public function addPrenomme($donne,$id_acc) {
 
 		return count($dates);
 	}
+	
 	
 	
 	

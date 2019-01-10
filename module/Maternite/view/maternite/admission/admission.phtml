@@ -1,0 +1,217 @@
+<!-- MES STYLES -->
+
+<?php
+echo $this->headLink()->appendStylesheet($this->basePath().'/css/pikachoose/bottom.css');
+echo  $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/jquery.jcarousel.min.js');
+echo  $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/jquery.pikachoose.min.js');
+?>
+
+<!-- les scripts des images dans examen morphologique   -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.js');?>
+
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.css');?>
+<?php
+echo $this->headLink()->appendStylesheet($this->basePath().'/css/mescss/bloquerDate.css'); //DatePicker
+echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/bloquerDate.js'); //Pour bloquer certaines dates?>
+
+
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/admission/styleAdmission.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/mescss/bloquerDate.css'); //DatePicker;?>
+<!-- MES JS -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/admission/jsAdmissionTest.js');
+echo $this->headScript ()->appendFile ( $this->basePath () . '/js/maternite/admission/jsMaternite.js' );
+
+?>
+
+<?php use  Maternite\View\Helpers\DateHelper;
+$Control = new DateHelper();?>
+
+<script type="text/javascript">
+var base_url = window.location.toString();
+var tabUrl = base_url.split("public");
+//$('#plus_dossier_patient').toggle(false);
+$('#plus_admission').toggle(true);
+$("#admission").replaceWith("<li id='admission' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Admission Patiente </span></a></li>");
+dep_admission1();
+$('#admission_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
+
+
+$(window).load(function () {
+	$('#wait').toggle(false);
+	$('#contenuDesInterfaces').fadeIn().css({'visibility':'visible'});
+});
+</script>
+
+
+
+
+
+
+<!--************************************************************************************************************-->
+<!--===================================== BLOCAGE DES JOURS NON CONSULTABLE ====================================-->
+<!--===================================== BLOCAGE DES JOURS NON CONSULTABLE ====================================-->
+<!--************************************************************************************************************-->
+
+
+
+<style>
+#contenuDesInterfaces{ visibility: hidden; };
+</style>
+
+
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 35px;'><iS style='font-size: 25px;'>&curren;</iS> RECHERCHER LE PATIENT</div>
+     
+<div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
+     
+<div id="contenuDesInterfaces" >
+     <div id="contenu" >
+        <div style="margin-right: 45px; float:right; font-size: 15px; color: gray; margin-top:5px;"><a style="text-decoration: none; cursor:pointer;" href="javascript:ajouterMaman()" ><img src='../images_icons/aj.gif' title="ajouter" /><i style="font-family: Times New Roman; font-size: 15px; color: green;"> ajouter un patient</i></a></div>
+		<table style='width:95%; margin-left: 10px; align:center' class="table table-bordered tab_list_mini" id="patient">
+			<thead >
+			    <tr >
+				    <th id="idpatient_" style='width: 15%;'><input type="text" name="search_browser" value=" Numero_Dossier" class="search_init" /></th>
+					<th id="nom_" style='width: 15%;'><input type="text" name="search_browser" value=" Nom" class="search_init" /></th>
+					<th id="prenom_" style='width: 17%;'><input type="text" name="search_browser" value=" Pr&eacute;nom" class="search_init" /></th>
+					<th id="nom_" style='width: 7%;'><input type="text" name="search_browser" value=" Age" class="search_init" /></th>
+					
+				<!--  	<th id="nom_" style='width: 13%;'><input type="text" name="search_browser" value=" Sexe" class="search_init" /></th>-->
+					<th id="adresse_" style='width: 20%;'><input type="text" name="search_browser" value=" Adresse" class="search_init" /></th>
+					<th id="effectuer_" style='width: 8%;'><input type="hidden" value="" class="" />Options</th>
+
+				</tr>
+
+			</thead>
+
+			<tbody id="donnees" class="liste_patient">
+
+	            <?php /* AFFICHAGE DE LA LISTE DES PATIENTS */?>
+
+			</tbody>
+
+		</table>
+
+<script type="text/javascript">
+initialisation();
+</script>
+</div>
+
+<!-- POP UP pour Confirmation Suppression -->
+                            <div id="confirmation" title="Informations" style="display:none;">
+                              <div id="info" style="font-size: 16px;">
+
+                              </div>
+                            </div>
+
+
+<!-- LES BOUTONS "TERMINER" ou "VALIDER" -->
+
+    <div id="declarer_deces">
+          <a href="" id="precedent" style="text-decoration: none; font-family: police2; width:50px; margin-left:30px;">
+	        <img style=" display: inline; " src='<?php echo $this->basePath().'/images_icons/transfert_gauche.PNG'?>' alt='Constantes' title="Rechercher" />
+		    Pr&eacute;c&eacute;dent
+		  </a>
+
+		  <div id="info_patient">
+		  </div>
+
+		  <?php $today = new \DateTime('now');
+		  $date = $today->format ( 'd/m/Y H:i' );?>
+		  <div id="titre_info_deces">Admission    <div style='float:right; margin-right:15px; font-size:14px;'> Saint-Louis le, <?php echo $date;?></div></div>
+		  <div id="barre_separateur">
+		  </div>
+
+		  <?php $form = $this->form ;
+		        $form->setAttribute ( 'action', $this->url ( 'admission', array ('action' => 'enregistrer-admission') ) );
+		        $form->setAttribute ( 'id' , 'formulairePrincipal');
+		        $form->prepare();
+		        echo $this->form()->openTag($form);
+		       ?>
+		  <?php echo $this->formhidden($form->get('id_patient')); ?>    
+		  <div id="info_bebe" style='width: 100%; margin-top:10px; height:400px;'>
+               <div style="float:left; width:20%; height:10%;">
+		       </div>
+		         <div  style='width: 77%; float:left;'>
+		        
+		       <table id="form_patient" style="width:100%;">
+		      <tr class=""> 
+		                   <td class=""  style="width:30%; " >
+		                      <div ><?php echo $this->formRow($form->get('sous_dossier'));?></div></td >
+		                   <td   class=" "  style='width: 33%;'><?php echo $this->formRow($form->get('type_admission'));?></td>
+		                   <td   class=" " id="" style='width: 33%;'><?php echo $this->formRow($form->get('motif_admission'));?></td>
+		              </tr> 
+		          <tr class=""> 
+		                   <td class="MotifAdmission"  style="width:30%; " >
+		                      <div ><?php echo $this->formRow($form->get('motif_transfert_evacuation'));?></div></td >
+		                      <td   class="MotifAdmission "  style='width: 33%;'><?php echo $this->formRow($form->get('service_dorigine'));?></td>
+		                       <td   class=" MotifAdmission"  style='width: 33%;'><?php echo $this->formRow($form->get('moyen_transport'));?></td>
+		              </tr> 
+		          
+		           
+		             </table>
+		      
+		     
+		       <div style="float:left; width:5%;">
+		       </div>
+		       <script>
+		       $('.MotifAdmission').toggle(false);
+		       function getMotif(val){ 
+		       //	alert(val);
+		       	if(val=='Normal'){
+		       		$("#motif").html("Type d\'admission");
+		       		$('.MotifAdmission').fadeOut();
+		       	}	
+		       	else {
+		       		$("#motif span span").html("");
+		       		$('.MotifAdmission').fadeIn();
+		       	}
+		       }
+
+		       getMotif($('#type_admission').val());
+             /****** MASK DE SAISIE ********/
+          	 maskSaisie();
+            </script>
+		  </div>
+
+		  <div style='width: 90%; height: 60px;'>
+		     
+                  <div id="terminer_annuler">
+                    <div class="block" id="thoughtbot">
+                       <button name="annuler" id="annuler" style=" height:35px; ">Annuler</button>
+                    </div>
+                    
+                    <div class="block termineradmission" id="thoughtbot">
+                       <button id="termineradmission" style=" height:35px; ">Terminer</button>
+                    </div>
+                  </div>
+                </div>
+                <div style='width: 40%;'></div>
+          </div>
+          <?php echo $this->form()->closeTag(); ?>
+		  
+    </div>
+    
+</div>
+
+    
+
+<div id="context-menu">
+    <ul class="dropdown-menu" >
+         <li><a style="cursor: pointer;" ><img id="visualiserCTX" style='margin-right: 10px; width: 19px; height: 16px;' src='/simens-maternite/public/images_icons/voir2.png'>Visualiser</a></li>
+         <li class="divider2"></li>
+         <li><a style="cursor: pointer;"><img  id="suivantCTX" style='margin-right: 10px; width: 19px; height: 16px;' src='/simens-maternite/public/images_icons/transfert_droite.png'>Suivant</a></li>
+         <li class="divider"></li>
+         <li><a id="quitterCTX"  style="cursor: pointer;">Quitter</a></li>
+    </ul>
+</div>
+		
+		
+<script>
+animation();
+$('#service').val("");
+function ajouterMaman(){
+	vart=tabUrl[0]+'public/admission/ajouter';
+    $(location).attr("href",vart);
+    return false;
+}
+
+</script>

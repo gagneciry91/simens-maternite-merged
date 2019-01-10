@@ -12,6 +12,7 @@ class Patient implements InputFilterAwareInterface {
 	public $ordre;
 	public $numero_dossier;
 	public $mois;
+	public $numeroOrdre;
 	public $annee;
 	public $date_enregistrement;
 	protected $inputFilter;
@@ -19,6 +20,8 @@ class Patient implements InputFilterAwareInterface {
 	public function exchangeArray($data) {
 		$this->id_personne = (! empty ( $data ['ID_PERSONNE'] )) ? $data ['ID_PERSONNE'] : null;
 		$this->ordre = (! empty ( $data ['ORDRE'] )) ? $data ['ORDRE'] : null;
+		$this->numeroOrdre = (! empty ( $data ['numeroOrdre'] )) ? $data ['numeroOrdre'] : null;
+		
 		$this->numero_dossier = (! empty ( $data ['NUMERO_DOSSIER'] )) ? $data ['NUMERO_DOSSIER'] : null;
 		$this->mois = (! empty ( $data ['MOIS'] )) ? $data ['MOIS'] : null;
 		$this->annee = (! empty ( $data ['ANNEE'] )) ? $data ['ANNEE'] : null;

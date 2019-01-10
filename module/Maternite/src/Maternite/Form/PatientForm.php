@@ -75,6 +75,21 @@ class PatientForm extends Form {
 				)
 		) );
 		
+
+		$this->add ( array (
+				'name' => 'NOMPERE',
+				'type' => 'Text',
+				'options' => array (
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Nom du pére' )
+				),
+				'attributes' => array (
+				// 						'class' => 'only_Char',
+						'id' => 'NOMPERE',
+						'required' => true,
+						'tabindex' => 2,
+				)
+		) );
+		
 		$this->add ( array (
 				'name' => 'PRENOM',
 				'type' => 'Text',
@@ -83,6 +98,20 @@ class PatientForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'PRENOM',
+						//'class' => 'only_Char',
+						'required' => true,
+						'tabindex' => 3,
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'PRENOMPERE',
+				'type' => 'Text',
+				'options' => array (
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Prénom du Pére' )
+				),
+				'attributes' => array (
+						'id' => 'PRENOMPERE',
 						//'class' => 'only_Char',
 						'required' => true,
 						'tabindex' => 3,
@@ -148,6 +177,18 @@ class PatientForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'PROFESSION',
+						'tabindex' => 8,
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'PROFESSIONPERE',
+				'type' => 'Text',
+				'options' => array (
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Profession du Pére' )
+				),
+				'attributes' => array (
+						'id' => 'PROFESSIONPERE',
 						'tabindex' => 8,
 				)
 		) );

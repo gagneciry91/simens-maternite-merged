@@ -543,7 +543,7 @@ $("#annuler2").click(function(){
 	$("#annuler2").css({"border-color":"#ccc", "background":"-webkit-linear-gradient( #555, #CCC)", "box-shadow":"1px 1px 5px black inset,0 1px 0 rgba( 255, 255, 255, 0.4)"});
 	
     vart = tabUrl[0]+'public/accouchement/accoucher';
-	//vart=tabUrl[0]+'public/accouchement/complement-accouchement?id_patient='+idPatient+'&id_cons='+id_cons;
+	vart=tabUrl[0]+'public/accouchement/complement-accouchement?id_patient='+idPatient+'&id_cons='+id_cons;
     $(location).attr("href",vart);
     return false;
 });
@@ -568,6 +568,7 @@ function maskSaisie() {
     $(function () {
         $("#pressionarterielle").mask("299/299");
         $("#glycemie_capillaire").mask("9,99");
+        
     });
 
 
@@ -903,6 +904,8 @@ $("#terminer2, #terminer3").click(function () {
     //Recuperer les valeurs des champs
     
     donnees['poids'] = $("#poids").val();
+    donnees['peser'] = $("#peser").val();
+
     donnees['taille'] = $("#taille").val();
     donnees['hu'] = $("#hu").val();
     donnees['paleur'] = $("#paleur").val();

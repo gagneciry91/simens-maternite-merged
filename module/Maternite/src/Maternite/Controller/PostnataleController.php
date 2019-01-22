@@ -902,36 +902,20 @@ public function enregistrementAction() {
 	public function listeDesPostnatalesAction() {
 		
 		
-			$this->layout ()->setTemplate ( 'layout/postnatale' );
-				
-			//INSTANCIATION DU FORMULAIRE
-			$form = $this->getForm ();
-				
-			$formData = $this->getRequest ()->getPost ();
-			$form->setData ( $formData );
-			$id = $this->params()->fromQuery('id_cons');
-				
-			$formAdmission = new AdmissionForm ();
+	$layout = $this->layout ();
+		$layout->setTemplate ( 'layout/postnatale' );
+		$view = new ViewModel ();
 		
-			//var_dump('test'); exit();
-			$patientsPost = $this->getPostnataleTable()->getPostnatale ($id);			
-			//var_dump($patientsPost); exit();
-			return new ViewModel ( array (
-					'listePatientsPost' => $patientsPost,
-		
-			) );var_dump('test');exit();
-		
-		
-		
+		return $view;
 	}
+	
+	
 	
 	
 	
 	public function listeDesPostnatalesAjaxAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
-		//var_dump('test');exit();
 		
-		//var_dump('test');exit();
 		
 		$output = $this->getPatientTable()->getPatientPostnatale();
 		return $this->getResponse ()->setContent ( Json::encode ( $output, array (

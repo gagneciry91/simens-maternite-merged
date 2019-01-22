@@ -409,7 +409,7 @@ class PatientTable {
 		->into('personne')
 		->values( $donnees );
 		$stat = $sql->prepareStatementForSqlObject($sQuery);
-	var_dump('test');exit();
+	//var_dump('test');exit();
 		$id_personne = $stat->execute()->getGeneratedValue();
 	
 		$dernierPatient = $this->getDernierPatient($mois, $annee);
@@ -730,7 +730,7 @@ class PatientTable {
 		$aColumns = array('NUMERO_DOSSIER', 'Nom','Prenom','Age', 'Adresse', 'id', 'id2');
 		/* Indexed column (used for fast and accurate table cardinality) */
 		$sIndexColumn = "id";
-		
+		var_dump('test');exit();
 		/*
 		 * Paging
 		*/
@@ -832,6 +832,7 @@ class PatientTable {
 			$output['aaData'][] = $row;
 			
 		}
+		//var_dump($output);exit();
 		return $output;
 	
 	

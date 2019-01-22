@@ -550,7 +550,7 @@ class ConsultationTable {
 		
 		$stmt = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stmt->execute ();//var_dump($result);exit();
-		var_dump(count($result));exit();
+		//var_dump(count($result));exit();
 		return $result;
 		
 	}

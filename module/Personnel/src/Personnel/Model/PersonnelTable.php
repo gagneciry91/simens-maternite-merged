@@ -111,6 +111,7 @@ class PersonnelTable {
 		$id_personne = (int)$personnel->id_personne;
 		
 		if($id_personne == 0) {
+			//var_dump('test');exit();
 			$id_personne_inserer = $this->tableGateway->getLastInsertValue($this->tableGateway->insert($data));
 			$this->saveEmploye($id_personne_inserer, $personnel->type_personnel, $personnel->date_enregistrement);
 			return($id_personne_inserer);

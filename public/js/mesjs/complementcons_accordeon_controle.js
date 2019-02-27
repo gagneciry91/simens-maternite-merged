@@ -196,6 +196,9 @@ $(function () {
 $(function () {
     var motif_rv = $('#motif_rv');
     var date_rv = $("#date_rv");
+        var date_debut = $("#date_debut");
+    var date_fin = $("#date_fin");
+
     var heure_rv = $("#heure_rv");
     date_rv.attr('autocomplete', 'off');
     $("#disable").click(function () {
@@ -1638,7 +1641,7 @@ var tensionminimale = $("#tensionminimale");
 //Au debut on cache le bouton modifier et on affiche le bouton valider
 
 
-$('#dateDebAlcoolique input, #dateFinAlcoolique input, #dateDebFumeur input, #dateFinFumeur input, #dateDebDroguer input, #dateFinDroguer input').datepicker(
+$('#dateDebAlcoolique input, #dateFinAlcoolique input,#date_debut input,#date_fin input, #dateDebFumeur input, #dateFinFumeur input, #dateDebDroguer input, #dateFinDroguer input').datepicker(
     $.datepicker.regional['fr'] = {
         closeText: 'Fermer',
         changeYear: true,

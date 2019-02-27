@@ -729,7 +729,7 @@ function updateexecuterRequetePost(donnees) {
     setTimeout(function(){ 
 	//Le formulaire a envoyer pour enregistrer les données
 	var formulaire = document.createElement("form");
-    formulaire.setAttribute("action", tabUrl[0] + "public/planification/update-complement-accouchement");
+    formulaire.setAttribute("action", tabUrl[0] + "public/planification/update-complement-planification");
     
     formulaire.setAttribute("method", "POST");   
     document.body.appendChild(formulaire);    

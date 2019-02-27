@@ -177,6 +177,9 @@ class UtilisateurForm extends Form
 								'facturation' => 'Facturation',
 								'etat_civil' => 'Etat civil',
 								'archivage' => 'Archivage',
+								'secretaire' => 'Secretaire',
+								'stagiaire' => 'Stagiaire',
+								
 								),
 				),
 				'attributes' => array(

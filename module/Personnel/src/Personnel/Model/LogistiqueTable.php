@@ -24,7 +24,6 @@ class LogistiqueTable {
 	public function saveLogistique(Personnel $personnel, $id_personnel, $id_employe)
 	{
 		$today = (new \DateTime ( 'now' ))->format ( 'Y-m-d H:i:s' );
-		
  		$data = array(
  				'id_employe' => $id_personnel,
  				'matricule' => $personnel->matricule_logistique,

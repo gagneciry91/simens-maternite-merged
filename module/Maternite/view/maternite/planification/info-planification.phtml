@@ -1,0 +1,341 @@
+<?php use Maternite\View\Helpers\DateHelper;?>
+
+<!-- MES STYLES -->
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/planification/styleMaternite.css');?>
+
+<!-- MES JS -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/planification/jsMaternite.js');?>
+
+<?php $Control = new DateHelper();
+use Zend\Db\ResultSet\ResultSet;
+?>
+
+<style>
+
+/*-----D�but style-----*/
+
+tr:hover /* Apparence au survol des lignes */
+{
+   /*text-decoration: underline;*/
+   background-color: white;
+
+}
+
+#aa:hover 
+{
+   /*text-decoration: underline;*/
+    color: black;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+#aa a:hover
+{
+	color: #0f9f3e;
+}
+
+#aa
+{
+	color: green;
+}
+
+#aa a
+{
+	color: black;
+}
+
+#barre
+{
+  /*background-color: #a8a8a8;*/
+  padding-bottom:20px; /*Pour s�parer le contenu de la bordure du bas du bloc*/
+  magin-bottom:15px; /*Pour s�parer la bordure du prochain �l�ment*/
+  border-bottom: 3px solid gray;/*Pour faire un trait gris horizontal*/
+  margin-left: 165px;
+}
+
+#numero
+{
+	/*background-color: #a8a8a8;*/
+	width: 480px;
+	margin-left: 140px;
+	font-family: police4;
+	font-size: 19px;
+	color: green;
+}
+
+table td 
+{
+	vertical-align: top;
+}
+
+
+#type_acc
+{
+	width: 12%;
+}
+
+#num_doss 
+{
+	width: 13%;
+}
+#num_acc 
+{
+	width: 14%;
+}
+#date_planification 
+{
+	width: 10%;
+}
+
+#nb_enf 
+{
+	width: 6%;
+}
+#effectuer 
+{
+	width: 6%;
+}
+
+table td p
+{
+	margin-right: 15px;
+	max-height: 44px;
+	max-width: 90%;
+	overflow: auto;
+}
+
+#etat_civil{
+	width: 70%;
+}
+
+#etat_civil tr{
+	width: 70%;
+}
+
+#contenu{ visibility: hidden };
+/*----fin style--------*/
+
+</style>
+
+<script type="text/javascript">
+$(window).load(function () {
+	$('#wait').toggle(false);
+	$('#contenu').fadeIn().css({'visibility':'visible'});
+});
+</script>
+
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 20px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> INFORMATIONS SUR LES planificationS</div>
+<div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
+<div id="contenu" style='height:1000px;'>
+
+  <div style='width: 100%;'>
+
+    <img id="photo" src='<?php echo $this->basePath().'/img/photos_patients/'.$this->image;?>' style='float:left; margin-right:40px; width:105px; height:105px;'/>
+
+    <div style=' left: 70px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> <?php echo $this->lesdetails['AGE']; ?> ans </span></div>
+    
+       <p style='color: white; opacity: 0.09;'>
+         <img id="photo" src='<?php echo $this->basePath().'/img/photos_patients/'.$this->image;?>' style='float:right; margin-right:15px; width:95px; height:95px;'/>
+       </p>
+         <table id="etat_civil">
+             <tr>
+             	<td style='width:27%; font-family: police1;font-size: 12px;'>
+			   		<div id="aa"><a style="text-decoration: underline;">Numero dossier</a><br><p style='font-weight: bold;font-size: 17px;'><?php echo $this->lesdetails['NUMERO_DOSSIER'];?> </p></div>
+			   	</td>
+				<td style='width: 27%; font-family: police1;font-size: 12px; vertical-align: top;'>
+			   	
+			   		<div id="aa"><a style="text-decoration: underline; ">Date de naissance</a><br>
+			   		  <p style='font-weight: bold;font-size: 19px;'>
+			   		    <?php 
+			   		    $date_naissance = $this->lesdetails['DATE_NAISSANCE'];
+			   		    if($date_naissance){ echo $Control->convertDate($this->lesdetails['DATE_NAISSANCE']); }else{ echo "";}
+			   		    ?> 
+			   		  </p>
+			   		</div>
+			   		
+			   	</td>
+
+			    <td style='width:38%; font-family: police1;font-size: 12px;'>
+			   		<div id="aa"><a style="text-decoration: underline;">T&eacute;l&eacute;phone</a><br><p style='font-weight: bold;font-size: 17px;'><?php echo $this->lesdetails['TELEPHONE'];?></p></div>
+			   	</td>
+
+			 </tr>
+
+			 <tr>
+			    <td style=' font-family: police1;font-size: 12px;'>
+			   		<div id="aa"><a style="text-decoration: underline;">Nom</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['NOM'];?></p></div>
+			   	</td>
+
+			   	<td style=' font-family: police1;font-size: 12px;'>
+			   		<div id="aa"><a style="text-decoration: underline;">Nationalit&eacute; origine</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['NATIONALITE_ORIGINE'];?></p></div>
+			   	</td>
+
+			   	<td style=' font-family: police1;font-size: 12px;'>
+			   		<div id="aa"><a style="text-decoration: underline;">Profession</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['PROFESSION'];?></p></div>
+			   	</td>
+			 </tr>
+
+			 <tr>
+			    <td style=' font-family: police1;font-size: 12px;'>
+			   		<div id="aa"><a style="text-decoration: underline;">Sexe</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['SEXE'];?></p></div>
+			   	</td>
+
+			    <td style=' font-family: police1;font-size: 12px;'>
+			   		<div id="aa"><a style="text-decoration: underline;">Nationalit&eacute; actuelle</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['NATIONALITE_ACTUELLE'];?></p></div>
+			   	</td>
+
+			   <td style='width: 195px; font-family: police1;font-size: 12px;'>
+			   		<div id="aa"><a style="text-decoration: underline;">Adresse</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['ADRESSE'];?></p></div>
+			   	</td>
+
+			 </tr>
+
+			 
+			  	 <tr>
+
+			  	 </tr>
+         </table>
+
+           <div id="barre"></div>
+
+           <div style='color: white; opacity: 1; width:95px; height:40px; float:right'>
+             <img  src='<?php echo $this->basePath().'/images_icons/fleur1.jpg'?>'  alt="fleur1" />
+           </div>
+	      <table id="numero" style=" padding-top:5px;  ">
+           <tr>
+           <!--  <td style="padding-top:3px; padding-left:25px; padding-right:5px; font-size: 12px;"> Code du patient: </td> --> 
+             <td style="font-weight: bold; "> <?php echo $this->id_patient;?></td>
+                <td style="font-weight: bold;padding-left:20px;">|</td>
+             <td style="padding-top:5px; padding-left:10px; font-size: 12px; "> Date d'enregistrement: </td>
+             <td style="font-weight: bold;"> <?php echo $Control->convertDateTime($this->date_enregistrement);?></td>
+           </tr>
+          
+          </table>
+           <br />
+           <br />
+           
+                    <div  style='width: 77%; float:left;'>	         
+		<table class="table table-bordered  tab_list_mini" id="patient">
+		<thead>
+			<tr style="height: 50px; width: 100%;">
+				<!--  <th id="nom" align="center">Num Dossier</th>-->
+				
+				<!--<th id="num_acc" align="center">Numero planification</th>-->
+				<!--  <th id="num_doss" align="center">Numero Dossier</th>-->
+				<th id="date_planification" align="center">Date d'planification</th>
+				<th id="type_acc" align="center" >Type D'planification</th>
+				<th id="nb_enf" align="center" >Nb Enfants</th>
+				<th id="effectuer" align="center">Options</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+				
+				$resultSet = new ResultSet ();
+				$resultSet->initialize ( $this->donnees_acc );
+				$resultSet->buffer ();
+				?>
+		<?php foreach( $resultSet as $donnees_acc) :?>
+		<?php {
+
+			?>
+					<tr>
+				     
+				           <td><?php echo $this->escapeHtml($donnees_acc['Id_cons']);?>  </td>
+				           <!--   <td><?php //echo $this->escapeHtml($donnees_acc['numero_dossier']);?>  </td>-->
+				      <td><?php //echo $this->escapeHtml($donnees_acc['date_acc']);?> </td>
+				      <td><?php //echo $this->escapeHtml($donnees_acc['type_acc']);?> </td>
+			          <td>  <?php 
+			   		    //if($this->$donnees_acc['bb_attendu']==0){ echo $this->escapeHtml($donnees_acc['nb_bb']);} else { echo $this->escapeHtml($donnees_acc['bb_attendu']);}
+			   		    //echo $this->escapeHtml($donnees_acc['nb_bb']);
+			         ?> 		          
+			          </td>
+				      <td><a
+					     href="<?php echo $this->url('planification', array('action'=>'complement-planification'),  array('query'=>array('id_patient'=>$this->escapeHtml($donnees_acc['Id']),'id_cons'=>$this->escapeHtml($donnees_acc['Id_cons']))));?>">
+						<img style="display: inline;"
+						src='<?php echo $this->basePath().'/images_icons/transfert_droite.png'?>'
+						alt='Ouvrir Dossier' title=" Ouvrir Dossier"
+						style="float:left;border:transparent;" />
+				</a>&nbsp; </td>
+			</tr>
+				
+				<?php } ?>
+					<?php endforeach; ?>
+		</tbody>
+		</table>    
+		   	      <div class='block' id='thoughtbot' style=' vertical-align: bottom; padding-left:60%; padding-top: 35px; font-size: 18px; font-weight: bold;'><button id='terminer'>Retour</button></div>
+		       
+		  </div>
+           
+           
+           
+           
+           
+    
+
+    
+     </div>
+     
+		   
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+var base_url = window.location.toString();
+var tabUrl = base_url.split("public");
+
+ $("#terminer").click(function(){
+	 vart=tabUrl[0]+'public/planification/liste-des-planifications';
+     $(location).attr("href",vart);
+ });
+
+
+
+
+
+
+
+
+ function planification(idPatient, id_cons){
+		vart=tabUrl[0]+'public/planification/complement-planification?id_patient='+idPatient+'&id_cons='+id_cons;
+	    $(location).attr("href",vart);
+	}
+
+
+ 
+
+
+
+
+
+
+ 
+//POUR LE MENU GAUCHE dans -elementgauche.phtml
+$('#plus_planification').toggle(true);
+$("#planification").replaceWith("<li id='dossier_patient' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> planification </span></a></li>");
+dep_planification1();
+$('#liste_dossier_patient_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
+
+</script>

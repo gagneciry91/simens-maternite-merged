@@ -35,6 +35,8 @@ use Maternite\View\Helpers\ObservationPdf;
 class PlanificationController extends AbstractActionController{
 	protected $controlDate;
 	protected $patientTable;
+	protected $planificationTable;
+	
 	protected $evacuationTable;
 	protected $consultationTable;
 	protected $formPatient;
@@ -48,6 +50,13 @@ class PlanificationController extends AbstractActionController{
 			$this->patientTable = $sm->get ( 'Maternite\Model\PatientTable' );
 		}
 		return $this->patientTable;
+	}
+	public function getPlanificationTable() {
+		if (! $this->planificationTable) {
+			$sm = $this->getServiceLocator ();
+			$this->planificationTable = $sm->get ( 'Maternite\Model\PlanificationTable' );
+		}
+		return $this->planificationTable;
 	}
 	public function getForm() {
 		if (! $this->formPatient) {
@@ -92,6 +101,22 @@ class PlanificationController extends AbstractActionController{
 	
 	}
 	
+	public function listePatientAction() {
+		$layout = $this->layout ();
+		$layout->setTemplate ( 'layout/planification' );
+		$view = new ViewModel ();
+		return $view;
+	}
+	
+	
+	
+	public function listePatientAjaxAction() {
+	
+		$output = $this->getPatientTable()->getListePatient();
+		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
+				'enableJsonExprFinder' => true
+		) ) );
+	}
 public function admissionAction() {
 		$layout = $this->layout ();
 	
@@ -297,14 +322,37 @@ public function admissionAction() {
 	
 	}
 	
+	
+	public function listeDesPlanificationsAction() {
+				$output = $this->getPatientTable()->getPatientPlanification();
+//var_dump($output);exit();
+		$layout = $this->layout ();
+		$layout->setTemplate ( 'layout/planification' );
+		$view = new ViewModel ();
+		
+		return $view;
+	}
+	
+	
+	
+	public function listeDesPlanificationsAjaxAction() {
+		$id_pat = $this->params()->fromQuery('id_patient', 0);
+		
+		$output = $this->getPatientTable()->getPatientPlanification();
+		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
+				'enableJsonExprFinder' => true
+		) ) );
+	}
+	
+	
+	
 	public function complementPlanificationAction()
 	{
 		$this->layout()->setTemplate('layout/planification');
 		$user = $this->layout()->user;
 		$IdDuService = $user ['IdService'];
 		$id_medecin = $user ['id_personne'];		
-		
-		//$this->getDateHelper();
+	
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
 		$id = $this->params()->fromQuery('id_cons');
 		$inf=$this->getConsultationTable()->infpat($id_pat, $id);
@@ -399,6 +447,35 @@ public function admissionAction() {
 		);
 	}
 	
+	public function infoPlanificationAction() {
+		//var_dump('test');exit();
+		$this->layout ()->setTemplate ( 'layout/planification' );
+		$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+	
+		$user = $this->layout()->user;
+		$idService = $user ['IdService'];
+		$form = new ConsultationForm ();
+	
+		//var_dump($form);exit();
+		$formData = $this->getRequest ()->getPost ();
+		$form->setData ( $formData );
+	
+		$id_cons = $form->get ( "id_cons" )->getValue ();//var_dump($inf);exit();
+		$accouchement = $this->getConsultationTable()->listePlanification($id_pat);
+		$nb= $this->getConsultationTable()->nbenf($id_pat);
+	
+		$patient = $this->getPatientTable ();
+		$unPatient = $patient->getInformationPatient( $id_pat);
+	
+		return array (
+				//'nb_enf'=>$nb,
+				'donnees_acc'=>$accouchement,
+				'lesdetails' => $unPatient,
+				'image' => $patient->getPhoto ( $id_pat ),
+				'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
+		);
+	}
+	
 	public function visiteAction()
 	{
 		$id_cons = $this->params()->fromPost('id_cons');
@@ -456,21 +533,76 @@ public function admissionAction() {
 				'form' => $ajoutDecesForm
 		);
 	}
-	public function updateComplementAccouchementAction()
-		{
-		$this->layout()->setTemplate('layout/planification');
-		$this->getDateHelper();//var_dump('test');exit();	
-		$Control = new DateHelper();
-		$id_cons = $this->params()->fromPost('id_cons');
-		$id_patient = $this->params()->fromPost('id_patient');
-		$form = new ConsultationForm ();
-		$formData = $this->getRequest()->getPost();
-		//var_dump($formData);exit();
-		$form->setData($formData);
-		$id_admission = $this->params()->fromPost('id_admission');
+	public function enregistrerAdmissionAction() {
+	
 		$user = $this->layout()->user;
-		$IdDuService = $user ['IdService'];
-		$id_medecin = $user ['id_personne'];
+		$id_employe = $user['id_personne'];
+		$Control = new DateHelper();
+		$idService = $user ['IdService'];
+		$service= $user ['NomService'];
+		//var_dump($user); exit();
+		$today = new \DateTime ( "now" );
+		$date_cons = $today->format ( 'Y-m-d' );
+		$date_enregistrement = $today->format ( 'Y-m-d H:i:s' );
+	
+		$id_patient = ( int ) $this->params ()->fromPost ( 'id_patient', 0 );
+	
+	
+	
+		//pour  evacuation reference
+	
+		//donnee pour admission
+		$donnees = array (
+	
+				'id_patient' => $id_patient,
+				'sous_dossier'=>$this->params ()->fromPost('sous_dossier'),
+				'type_admission'=>$this->params ()->fromPost('type_admission'),
+				'motif_admission'=>$this->params ()->fromPost('motif_admission'),
+				'motif_transfert_evacuation'=>$this->params ()->fromPost('motif_transfert_evacuation'),
+				'service_dorigine'=>$this->params ()->fromPost('service_dorigine'),
+				'moyen_transport'=>$this->params ()->fromPost('moyen_transport'),
+				'id_service' => $idService,
+				'date_cons' => $date_cons,
+				'date_enregistrement' => $date_enregistrement,
+				'id_employe' => $id_employe,
+		);
+		$form = new ConsultationForm ();
+		$this->getAdmissionTable ()-> addConsultation ( $form,$idService ,12);
+		//var_dump($form);exit();
+		$id_admission=	$this->getAdmissionTable ()->addAdmissio($donnees);
+	
+	
+	
+		$formData = $this->getRequest ()->getPost ();
+		$form->setData ( $formData );
+		 
+		$this->getAdmissionTable ()-> addConsultation ( $form,$idService ,$id_admission);
+	
+		$id_cons = $form->get ( "id_cons" )->getValue ();
+	
+		$this->getAdmissionTable ()->addConsultationMaternite($id_cons);
+	
+		return $this->redirect()->toRoute('planification', array(
+				'action' =>'admission'));
+	
+	}
+	public function updateComplementPlanificationAction()
+		{
+	$this->layout()->setTemplate('layout/planification');
+        $this->getDateHelper();
+        $Control = new DateHelper();
+        $id_cons = $this->params()->fromPost('id_cons');
+        $id_patient = $this->params()->fromPost('id_patient');
+        $form = new ConsultationForm ();
+        $formData = $this->getRequest()->getPost();
+        
+       // var_dump($id_cons);exit();
+        
+        $form->setData($formData);
+        $id_admission = $this->params()->fromPost('id_admission');
+        $user = $this->layout()->user;
+        $IdDuService = $user ['IdService'];
+        $id_medecin = $user ['id_personne'];
 	
 		// **********-- MODIFICATION DES CONSTANTES --********
 		// **********-- MODIFICATION DES CONSTANTES --********
@@ -483,7 +615,18 @@ public function admissionAction() {
 	
 	
 		$this->getConsultationTable()->updateConsultation($form);//var_dump('test');exit();
-		 
+
+		$info_planification = array(
+				'pilule' => $this->params()->fromPost('pilule'),
+				//'numero_d_ordre' => $this->params()->fromPost('numero_d_ordre'),
+				//'etat_de_la_mere' => $this->params()->fromPost('etat_de_la_mere'),
+				//'type_accouchement' => $this->params()->fromPost('type_accouchement'),
+				//'lieu_accouchement' => $this->params()->fromPost('lieu_accouchement'),
+				//'id_accouchement' => $id_accouchement,
+				'ID_CONS' => $id_cons
+		); //
+		//var_dump($info_planification);exit();
+		$this->getPlanificationTable()->updatePlanification($info_planification);
 		// Recuperer les donnees sur les bandelettes urinaires
 		// Recuperer les donnees sur les bandelettes urinaires
 		return $this->redirect()->toRoute('planification', array(
@@ -491,6 +634,39 @@ public function admissionAction() {
 		));
 	
 	}
+	public function modifierAction() {
+	
+		$control = new DateHelper();
+		$this->layout ()->setTemplate ( 'layout/planification' );
+		$id_patient = $this->params ()->fromRoute ( 'id_patient', 0 );
+	
+		$infoPatient = $this->getPatientTable ();
+		try {
+			$info = $infoPatient->getInfoPatient( $id_patient );
+		} catch ( \Exception $ex ) {
+			return $this->redirect ()->toRoute ( 'planification', array (
+					'action' => 'liste-patient'
+			) );
+		}
+		$form = new PatientForm();
+		$form->get('NATIONALITE_ORIGINE')->setvalueOptions($infoPatient->listeDeTousLesPays());
+		$form->get('NATIONALITE_ACTUELLE')->setvalueOptions($infoPatient->listeDeTousLesPays());
+	
+		$date_naissance = $info['DATE_NAISSANCE'];
+		if($date_naissance){ $info['DATE_NAISSANCE'] =  $control->convertDate($info['DATE_NAISSANCE']); }else{ $info['DATE_NAISSANCE'] = null;}
+	
+		$form->populateValues ( $info );
+	
+		if (! $info['PHOTO']) {
+			$info['PHOTO'] = "identite";
+		}
+		return array (
+				'form' => $form,
+				'photo' => $info['PHOTO']
+		);
+	}
+	
+	
 	public function impressionPdfAction()
 	{
 		$user =$this->layout()->setTemplate('layout/planification');

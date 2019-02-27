@@ -62,7 +62,7 @@ $(window).load(function () {
 </script>
 
 
-<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Statistiques des Accouchements pour la p&eacute;riode     <?php echo $this->date; ?> </span>   
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Statistiques des Accouchement pour la p&eacute;riode     <?php echo $this->date; ?> </span>   
 </div>
 <div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
 <div id="contenuInterface" >
@@ -89,37 +89,71 @@ $(window).load(function () {
     var nbPatientPost  = <?php echo $this->nbPatientPost;  ?> //Nombre de patientes postnatale
     var nbPatientPre  = <?php echo $this->nbPatientPre;  ?> //Nombre de patientes prenatale
     var nbPatientPla = <?php echo $this->nbPatientPla; ?> //Nombre de patientes planification
+
+    $(document).ready(function($) {
+
+
+
+    var Pile = [];
+
+    for(var k = 1 ; k < ordonnees.length ; k++){
+        var tabValeur = { y: abcisses[k], label: ordonnees[k] };
+        Pile.push(tabValeur);
+    }
     </script>
+
+  
+  <table style="width: 100%; height: 20%;">
+
+     <tr style="width: 30%; ">
+             <th style="width: 30%;height: 40px; font-family: Goudy Old Style; font-size: 25px;text-align: left;">
+              
+           Accouchements:   <?php echo $this->nbPatientAcc; ?>
+             
+             </th>
+           </tr>
+           
+             <tr style="width: 30%; ">
+             <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+              
+            Normal  <?php echo $this->nbPatientAccN; ?>
+             
+             </td>
+           </tr>
+           
+            <tr style="width: 30%; ">
+             <td style="width:30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+              
+            Ventouse   <?php echo $this->nbPatientAccV; ?> 
+             
+             </td>
+           </tr>
+            <tr style="width: 30%; ">
+             <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+              
+             Forceps   <?php echo $this->nbPatientAccF; ?> 
+             
+             </td>
+           </tr>
+            <tr style="width: 30%; ">
+             <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+              
+         Manoeuvre   <?php echo $this->nbPatientAccM; ?> 
+             
+             </td>
+           </tr>
+           <tr style="width: 30%; ">
+             <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
+              
+           Césarienne   <?php echo $this->nbPatientAccCes; ?> 
+             
+             </td>
+           </tr>
+
+
+    </table>
     
 
-		
-   
-    
-    
-    <div style="float:center;">
-    <table style="float:center;">
-    <!--<tr style="float:center;">
-  <td style="width: 25%;">
-      
-            <div id="menuOption1" style='width: 90%; margin: auto;'>
-		      <table style="width: 100%; border-radius: 50%;">
-		          <tr style="border-radius: 50%; height: 120px;">
-		             <th style="border-radius: 50%; ">
-		               <div>
-		                 <section>
-		                   <img style="width: 40px; height: 40px; margin-top: -15px;" src='../images_icons/grapheimg.jpg' /> Sous Dossier 
-		                 </section>
-		               </div>
-		             </th>
-		          </tr>
-		       </table>
-		    </div>
-		    
-      </td>
-    </tr>-->
-    </table>
-    </div>
-	<div style="width: 100%;  ">
 	
 	
 	<table style="width: 60%; float:left;">
@@ -139,12 +173,12 @@ $(window).load(function () {
     		{
     			type: "column",
     			dataPoints: [
-    					//{  y: nbPatientPost, label: "Naturels" },
-    				//{  y: nbPatientAccou, label: "Ventouses" },
-    				//{  y: nbPatientPre, label: "Manoeuvres" },
-    				//{  y: nbPatientPla, label: "Cesariennes" },
-    				//{  y: nbPatientAccF, label: "Forceps" },
-    				//{  y: nbPatientAccF, label: "Forceps" },
+    					{  y: nbPatientAccN, label: "Naturels" },
+    				{  y: nbPatientAccV, label: "Ventouses" },
+    				{  y: nbPatientAccM, label: "Manoeuvres" },
+    				{  y: nbPatientAccCes, label: "Cesariennes" },
+    				{  y: nbPatientAccF, label: "Forceps" },
+    				//{  y: nbPatientAccV, label: "Forceps" },
     				//{  y: nbrpost, label:"postnatale"},
     			]
     		}
@@ -163,7 +197,7 @@ $(window).load(function () {
 	     
 	     
 	     
-	     <div id="chartContainer" style="height: 250px; width: 50%;"></div>
+	    // <div id="chartContainer" style="height: 250px; width: 50%;"></div>
 	     
 	     
 	     </td>
@@ -176,36 +210,36 @@ $(window).load(function () {
 	
 		   <tr style="width: 60%; height: 250px; ">
 	     <td > 
-	         <script >
+//	         <script >
+//
+//	     $(document).ready(function($) {
 
-	     $(document).ready(function($) {
-
-       function SousDossier() {
-    	      var SousDossier = new CanvasJS.Chart("chartContainer",
-    	      {
-    		title:{
-    			text: "SousDossier"
-    		},
-    		data: [
-    		{
-    			type: "column",
-    			dataPoints: [
- 		        	{  y: nbPatientPre, label: "Prenatale" },
-    				{  y: nbPatientAccou, label: "Accouchement" },
- 		        	{  y: nbPatientPost, label: "postnatale" },
-    				{  y: nbPatientPla, label: "Planification" },
+      // function SousDossier() {
+    //	      var SousDossier = new CanvasJS.Chart("chartContainer",
+    //	      {
+    //		title:{
+    //			text: "SousDossier"
+    //		},
+    //		data: [
+    //		{
+    			//type: "column",
+    			//dataPoints: [
+ 		        	//{  y: nbPatientPre, label: "Prenatale" },
+    				//{  y: nbPatientAccou, label: "Accouchement" },
+ 		        	//{  y: nbPatientPost, label: "postnatale" },
+    				//{  y: nbPatientPla, label: "Planification" },
     				//{  y: nbPatientAccF, label: "Forceps" },
     				//{  y: nbrpost, label:"postnatale"},
-    			]
-    		}
-    		]
-    	});
-    	      SousDossier.render();
-    }
+    //			]
+    //		}
+    //		]
+    //	});
+    //	      SousDossier.render();
+    //}
 
 
 	
-       SousDossier();  
+       //SousDossier();  
 	     });       
 	</script>
 	     
@@ -230,3 +264,4 @@ $(window).load(function () {
 
 </div>
 </div>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery.maskedinput.cons.js');?>

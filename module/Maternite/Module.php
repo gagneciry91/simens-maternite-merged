@@ -27,6 +27,8 @@ use Maternite\Model\NotesExamensMorphologiquesTable;
 use Maternite\Model\NotesExamensMorphologiques;
 use Maternite\Model\DemandeTable;
 use Maternite\Model\Demande;
+use Maternite\Model\GynecologieTable;
+use Maternite\Model\Gynecologie;
 
 
 use Maternite\Model\Conclusion;
@@ -104,8 +106,6 @@ use Maternite\Model\HereditaireTable;
 use Maternite\Model\Hereditaire;
 use Maternite\Model\Planification;
 use Maternite\Model\PlanificationTable;
-use Maternite\Controller\PlanificationController;
-
 
 
 
@@ -159,6 +159,20 @@ class Module implements AutoloaderProviderInterface {
 							return $table;
 						},
 						
+						
+
+						'GynecologieTableGateway' => function ($sm) {
+							$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
+							$resultSetPrototype = new ResultSet ();
+							$resultSetPrototype->setArrayObjectPrototype ( new Gynecologie () );
+							return new TableGateway ( 'gynecologie', $dbAdapter, null, $resultSetPrototype );
+						},
+						
+						'Maternite\Model\GynecologieTable' => function ($sm) {
+							$tableGateway = $sm->get ( 'GynecologieTableGateway' );
+							$table = new GynecologieTable ( $tableGateway );
+							return $table;
+						},
 						
 						
 						
@@ -275,10 +289,9 @@ class Module implements AutoloaderProviderInterface {
 							return new TableGateway ( 'accouchement', $dbAdapter, null, $resultSetPrototype );
 						},
 						
-						
-						' Maternite\Model\PlanificationTable;' => function ($sm) {
+						'Maternite\Model\PlanificationTable' => function ($sm) {
 							$tableGateway = $sm->get( 'PlanificationTableGateway' );
-							$table = new Planification;
+							$table = new PlanificationTable($tableGateway);
 							return $table;
 						},
 							
@@ -286,8 +299,9 @@ class Module implements AutoloaderProviderInterface {
 							$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
 							$resultSetPrototype = new ResultSet ();
 							$resultSetPrototype->setArrayObjectPrototype ( new Planification());
-							return new TableGateway ( 'Planification', $dbAdapter, null, $resultSetPrototype );
+							return new TableGateway ( 'planification', $dbAdapter, null, $resultSetPrototype );
 						},
+						
 						
 						
 						'Maternite\Model\HereditaireTable' => function ($sm) {

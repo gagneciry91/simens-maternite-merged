@@ -1,2 +1,2 @@
-# simens-maternite
-Module SIMENS pour le service Maternite
+# simens-maternite-merged
+Intégration des différents sous-modules de SIMENS-MATERNITE

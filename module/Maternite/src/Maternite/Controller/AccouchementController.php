@@ -132,6 +132,7 @@ class AccouchementController extends AbstractActionController
 	}
 	public function convertDate($date) {
 		$nouv_date = substr ( $date, 8, 2 ) . '/' . substr ( $date, 5, 2 ) . '/' . substr ( $date, 0, 4 );
+		//var_dump($nouv_date);exit();
 		return $nouv_date;
 	}
 	
@@ -1237,7 +1238,6 @@ public function declarerDecesAction() {
 	public function listeDesAccouchementsAjaxAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
 		
-		//var_dump('test');exit();
 		$output = $this->getPatientTable()->getPatientAccouchee();
 		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
 				'enableJsonExprFinder' => true
@@ -1250,7 +1250,8 @@ public function declarerDecesAction() {
 	public function complementAccouchementAction()
 	{
 		$this->layout()->setTemplate('layout/accouchement');
-	
+	$nb=getConsultationTable()->nbenf();
+	var_dump($nb);exit();
 		$user = $this->layout()->user;
 		$IdDuService = $user ['IdService'];
 		$id_medecin = $user ['id_personne'];
@@ -1928,7 +1929,9 @@ foreach ($Nouveau as $Nv){
         $id_patient = $this->params()->fromPost('id_patient');
         $form = new ConsultationForm ();
         $formData = $this->getRequest()->getPost();
+        
         //var_dump($formData);exit();
+        
         $form->setData($formData);
         $id_admission = $this->params()->fromPost('id_admission');
         $user = $this->layout()->user;
@@ -2787,6 +2790,7 @@ foreach ($Nouveau as $Nv){
   
   public function statistiqueAction(){
   	$this->getDateHelper();
+  	//var_dump($this);exit();
   	$this->layout ()->setTemplate ( 'layout/accouchement' );
   	$formAdmission = new AdmissionForm();
   
@@ -2810,8 +2814,6 @@ foreach ($Nouveau as $Nv){
     		list($month, $year) = explode(' ', $val);
     		//$id_cons = $form->get ( "id_cons" )->getValue ();
     		
-    	//$nbrpost=count($post);	
-    	//var_dump($post);exit();
     	$acc=count( $this->getAccouchementTable()->getLesAccouchement($month,$year));
     	$nbPatientAcc   =$acc;
     	$nbPatientAccCes  =  $this->getAccouchementTable()->getNbPatientsAccCes();
@@ -2831,20 +2833,20 @@ foreach ($Nouveau as $Nv){
     	 //var_dump($nbPatientPla);exit();
     
      	
-    	return array (
+    	//return array (
     			//'nbr'=>$nbr,
     			//'nbrpost'=>$nbrpost,
     			//'nbPatientAcc'   => $nbPatientAcc,
-    			'nbPatientPost'  => $nbPatientPost,
-    			'nbPatientAccou'  => $nbPatientAccou,
-    			'nbPatientPre' => $nbPatientPre,
-    			'nbPatientPla' => $nbPatientPla,
+    	//		'nbPatientPost'  => $nbPatientPost,
+    	//		'nbPatientAccou'  => $nbPatientAccou,
+    	//		'nbPatientPre' => $nbPatientPre,
+    	//		'nbPatientPla' => $nbPatientPla,
     			//'nbPatientAccM' => $nbPatientAccM,
     			//'nbPatientAccGatPa' => $nbGatPa,
     			//'nbGrossesseGemellaire' => $nbGrossesseGemellaire,
-    			'form' => $formAdmission,
-    			'date' => $val,
-    	); 
+    	//		'form' => $formAdmission,
+    	//		'date' => $val,
+    	//); 
     	//Pour les Accouchements
     	return array (
     			//'nbr'=>$nbr,

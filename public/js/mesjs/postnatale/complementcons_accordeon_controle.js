@@ -797,6 +797,8 @@ $(" #terminer2,#terminer3").click(function (){});
 //Method envoi POST pour updatecomplementconsultation
 function updateexecuterRequetePost(donnees) {
 
+	alert(donnees);
+	
 	//Le formulaire pour l'impression du certificat d'accouchement
 	var formulaireImprimCertificat = document.createElement("form");
 	formulaireImprimCertificat.setAttribute("action", tabUrl[0] + "public/postnatale/postnatale");
@@ -820,7 +822,7 @@ function updateexecuterRequetePost(donnees) {
     setTimeout(function(){ 
 	//Le formulaire a envoyer pour enregistrer les données
 	var formulaire = document.createElement("form");
-    formulaire.setAttribute("action", tabUrl[0] + "public/postnatale/update-complement-accouchement");
+    formulaire.setAttribute("action", tabUrl[0] + "public/postnatale/update-complement-postnatale");
     
     formulaire.setAttribute("method", "POST");   
     document.body.appendChild(formulaire);    

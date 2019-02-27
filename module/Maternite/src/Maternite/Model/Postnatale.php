@@ -24,7 +24,7 @@ class Postnatale {
 		$this->id_accouchement = (! empty ( $data ['id_accouchement'] )) ? $data ['id_accouchement'] : null;
 		$this->inumero_d_ordre = (! empty ( $data ['numero_d_ordre'] )) ? $data ['numero_d_ordre'] : null;
 		
-		$this->id_cons = (! empty ( $data ['ID_CONS'] )) ? $data ['ID_CONS'] : null;
+		$this->id_cons = (! empty ( $data ['id_cons'] )) ? $data ['id_cons'] : null;
 		$this->parite = (! empty ( $data ['parite'] )) ? $data ['parite'] : null;
 		
 		$this->observation = (! empty ( $data ['observation'] )) ? $data ['observation'] : null;		

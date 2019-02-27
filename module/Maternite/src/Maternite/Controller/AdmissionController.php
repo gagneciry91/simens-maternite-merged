@@ -37,6 +37,7 @@ use Zend\Console\Adapter\Windows;
 use Zend\Code\Generator\DocBlock\Tag\TagInterface;
 use Zend\Code\Generator\DocBlock\Tag;
 use Doctrine\Common\Annotations\Annotation\Target;
+use Archivage\Model\Admission;
 
 class AdmissionController extends AbstractActionController {
 	protected $consultationTable;
@@ -174,6 +175,24 @@ class AdmissionController extends AbstractActionController {
 				
 	
 	}
+	
+	public function infoPatientAdmisAction() {
+		//var_dump('test');exit();
+		$this->layout ()->setTemplate ( 'layout/admission' );
+		$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+	
+		$patient = $this->getPatientTable ();
+		$unPatient = $patient->getInfoPatient( $id_pat );
+	
+		return array (
+				'lesdetails' => $unPatient,
+				'image' => $patient->getPhoto ( $id_pat ),
+				'id_patient' => $unPatient['ID_PERSONNE'],
+				'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
+		);
+	}
+	
+	
 	public function ajouterAction() {
 	
 		$this->layout ()->setTemplate ( 'layout/admission' );
@@ -237,7 +256,7 @@ class AdmissionController extends AbstractActionController {
 		$form->setData ( $formData );
 			
 		$this->getAdmissionTable ()-> addConsultation ( $form,$idService ,$id_admission);
-	
+		//var_dump($this);exit();
 		$id_cons = $form->get ( "id_cons" )->getValue ();
 	
 		$this->getAdmissionTable ()->addConsultationMaternite($id_cons);
@@ -370,6 +389,79 @@ class AdmissionController extends AbstractActionController {
 		);
 	}
 	
+	//ENREGISTREMNT MODIFICATION
+	public function enregistrementModificationAction() {
+	
+		$user = $this->layout()->user;
+		//var_dump($user); exit();
+		$id_employe = $user['id_personne']; //L'utilisateur connecté
+	
+		if (isset ( $_POST ['terminer'] ))
+		{
+			$Control = new DateHelper();
+			$Patient = $this->getPatientTable ();
+			$today = new \DateTime ( 'now' );
+			$nomfile = $today->format ( 'dmy_His' );
+			$date_modification = $today->format ( 'Y-m-d H:i:s' );
+			$fileBase64 = $this->params ()->fromPost ( 'fichier_tmp' );
+			$fileBase64 = substr ( $fileBase64, 23 );
+	
+			if($fileBase64){
+				$img = imagecreatefromstring(base64_decode($fileBase64));
+			}else {
+				$img = false;
+			}
+	
+			$date_naissance = $this->params ()->fromPost ( 'DATE_NAISSANCE' );
+			if($date_naissance){ $date_naissance = $Control->convertDateInAnglais($this->params ()->fromPost ( 'DATE_NAISSANCE' )); }else{ $date_naissance = null;}
+	
+			$donnees = array(
+					'LIEU_NAISSANCE' => $this->params ()->fromPost ( 'LIEU_NAISSANCE' ),
+					'EMAIL' => $this->params ()->fromPost ( 'EMAIL' ),
+					'NOM' => $this->params ()->fromPost ( 'NOM' ),
+					'TELEPHONE' => $this->params ()->fromPost ( 'TELEPHONE' ),
+					'NATIONALITE_ORIGINE' => $this->params ()->fromPost ( 'NATIONALITE_ORIGINE' ),
+					'PRENOM' => $this->params ()->fromPost ( 'PRENOM' ),
+					'PROFESSION' => $this->params ()->fromPost ( 'PROFESSION' ),
+					'NATIONALITE_ACTUELLE' => $this->params ()->fromPost ( 'NATIONALITE_ACTUELLE' ),
+					'DATE_NAISSANCE' => $date_naissance,
+					'ADRESSE' => $this->params ()->fromPost ( 'ADRESSE' ),
+					'SEXE' => $this->params ()->fromPost ( 'SEXE' ),
+					'AGE' => $this->params ()->fromPost ( 'AGE' ),
+					'NOM_CONJOINT' => $this->params ()->fromPost ( 'NOM_CONJOINT' ),
+					'PRENOM_CONJOINT' => $this->params ()->fromPost ( 'PRENOM_CONJOINT' ),
+					'PROFESSION_CONJOINT' => $this->params ()->fromPost ( 'PROFESSION_CONJOINT' ),
+			);
+	
+			$id_patient =  $this->params ()->fromPost ( 'ID_PERSONNE' );
+			if ($img != false) {
+	
+				$lePatient = $Patient->getInfoPatient ( $id_patient );
+				$ancienneImage = $lePatient['PHOTO'];
+	
+				if($ancienneImage) {
+					unlink ( 'C:\wamp64\www\simens\public\img\photos_patients\\' . $ancienneImage . '.jpg' );
+				}
+				imagejpeg ( $img, 'C:\wamp64\www\simens\public\img\photos_patients\\' . $nomfile . '.jpg' );
+	
+				$donnees['PHOTO'] = $nomfile;
+				$Patient->updatePatient ( $donnees , $id_patient, $date_modification, $id_employe);
+	
+				return $this->redirect ()->toRoute ( 'admission', array (
+						'action' => 'liste-patient'
+				) );
+			} else {
+				$Patient->updatePatient($donnees, $id_patient, $date_modification, $id_employe);
+				return $this->redirect ()->toRoute ( 'admission', array (
+						'action' => 'liste-patient'
+				) );
+			}
+		}
+		return $this->redirect ()->toRoute ( 'admission', array (
+				'action' => 'liste-patient'
+		) );
+	}
+	
 	public function infoPatientAction() {
 		//var_dump('test');exit();
 		$this->layout ()->setTemplate ( 'layout/admission' );
@@ -381,7 +473,7 @@ class AdmissionController extends AbstractActionController {
 		return array (
 				'lesdetails' => $unPatient,
 				'image' => $patient->getPhoto ( $id_pat ),
-				//'id_patient' => $unPatient['ID_PERSONNE'],
+				'id_patient' => $unPatient['ID_PERSONNE'],
 				'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
 		);
 	}
@@ -423,6 +515,15 @@ class AdmissionController extends AbstractActionController {
 		$view = new ViewModel ();
 		return $view;
 	}
+
+	public function listePatientAjaxAction() {
+	
+		$output = $this->getPatientTable()->getListePatient();
+		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
+				'enableJsonExprFinder' => true
+		) ) );
+	}
+	
 	
 	public function declarerDecesAction() {
 		$this->layout ()->setTemplate ( 'layout/admission' );

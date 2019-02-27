@@ -78,7 +78,7 @@ $select->join ( array (
 		$stat = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stat->execute ();
 	
-		return $result;
+		return $result;var_dump(count($result));exit();
 	}
 	
 	

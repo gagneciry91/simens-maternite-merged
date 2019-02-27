@@ -246,7 +246,7 @@ $(function() {
     					yearRange: 'c-80:c',
     					prevText: '&#x3c;Préc',
     					nextText: 'Suiv&#x3e;',
-    					currentText: 'Courant',
+    					//currentText: 'Courant',
     					monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
     					'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
     					monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Juin',

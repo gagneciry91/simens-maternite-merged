@@ -126,8 +126,42 @@ class AdmissionForm extends Form{
 						'id' => 'date_stat'
 				)
 		) );
+
+		$this->add ( array (
+				'name' => 'date_debut',
+				'type' => 'Text',
+				'options' => array (
+						//'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Service d\'origine' )
+				),
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'date_debut'
+				)
+		) );
 		
+			$this->add ( array (
+				'name' => 'date_fin',
+				'type' => 'Text',
+				'options' => array (
+						//'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Service d\'origine' )
+				),
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'date_fin'
+				)
+		) );
 		
+		$this->add ( array (
+				'name' => 'date_cons',
+				'type' => 'hidden',
+				'options' => array (
+						'label' => 'Date'
+				),
+				'attributes' => array (
+						'readonly' => 'readonly',
+						'id' => 'date_cons'
+				)
+		) );
 		
 		$this->add ( array (
 				'name' => 'service_dorigine',
@@ -179,6 +213,10 @@ class AdmissionForm extends Form{
 								1 => 'Prenatales',
 								2 => 'Accouchement',
 								3 => 'Postnatales',
+								4 => 'Planification',
+								5 => 'Gynecologie',
+
+
 		
 														)
 				),

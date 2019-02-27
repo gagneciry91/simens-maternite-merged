@@ -101,19 +101,21 @@ class PostnataleTable {
 
 
 	public function updatePostnatale($values) {
-	
+		
+		
 	
 		$donnees = array (
-				'ID_CONS' => $values['ID_CONS'],
+				'id_cons' => $values['id_cons'],
 				//'etat_de_la_mere' => $values['etat_de_la_mere'],
 				'parite' => $values['parite'],
 				
 				//'type_accouchement' => $values['type_accouchement'],
 				'lieu_accouchement' => $values['lieu_accouchement'],
 				//'numero_d_ordre' => $values['numero_d_ordre'],
-		);  
+		); 						//var_dump($donnees);exit();
+		
 			return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $donnees ));
-						var_dump($donnees);exit();
+						//var_dump($donnees);exit();
 		}
 		//$this->tableGateway->insert ( $donnees );
 	

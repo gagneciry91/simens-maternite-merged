@@ -309,9 +309,9 @@ $(window).load(function () {
 $form = $this->form;
 $form->setName ( 'AVIS' );
 $form->setAttribute ( 'action', $this->url ( 'postnatale', array (
-		'action' => 'impression-Pdf' 
+		'action' => 'update-complement-postnatale' 
 ) ) );
-$form->setAttribute ( 'target', '_blank' );
+//$form->setAttribute ( 'target', '_blank' );
 $form->setAttribute ( 'method', 'post' );
 $form->prepare ();
 echo $this->form ()->openTag ( $form );
@@ -622,9 +622,9 @@ echo $this->form ()->openTag ( $form );
 		<div style='max-height: 100px;'>
  <?php echo $this->formHidden($form->get('id_patient'));?>
            <?php echo $this->formHidden($form->get('id_medecin'));?>
-           <?php //echo $this->formHidden($form->get('id_cons'));?>
-           <?php  echo $this->formHidden($form->get('id_accouchement'));?>
-            <?php echo $this->formHidden($form->get('id_admission'));?>
+           <?php echo $this->formHidden($form->get('id_cons'));?>
+           <?php echo $this->formHidden($form->get('id_accouchement'));?>
+           <?php echo $this->formHidden($form->get('id_admission'));?>
             
             
 
@@ -1270,12 +1270,8 @@ var oTable = $('#patient').dataTable
 		<tr>
 			<td style="background-color: #eeeeee; height: 40px; width: 100%;">
 				<p style="text-align: center;">
-					<button id="annuler2"
-						style="font-family: police2; font-size: 18px; font-weight: bold;">
-						Annuler</button>
-					<button name="terminer2" id="terminer3" 
-						style="font-family: police2; font-size: 18px; font-weight: bold;">
-						Terminer</button>
+					<button id="annuler2" style="font-family: police2; font-size: 18px; font-weight: bold;"> Annuler</button>
+					<button style="font-family: police2; font-size: 18px; font-weight: bold;"> Terminer</button>
 				</p>
 			</td>
 		</tr>

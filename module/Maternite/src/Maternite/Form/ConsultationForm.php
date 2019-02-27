@@ -22,7 +22,7 @@ class ConsultationForm extends Form {
 						'label' => 'Code consultation' 
 				),
 				'attributes' => array (
-						'value' => 's-c-' . $date,
+						'value' =>   $date,
 						'id' => 'id_cons' 
 				) 
 		) );

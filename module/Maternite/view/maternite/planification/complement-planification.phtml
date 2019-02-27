@@ -205,7 +205,13 @@ AntecedentScript();
 	border: transparent;
 	margin-bottom: 5px;
 	title: 'Imprimer';
-	position: relative;
+	
+	
+	
+	
+	
+	
+	ition: relative;
 	float: right;
 }
 
@@ -304,9 +310,9 @@ $(window).load(function () {
 $form = $this->form;
 $form->setName ( 'AVIS' );
 $form->setAttribute ( 'action', $this->url ( 'planification', array (
-		'action' => 'impression-Pdf' 
+		'action' => 'update-complement-planification' 
 ) ) );
-$form->setAttribute ( 'target', '_blank' );
+//$form->setAttribute ( 'target', '_blank' );
 $form->setAttribute ( 'method', 'post' );
 $form->prepare ();
 echo $this->form ()->openTag ( $form );

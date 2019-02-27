@@ -10,6 +10,7 @@ $('#menu_statistiques_style').css({'font-weight':'bold','color':'white','font-si
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleAdmission.css');?>
 <!-- MES JS -->
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');?>
+
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/jquery.canvasjs.min.js');?>
 
 <?php use Maternite\View\Helpers\DateHelper;
@@ -43,7 +44,25 @@ echo $this->form ()->openTag ( $form );
 	  border-top-right-radius: 5px;
 	   width: 10%; /* la largeur du champ input*/
 }
+#contenuInterface{ visibility: hidden; }
+#date_debut{
+  border-bottom-left-radius: 5px; 
+  border-bottom-right-radius: 5px;
+     border-top-left-radius: 5px; 
+     background-color: #eefeee;
+      border-top-right-radius: 5px;
+       width: 10%; /* la largeur du champ input*/
+}
 
+#contenuInterface{ visibility: hidden; }
+#date_fin{
+  border-bottom-left-radius: 5px; 
+  border-bottom-right-radius: 5px;
+     border-top-left-radius: 5px; 
+     background-color: #eefeee;
+      border-top-right-radius: 5px;
+       width: 10%; /* la largeur du champ input*/
+}
 #thoughtbot button
 {
     width:auto;
@@ -85,9 +104,56 @@ $(window).load(function () {
 });
 </script>
 
+<script type="text/javascript">
+$(function() {
+    $('#date_debut').datepicker( {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy',
+        onClose: function(dateText, inst) {
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+        }
+    });
+});
+</script>
+<script>
+$(window).load(function () {
 
-<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Veuillez selectionner une p&eacute;riode</span>   <?php echo $this->formRow($form->get('date_stat'));?>
-  <button id="thoughtbot" name="terminer" style=" height:35px; ">Ok</button>
+    $('#wait').toggle(false);
+    $('#contenuInterface').fadeIn().css({'visibility':'visible'});
+     
+});
+</script>
+<script type="text/javascript">
+$(function() {
+    $('#date_fin').datepicker( {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy',
+        onClose: function(dateText, inst) {
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+        }
+    });
+});
+</script>
+<script>
+$(window).load(function () {
+
+    $('#wait').toggle(false);
+    $('#contenuInterface').fadeIn().css({'visibility':'visible'});
+     
+});
+</script>
+
+
+  <div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Veuillez selectionner une p&eacute;riode</span>   <?php //echo $this->formRow($form->get('date_stat'));?>
+</div>
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span > Date d&eacute;but</span>   <?php echo $this->formRow($form->get('date_debut'));?>
+</div>
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Date Fin</span>   <?php echo $this->formRow($form->get('date_stat'));?>
+   <button id="thoughtbot" name="terminer" style=" height:35px; ">Ok</button> 
 </div>
 <div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
 <div id="contenuInterface" >

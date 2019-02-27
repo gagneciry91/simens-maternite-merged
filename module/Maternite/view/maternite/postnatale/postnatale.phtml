@@ -141,7 +141,7 @@ $(window).load(function () {
 
 			    <!-- *****************On affiche maintenant tous ceux pour qui on a pris les constantes*********** -->
 
-			    <?php foreach($resultSet as $donnees) :?>
+			   <?php foreach($resultSet as $donnees) :?>
 
 			    <?php if( $this->escapeHtml($donnees['Consprise']) == 1){?>
 				<tr>
@@ -152,11 +152,11 @@ $(window).load(function () {
 						<img id="image-alert" style="vertical-align: top;"
 							src='<?php echo $this->basePath().'/images_icons/alert_rv_r.png'?>' />
 					</div>
-                  <?php echo $this->escapeHtml($donnees['numero_dossier']);?>
+			<?php //echo $this->escapeHtml($donnees['Numero_Dossier']);?>
 				 <?php echo $this->escapeHtml($donnees['Nom']);?>  </td>
 				<td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
 				<td><?php echo $this->escapeHtml($donnees['Age']);?></td>
-				<!--<td><?php //echo $this->escapeHtml($donnees['Sexe']);?></td>-->
+				<td><?php echo $this->escapeHtml($donnees['Sexe']);?></td>
 				<td><?php echo AdresseText($this->escapeHtml($donnees['Adresse']));?></td>
 				<td><?php echo $this->escapeHtml($donnees['Nationalite']);?></td>
 				<td><a> <img style="display: inline; color: white; opacity: 0.15;"

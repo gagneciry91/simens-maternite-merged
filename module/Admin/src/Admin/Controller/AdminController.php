@@ -152,10 +152,12 @@ class AdminController extends AbstractActionController
     	$username = $uAuth->getAuthService()->getIdentity();
     	
     	$user = $this->getUtilisateurTable()->getUtilisateursWithUsername($username);
-    	
+    	//var_dump($user['role']);exit();
     	if(!$user){
     		return $this->redirect()->toRoute('admin', array('action' => 'login'));
     	}
+    	
+    	
     	
     	if($user['role'] == "superAdmin" || $user['role'] == "admin")
     	{
@@ -213,6 +215,14 @@ class AdminController extends AbstractActionController
     	else if($user['role'] == "gynecologue")
     	{
     		return $this->redirect()->toRoute('postnatale', array('action' => 'postnatale'));
+    	}
+    	else if($user['role'] == "secretaire")
+    	{
+    		return $this->redirect()->toRoute('admission', array('action' => 'admission'));
+    	}
+    	else if($user['role'] == "stagiaire")
+    	{
+    		return $this->redirect()->toRoute('accouchement', array('action' => 'accoucher'));
     	}
     	
     	echo '<div style="font-size: 25px; color: green; padding-bottom: 15px;" >vous n\'avez aucun privil�ge. Contacter l\'administrateur ----> Merci !!! </div>'; 
@@ -279,7 +289,6 @@ class AdminController extends AbstractActionController
     public function utilisateursAction()
     {
     	$this->layout ()->setTemplate ( 'layout/layoutUtilisateur' );
-    	
     	$formUtilisateur = new UtilisateurForm();
     	
     	$listeService = $this->getServiceTable ()->fetchService ();
@@ -290,9 +299,9 @@ class AdminController extends AbstractActionController
     	if ($request->isPost()){
     	
     		$donnees = $request->getPost ();
-    		//var_dump($donnees->role); exit();
+    		
     		$this->getUtilisateurTable()->saveDonnees($donnees);
-    	    
+    		//var_dump($donnees->role); exit();
     		return $this->redirect()->toRoute('admin' , array('action' => 'utilisateurs'));
     		
     	}

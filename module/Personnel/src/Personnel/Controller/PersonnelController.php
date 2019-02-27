@@ -182,27 +182,28 @@ class PersonnelController extends AbstractActionController {
 				if($fileBase64){
 					$img = imagecreatefromstring(base64_decode($fileBase64));
 				} else {
-					$img = false;
+					$img = false;		//var_dump('test');exit();		//
+
 				}
 				
-			    if ($img != false) {
-			    	imagejpeg ( $img, 'C:\wamp\www\simens\public\img\photos_personnel\\' . $nomPhoto . '.jpg' );
+			    //if ($img != false) {
+			    //	imagejpeg ( $img, 'C:\wamp\www\simens\public\img\photos_personnel\\' . $nomPhoto . '.jpg' );
 
 			    	//ON ENREGISTRE AVEC LA PHOTO
-			    	$id_personnel = $this->getPersonnelTable()->savePersonnel($personnel,$nomPhoto);
+			    //	$id_personnel = $this->getPersonnelTable()->savePersonnel($personnel,$nomPhoto);
 			    	
-			    } else {
+			    //} else {
 			    	//ON ENREGISTRE SANS LA PHOTO
-			    	$id_personnel = $this->getPersonnelTable()->savePersonnel($personnel);
+			    //	$id_personnel = $this->getPersonnelTable()->savePersonnel($personnel);
 			    	
-			    }
+			    //}
 			    
 			    //***************************************************************
 			    	
 			    //============ ENREGISTREMENT DES DONNEES DES COMPLEMENTS =======
 			    	
 			    //***************************************************************
-			    
+			    $id_personnel = $this->getPersonnelTable()->savePersonnel($personnel);//var_dump('test');exit();
 			    if($personnel->type_personnel == 1) {
 			    	$this->getMedecinTable()->saveMedecin($personnel, $id_personnel, $id_employe);
 			    }else

@@ -8,7 +8,7 @@ return array (
 						'Maternite\Controller\Accouchement' => 'Maternite\Controller\AccouchementController',
 						'Maternite\Controller\Postnatale' => 'Maternite\Controller\PostnataleController',
 						'Maternite\Controller\Planification' => 'Maternite\Controller\PlanificationController',
-						'Maternite\Controller\Gynechologie' => 'Maternite\Controller\GynechologieController'
+						'Maternite\Controller\Gynecologie' => 'Maternite\Controller\GynecologieController'
 						
 						
 				) 
@@ -82,12 +82,12 @@ return array (
 						),
 						
 
-						//controlleur Gynechologie
-						'gynechologie' =>array (
+						//controlleur Gynecologie
+						'gynecologie' =>array (
 						
 								'type' => 'segment',
 								'options' => array (
-										'route' => '/gynechologie[/][:action]',
+										'route' => '/gynecologie[/][:action]',
 						
 										'constraints' => array (
 												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -96,7 +96,7 @@ return array (
 												// 'val' => '[0-9]+'
 										),
 										'defaults' => array (
-												'controller' => 'Maternite\Controller\Gynechologie',
+												'controller' => 'Maternite\Controller\Gynecologie',
 												'action' => 'admission',
 						
 						
@@ -160,7 +160,7 @@ return array (
 						'layout/postnatale' => __DIR__ . '/../view/layout/postnatale.phtml',
 						'layout/planification' => __DIR__ . '/../view/layout/planification.phtml',
 						'layout/admission' => __DIR__ . '/../view/layout/admission.phtml',
-						'layout/gynechologie' => __DIR__ . '/../view/layout/gynechologie.phtml',
+						'layout/gynecologie' => __DIR__ . '/../view/layout/gynecologie.phtml',
 						
 						
 						'layout/piedpagecons' => __DIR__ . '/../view/layout/piedpagecons.phtml' 
@@ -170,7 +170,7 @@ return array (
 						'accouchement' => __DIR__ . '/../view',
 						'postnatale' => __DIR__ . '/../view',
 						'planification' => __DIR__ . '/../view',
-						'gynechologie' => __DIR__ . '/../view',
+						'gynecologie' => __DIR__ . '/../view',
 						'admission' => __DIR__ . '/../view'
 						
 				),

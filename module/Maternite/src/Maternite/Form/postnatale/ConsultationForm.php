@@ -33,18 +33,7 @@ class ConsultationForm extends Form {
 				) 
 		) );
 		
-		$this->add ( array (
-				'name' => 'id_cons1',
-				'type' => 'hidden',
-				'options' => array (
-						'label' => 'Code consultation'
-				),
-				'attributes' => array (
-						'readonly' => 'readonly',
-						'value' =>  $date ,
-						'id' => 'id_cons1'
-				)
-		) );
+	
 		
 		$this->add ( array (
 				'name' => 'numeroOrdre',
@@ -1132,7 +1121,9 @@ $this->add(array(
 						'class' => 'temperature_only_numeric',
 						//'readonly' => 'readonly',
 						'min'=>34,
-						'id' => 'temperature' 
+						'id' => 'temperature',
+						'required' => true,
+						
 				) 
 		) );
 		
@@ -1156,7 +1147,8 @@ $this->add(array(
 				// 'label' => iconv('ISO-8859-1', 'UTF-8', 'Pression art�rielle (mmHg)')
 				'attributes' => array (
 						'class' => 'tension_only_numeric',
-						'id' => 'pressionarterielle' 
+						'id' => 'pressionarterielle',
+						'required' => true,
 				) 
 		) );
 		
@@ -3948,7 +3940,8 @@ $this->add ( array (
 						'class' => 'temperature_only_numeric',
 						//'readonly' => 'readonly',
 						'min'=>34,
-						'id' => 'poids' 
+						'id' => 'poids' ,
+						'required' => true,
 				) 
 		) );
 

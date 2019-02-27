@@ -30,10 +30,10 @@ class ConsultationForm extends Form {
 		
 		
 		$this->add ( array (
-				'name' => 'id_postnatale',
+				'name' => 'id_planification',
 				'type' => 'Hidden',
 				'attributes' => array (
-						'id' => 'id_postnatale'
+						'id' => 'id_planification'
 				)
 		) );
 		

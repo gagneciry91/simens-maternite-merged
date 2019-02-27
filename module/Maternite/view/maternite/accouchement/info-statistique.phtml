@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <script>
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
@@ -265,3 +266,237 @@ $(window).load(function () {
 </div>
 </div>
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery.maskedinput.cons.js');?>
+=======
+
+<script>
+//POUR LE MENU GAUCHE dans -elementgauche.phtml
+$('#plus_menu_statistiques').toggle(true);
+$("#menu_statistiques").replaceWith("<li id='menu_statistiques' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.PNG';?>'  /> Statistiques </span></a></li>");
+dep_menu_statistiques1();
+$('#menu_statistiques_style').css({'font-weight':'bold','color':'white','font-size':'21px'});
+</script>
+<!-- MES STYLES -->
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/jquery-ui.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleAdmission.css');?>
+<!-- MES JS -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/jquery.canvasjs.min.js');?>
+
+<?php use Maternite\View\Helpers\DateHelper;
+$Control = new DateHelper();
+$today = new \DateTime ( 'now' );
+//var_dump($today);exit();
+?>
+
+
+
+<style>
+#contenuInterface{ visibility: hidden; }
+#date_stat{
+  border-bottom-left-radius: 5px; 
+  border-bottom-right-radius: 5px;
+	 border-top-left-radius: 5px; 
+	 background-color: #eefeee;
+	  border-top-right-radius: 5px;
+	   width: 10%; /* la largeur du champ input*/
+}
+
+#thoughtbot button
+{
+    width:auto;
+    padding:8px 0;
+    text-align:center;
+    display: inline-block;
+    float:left;
+    margin:0 8px 0 0;
+    border-radius:7px;
+    font-size: 0.85em;
+	font-weight: bold;
+    width:80px;
+    color:#000;
+    font-family: Arial,sans-serif;
+	box-shadow: 0 0 1px rgba( 0, 0, 0, 0.2), 0 -1px 0 rgba( 255, 255, 255, 0.1);
+    text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.3);
+}
+
+</style>
+
+<script>
+$(window).load(function () {
+
+	$('#wait').toggle(false);
+	$('#contenuInterface').fadeIn().css({'visibility':'visible'});
+	 
+});
+</script>
+
+
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Statistiques des Accouchements pour la p&eacute;riode     <?php echo $this->date; ?> </span>   
+</div>
+<div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
+<div id="contenuInterface" >
+<div id="contenu" >
+
+    <script >
+
+    var nbPatientAcc   = <?php echo $this->nbPatientAcc;   ?> //Nombre de patientes accouchées
+    var nbPatientAccCes  = <?php echo $this->nbPatientAccCes;  ?> //Nombre de patientes accouchées par cesarienne
+    var nbPatientAccN  = <?php echo $this->nbPatientAccN;  ?> //Nombre de patientes accouchées normalement
+    var nbPatientAccF = <?php echo $this->nbPatientAccF; ?> //Nombre de patientes accouchées par forceps
+    var nbPatientAccV = <?php echo $this->nbPatientAccV; ?> //Nombre de patientes accouchées par Ventouse
+    var nbPatientAccM = <?php echo $this->nbPatientAccM; ?>//Nombre de patientes accouchées par manoeuvre
+    var nbPatientAccGatPa = <?php echo $this->nbPatientAccGatPa; ?>//Nombre de patientes accouchées par GATPA
+    var nbGrossesseGemellaire = <?php echo $this->nbGrossesseGemellaire; ?>//Nombre de patientes accouchées par GATPA
+    var pourcentageAccN=(nbPatientAccN/nbPatientAcc)*100;
+    p=pourcentageAccN.toFixed(2);
+
+  
+    </script>
+    
+    <script>
+    var nbPatientAccou   = <?php echo $this->nbPatientAccou;   ?> //Nombre de patientes accouchées
+    var nbPatientPost  = <?php echo $this->nbPatientPost;  ?> //Nombre de patientes postnatale
+    var nbPatientPre  = <?php echo $this->nbPatientPre;  ?> //Nombre de patientes prenatale
+    var nbPatientPla = <?php echo $this->nbPatientPla; ?> //Nombre de patientes planification
+    </script>
+    
+
+		
+   
+    
+    
+    <div style="float:center;">
+    <table style="float:center;">
+    <!--<tr style="float:center;">
+  <td style="width: 25%;">
+      
+            <div id="menuOption1" style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+		                   <img style="width: 40px; height: 40px; margin-top: -15px;" src='../images_icons/grapheimg.jpg' /> Sous Dossier 
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+    </tr>-->
+    </table>
+    </div>
+	<div style="width: 100%;  ">
+	
+	
+	<table style="width: 60%; float:left;">
+	   <tr style="width: 60%; height: 250px; ">
+	     <td > 
+	         <script >
+
+	     $(document).ready(function($) {
+
+       function Accouchement() {
+    	      var Accouchement = new CanvasJS.Chart("chartContainer",
+    	      {
+    		title:{
+    			text: "Accouchement"
+    		},
+    		data: [
+    		{
+    			type: "column",
+    			dataPoints: [
+    					//{  y: nbPatientPost, label: "Naturels" },
+    				//{  y: nbPatientAccou, label: "Ventouses" },
+    				//{  y: nbPatientPre, label: "Manoeuvres" },
+    				//{  y: nbPatientPla, label: "Cesariennes" },
+    				//{  y: nbPatientAccF, label: "Forceps" },
+    				//{  y: nbPatientAccF, label: "Forceps" },
+    				//{  y: nbrpost, label:"postnatale"},
+    			]
+    		}
+    		]
+    	});
+    	      Accouchement.render();
+    }
+
+
+	
+       Accouchement();  
+	     });       
+	</script>
+	     
+	     
+	     
+	     
+	     
+	     <div id="chartContainer" style="height: 250px; width: 50%;"></div>
+	     
+	     
+	     </td>
+	   </tr>
+	</table>
+	
+</div>
+<div style="width: 100%;  ">
+	<table style="width: 38%; height: 20%; float:left;">
+	
+		   <tr style="width: 60%; height: 250px; ">
+	     <td > 
+	         <script >
+
+	     $(document).ready(function($) {
+
+       function SousDossier() {
+    	      var SousDossier = new CanvasJS.Chart("chartContainer",
+    	      {
+    		title:{
+    			text: "SousDossier"
+    		},
+    		data: [
+    		{
+    			type: "column",
+    			dataPoints: [
+ 		        	{  y: nbPatientPre, label: "Prenatale" },
+    				{  y: nbPatientAccou, label: "Accouchement" },
+ 		        	{  y: nbPatientPost, label: "postnatale" },
+    				{  y: nbPatientPla, label: "Planification" },
+    				//{  y: nbPatientAccF, label: "Forceps" },
+    				//{  y: nbrpost, label:"postnatale"},
+    			]
+    		}
+    		]
+    	});
+    	      SousDossier.render();
+    }
+
+
+	
+       SousDossier();  
+	     });       
+	</script>
+	     
+	     
+	     
+	     
+	     
+	     <div id="chartContainer" style="height: 250px; width: 50%;"></div>
+	     
+	     
+	     </td>
+	   </tr>
+	</table>
+	
+</div>
+	
+
+	
+	
+
+	
+
+</div>
+</div>
+>>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa

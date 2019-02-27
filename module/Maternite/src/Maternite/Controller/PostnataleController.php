@@ -907,12 +907,26 @@ var_dump($output);exit();
 		$layout->setTemplate ( 'layout/postnatale' );
 		$view = new ViewModel ();
 		
+<<<<<<< HEAD
+=======
+		
+	$layout = $this->layout ();
+		$layout->setTemplate ( 'layout/postnatale' );
+		$view = new ViewModel ();
+		
+>>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa
 		return $view;
 	}
 
 	
+	
+	
 	public function listeDesPostnatalesAjaxAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa
 		
 		$output = $this->getPatientTable()->getPatientPostnatale();
 		return $this->getResponse ()->setContent ( Json::encode ( $output, array (

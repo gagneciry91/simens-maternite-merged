@@ -731,6 +731,10 @@ class PatientTable {
 		$aColumns = array('NUMERO_DOSSIER', 'Nom','Prenom','Age', 'Adresse', 'id', 'id2');
 		/* Indexed column (used for fast and accurate table cardinality) */
 		$sIndexColumn = "id";
+<<<<<<< HEAD
+=======
+		var_dump('test');exit();
+>>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa
 		/*
 		 * Paging
 		*/
@@ -831,6 +835,7 @@ class PatientTable {
 			}
 			$output['aaData'][] = $row;
 		}
+		//var_dump($output);exit();
 		return $output;
 		
 		

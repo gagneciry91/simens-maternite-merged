@@ -25,7 +25,7 @@ function ajoutEnfant(nbEnfant){
 			          '</td>'+
 			          '<td  class="antecedent_go">'+
 		              '<div   class="styleEnfDiv4">'+
-		                 '<label 	 class="styleLabel4">Poids(kgs)</label>'+
+		                 '<label 	 class="styleLabel4">Poids(g)</label>'+
 		              '</div>'+   
 		              '<div  class="styleEnfDiv5">'+
 		                 '<label class="styleLabel5"><input type="number" min=0 id="poids_'+i+'"></input></label>'+

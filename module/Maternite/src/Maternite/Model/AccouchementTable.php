@@ -108,7 +108,7 @@ class AccouchementTable {
  					'date_accouchement' => $date_accouchement,
 					'heure_accouchement' => $donnees['heure_accouchement'],
  					//'delivrance' => $donnees['delivrance'],
-					//'ru' => $donnees['ru'],
+					'ru' => $donnees['ru'],
 					//'quantite_hemo' => $donnees['quantite_hemo'],
 					//'hemoragie' => $donnees['hemoragie'],
 					//'ocytocique_per' => $donnees['ocytocique_per'],
@@ -417,13 +417,36 @@ public function addPrenomme($donne,$id_acc) {
 	
 	
 	
+	public function getNbAvortement(){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('av' => 'avortement'))
+		->columns( array( '*' ))
+		;
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return $resultat;
+	}
+	public function getNbRU(){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('acc' => 'accouchement'))
+		->columns( array( '*' ))
+		->where(array('acc.ru'=> 'Oui'
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		//$rResultFt = $stat->execute();
+		
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return $resultat;
+		}
+	}
 	
 	
 	
 	
-	
-	
-	
-	
-	
-}
+

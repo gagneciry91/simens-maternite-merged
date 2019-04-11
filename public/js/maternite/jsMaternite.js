@@ -100,6 +100,7 @@ $(function() {
             var  profession = $("#PROFESSION");
             var  age_ = $("#AGE");
             var  dg = $("#duree_grossesse");
+            var Date_cons=$("#Date_cons");
     	
     //$( "button" ).button(); // APPLICATION DU STYLE POUR LES BOUTONS
     var mdclick = 0;
@@ -224,6 +225,34 @@ $(function() {
     					maxDate: 0
     			}
     	);
+  		$('#Date_cons').datepicker(
+    			$.datepicker.regional['fr'] = {
+    					closeText: 'Fermer',
+    					changeYear: true,
+    					yearRange: 'c-80:c',
+    					prevText: '&#x3c;Préc',
+    					nextText: 'Suiv&#x3e;',
+    					currentText: 'Courant',
+    					monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
+    					'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
+    					monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Juin',
+    					'Jul','Aout','Sep','Oct','Nov','Dec'],
+    					dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+    					dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+    					dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+    					weekHeader: 'Sm',
+    					dateFormat: 'dd/mm/yy',
+    					firstDay: 1,
+    					isRTL: false,
+    					showMonthAfterYear: false,
+    					yearRange: '1900:2050',
+    					showAnim : 'bounce',
+    					changeMonth: true,
+    					changeYear: true,
+    					yearSuffix: '',
+    					maxDate: 0
+    			}
+    	);
   		
   		
   		function lesMois(n)
@@ -304,12 +333,22 @@ $(function() {
   			  
   			}
   		}
-  		function age(birthday)
+  		/*function age(birthday)
   		{
   			birthday = new Date(birthday);
   			return parseInt( new Number((new Date().getTime() - birthday.getTime()) / 31536000000));
   			
+  		}*/
+  		function age(birthday)
+  		{
+  			birthday = new Date(birthday);
+  			//return parseInt( new Number((new Date().getTime() - birthday.getTime()) / 31536000000));
+  			//return parseInt( new Number((new Date().getTime() - birthday.getTime()) / 604800000));
+  			return parseInt( new Number((new Date().getTime() - birthday.getTime()) / 86400000)+1);
+  			
+  			
   		}
+
 
   		$('#DATE_NAISSANCE').change(function(){
 
@@ -325,6 +364,28 @@ $(function() {
   		    	$('#AGE').val(Age).attr('readonly', true).css('background','#efefef');
   		    }else{
   		    	$('#AGE, #DATE_NAISSANCE').val('').attr('readonly', false).css('background','#ffffff');
+  		    }
+
+  		});
+  		
+  		$('#ddr').change(function(){ 
+
+  			var date = $('#ddr').val(); 
+  			var mois = parseInt(date[3]+''+date[4]);
+  			
+  			var moisEnLettre = lesMois(mois);
+  		   var birthday = date[0]+date[1]+' '+moisEnLettre+' '+date[6]+date[7]+date[8]+date[9];
+  		 
+  		    var Age = age(birthday);
+  		    //alert(15/7);
+  		    var nombr=Age/7;
+  		    var semaine = parseInt(nombr);
+            var jour= Age%7;
+          
+  		    if( date && !isNaN(semaine)){
+  		    	$('#duree_grossesse').val(semaine+' semaines '+jour+' jours ').attr('readonly', true).css('background','#efefef');
+  		    }else{
+  		    	$('#duree_grossesse, #ddr').val('').attr('readonly', false).css('background','#ffffff');
   		    }
 
   		});

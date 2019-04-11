@@ -26,12 +26,12 @@ $(window).load(function () {
 
 	<li id="plus_dossier_patient" style="background: #4a5765;" >
 
-	   <div style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/postnatale/ajouter";?>"  >
+	   <div style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/accouchement/ajouter";?>"  >
 	       <span id="nouveau_style" style="margin-left:5px; color: white; font-size:15px; font-family:Times New Roman;"><img style="display: inline;" src='<?php echo $this->basePath().'/images_icons/dossier.PNG'?>' alt='Liste' /> Nouveau</span></a>
 	   </div>
  
 	  
-	   <div style="margin-left:30px; height:40px;"><a href="<?php echo $this->basePath()."/postnatale/liste-patient";?>">
+	   <div style="margin-left:30px; height:40px;"><a href="<?php echo $this->basePath()."/accouchement/liste-patient";?>">
 	       <img style="margin-left:5px; display: inline;" src='<?php echo $this->basePath().'/images_icons/liste.PNG'?>' alt='Liste' />
 	       <span id="liste_dossier_patient_style" style="font-size:15px; color: white; font-family:Times New Roman;">Liste </span></a>
 	   </div>
@@ -43,11 +43,11 @@ $(window).load(function () {
 
 <li id="plus_admission" style="background: #4a5765;" >
 
-<div style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/postnatale/admission";?>"  >
+<div style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/accouchement/admission";?>"  >
    <span id="admission_style" style="margin-left:5px; color: white; font-size:15px; font-family:Times New Roman;"><img style="display: inline;" src='<?php echo $this->basePath().'/images_icons/dossier.PNG'?>' alt='Liste' /> Admission</span></a>
 </div>
 
- <div style="margin-left:30px; height:40px;"><a href="<?php echo $this->basePath()."/admission/liste-patients-admis";?>">
+ <div style="margin-left:30px; height:40px;"><a href="<?php echo $this->basePath()."/accouchement/liste-patients-admis";?>">
 	       <img style="margin-left:5px; display: inline;" src='<?php echo $this->basePath().'/images_icons/liste.PNG'?>' alt='Liste' />
 	       <span id="liste_dossier_patient_style" style="font-size:15px; color: white; font-family:Times New Roman;">Liste des Admis</span></a>
 	   </div>
@@ -65,6 +65,9 @@ $(window).load(function () {
 
 <div style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/maternite/consultation-medecin";?>"  >
    <span id="admission_style" style="margin-left:5px; color: white; font-size:15px; font-family:Times New Roman;"><img style="display: inline;" src='<?php echo $this->basePath().'/images_icons/dossier.PNG'?>' alt='Liste' /> En Cours...</span></a>
+</div>
+<div style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/maternite/liste-des-prenatales";?>"  >
+   <span id="admission_style" style="margin-left:5px; color: white; font-size:15px; font-family:Times New Roman;"><img style="display: inline;" src='<?php echo $this->basePath().'/images_icons/liste.PNG'?>' alt='Liste' /> Historiques</span></a>
 </div>
 
 </li>
@@ -104,33 +107,9 @@ $(window).load(function () {
 
 
 
-<<<<<<< HEAD
 <!-- MENU ***gynecologie*** -->
 <li id="gynecologie"><a href="">
 <span style="margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;"> <img id="image" style="display: inline;" src='<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> Gynecologie </span></a> 
-=======
-<!-- MENU ***Gynechologie*** -->
-<li id="gynechologie"><a href="">
-<span style="margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;"> <img id="image" style="display: inline;" src='<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> Gynechologie </span></a> 
-</li>
-
-<li id="plus_gynechologie" style="background: #4a5765;" >
-
-<div style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/gynechologie/gynechologie";?>"  >
-   <span id="admission_style" style="margin-left:5px; color: white; font-size:15px; font-family:Times New Roman;"><img style="display: inline;" src='<?php echo $this->basePath().'/images_icons/dossier.PNG'?>' alt='Liste' /> En Cours...</span></a>
-</div>
-<div style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/gynechologie/liste-des-gynechologies";?>"  >
-   <span id="admission_style" style="margin-left:5px; color: white; font-size:15px; font-family:Times New Roman;"><img style="display: inline;" src='<?php echo $this->basePath().'/images_icons/liste.PNG'?>' alt='Liste' /> Historiques</span></a>
-</div>
-
-</li>
-
-
-
-<!-- MENU ***Planification*** -->
-<li id="planification"><a href="">
-<span style="margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;"> <img id="image" style="display: inline;" src='<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> Planification </span></a> 
->>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa
 </li>
 
 <li id="plus_gynecologie" style="background: #4a5765;" >
@@ -244,6 +223,13 @@ else if($role == 'stagiaire'){ ?>
 $("#hospit").toggle(false);
 
 </script>
+<?php 
+}
+else if($role == 'gynecologue'){ ?>
+<script>
+$("#hospit").toggle(false);
+
+</script>
 
 
 	<?php
@@ -287,10 +273,9 @@ return false;
 
 
 
-
 function dep_prenatale1(){
 	$('#prenatale').click(function(){
-		$("#prenatale").replaceWith("<li id='prenatale'><a href=''><span style='margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> Pr&eacute;natale </span></a></li>");
+		$("#prenatale").replaceWith("<li id='prenatale'><a href=''><span style='margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> prenatale </span></a></li>");
 		dep_prenatale2();
 	    $('#plus_prenatale').animate({
 	        height : 'toggle'
@@ -301,7 +286,7 @@ function dep_prenatale1(){
 
 function dep_prenatale2(){
 	$('#prenatale').click(function(){
-		$("#prenatale").replaceWith("<li id='prenatale' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' />Pr&eacutenatale </span></a></li>");
+		$("#prenatale").replaceWith("<li id='prenatale' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> prenatale </span></a></li>");
 		dep_prenatale1();
 	    $('#plus_prenatale').animate({
 	        height : 'toggle'
@@ -312,13 +297,14 @@ function dep_prenatale2(){
 
 $('#plus_prenatale').toggle(false);
 $('#prenatale').click(function(){
-	$("#prenatale").replaceWith("<li id='prenatale' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> Pr&eacute;natale</span></a></li>");
+	$("#prenatale").replaceWith("<li id='prenatale' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> Prenatale</span></a></li>");
 	dep_prenatale1();
 $('#plus_prenatale').animate({
     height : 'toggle'
 },1000);
 return false;
 });
+
 
 
 
@@ -428,63 +414,39 @@ $('#plus_postnatale').animate({
 return false;
 });
 
-<<<<<<< HEAD
+
 //gynecologie
 
 
 function dep_gynecologie1(){
 	$('#gynecologie').click(function(){
-		$("#gynecologie").replaceWith("<li id='postnatale'><a href=''><span style='margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> gynecologie </span></a></li>");
+		$("#gynecologie").replaceWith("<li id='gynecologie'><a href=''><span style='margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> Gynecologie </span></a></li>");
 		dep_postnatale2();
 	    $('#plus_gynecologie').animate({
-=======
-//gynechologie
-
-
-function dep_gynechologie1(){
-	$('#gynechologie').click(function(){
-		$("#gynechologie").replaceWith("<li id='postnatale'><a href=''><span style='margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> gynechologie </span></a></li>");
-		dep_postnatale2();
-	    $('#plus_gynechologie').animate({
->>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa
 	        height : 'toggle'
 	    },1000);
 	 return false;
 	});
 }
 
-<<<<<<< HEAD
+
 function dep_gynecologie2(){
 	$('#gynecologie').click(function(){
-		$("#gynecologie").replaceWith("<li id='gynecologie' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> gynecologie </span></a></li>");
+		$("#gynecologie").replaceWith("<li id='gynecologie' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> Gynecologie </span></a></li>");
 		dep_postnatale1();
 	    $('#plus_gynecologie').animate({
-=======
-function dep_gynechologie2(){
-	$('#gynechologie').click(function(){
-		$("#gynechologie").replaceWith("<li id='gynechologie' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> Gynechologie </span></a></li>");
-		dep_postnatale1();
-	    $('#plus_gynechologie').animate({
->>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa
 	        height : 'toggle'
 	    },1000);
 	 return false;
 	});
 }
 
-<<<<<<< HEAD
+
 $('#plus_gynecologie').toggle(false);
 $('#gynecologie').click(function(){
-	$("#gynecologie").replaceWith("<li id='gynecologie' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> gynecologie</span></a></li>");
+	$("#gynecologie").replaceWith("<li id='gynecologie' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> Gynecologie</span></a></li>");
 	dep_gynecologie1();
 $('#plus_gynecologie').animate({
-=======
-$('#plus_gynechologie').toggle(false);
-$('#gynechologie').click(function(){
-	$("#gynechologie").replaceWith("<li id='gynechologie' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src=   '<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> Gynechologie</span></a></li>");
-	dep_gynechologie1();
-$('#plus_gynechologie').animate({
->>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa
     height : 'toggle'
 },1000);
 return false;

@@ -84,7 +84,7 @@ class OrdonnanceTable {
 	 */
 	public function updateOrdonnance($tab, $donnees) {
 		$today = new \DateTime ();
-		$date = $today->format ( 'Y-m-d H:i:s' );
+		$date = $today->format ( 'Y-m-d H:i:s' ); 
 		/**
 		 * On v�rifie s'il y a des m�dicaments et si oui on proc�de a la modification sinon on ne fait rien
 		 * car l'ordonnance doit etre supprimer
@@ -106,7 +106,7 @@ class OrdonnanceTable {
 						'DUREE_TRAITEMENT' => $donnees ['duree_traitement'],
 						'ID_CONS' => $donnees ['id_cons'] 
 				);
-				$this->tableGateway->insert ( $donneesOrdonnance );
+				$this->tableGateway->insert ( $donneesOrdonnance );var_dump('test');exit();
 			}
 		}
 		/**

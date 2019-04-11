@@ -56,7 +56,7 @@ class NaissanceTable {
 		$select->from ( array (
 				'enf' => 'enfant'
 		) );
-		$select->join ( array (
+		/* $select->join ( array (
 				'g' => 'grossesse'
 		), 'enf.id_grossesse = g.id_grossesse', array (
 					
@@ -64,7 +64,7 @@ class NaissanceTable {
 		$select->where ( array (
 				'g.id_cons' => $id_cons,
 	
-		) );
+		) ); */
 		$select->order ( 'id_bebe ASC' );
 		$stat = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stat->execute ();
@@ -132,4 +132,49 @@ public function saveNaissance($values,$id_cons,$id_patient,$id_grossesse) {
 	return $tab_IdBebe;
 
 }
+public function getNbEnfantReanime(){
+	$db = $this->tableGateway->getAdapter();
+	$sql = new Sql($db);
+	$sQuery = $sql->select()
+	->from(array('enf' => 'enfant'))
+	->columns( array( '*' ))
+	//->join(array('gros' => 'grossesse'), 'enf.id_cons = gros.id_cons' , array('*'))
+	->where(array(
+			'enf.reanimation'=>'Oui'
+	));
+	$stat = $sql->prepareStatementForSqlObject($sQuery);
+	$resultat = $stat->execute();
+	//var_dump($resultat);exit();
+	return $resultat;
+	
+}
+public function getNbEnfantNonCrier(){
+	$db = $this->tableGateway->getAdapter();
+	$sql = new Sql($db);
+	$sQuery = $sql->select()
+	->from(array('enf' => 'enfant'))
+	->columns( array( '*' ))
+	->where(array(
+			'enf.cri'=>'Non'	
+	));
+	$stat = $sql->prepareStatementForSqlObject($sQuery);
+	$resultat = $stat->execute();
+	//var_dump($resultat);exit();
+	return $resultat;
+}
+public function getNbEnfantPoidsInferieur(){
+	$db = $this->tableGateway->getAdapter();
+	$sql = new Sql($db);
+	$sQuery = $sql->select()
+	->from(array('enf' => 'enfant'))
+	->columns( array( '*' ))
+	->where(array(
+			'enf.poids' <2500
+	));
+	$stat = $sql->prepareStatementForSqlObject($sQuery);
+	$resultat = $stat->execute();
+	//var_dump($resultat);exit();
+	return $resultat;
+}
+
 }

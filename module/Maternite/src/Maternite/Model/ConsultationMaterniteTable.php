@@ -128,18 +128,24 @@ class ConsultationMaterniteTable {
         $this->tableGateway->update($donnees, array('idcons_mater'=> $values['idcons_mater']));
     }*/
 
-    public function addConsultationMaternite($id_cons,$id_grossesse){
+    public function addConsultationMaternite($values,$id_cons,$id_grossesse){
         $this->tableGateway->getAdapter()->getDriver()->getConnection()->beginTransaction();
         try {
 
             $dataconsultationMat = array(
-//                 'toucherVaginale' => $values->get ( "toucherVaginale" )->getValue (),
-//                 'hauteurUterine' => $values->get ( "hauteurUterine" )->getValue (),
-//                 'positionFoeutus' => $values->get ( "positionFoeutus" )->getValue (),
-//                 'vitaliteFoeutus' => $values->get ( "vitaliteFoeutus" )->getValue (),
+            		'toucher_vaginale' => $values ['examen_maternite_donnee1'],
+            		'hauteur_uterine' => $values  ['examen_maternite_donnee2'],
+            		'positionFoeutus' => $values  ['examen_maternite_donnee3'],
+            		'vitaliteFoeutus' => $values  ['examen_maternite_donnee4'],
+            		
+            		
+               //  'toucherVaginale' => $values->get ( "toucherVaginale" )->getValue (),
+                 //'hauteurUterine' => $values->get ( "hauteurUterine" )->getValue (),
+                 //'positionFoeutus' => $values->get ( "positionFoeutus" )->getValue (),
+                 //'vitaliteFoeutus' => $values->get ( "vitaliteFoeutus" )->getValue (),
                // 'commentaire' => $values->get ( "commentaire" )->getValue (),
             		
-               // 'idcons_mater'=> $values->get ( "idcons_mater" )->getValue (),
+              // 'idcons_mater'=> $values->get ( "idcons_mater" )->getValue (),
                'id_cons' => $id_cons,
 					'id_grossesse' => $id_grossesse,
             );

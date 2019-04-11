@@ -126,6 +126,26 @@ class AdmissionForm extends Form{
 						'id' => 'date_stat'
 				)
 		) );
+		
+
+		$this->add ( array (
+				'name' => 'date_debutsat',
+				'type' => 'text',
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'date_debutsat'
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'date_finsat',
+				'type' => 'text',
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'date_finsat'
+				)
+		) );
+		
 
 		$this->add ( array (
 				'name' => 'date_debut',

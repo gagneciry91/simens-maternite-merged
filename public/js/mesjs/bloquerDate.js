@@ -64,6 +64,34 @@ function bloquerDate(){
         yearRange : '2013:2050',
         
     });
+    $('#date_debutsta').datepicker({
+        beforeShowDay: disableSpecificDates,
+        dateFormat: 'dd/mm/yy',
+        showAnim : 'bounce',
+        minDate : '1',
+        maxDate : '90',
+        yearRange : '2013:2050',
+        
+    });
+    
+    $('#date_finsta').datepicker({
+        beforeShowDay: disableSpecificDates,
+        dateFormat: 'dd/mm/yy',
+        showAnim : 'bounce',
+        minDate : '1',
+        maxDate : '90',
+        yearRange : '2013:2050',
+        
+    });
+    $('#date_cons').datepicker({
+        beforeShowDay: disableSpecificDates,
+        dateFormat: 'dd/mm/yy',
+        showAnim : 'bounce',
+        minDate : '1',
+        maxDate : '90',
+        yearRange : '2013:2050',
+        
+    });
     
     
     

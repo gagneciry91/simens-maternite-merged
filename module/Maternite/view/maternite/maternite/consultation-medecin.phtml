@@ -1,15 +1,15 @@
 <script>
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
-$('#plus_deces').toggle(true);
-$("#deces").replaceWith("<li id='deces' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.png';?>' alt='Liste' /> Consultations </span></a></li>");
-dep_deces1();
+$('#plus_prenatale').toggle(true);
+$("#prenatale").replaceWith("<li id='prenatale' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.png';?>' alt='Liste' /> Prenatale </span></a></li>");
+dep_accouchement1();
 $('#declarer_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
 </script>
 
 <!-- Mes CSS -->
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/styleConsultationMedecin.css');?>
 
-
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/monstyle.css');?>
 <?php
 
 echo $this->headLink ()->appendStylesheet ( $this->basePath () . '/css/maternite/recherche.css' );
@@ -46,7 +46,7 @@ $(window).load(function () {
 
 <div id="titre"
 	style='font-family: police2; color: green; font-size: 20px; font-weight: bold; padding-left: 20px;'>
-	<i style='font-size: 25px;'>&curren; </i> LISTE DES CONSULTATIONS
+	<i style='font-size: 25px;'>&curren; </i> LISTE DES CONSULTATION PRENATALES
 </div>
 <div id="wait"
 	style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;">
@@ -57,13 +57,13 @@ $(window).load(function () {
 	<table class="table table-bordered  tab_list_mini" id="patient">
 		<thead>
 			<tr style="height: 50px; width: 100%;">
-			<th id="nom" align="center">Num Dossier</th>
+				 <th id="nom" align="center">Num Dossier</th>
 				<th id="nom" align="center">Nom</th>
 				<th id="prenom" align="center">Pr&eacute;nom</th>
-				<th id="date" align="center" name="date">Date. naiss</th>
-				<th id="sexe" align="center" name="sexe">Sexe</th>
-				<th id="adresse" align="center" name="adresse">Adresse</th>
-				<th id="nationalite" align="center" name="nationalite">Nationalit&eacute;</th>
+				<th id="nom" align="center" >Age</th>
+				<!--<th id="sexe" align="center" >Sexe</th>-->
+				<th id="adresse" align="center" >Adresse</th>
+				<th id="nationalite" align="center" >Nationalit&eacute;</th>
 				<th id="effectuer" align="center">Options</th>
 			</tr>
 		</thead>
@@ -79,39 +79,23 @@ $(window).load(function () {
 
 				<?php foreach( $resultSet as $donnees) :?>
 				
-				<?php
-					$date_naissance = $donnees ['Datenaissance'];
-					if ($date_naissance) {
-						$date_naissance = $Control->convertDate ( $donnees ['Datenaissance'] );
-					} else {
-						$date_naissance = "";
-					}
-					?> 
-				
 				<?php if( $this->escapeHtml($donnees['Consprise']) != 1){?>
 				<tr>
-				<td id="nomMaj">
-					<div id="<?php echo $donnees['Id']; ?>"
-						style="width: 10px; height: 22px; margin-left: -10px; margin-right: 0.5px; float: left;">
-						<img id="image-alert" style="vertical-align: top;"
-							src='<?php echo $this->basePath().'/images_icons/alert_rv_r.png'?>' />
-					</div>
-					    
-					 <?php echo $this->escapeHtml($donnees['numero_dossier']);?>
-				    
-				       
-				    </td>
-				 <td>  <?php echo $this->escapeHtml($donnees['Nom']);?></td>
+				  
+				
+				 <td><?php echo $this->escapeHtml($donnees['numero_dossier']);?> </td>
+				 <td><?php echo $this->escapeHtml($donnees['Nom']);?> </td>
+				 
 				<td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
-				<td><?php echo $this->escapeHtml($date_naissance);?></td>
-				<td><?php echo $this->escapeHtml($donnees['Sexe']);?></td>
+				<td><?php echo $this->escapeHtml($donnees['Age']);?></td>
+				<!--<td><?php //echo $this->escapeHtml($donnees['Sexe']);?></td>-->
 				<td><?php echo AdresseText($this->escapeHtml($donnees['Adresse']));?></td>
 				<td><?php echo $this->escapeHtml($donnees['Nationalite']);?></td>
 				<td><a
-					href="<?php echo $this->url('maternite', array('action'=>'complement-consultation'),  array('query'=>array('id_patient'=>$this->escapeHtml($donnees['Id']),'id_cons'=>$this->escapeHtml($donnees['Id_cons']))));?>">
+					href="<?php echo $this->url('maternite', array('action'=>'complement-consultation'),  array('query'=>array('id_patient'=>$this->escapeHtml($donnees['Id']),'id_cons'=>$this->escapeHtml($donnees['Id_cons']),'id_admission'=>$this->escapeHtml($donnees['Id_admission']))));?>">
 						<img style="display: inline;"
 						src='<?php echo $this->basePath().'/images_icons/doctor_16.png'?>'
-						alt='Consultation' title=" Consultation"
+						alt='Accouchement' title=" Prenatale"
 						style="float:left;border:transparent;" />
 				</a>&nbsp; <a> <img
 						style="display: inline; color: white; opacity: 0.15;"
@@ -124,8 +108,8 @@ $(window).load(function () {
 				</a></td>
 			</tr>
 
-			<script> $("#"+"<?php echo $donnees['Id']; ?>").toggle(false); </script>
-				<?php if( array_key_exists($donnees['Id'], $this->tabPatientRV) ){?>
+			<script> $("#"+"<?php echo $donnees['Id']; ?>").toggle(false); 
+				<?php if( array_key_exists($donnees['Id'], $this->tabPatientRV) ){?></script>
 					<script>
 					   $("#"+"<?php echo $donnees['Id']; ?>").toggle(true); 
 
@@ -157,37 +141,27 @@ $(window).load(function () {
 
 			    <?php foreach($resultSet as $donnees) :?>
 
-			    <?php
-								$date_naissance = $donnees ['Datenaissance'];
-								if ($date_naissance) {
-									$date_naissance = $Control->convertDate ( $donnees ['Datenaissance'] );
-								} else {
-									$date_naissance = "";
-								}
-								?> 
-	   		     
 			    <?php if( $this->escapeHtml($donnees['Consprise']) == 1){?>
 				<tr>
+					
 				<td id="nomMaj">
 					<div id="<?php echo $donnees['Id']; ?>"
 						style="width: 10px; height: 22px; margin-left: -10px; margin-right: 0.5px; float: left;">
 						<img id="image-alert" style="vertical-align: top;"
 							src='<?php echo $this->basePath().'/images_icons/alert_rv_r.png'?>' />
 					</div>
-						<?php echo $this->escapeHtml($donnees['numero_dossier']);?>
-					
-				    </td>
-				<td><?php echo $this->escapeHtml($donnees['Nom']);?> </td>
-			    <td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
-				<td><?php echo $this->escapeHtml($date_naissance);?></td>
-				<td><?php echo $this->escapeHtml($donnees['Sexe']);?></td>
+			<?php echo $this->escapeHtml($donnees['Numero_Dossier']);?>
+				 <?php echo $this->escapeHtml($donnees['Nom']);?>  </td>
+				<td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
+				<td><?php echo $this->escapeHtml($donnees['Age']);?></td>
+				<!--<td><?php //echo $this->escapeHtml($donnees['Sexe']);?></td>-->
 				<td><?php echo AdresseText($this->escapeHtml($donnees['Adresse']));?></td>
 				<td><?php echo $this->escapeHtml($donnees['Nationalite']);?></td>
 				<td><a> <img style="display: inline; color: white; opacity: 0.15;"
 						src='<?php echo $this->basePath().'/images_icons/doctor_16.PNG'?>'
-						alt='Consultation' title="Consultation" />
+						alt='Accouchement' title="Accouchement" />
 				</a>&nbsp; <a
-					href="<?php echo $this->url('maternite', array('action'=>'maj-complement-consultation'), array('query'=> array('id_patient'=>$this->escapeHtml($donnees['Id']),'id_cons'=>$this->escapeHtml($donnees['Id_cons']))));?>">
+					href="<?php echo $this->url('maternite', array('action'=>'complement-consultation'), array('query'=> array('id_patient'=>$this->escapeHtml($donnees['Id']),'id_cons'=>$this->escapeHtml($donnees['Id_cons']),'id_admission'=>$this->escapeHtml($donnees['Id_admission']))));?>">
 						<img style="display: inline;"
 						src='<?php echo $this->basePath().'/images_icons/modifier.png'?>'
 						alt='Modifier' title=" Modifier" />
@@ -235,21 +209,22 @@ $(window).load(function () {
 
 		<tfoot class="foot_style">
 			<tr>
-			    <th id="nom_" style='width: 13%;'><input type="text"
+				  <th id="nom_" style='width: 13%;'><input type="text"
 					name="search_browser" value=" Num dossier" class="search_init" /></th>
 				<th id="nom_" style='width: 13%;'><input type="text"
 					name="search_browser" value=" Nom" class="search_init" /></th>
+				
 				<th id="prenom_" style='width: 15%;'><input type="text"
 					name="search_browser" value=" Prenom" class="search_init" /></th>
-				<th id="date_" style='width: 12%;'><input type="text"
-					name="search_browser" value=" Date naissance" class="search_init" /></th>
-				<th id="sexe_" style='width: 7%;'><input type="text"
-					name="search_browser" value=" Sexe" class="search_init" /></th>
-				<th id="adresse_" style='width: 20%;'><input type="text"
+				<th id="date_" style='width: 10%;'><input type="text"
+					name="search_browser" value=" Age" class="search_init" /></th>
+				<!--<th id="sexe_" style='width: 7%;'><input type="text"
+					name="search_browser" value=" Sexe" class="search_init" /></th>-->
+				<th id="adresse_" style='width: 25%;'><input type="text"
 					name="search_browser" value=" Adresse" class="search_init" /></th>
-				<th id="nationalite_" style='width: 10%;'><input type="text"
+				<th id="nationalite_" style='width: 14%;'><input type="text"
 					name="search_browser" value=" Nationalite" class="search_init" /></th>
-				<th id="effectuer_" style='width: 18%;'><input type="hidden"
+				<th id="effectuer_" style='width: 10%;'><input type="hidden"
 					name="search_browser" value="" class="" /></th>
 
 			</tr>
@@ -263,7 +238,7 @@ $(window).load(function () {
 	<ul class="dropdown-menu">
 		<li class="cm1"><a style="cursor: pointer;"><img id="consultationCTX"
 				style='margin-right: 10px; width: 16px; height: 16px;'
-				src='/simens/public/images_icons/doctor_16.png'>Consultation</a></li>
+				src='/simens/public/images_icons/doctor_16.png'>Prenatale</a></li>
 		<li class="divider cm1"></li>
 		<li class="cm1"><a id="quitterCTX" style="cursor: pointer;">Quitter</a></li>
 	</ul>
@@ -289,8 +264,6 @@ $(window).load(function () {
 							"sPaginationType": "full_numbers",
 							"aaSorting": "", //pour trier la liste affich�e
 							"oLanguage": {
-								//"sProcessing":   "Traitement en cours...",
-								//"sLengthMenu":   "Afficher _MENU_ &eacute;l&eacute;ments",
 								"sZeroRecords":  "Aucun &eacute;l&eacute;ment &agrave; afficher",
 								"sInfo": "_START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
 								"sInfoEmpty": "0 &eacute;l&eacute;ment &agrave; afficher",
@@ -355,16 +328,17 @@ $(window).load(function () {
 
 
 
-			
 			function consultation(idPatient, id_cons){
-				vart=tabUrl[0]+'public/maternite/complement-consultation?id_patient='+idPatient+'&id_cons='+id_cons;
+				vart=tabUrl[0]+'public/maternite/complement-consultation?id_patient='+idPatient+'&id_cons='+id_cons+'&id_admission='+id_admission;
 			    $(location).attr("href",vart);
 			}
 
+		
 			function modifierConsultation(idPatient, id_cons){
 				vart=tabUrl[0]+'public/maternite/maj-complement-consultation?id_patient='+idPatient+'&id_cons='+id_cons;
 			    $(location).attr("href",vart);
 			}
+		
 
 </script>
 

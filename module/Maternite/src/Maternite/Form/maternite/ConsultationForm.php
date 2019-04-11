@@ -1,6 +1,6 @@
 <?php
 
-namespace Maternite\Form\accouchement;
+namespace Maternite\Form\maternite;
 
 use Zend\Form\Form;
 use Zend\Stdlib\DateTime;
@@ -14,7 +14,6 @@ class ConsultationForm extends Form {
 		$today = new \DateTime ( 'now' );
 		$date = $today->format ( 'dmy-His' );
 		$heure = $today->format ( "H:i" );
-		$dateAujourdhui = $today->format( 'Y-m-d' );
 		
 		$this->add ( array (
 				'name' => 'id_cons',
@@ -24,7 +23,7 @@ class ConsultationForm extends Form {
 				),
 				'attributes' => array (
 						'readonly' => 'readonly',
-						'value' => 'acc-' . $date,
+						'value' =>  $date,
 						'id' => 'id_cons' 
 				) 
 		) );
@@ -2234,52 +2233,6 @@ $this->add(array(
 						'id' => 'date_accouchement'
 				)
 		) );
-		
-
-		$this->add ( array (
-				'name' => 'date_debutsat',
-				'type' => 'date',
-				'options' => array (
-						'label' => iconv('ISO-8859-1', 'UTF-8','Date début'),
-				),
-				'attributes' => array (
-						'registerInArrrayValidator' => true,
-						
-						//'readonly' => 'readonly',
-						'id' => 'date_debutsat',
-						'min'  => '2016-08-24',
-						'max' => "$dateAujourdhui",
-						'required' => true,
-				)
-		) );
-		$this->add ( array (
-				'name' => 'date_debut',
-				'type' => 'date',
-				'options' => array (
-						'label' => iconv('ISO-8859-1', 'UTF-8','Date début'),
-				),
-				'attributes' => array (
-						'registerInArrrayValidator' => true,
-						'onchange' => 'getListeDateDebut(this.value)',
-						'id' =>'date_debut',
-						'min'  => '2016-08-24',
-						'max' => "$dateAujourdhui",
-						'required' => true,
-				)
-		) );
-		
-		$this->add ( array (
-				'name' => 'date_finsat',
-				'type' => 'date',
-				'attributes' => array (
-						//'readonly' => 'readonly',
-						'id' => 'date_finsat',
-						'min'  => '2016-08-24',
-						'max' => "$dateAujourdhui",
-						'required' => true,
-				)
-		) );
-		
 		
 		
 		

@@ -180,6 +180,8 @@ class AdmissionForm extends Form{
 								2 => 'Accouchement',
 								3 => 'Postnatales',
 								4 => 'Planifications',
+								5 => 'Gynecologies',
+										
 										
 														)
 				),

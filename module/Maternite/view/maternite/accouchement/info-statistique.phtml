@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+
+
 
 <script>
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
@@ -63,7 +64,7 @@ $(window).load(function () {
 </script>
 
 
-<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Statistiques des Accouchement pour la p&eacute;riode     <?php echo $this->date; ?> </span>   
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Statistiques des Sous Dossiers pour la p&eacute;riode  du   <?php echo $this->date; ?>  au <?php echo $this->date_debut; ?> </span>   
 </div>
 <div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
 <div id="contenuInterface" >
@@ -80,8 +81,16 @@ $(window).load(function () {
     var nbPatientAccGatPa = <?php echo $this->nbPatientAccGatPa; ?>//Nombre de patientes accouchées par GATPA
     var nbGrossesseGemellaire = <?php echo $this->nbGrossesseGemellaire; ?>//Nombre de patientes accouchées par GATPA
     var pourcentageAccN=(nbPatientAccN/nbPatientAcc)*100;
+    //var nbPatientAcc   = nbPatientAccCes+nbPatientAccN+nbPatientAccF+nbPatientAccV+nbPatientAccM //Nombre de patientes accouchées
+    var nbPatientAccou=<?php echo $this->nbPatientAccou;?>
+     var nbrcier=<?php echo $this->nbrcier; ?>
+    var nbinf=<?php echo $this->nbinf; ?>
+    var reanimer= <?php echo $this->reanimer; ?>
+    var enfviant = <?php echo $this->enfviant; ?>
+    var decede = <?php echo $this->decede; ?>
+    var ru = <?php echo $this->ru; ?>
     p=pourcentageAccN.toFixed(2);
-
+  
   
     </script>
     
@@ -90,26 +99,18 @@ $(window).load(function () {
     var nbPatientPost  = <?php echo $this->nbPatientPost;  ?> //Nombre de patientes postnatale
     var nbPatientPre  = <?php echo $this->nbPatientPre;  ?> //Nombre de patientes prenatale
     var nbPatientPla = <?php echo $this->nbPatientPla; ?> //Nombre de patientes planification
-
-    $(document).ready(function($) {
-
-
-
-    var Pile = [];
-
-    for(var k = 1 ; k < ordonnees.length ; k++){
-        var tabValeur = { y: abcisses[k], label: ordonnees[k] };
-        Pile.push(tabValeur);
-    }
     </script>
-
   
-  <table style="width: 100%; height: 20%;">
+  
 
-     <tr style="width: 30%; ">
+  		<div style="width: 100%;  ">
+  
+ <!--  <table style="width: 60%; height: 20%;">-->
+
+  <!--   <tr style="width: 30%; ">
              <th style="width: 30%;height: 40px; font-family: Goudy Old Style; font-size: 25px;text-align: left;">
               
-           Accouchements:   <?php echo $this->nbPatientAcc; ?>
+           Accouchements:   <?php //echo $this->nbPatientAcc; ?>
              
              </th>
            </tr>
@@ -117,7 +118,7 @@ $(window).load(function () {
              <tr style="width: 30%; ">
              <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
               
-            Normal  <?php echo $this->nbPatientAccN; ?>
+            Normal  <?php //echo $this->nbPatientAccN; ?>
              
              </td>
            </tr>
@@ -125,43 +126,183 @@ $(window).load(function () {
             <tr style="width: 30%; ">
              <td style="width:30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
               
-            Ventouse   <?php echo $this->nbPatientAccV; ?> 
+            Ventouse   <?php //echo $this->nbPatientAccV; ?> 
              
              </td>
            </tr>
             <tr style="width: 30%; ">
              <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
               
-             Forceps   <?php echo $this->nbPatientAccF; ?> 
+             Forceps   <?php //echo $this->nbPatientAccF; ?> 
              
              </td>
            </tr>
             <tr style="width: 30%; ">
              <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
               
-         Manoeuvre   <?php echo $this->nbPatientAccM; ?> 
+         Manoeuvre   <?php //echo $this->nbPatientAccM; ?> 
              
              </td>
            </tr>
            <tr style="width: 30%; ">
              <td style="width: 30%; height: 40px; font-family: Goudy Old Style; text-align: left;">
               
-           CÃ©sarienne   <?php echo $this->nbPatientAccCes; ?> 
+           CÃ©sarienne   <?php// echo $this->nbPatientAccCes; ?> 
              
              </td>
-           </tr>
+           </tr>-->
+           <?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/postnatale/ajouterMedicaments.js');
+?>
+          <table class="table table-bordered" style="width: 40%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+                                 <tr style="width: 80%; height: 40px; font-family: police2;">
+                                    <th style="width: 40%;  font-weight: bold; font-size: 15px; ">INTITULEES</th>
+                                    <th style="width: 20%; font-weight: bold; font-size: 15px; text-align: left;">NOMBRE</th>
+                                  </tr>
+                                  <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Normal </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			        <?php echo $this->nbPatientAccN; ?>
+		                </td>
+		                        </tr>
+		                           <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Ventouse </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccV; ?>
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Forceps </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccF; ?>
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Manoeuvre </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccM; ?>
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Cesarienne </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccCes; ?>
+		                </td>
+		                        </tr>
+		                        		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre d'accouchement total </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccou; ?>
+		                </td>
+		                        </tr>
+		                             <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de bébés n'ayant pas crié à la naissance </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbrcier; ?>
+		                </td>
+		                        </tr>
+		                                <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de bebes dont le poids est inferieur à 2500 </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this-> nbinf; ?>
+		                </td>
+		                        </tr>
+		                       
+		                        <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre d'enfants vivants </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->  enfviant; ?>
+		                </td>
+		                        </tr>
+		                         <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre d'enfants reanimes </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->  reanimer; ?>
+		                </td>
+		                        </tr>
+		                          <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de morts nes </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->decede; ?>
+		                </td>
+		                        </tr>
+		                         <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">RU</td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->ru; ?>
+		                </td>
+		                        </tr>
+		                      
+                                  </table>
 
-
-    </table>
     
-
-	
-	
-	<table style="width: 60%; float:left;">
-	   <tr style="width: 60%; height: 250px; ">
-	     <td > 
+	   <div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Statistiques des VAT     <?php echo $this->date; ?> </span>   
+</div>
+	    <?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/postnatale/ajouterMedicaments.js');
+	         ?>
+	         <table class="table table-bordered" style="width: 40%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+             <tr style="width: 80%; height: 40px; font-family: police2;">
+                <th style="width: 40%;  font-weight: bold; font-size: 15px; ">INTITULEES</th>
+                <th style="width: 20%; font-weight: bold; font-size: 15px; text-align: left;">NOMBRE</th>
+              </tr>
+                  <tr style="width: 80%; height: 40px; font-family: police2;">
+	                   <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT1 </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php //echo $this-> nbinf; ?>
+		                </td>
+		                  </tr>
+		                    <tr style="width: 80%; height: 40px; font-family: police2;">
+	                   <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT2 </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php //echo $this-> nbinf; ?>
+		                </td>
+		                  </tr>
+		                    <tr style="width: 80%; height: 40px; font-family: police2;">
+	                   <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT3 </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php //echo $this-> nbinf; ?>
+		                </td>
+		                  </tr>
+		                    <tr style="width: 80%; height: 40px; font-family: police2;">
+	                   <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT4 </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php //echo $this-> nbinf; ?>
+		                </td>
+		                  </tr>
+		                    <tr style="width: 80%; height: 40px; font-family: police2;">
+	                   <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT5 </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php //echo $this-> nbinf; ?>
+		                </td>
+		                  </tr>
+		                    <tr style="width: 80%; height: 40px; font-family: police2;">
+	                   <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre Total de VAT </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php //echo $this-> nbinf; ?>
+		                </td>
+		                  </tr>
+                     </table>
+	         
+                                  
 	         <script >
-
+	     
 	     $(document).ready(function($) {
 
        function Accouchement() {
@@ -198,12 +339,12 @@ $(window).load(function () {
 	     
 	     
 	     
-	    // <div id="chartContainer" style="height: 250px; width: 50%;"></div>
+	   <div id="chartContainer" style="height: 250px; width: 50%;"></div>
 	     
 	     
 	     </td>
 	   </tr>
-	</table>
+	<!-- </table>-->
 	
 </div>
 <div style="width: 100%;  ">
@@ -211,7 +352,7 @@ $(window).load(function () {
 	
 		   <tr style="width: 60%; height: 250px; ">
 	     <td > 
-//	         <script >
+	         <script >
 //
 //	     $(document).ready(function($) {
 
@@ -259,244 +400,10 @@ $(window).load(function () {
 	
 
 	
-	
 
 	
+</div>
+</div>
 
-</div>
-</div>
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery.maskedinput.cons.js');?>
-=======
 
-<script>
-//POUR LE MENU GAUCHE dans -elementgauche.phtml
-$('#plus_menu_statistiques').toggle(true);
-$("#menu_statistiques").replaceWith("<li id='menu_statistiques' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.PNG';?>'  /> Statistiques </span></a></li>");
-dep_menu_statistiques1();
-$('#menu_statistiques_style').css({'font-weight':'bold','color':'white','font-size':'21px'});
-</script>
-<!-- MES STYLES -->
-<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/jquery-ui.css');?>
-<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleAdmission.css');?>
-<!-- MES JS -->
-<?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');?>
-<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/jquery.canvasjs.min.js');?>
-
-<?php use Maternite\View\Helpers\DateHelper;
-$Control = new DateHelper();
-$today = new \DateTime ( 'now' );
-//var_dump($today);exit();
-?>
-
-
-
-<style>
-#contenuInterface{ visibility: hidden; }
-#date_stat{
-  border-bottom-left-radius: 5px; 
-  border-bottom-right-radius: 5px;
-	 border-top-left-radius: 5px; 
-	 background-color: #eefeee;
-	  border-top-right-radius: 5px;
-	   width: 10%; /* la largeur du champ input*/
-}
-
-#thoughtbot button
-{
-    width:auto;
-    padding:8px 0;
-    text-align:center;
-    display: inline-block;
-    float:left;
-    margin:0 8px 0 0;
-    border-radius:7px;
-    font-size: 0.85em;
-	font-weight: bold;
-    width:80px;
-    color:#000;
-    font-family: Arial,sans-serif;
-	box-shadow: 0 0 1px rgba( 0, 0, 0, 0.2), 0 -1px 0 rgba( 255, 255, 255, 0.1);
-    text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.3);
-}
-
-</style>
-
-<script>
-$(window).load(function () {
-
-	$('#wait').toggle(false);
-	$('#contenuInterface').fadeIn().css({'visibility':'visible'});
-	 
-});
-</script>
-
-
-<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Statistiques des Accouchements pour la p&eacute;riode     <?php echo $this->date; ?> </span>   
-</div>
-<div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
-<div id="contenuInterface" >
-<div id="contenu" >
-
-    <script >
-
-    var nbPatientAcc   = <?php echo $this->nbPatientAcc;   ?> //Nombre de patientes accouchées
-    var nbPatientAccCes  = <?php echo $this->nbPatientAccCes;  ?> //Nombre de patientes accouchées par cesarienne
-    var nbPatientAccN  = <?php echo $this->nbPatientAccN;  ?> //Nombre de patientes accouchées normalement
-    var nbPatientAccF = <?php echo $this->nbPatientAccF; ?> //Nombre de patientes accouchées par forceps
-    var nbPatientAccV = <?php echo $this->nbPatientAccV; ?> //Nombre de patientes accouchées par Ventouse
-    var nbPatientAccM = <?php echo $this->nbPatientAccM; ?>//Nombre de patientes accouchées par manoeuvre
-    var nbPatientAccGatPa = <?php echo $this->nbPatientAccGatPa; ?>//Nombre de patientes accouchées par GATPA
-    var nbGrossesseGemellaire = <?php echo $this->nbGrossesseGemellaire; ?>//Nombre de patientes accouchées par GATPA
-    var pourcentageAccN=(nbPatientAccN/nbPatientAcc)*100;
-    p=pourcentageAccN.toFixed(2);
-
-  
-    </script>
-    
-    <script>
-    var nbPatientAccou   = <?php echo $this->nbPatientAccou;   ?> //Nombre de patientes accouchées
-    var nbPatientPost  = <?php echo $this->nbPatientPost;  ?> //Nombre de patientes postnatale
-    var nbPatientPre  = <?php echo $this->nbPatientPre;  ?> //Nombre de patientes prenatale
-    var nbPatientPla = <?php echo $this->nbPatientPla; ?> //Nombre de patientes planification
-    </script>
-    
-
-		
-   
-    
-    
-    <div style="float:center;">
-    <table style="float:center;">
-    <!--<tr style="float:center;">
-  <td style="width: 25%;">
-      
-            <div id="menuOption1" style='width: 90%; margin: auto;'>
-		      <table style="width: 100%; border-radius: 50%;">
-		          <tr style="border-radius: 50%; height: 120px;">
-		             <th style="border-radius: 50%; ">
-		               <div>
-		                 <section>
-		                   <img style="width: 40px; height: 40px; margin-top: -15px;" src='../images_icons/grapheimg.jpg' /> Sous Dossier 
-		                 </section>
-		               </div>
-		             </th>
-		          </tr>
-		       </table>
-		    </div>
-		    
-      </td>
-    </tr>-->
-    </table>
-    </div>
-	<div style="width: 100%;  ">
-	
-	
-	<table style="width: 60%; float:left;">
-	   <tr style="width: 60%; height: 250px; ">
-	     <td > 
-	         <script >
-
-	     $(document).ready(function($) {
-
-       function Accouchement() {
-    	      var Accouchement = new CanvasJS.Chart("chartContainer",
-    	      {
-    		title:{
-    			text: "Accouchement"
-    		},
-    		data: [
-    		{
-    			type: "column",
-    			dataPoints: [
-    					//{  y: nbPatientPost, label: "Naturels" },
-    				//{  y: nbPatientAccou, label: "Ventouses" },
-    				//{  y: nbPatientPre, label: "Manoeuvres" },
-    				//{  y: nbPatientPla, label: "Cesariennes" },
-    				//{  y: nbPatientAccF, label: "Forceps" },
-    				//{  y: nbPatientAccF, label: "Forceps" },
-    				//{  y: nbrpost, label:"postnatale"},
-    			]
-    		}
-    		]
-    	});
-    	      Accouchement.render();
-    }
-
-
-	
-       Accouchement();  
-	     });       
-	</script>
-	     
-	     
-	     
-	     
-	     
-	     <div id="chartContainer" style="height: 250px; width: 50%;"></div>
-	     
-	     
-	     </td>
-	   </tr>
-	</table>
-	
-</div>
-<div style="width: 100%;  ">
-	<table style="width: 38%; height: 20%; float:left;">
-	
-		   <tr style="width: 60%; height: 250px; ">
-	     <td > 
-	         <script >
-
-	     $(document).ready(function($) {
-
-       function SousDossier() {
-    	      var SousDossier = new CanvasJS.Chart("chartContainer",
-    	      {
-    		title:{
-    			text: "SousDossier"
-    		},
-    		data: [
-    		{
-    			type: "column",
-    			dataPoints: [
- 		        	{  y: nbPatientPre, label: "Prenatale" },
-    				{  y: nbPatientAccou, label: "Accouchement" },
- 		        	{  y: nbPatientPost, label: "postnatale" },
-    				{  y: nbPatientPla, label: "Planification" },
-    				//{  y: nbPatientAccF, label: "Forceps" },
-    				//{  y: nbrpost, label:"postnatale"},
-    			]
-    		}
-    		]
-    	});
-    	      SousDossier.render();
-    }
-
-
-	
-       SousDossier();  
-	     });       
-	</script>
-	     
-	     
-	     
-	     
-	     
-	     <div id="chartContainer" style="height: 250px; width: 50%;"></div>
-	     
-	     
-	     </td>
-	   </tr>
-	</table>
-	
-</div>
-	
-
-	
-	
-
-	
-
-</div>
-</div>
->>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa

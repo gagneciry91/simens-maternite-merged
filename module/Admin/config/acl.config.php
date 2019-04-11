@@ -189,20 +189,30 @@ return array(
     								'visualisation-consultation' => array('sage_femme', 'gynecologue'),
     								'visualisation-hospitalisation' => array('sage_femme', 'gynecologue'),
     								'liste-soins-visualisation-hosp' => array('sage_femme', 'gynecologue'), 
+    								'recherche' => array('sage_femme', 'gynecologue'),
     								
     								'imagesExamensMorphologiques' => array('sage_femme', 'gynecologue'),
     								'supprimerImage' => array('sage_femme', 'gynecologue'),
     								'demande-examen' => array('sage_femme', 'gynecologue'),
     								'demande-examen-biologique' => array('sage_femme', 'gynecologue'),
-    								
+    								'ajout-constantes' => array('sage_femme','stagiaire', 'gynecologue','infirmier'),
     								'en-cours' => array('sage_femme','stagiaire', 'gynecologue','infirmier'),
+    								'info-prenatale' => array('sage_femme','stagiaire', 'gynecologue','infirmier'),
+    								
     								'liste-patient-encours-ajax' => array('sage_femme', 'gynecologue'),
     								'info-patient' => array('sage_femme', 'gynecologue'),
     								'detail-info-liberation-patient' =>array('sage_femme', 'gynecologue'),
     								'info-patient-hospi' => array('sage_femme', 'gynecologue'),
     								'liste-soin' => array('sage_femme', 'gynecologue'),
+    								'liste-des-prenatales' => array('sage_femme', 'gynecologue'),
+    								'liste-des-prenatales-ajax' => array('sage_femme', 'gynecologue'),
+    								
+    								'info-prenatale' => array('sage_femme', 'gynecologue'),
+    								
     								'supprimer-soin' => array('sage_femme', 'gynecologue'),
     								'modifier-soin' => array('sage_femme', 'gynecologue'),
+    								'modifier' => array('sage_femme', 'gynecologue'),
+    								
     								'vue-soin-appliquer' => array('sage_femme', 'gynecologue'),
     								'liberer-patient' => array('sage_femme', 'gynecologue'),
     								'liste-soins-prescrits' => array('sage_femme', 'gynecologue'),
@@ -303,7 +313,7 @@ return array(
     								//'dossier-accouchement'=>array('sage_femme','infirmier','sage_femme'),
     								'liste-des-postnatales'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								//'liste-des-accouchements-ajax'=>array('gynecologue','infirmier','sage_femme'),
-    								//'liste-accouchement-ajax'=>array('gynecologue','infirmier','sage_femme'),
+    								'liste-postnatale-ajax'=>array('gynecologue','infirmier','sage_femme'),
     								//'liste-accouchement'=>array('gynecologue','infirmier','sage_femme'),
     								//'info-accouchement'=>array('gynecologue','infirmier','sage_femme'),
     								//'info-statistique'=>array('gynecologue','infirmier','sage_femme'),
@@ -367,7 +377,7 @@ return array(
                                     'vue-examen-jour'=>array('gynecologue','infirmier','sage_femme'),
                                     //'dossier-accouchement'=>array('sage_femme','infirmier','sage_femme'),
                                     'liste-des-gynecologies'=>array('gynecologue'),
-                                    //'liste-des-accouchements-ajax'=>array('gynecologue','infirmier','sage_femme'),
+                                    'liste-des-gynecologies-ajax'=>array('gynecologue','infirmier','sage_femme'),
                                     //'liste-accouchement-ajax'=>array('gynecologue','infirmier','sage_femme'),
                                     //'liste-accouchement'=>array('gynecologue','infirmier','sage_femme'),
                                     //'info-accouchement'=>array('gynecologue','infirmier','sage_femme'),
@@ -410,7 +420,8 @@ return array(
     								//'partogramme'=>array('gynecologue','infirmier','sage_femme'),
     						'complement-accouchement'=>array('gynecologue','infirmier','sage_femme'),
     						'complement-postnatale'=>array('gynecologue','infirmier','sage_femme'),
-    						
+    					    'info-postnatale'=>array('gynecologue','infirmier','sage_femme'),
+    								
     						//'maj-accouchement'=>array('gynecologue','infirmier','sage_femme'),
     						//'maj-complement-accouchement'=>array('gynecologue','infirmier','sage_femme'),
     						
@@ -492,7 +503,7 @@ return array(
     						'vue-examen-jour'=>array('gynecologue','infirmier','sage_femme'),
     						//'dossier-accouchement'=>array('sage_femme','infirmier','sage_femme'),
     						'liste-des-planifications'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
-    						//'liste-des-accouchements-ajax'=>array('gynecologue','infirmier','sage_femme'),
+    						'liste-des-planifications-ajax'=>array('gynecologue','infirmier','sage_femme'),
     						//'liste-accouchement-ajax'=>array('gynecologue','infirmier','sage_femme'),
     						//'liste-accouchement'=>array('gynecologue','infirmier','sage_femme'),
     						//'info-accouchement'=>array('gynecologue','infirmier','sage_femme'),
@@ -522,7 +533,7 @@ return array(
     							    'admission-grossesse-pathologique'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'enregistrement-modification' =>array('gynecologue','infirmier','sage_femme'),
     								'complement-admission' =>array('gynecologue','infirmier','sage_femme'),
-    								'admission' =>array('gynecologue','stagiaire','infirmier','sage_femme'),
+    								'admission' =>array('gynecologue','secretaire','stagiaire','infirmier','sage_femme'),
     								'enregistrer-admission' =>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'liste-admission-ajax'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'declarer-deces'=>array('gynecologue','infirmier','sage_femme'),
@@ -567,10 +578,10 @@ return array(
     						
     						'Consultation\Controller\Consultation' => array(
     								//============  SURVEILLANT  ===================
-    								'recherche' => 'surveillant',
+    								'recherche' => 'surveillant','gynecologue',
     								'espace-recherche-surv' => 'surveillant',
     								'maj-consultation' => 'surveillant',
-    								'ajout-constantes' => 'surveillant',
+    								'ajout-constantes' => 'surveillant','gynecologue',
     								'ajout-donnees-constantes' => 'surveillant',
     								'maj-cons-donnees' => 'surveillant',
     						
@@ -606,7 +617,8 @@ return array(
     								'liste-examen-du-jour' => array('medecin','infirmier','gynecologue'),
     								'supprimer-examen-jour' => array('medecin','infirmier','gynecologue'),
     								'vue-examen-jour' => array('medecin','infirmier','gynecologue'),
-    						
+    								'liste-des-prenatales' => array('medecin','infirmier','gynecologue'),
+    								
     								'supprimer-image-morpho' => 'guest', //radiologie et archivage
     								'images-examens-morphologiques' => 'guest', //radiologie et archivage
     						

@@ -463,10 +463,10 @@ class AdmissionController extends AbstractActionController {
 	}
 	
 	public function infoPatientAction() {
-		//var_dump('test');exit();
+		
 		$this->layout ()->setTemplate ( 'layout/admission' );
 		$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
-	
+		//var_dump('test');exit();
 		$patient = $this->getPatientTable ();
 		$unPatient = $patient->getInfoPatient( $id_pat );
 	

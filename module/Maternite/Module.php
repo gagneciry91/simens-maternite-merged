@@ -29,6 +29,9 @@ use Maternite\Model\DemandeTable;
 use Maternite\Model\Demande;
 use Maternite\Model\GynecologieTable;
 use Maternite\Model\Gynecologie;
+use Maternite\Model\PrenataleTable;
+use Maternite\Model\Prenatale;
+
 
 
 use Maternite\Model\Conclusion;
@@ -171,6 +174,19 @@ class Module implements AutoloaderProviderInterface {
 						'Maternite\Model\GynecologieTable' => function ($sm) {
 							$tableGateway = $sm->get ( 'GynecologieTableGateway' );
 							$table = new GynecologieTable ( $tableGateway );
+							return $table;
+						},
+						
+						'PrenataleTableGateway' => function ($sm) {
+							$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
+							$resultSetPrototype = new ResultSet ();
+							$resultSetPrototype->setArrayObjectPrototype ( new Prenatale () );
+							return new TableGateway ( 'prenatale', $dbAdapter, null, $resultSetPrototype );
+						},
+						
+						'Maternite\Model\PrenataleTable' => function ($sm) {
+							$tableGateway = $sm->get ( 'PrenataleTableGateway' );
+							$table = new PrenataleTable ( $tableGateway );
 							return $table;
 						},
 						

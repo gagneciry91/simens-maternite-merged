@@ -901,20 +901,13 @@ public function enregistrementAction() {
 	}
 	
 	public function listeDesPostnatalesAction() {
-			$output = $this->getPatientTable()->getPatientPostnatale();
-var_dump($output);exit();
-		$layout = $this->layout ();
-		$layout->setTemplate ( 'layout/postnatale' );
-		$view = new ViewModel ();
-		
-<<<<<<< HEAD
-=======
 		
 	$layout = $this->layout ();
 		$layout->setTemplate ( 'layout/postnatale' );
+		//$output = $this->getPatientTable()->getPatientPostnatale();
+		//var_dump($output);exit();
 		$view = new ViewModel ();
 		
->>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa
 		return $view;
 	}
 
@@ -923,10 +916,6 @@ var_dump($output);exit();
 	
 	public function listeDesPostnatalesAjaxAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
-<<<<<<< HEAD
-=======
-		
->>>>>>> 7589768401636726eb4be927b165bbe87ef8d6aa
 		
 		$output = $this->getPatientTable()->getPatientPostnatale();
 		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
@@ -1481,9 +1470,7 @@ foreach ($Nouveau as $Nv){
 		// $this->getMotifAdmissionTable()->deleteMotifAdmission($id_cons);
 	
 		
-		
 		$this->getConsultationTable()->updateLesConsultation($form);
-		
 		//var_dump($form);exit();
 		// Recuperer les donnees sur les bandelettes urinaires
 		// Recuperer les donnees sur les bandelettes urinaires
@@ -1700,7 +1687,8 @@ foreach ($Nouveau as $Nv){
 				'ID_MEDECIN' => $this->params()->fromPost('med_id_personne'),
 				'MOTIF_TRANSFERT' => $this->params()->fromPost('motif_transfert'),
 				'ID_CONS' => $id
-		);
+		);		
+				
 	
 		$this->getTransfererPatientServiceTable()->updateTransfertPatientService($info_transfert);
 	
@@ -1968,6 +1956,22 @@ public function listePatientsAdmisAction() {
 
 	}
 
+	public function listePostnataleAjaxAction() {
+		$output = $this->getPatientTable ()->getListePatientsAdmisAjax();
+		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
+				'enableJsonExprFinder' => true
+		) ) );
+	}
+	public function listePostnataleAction() {
+	
+		$this->layout ()->setTemplate ( 'layout/postnatale' );
+		$user = $this->layout()->user;
+		$idService = $user['IdService'];
+	
+		return new ViewModel ( array (
+		) );
+	}
+	
 	public function postnataleAction(){
 		$this->layout()->setTemplate('layout/postnatale');
 		$user = $this->layout()->user;

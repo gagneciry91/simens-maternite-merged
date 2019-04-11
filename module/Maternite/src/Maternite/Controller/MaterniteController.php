@@ -5,6 +5,9 @@ namespace Maternite\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Maternite\Form\ConsultationForm;
+//use Maternite\Form\maternite\ConsultationForm;
+use Maternite\Form\PatientForm;
+
 use Zend\Json\Json;
 
 use Maternite\View\Helpers\DocumentPdf;
@@ -36,6 +39,8 @@ class MaterniteController extends AbstractActionController
 {
     protected $controlDate;
     protected $patientTable;
+    protected $prenataleTable;
+    
     protected $consultationTable;
     protected $consultationMaterniteTable;
     protected $motifAdmissionTable;
@@ -46,6 +51,9 @@ class MaterniteController extends AbstractActionController
     protected $consommableTable;
     protected $donneesExamensPhysiquesTable;
     protected $diagnosticsTable;
+    protected $ntecedenttype1Table;
+    protected $grossesse;
+    protected $ntecedenttype2Table;
     protected $ordonnanceTable;
     protected $demandeVisitePreanesthesiqueTable;
     protected $notesExamensMorphologiquesTable;
@@ -64,17 +72,27 @@ class MaterniteController extends AbstractActionController
     protected $resultatVpaTable;
     protected $demandeActeTable;
     protected $admissionTable;
+    protected $antecedenttype2Table;
+    protected $antecedenttype1Table;
 
     public function getAdmissionTable()
     {
         if (!$this->admissionTable) {
             $sm = $this->getServiceLocator();
-            $this->admissionTable = $sm->get('Facturation\Model\AdmissionTable');
+            $this->admissionTable = $sm->get('Maternite\Model\AdmissionTable');
         }
         return $this->admissionTable;
     }
+    public function getAdmissionTable1()
+    {
+    	if (!$this->admissionTable) {
+    		$sm = $this->getServiceLocator();
+    		$this->admissionTable = $sm->get('Facturation\Model\AdmissionTable');
+    	}
+    	return $this->admissionTable;
+    }
 
-    public function getPatientTable()
+    public function getPatientTable1()
     {
         if (!$this->patientTable) {
             $sm = $this->getServiceLocator();
@@ -83,6 +101,15 @@ class MaterniteController extends AbstractActionController
         return $this->patientTable;
     }
 
+    public function getPatientTable()
+    {
+    	if (!$this->patientTable) {
+    		$sm = $this->getServiceLocator();
+    		$this->patientTable = $sm->get('Maternite\Model\PatientTable');
+    	}
+    	return $this->patientTable;
+    }
+    
     public function getConsultationTable()
     {
         if (!$this->consultationTable) {
@@ -94,9 +121,9 @@ class MaterniteController extends AbstractActionController
 
     public function getConsultationMaterniteTable()
     {
-        if (!$this->consultationTable) {
+        if (!$this->consultationMaterniteTable) {
             $sm = $this->getServiceLocator();
-            $this->consultationTable = $sm->get('Maternite\Model\ConsultationMaterniteTable');
+            $this->consultationMaterniteTable = $sm->get('Maternite\Model\ConsultationMaterniteTable');
         }
         return $this->consultationMaterniteTable;
     }
@@ -154,6 +181,17 @@ class MaterniteController extends AbstractActionController
         }
         return $this->consommableTable;
     }
+    
+
+    public function getPrenataleTable()
+    {
+    	if (!$this->prenataleTable) {
+    		$sm = $this->getServiceLocator();
+    		$this->prenataleTable = $sm->get('Maternite\Model\PrenataleTable');
+    	}
+    	return $this->prenataleTable;
+    }
+    
 
     public function getDonneesExamensPhysiquesTable()
     {
@@ -181,7 +219,31 @@ class MaterniteController extends AbstractActionController
         }
         return $this->ordonnanceTable;
     }
-
+    public function getAntecedentType1Table() {
+    	if (! $this->antecedenttype1Table) {
+    		$sm = $this->getServiceLocator ();
+    		$this->antecedenttype1Table = $sm->get ( 'Maternite\Model\AntecedentType1Table' );
+    	}
+    	return $this->antecedenttype1Table;
+    }
+    public function getAntecedentType2Table() {
+    	if (! $this->antecedenttype2Table) {
+    		$sm = $this->getServiceLocator ();
+    		$this->antecedenttype2Table = $sm->get ( 'Maternite\Model\AntecedentType2Table' );
+    	}
+    	return $this->antecedenttype2Table;
+    }
+    
+    public function getGrossesseTable() {
+    	if (! $this->grossesse) {
+    		$sm = $this->getServiceLocator ();
+    		$this->grossesse = $sm->get ( 'Maternite\Model\GrossesseTable' );
+    	}
+    	return $this->grossesse;
+    }
+    
+    
+    
     public function getDemandeVisitePreanesthesiqueTable()
     {
         if (!$this->demandeVisitePreanesthesiqueTable) {
@@ -391,6 +453,67 @@ class MaterniteController extends AbstractActionController
         ));
         return $view;
     }
+    
+    /**
+     * *$$$$**
+     */
+   /** public function listeDesPrenatalesAction()
+    {
+    	$this->layout()->setTemplate('layout/consultationm');
+    	$user = $this->layout()->user;
+    	$NomService = $user ['NomService'];
+    	$IdService = $user ['IdService'];
+    
+    	$patientsAdmis = $this->getPatientTable()->tousPatientsAdmis($NomService, $IdService);
+   // var_dump(count($patientsAdmis));exit();
+    	// RECUPERER TOUS LES PATIENTS AYANT UN RV aujourd'hui
+    	//$tabPatientRV = $this->getconsultationTable()->getPatientsRV($IdService);
+    
+    	$view = new ViewModel (array(
+    			'donnees' => $patientsAdmis,
+    			//'tabPatientRV' => $tabPatientRV
+    	));//var_dump($view);exit();
+    	return $view;
+    }*/
+    
+    public function listePrenataleAjaxAction() {
+    	$output = $this->getPatientTable ()->getListePatientsAdmisAjax1();
+    	return $this->getResponse ()->setContent ( Json::encode ( $output, array (
+    			'enableJsonExprFinder' => true
+    	) ) );
+    }
+    public function listePrenataleAction() {
+    
+    	$this->layout ()->setTemplate ( 'layout/consultationm' );
+    	$user = $this->layout()->user;
+    	$idService = $user['IdService'];
+    
+    	return new ViewModel ( array (
+    	) );
+    }
+    public function listeDesPrenatalesAction() {
+    
+    	//$output = $this->getPatientTable()->getPatientPrenatale();
+    	 //var_dump($output);exit();
+    	$layout = $this->layout ();
+    	$layout->setTemplate ( 'layout/consultationm' );
+    	$view = new ViewModel ();
+    
+    	return $view;
+    }
+    
+    
+    
+    public function listeDesPrenatalesAjaxAction() {
+    	$id_pat = $this->params()->fromQuery('id_patient', 0);
+    
+    	$output = $this->getPatientTable()->getPatientPrenatale1();
+    	return $this->getResponse ()->setContent ( Json::encode ( $output, array (
+    			'enableJsonExprFinder' => true
+    	) ) );
+    }
+    
+    
 
     /**
      * *$$$$**
@@ -399,7 +522,7 @@ class MaterniteController extends AbstractActionController
     {
         $this->layout()->setTemplate('layout/consultationm');
         $id_pat = $this->params()->fromRoute('id_patient', 0);
-
+var_dump('test');exit();
         $user = $this->layout()->user;
         $id_surveillant = $user ['id_personne'];
 
@@ -456,7 +579,7 @@ class MaterniteController extends AbstractActionController
 
         $this->getConsultationTable()->addConsultation($form, $IdDuService);
         $id_cons = $form->get("id_cons")->getValue();
-        $this->getConsultationTable()->addConsultationEffective($id_cons);
+        $this->getConsultationTable()->addConsultationMaternite($id_cons);
 
         // Recuperer les donnees sur les bandelettes urinaires
         // Recuperer les donnees sur les bandelettes urinaires
@@ -566,7 +689,6 @@ class MaterniteController extends AbstractActionController
             $form->setData($formData);
 
             // mettre a jour la consultation
-            $this->getConsultationTable()->updateConsultation($form);
 
             // Recuperer les donnees sur les bandelettes urinaires
             // Recuperer les donnees sur les bandelettes urinaires
@@ -609,7 +731,103 @@ class MaterniteController extends AbstractActionController
             'donnees' => $tab
         ));
     }
-
+    
+    public function infoPrenataleAction() {
+    	$this->layout ()->setTemplate ( 'layout/consultationm' );
+    	$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+      //var_dump($id_pat);exit();
+    	$user = $this->layout()->user;
+    	$idService = $user ['IdService'];
+    	$form = new ConsultationForm ();
+    
+    	$formData = $this->getRequest ()->getPost ();
+    	$form->setData ( $formData );
+    
+    	$id_cons = $form->get ( "id_cons" )->getValue ();
+    	$prenatale = $this->getConsultationTable()->listePrenatale($id_pat);
+      
+    	$patient = $this->getPatientTable ();
+    	$unPatient = $patient->getInformationPatient( $id_pat);
+    
+    	return array (
+    			'donnees_pre'=>$prenatale ,
+    			'lesdetails' => $unPatient,
+    			'image' => $patient->getPhoto ( $id_pat ),
+    			'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
+    	);
+    }
+    
+    public function enregistrementModificationAction() {
+    
+    	$user = $this->layout()->user;
+    	//var_dump($user); exit();
+    	$id_employe = $user['id_personne']; //L'utilisateur connecté
+    
+    	if (isset ( $_POST ['terminer'] ))
+    	{
+    		$Control = new DateHelper();
+    		$Patient = $this->getPatientTable ();
+    		$today = new \DateTime ( 'now' );
+    		$nomfile = $today->format ( 'dmy_His' );
+    		$date_modification = $today->format ( 'Y-m-d H:i:s' );
+    		$fileBase64 = $this->params ()->fromPost ( 'fichier_tmp' );
+    		$fileBase64 = substr ( $fileBase64, 23 );
+    
+    		if($fileBase64){
+    			$img = imagecreatefromstring(base64_decode($fileBase64));
+    		}else {
+    			$img = false;
+    		}
+    
+    		$date_naissance = $this->params ()->fromPost ( 'DATE_NAISSANCE' );
+    		if($date_naissance){ $date_naissance = $Control->convertDateInAnglais($this->params ()->fromPost ( 'DATE_NAISSANCE' )); }else{ $date_naissance = null;}
+    
+    		$donnees = array(
+    				'LIEU_NAISSANCE' => $this->params ()->fromPost ( 'LIEU_NAISSANCE' ),
+    				'EMAIL' => $this->params ()->fromPost ( 'EMAIL' ),
+    				'NOM' => $this->params ()->fromPost ( 'NOM' ),
+    				'TELEPHONE' => $this->params ()->fromPost ( 'TELEPHONE' ),
+    				'NATIONALITE_ORIGINE' => $this->params ()->fromPost ( 'NATIONALITE_ORIGINE' ),
+    				'PRENOM' => $this->params ()->fromPost ( 'PRENOM' ),
+    				'PROFESSION' => $this->params ()->fromPost ( 'PROFESSION' ),
+    				'NATIONALITE_ACTUELLE' => $this->params ()->fromPost ( 'NATIONALITE_ACTUELLE' ),
+    				'DATE_NAISSANCE' => $date_naissance,
+    				'ADRESSE' => $this->params ()->fromPost ( 'ADRESSE' ),
+    				'SEXE' => $this->params ()->fromPost ( 'SEXE' ),
+    				'AGE' => $this->params ()->fromPost ( 'AGE' ),
+    				'NOM_CONJOINT' => $this->params ()->fromPost ( 'NOM_CONJOINT' ),
+    				'PRENOM_CONJOINT' => $this->params ()->fromPost ( 'PRENOM_CONJOINT' ),
+    				'PROFESSION_CONJOINT' => $this->params ()->fromPost ( 'PROFESSION_CONJOINT' ),
+    		);
+    
+    		$id_patient =  $this->params ()->fromPost ( 'ID_PERSONNE' );
+    		if ($img != false) {
+    
+    			$lePatient = $Patient->getInfoPatient ( $id_patient );
+    			$ancienneImage = $lePatient['PHOTO'];
+    
+    			if($ancienneImage) {
+    				unlink ( 'C:\wamp64\www\simens\public\img\photos_patients\\' . $ancienneImage . '.jpg' );
+    			}
+    			imagejpeg ( $img, 'C:\wamp64\www\simens\public\img\photos_patients\\' . $nomfile . '.jpg' );
+    
+    			$donnees['PHOTO'] = $nomfile;
+    			$Patient->updatePatient ( $donnees , $id_patient, $date_modification, $id_employe);
+    
+    			return $this->redirect ()->toRoute ( 'maternite', array (
+    					'action' => 'liste-patient'
+    			) );
+    		} else {
+    			$Patient->updatePatient($donnees, $id_patient, $date_modification, $id_employe);
+    			return $this->redirect ()->toRoute ( 'maternite', array (
+    					'action' => 'liste-patient'
+    			) );
+    		}
+    	}
+    	return $this->redirect ()->toRoute ( 'maternite', array (
+    			'action' => 'liste-patient'
+    	) );
+    }
     // ***$$$$***
     public function consultationMedecinAction()
     {
@@ -630,12 +848,12 @@ class MaterniteController extends AbstractActionController
     // ***$$$$***
     public function complementConsultationAction()
     {
-        $this->layout()->setTemplate('layout/accouchement');
+        $this->layout()->setTemplate('layout/consultationm');
       
         $user = $this->layout()->user;
         $IdDuService = $user ['IdService'];
         $id_medecin = $user ['id_personne'];
-
+        $id_grossesse=$this->params()->fromQuery('id_grossesse');
         $id_pat = $this->params()->fromQuery('id_patient', 0);
         $id = $this->params()->fromQuery('id_cons');
      
@@ -711,7 +929,9 @@ class MaterniteController extends AbstractActionController
             'glycemie_capillaire' => $consult->glycemie_capillaire,
             'pressionarterielle' => $consult->pression_arterielle,
             'hopital_accueil' => $idHopital
-        );
+        );//var_dump($data);exit();
+        $form->populateValues($data);
+      
         $k = 1;
         foreach ($motif_admission as $Motifs) {
             $data ['motif_admission' . $k] = $Motifs ['Libelle_motif'];
@@ -726,7 +946,12 @@ class MaterniteController extends AbstractActionController
         // RECUPERATION DES ANTECEDENTS
         $donneesAntecedentsPersonnels = $this->getAntecedantPersonnelTable()->getTableauAntecedentsPersonnels($id_pat);
         $donneesAntecedentsFamiliaux = $this->getAntecedantsFamiliauxTable()->getTableauAntecedentsFamiliaux($id_pat);
-
+        $this->getDateHelper();
+       
+        $donne_ante=$this->getAntecedentType1Table()->getAntecedentType1($id_pat);
+        $donne_ante2=$this->getAntecedentType2Table()->getAntecedentType2($id);
+        $donne_grossesses=$this->getGrossesseTable()->getGrossesse($id_pat,$id);
+        
         // Recuperer les antecedents medicaux ajouter pour le patient
         // Recuperer les antecedents medicaux ajouter pour le patient
         $antMedPat = $this->getConsultationTable()->getAntecedentMedicauxPersonneParIdPatient($id_pat);
@@ -734,14 +959,96 @@ class MaterniteController extends AbstractActionController
         // Recuperer les antecedents medicaux
         // Recuperer les antecedents medicaux
         $listeAntMed = $this->getConsultationTable()->getAntecedentsMedicaux();
+      // antecedent gyneco
       
+        $donne_ant1=array(
+        			
+        		'enf_viv'=>$donne_ante['enf_viv'],
+        		'geste'=>$donne_ante['geste'],
+        		'parite'=>$donne_ante['parite'],
+        		'note_enf'=>$donne_ante['note_enf'],
+        		'note_geste'=>$donne_ante['note_geste'],
+        		'note_parite'=>$donne_ante['note_parite'],
+        		'mort_ne'=>$donne_ante['mort_ne'],
+        		'note_mort_ne'=>$donne_ante['note_mort_ne'],
+        		'cesar'=>$donne_ante['cesar'],
+        		'note_cesar'=>$donne_ante['note_cesar'],
+        		'groupe_sanguins'=>$donne_ante['groupe_sanguin'],
+        		'rhesus'=>$donne_ante['rhesus'],
+        		'note_gs'=>$donne_ante['note_gs'],
+        		'test_emmel'=>$donne_ante['test_emmel'],
+        		'profil_emmel'=>$donne_ante['profil_emmel'],
+        		'note_emmel'=>$donne_ante['note_emmel'],
+        
+        			
+        			
+        );
+        
+        $form->populateValues($donne_ant1);
+        
+        $donne_antecedent2=array(
+        		'dystocie'=>$donne_ante2['dystocie'],
+        		'eclampsie'=>$donne_ante2['eclampsie'],
+        		'regularite'=>$donne_ante2['cycle'],
+        		'quantite_regle'=>$donne_ante2['quantite_regle'],
+        		'duree_cycle'=>$donne_ante2['duree_cycle'],
+        		'note_dystocie'=>$donne_ante2['note_dystocie'],
+        		'note_eclampsie'=>$donne_ante2['note_eclampsie'],
+        		'autre_go'=>$donne_ante2['autre_go'],
+        		'note_autre_go'=>$donne_ante2['note_autre'],
+        		'nb_garniture_jr'=>$donne_ante2['nb_garniture_jr'],
+        		'contraception'=>$donne_ante2['contraception'],
+        		'type_contraception'=>$donne_ante2['type_contraception'],
+        		'duree_contraception'=>$donne_ante2['duree_contraception'],
+        		'note_contraception'=>$donne_ante2['note_contraception'],
+        );//var_dump($donne_antecedent2);exit();
+        
+        $form->populateValues($donne_antecedent2);
+        
+        
+        $donne_grossesse=array(
+        		'ddr'=>$donne_grossesses['ddr'],
+        		'date_cons'=>$donne_grossesses['date_cons'],
+        		
+        		'duree_grossesse'=>$donne_grossesses['duree_grossesse'],
+        		'note_ddr'=>$donne_grossesses['note_ddr'],
+        		'nb_cpn'=>$donne_grossesses['nb_cpn'] ,
+        		'note_cpn'=>$donne_grossesses['note_cpn'],
+        		'bb_attendu'=>$donne_grossesses['bb_attendu'],
+        		'nombre_bb'=>$donne_grossesses['nombre_bb'],
+        		'note_bb'=>$donne_grossesses['note_bb'],
+        		'vat_1'=>$donne_grossesses['vat_1'],
+        		'vat_2'=>$donne_grossesses['vat_2'],
+        		'vat_3'=>$donne_grossesses['vat_3'],
+        		'note_vat'=>$donne_grossesses['note_vat'],
+        );
+        
+        
+        
+        $form->populateValues($donne_grossesse);
+  /*       $cons=$this->getConsultationTable()->addConsultationMaternite($form,$id,$id_grossesse);
+        $datacons = array(
+        		'id_cons' => $cons->id_cons,
+        		'id_medecin' => $cons->id_medecin,
+        		'id_patient' => $cons->id_patient,
+        		'date_cons' => $cons->date,
+        		'toucherVaginale' => $cons->toucherVaginale,
+        		'hauteurUterine' => $cons->hauteurUterine,
+        		'vitaliteFoeutus'=>$consult->vitaliteFoeutus,
+        		'positionFoeutus' => $cons->positionFoeutus
+        );
+        //var_dump($data);exit();
+        $form->populateValues($datacons);
+        
+        var_dump($datacons);exit(); */
+        
         // FIN ANTECEDENTS --- FIN ANTECEDENTS --- FIN ANTECEDENTS
         // FIN ANTECEDENTS --- FIN ANTECEDENTS --- FIN ANTECEDENTS
 
         // Recuperer la liste des actes
         // Recuperer la liste des actes
        
-        $form->populateValues(array_merge($data, $bandelettes, $donneesAntecedentsPersonnels, $donneesAntecedentsFamiliaux));
+        $form->populateValues(array_merge( $bandelettes, $donneesAntecedentsPersonnels, $donneesAntecedentsFamiliaux));
         return array(
             'lesdetails' => $liste,
             'id_cons' => $id,
@@ -765,7 +1072,7 @@ class MaterniteController extends AbstractActionController
             'listeAntMed' => $listeAntMed,
             'antMedPat' => $antMedPat,
             'nbAntMedPat' => $antMedPat->count(),
-        ); var_dump('test');exit();
+        ); //var_dump('test');exit();
     }
 
     // ***$$$$***
@@ -778,7 +1085,7 @@ class MaterniteController extends AbstractActionController
         $user = $this->layout()->user;
         $IdDuService = $user ['IdService'];
         $id_medecin = $user ['id_personne'];
-//var_dump('test');exit();
+        //var_dump('test');exit();
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********
@@ -791,7 +1098,8 @@ class MaterniteController extends AbstractActionController
        
         // mettre a jour les motifs d'admission
         $this->getMotifAdmissionTable()->deleteMotifAdmission($id_cons);
-
+        //$this->getConsultationTable()->updateConsultation($form);
+        
         $motisAdmission = array(
 
             'id_cons' => $id_cons,
@@ -800,10 +1108,11 @@ class MaterniteController extends AbstractActionController
         );
 
         $this->getMotifAdmissionTable()->addMotifAdmission($motisAdmission);
-      
+       // var_dump('tesy');exit();
+        
         // mettre a jour la consultation
         $this->getConsultationTable()->updateLesConsultation($form);
-       
+       // var_dump('test');exit();
         // Recuperer les donnees sur les bandelettes urinaires
         // Recuperer les donnees sur les bandelettes urinaires
         $bandelettes = array(
@@ -818,7 +1127,7 @@ class MaterniteController extends AbstractActionController
         // mettre a jour les bandelettes urinaires
         $this->getConsultationTable()->deleteBandelette($id_cons);
         $this->getConsultationTable()->addBandelette($bandelettes);
-      
+    
         // POUR LES EXAMENS PHYSIQUES
         // POUR LES EXAMENS PHYSIQUES
         // POUR LES EXAMENS PHYSIQUES
@@ -876,11 +1185,16 @@ class MaterniteController extends AbstractActionController
             'htaAF' => $this->params()->fromPost('htaAF'),
             'NoteHtaAF' => $this->params()->fromPost('NoteHtaAF')
         );
-
+        
         $id_personne = $this->getAntecedantPersonnelTable()->getIdPersonneParIdCons($id_cons);
         $this->getAntecedantPersonnelTable()->addAntecedentsPersonnels($donneesDesAntecedents, $id_personne, $id_medecin);
         $this->getAntecedantsFamiliauxTable()->addAntecedentsFamiliaux($donneesDesAntecedents, $id_personne, $id_medecin);
-
+        $id_grossesse= $this->getGrossesseTable()->updateGrossesse($formData);
+        $this->getConsultationMaterniteTable()->addConsultationMaternite($formData,$id_cons,$id_grossesse);
+        $id_antecedent1 = $this->getAntecedentType1Table ()-> updateAntecedentType1($formData);
+        $id_antecedent2 = $this->getAntecedentType2Table ()-> updateAntecedentType2($formData);
+        
+        
         // POUR LES RESULTATS DES EXAMENS MORPHOLOGIQUES
         // POUR LES RESULTATS DES EXAMENS MORPHOLOGIQUES
         // POUR LES RESULTATS DES EXAMENS MORPHOLOGIQUES
@@ -908,6 +1222,19 @@ class MaterniteController extends AbstractActionController
         );
 
         $this->getDiagnosticsTable()->updateDiagnostics($info_diagnostics);
+        
+        //prenatale
+        $datapre=array(
+        		'id_cons' => $id_cons,
+        		'hauteurUterine'=> $this->params()->fromPost('hauteurUterine'),
+        		'hauteurUterine'=> $this->params()->fromPost('hauteurUterine'),
+        		'toucherVaginal'=> $this->params()->fromPost('toucherVaginal'),
+        		'positionFoeutus'=> $this->params()->fromPost('positionFoeutus'),
+        		'vitaliteFoeutus'=> $this->params()->fromPost('vitaliteFoeutus'),
+        		
+        		
+        );//var_dump($datapre);exit();
+        //$this->getPrenataleTable()->updatePrenatale($datapre);
 
         // POUR LES TRAITEMENTS
         // POUR LES TRAITEMENTS
@@ -963,15 +1290,15 @@ class MaterniteController extends AbstractActionController
         }
 
         /* Mettre a jour la duree du traitement de l'ordonnance */
-        $idOrdonnance = $this->getOrdonnanceTable()->updateOrdonnance($tab, $donnees);
+        //$idOrdonnance = $this->getOrdonnanceTable()->updateOrdonnance($tab, $donnees);
 
         /* Mettre a jour les medicaments */
-        $resultat = $Consommable->updateOrdonConsommable($tab, $idOrdonnance, $nomMedicament);
+       // $resultat = $Consommable->updateOrdonConsommable($tab, $idOrdonnance, $nomMedicament);
 
         /* si aucun mï¿½dicament n'est ajoutï¿½ ($resultat = false) on supprime l'ordonnance */
-        if ($resultat == false) {
-            $this->getOrdonnanceTable()->deleteOrdonnance($idOrdonnance);
-        }
+        //if ($resultat == false) {
+          //  $this->getOrdonnanceTable()->deleteOrdonnance($idOrdonnance);
+        //}
 
         /**
          * ** CHIRURGICAUX ***
@@ -1112,7 +1439,20 @@ class MaterniteController extends AbstractActionController
             'frequence_respiratoire' => $consult->frequence_respiratoire,
             'glycemie_capillaire' => $consult->glycemie_capillaire
         );
-
+        $form->populateValues($data);
+        $datacons = array(
+        		'id_cons' => $consult->id_cons,
+        		'id_medecin' => $consult->id_medecin,
+        		'id_patient' => $consult->id_patient,
+        		'date_cons' => $consult->date,
+        		'toucherVaginale' => $consult->toucherVaginale,
+        		'hauteurUterine' => $consult->hauteurUterine,
+                'vitaliteFoeutus'=>$consult->vitaliteFoeutus,
+        		'positionFoeutus' => $consult->positionFoeutus
+        		);
+        //var_dump($data);exit();
+        		$form->populateValues($datacons);
+        		
         // POUR LES MOTIFS D'ADMISSION
         // POUR LES MOTIFS D'ADMISSION
         // POUR LES MOTIFS D'ADMISSION
@@ -3628,6 +3968,38 @@ class MaterniteController extends AbstractActionController
 
         return $html;
     }
+    public function modifierAction() {
+    
+    	$control = new DateHelper();
+    	$this->layout ()->setTemplate ( 'layout/consultationm' );
+    	$id_patient = $this->params ()->fromRoute ( 'id_patient', 0 );
+    
+    	$infoPatient = $this->getPatientTable ();
+    	try {
+    		$info = $infoPatient->getInfoPatient( $id_patient );
+    	} catch ( \Exception $ex ) {
+    		return $this->redirect ()->toRoute ( 'consultationm', array (
+    				'action' => 'liste-patient'
+    		) );
+    	}
+    	$form = new PatientForm();
+    	$form->get('NATIONALITE_ORIGINE')->setvalueOptions($infoPatient->listeDeTousLesPays());
+    	$form->get('NATIONALITE_ACTUELLE')->setvalueOptions($infoPatient->listeDeTousLesPays());
+    
+    	$date_naissance = $info['DATE_NAISSANCE'];
+    	if($date_naissance){ $info['DATE_NAISSANCE'] =  $control->convertDate($info['DATE_NAISSANCE']); }else{ $info['DATE_NAISSANCE'] = null;}
+    
+    	$form->populateValues ( $info );
+    
+    	if (! $info['PHOTO']) {
+    		$info['PHOTO'] = "identite";
+    	}
+    	return array (
+    			'form' => $form,
+    			'photo' => $info['PHOTO']
+    	);
+    }
+    
 
     public function detailInfoLiberationPatientAction()
     {
@@ -5494,6 +5866,117 @@ class MaterniteController extends AbstractActionController
         return $this->getResponse()->setContent(Json::encode($tarifActe));
     }
 
+
+    //enregistrement de la PPatiente
+    public function enregistrementAction() {
+    
+    	$user = $this->layout()->user;
+    	$id_employe = $user['id_personne']; //L'utilisateur connecté
+    
+    	// CHARGEMENT DE LA PHOTO ET ENREGISTREMENT DES DONNEES
+    	if (isset ( $_POST ['terminer'] )||isset($_POST ['terminer_ad']))  // si formulaire soumis
+    	{
+    		$Control = new DateHelper();
+    		$form = new PatientForm();
+    		$Patient = $this->getPatientTable ();
+    		$today = new \DateTime ( 'now' );
+    		$nomfile = $today->format ( 'dmy_His' );
+    		$date_enregistrement = $today->format ( 'Y-m-d H:i:s' );
+    		$fileBase64 = $this->params ()->fromPost ( 'fichier_tmp' );
+    		$fileBase64 = substr ( $fileBase64, 23 );
+    
+    		if($fileBase64){
+    			$img = imagecreatefromstring(base64_decode($fileBase64));
+    		}else {
+    			$img = false;
+    		}
+    
+    		$date_naissance = $this->params ()->fromPost ( 'DATE_NAISSANCE' );
+    		if($date_naissance){ $date_naissance = $Control->convertDateInAnglais($this->params ()->fromPost ( 'DATE_NAISSANCE' )); }else{ $date_naissance = null;}
+    
+    		$donnees = array(
+    				'LIEU_NAISSANCE' => $this->params ()->fromPost ( 'LIEU_NAISSANCE' ),
+    				'EMAIL' => $this->params ()->fromPost ( 'EMAIL' ),
+    				'NOM' => $this->params ()->fromPost ( 'NOM' ),
+    				'TELEPHONE' => $this->params ()->fromPost ( 'TELEPHONE' ),
+    				'NATIONALITE_ORIGINE' => $this->params ()->fromPost ( 'NATIONALITE_ORIGINE' ),
+    				'PRENOM' => $this->params ()->fromPost ( 'PRENOM' ),
+    				'PROFESSION' => $this->params ()->fromPost ( 'PROFESSION' ),
+    				'NATIONALITE_ACTUELLE' => $this->params ()->fromPost ( 'NATIONALITE_ACTUELLE' ),
+    				'DATE_NAISSANCE' => $date_naissance,
+    				'ADRESSE' => $this->params ()->fromPost ( 'ADRESSE' ),
+    				'SEXE' => $this->params ()->fromPost ( 'SEXE' ),
+    				'AGE' => $this->params ()->fromPost ( 'AGE' ),
+    				'DATE_MODIFICATION' => $today->format ( 'Y-m-d' ),
+    				'NOM_CONJOINT' => $this->params ()->fromPost ( 'NOM_CONJOINT' ),
+    				'PRENOM_CONJOINT' => $this->params ()->fromPost ( 'PRENOM_CONJOINT' ),
+    				'PROFESSION_CONJOINT' => $this->params ()->fromPost ( 'PROFESSION_CONJOINT' ),
+    		);
+    			
+    		//var_dump($donnees); exit();
+    			
+    		if ($img != false) {
+    
+    			$donnees['PHOTO'] = $nomfile;
+    			//ENREGISTREMENT DE LA PHOTO
+    			imagejpeg ( $img, 'C:\wamp64\www\simens-maternite\public\img\photos_patients\\' . $nomfile . '.jpg' );
+    			//ENREGISTREMENT DES DONNEES
+    				
+    			$Patient->addPatient ( $donnees , $date_enregistrement , $id_employe );
+    			if (isset($_POST ['terminer'])){
+    				return $this->redirect ()->toRoute ( 'consultationm', array (
+    						'action' => 'liste-patient'
+    				) );}
+    				if (isset($_POST ['terminer_ad'])){
+    					return $this->redirect ()->toRoute ( 'consultationm', array (
+    							'action' => 'admission'
+    					));
+    						
+    				}
+    		} else {
+    
+    			// On enregistre sans la photo
+    			//var_dump($donnees); exit();
+    			$Patient->addPatient ( $donnees , $date_enregistrement , $id_employe );
+    			//var_dump($donnees); exit();
+    			if (isset($_POST ['terminer'])){
+    				return $this->redirect ()->toRoute ( 'consultationm', array (
+    						'action' => 'liste-patient'
+    				) );}
+    				if (isset($_POST ['terminer_ad'])){
+    					return $this->redirect ()->toRoute ( 'consultationm', array (
+    							'action' => 'admission'
+    					) );
+    						
+    						
+    				}
+    					
+    					
+    		}
+    	}
+    
+    	return $this->redirect ()->toRoute ( 'consultationm', array (
+    			'action' => 'liste-patient'
+    	) );
+    }
+    
+    public function listePatientAction() {
+    	$layout = $this->layout ();
+    	$layout->setTemplate ( 'layout/consultationm' );
+    	$view = new ViewModel ();
+    	return $view;
+    }
+    
+    
+    
+    public function listePatientAjaxAction() {
+    
+    	$output = $this->getPatientTable()->getListePatient();
+    	return $this->getResponse ()->setContent ( Json::encode ( $output, array (
+    			'enableJsonExprFinder' => true
+    	) ) );
+    }
+   
     public function demandeActeAction()
     {
         $id_cons = $this->params()->fromPost('id_cons');

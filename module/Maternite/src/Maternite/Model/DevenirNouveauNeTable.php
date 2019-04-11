@@ -78,7 +78,7 @@ $select->join ( array (
 		$stat = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stat->execute ();
 	
-		return $result;var_dump(count($result));exit();
+		return $result;//var_dump(count($result));exit();
 	}
 	
 	
@@ -120,5 +120,21 @@ $select->join ( array (
 			
 			$this->tableGateway->insert ( $datanouveauNe );
 		}
+	}
+	public function getNbMortNe(){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array ('nv' => 'devenir_nouveau_ne'))
+			->columns( array( '*' ))
+			//->join(array('gros' => 'grossesse'), 'enf.id_cons = gros.id_cons' , array('*'))
+			->where(array(
+					'nv.decede'=>'Oui'
+			));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+			$resultat = $stat->execute();
+			//var_dump(count($resultat));exit();
+			return count($resultat);
+	
 	}
 }

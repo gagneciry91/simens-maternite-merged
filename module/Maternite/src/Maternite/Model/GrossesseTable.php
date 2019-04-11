@@ -70,16 +70,21 @@ class GrossesseTable {
 	}
 	
 
-	
+	public function getnbVAT1(){
+		
+	}
 
 	public function updateGrossesse($donnees) {
-	
+		
 		$Control = new DateHelper();
 		 
 		$this->tableGateway->delete ( array (
 				'id_cons' => $donnees ['id_cons'],	
-		) );
+		) );		
+				
 		$ddr = $donnees['ddr'];
+		$date_cons = $donnees['date_cons'];
+		
 		$nb_bb=$donnees['bb_attendu'];
 		if($nb_bb==1){
 			$b=1;}
@@ -91,11 +96,15 @@ class GrossesseTable {
 					{
 						$b=$donnees['nombre_bb'];
 					}
-		if($ddr){ $ddr = $Control->convertDateInAnglais($ddr); }else{ $ddr = null;}	
+		if($ddr){ $ddr = $Control->convertDateInAnglais($ddr); }else{ $ddr = null;}
+		if($date_cons){ $date_cons = $Control->convertDateInAnglais($date_cons); }else{ $date_cons = null;}
+		
 		$datagrossesse = array (
 				'id_cons' => $donnees ['id_cons'],
 				'id_patient'=>$donnees['id_patient'],
 				'ddr'=>$ddr,
+				'date_cons'=>$date_cons,
+				
 				'duree_grossesse'=>$donnees['duree_grossesse'],
 				'nb_cpn'=>$donnees['nb_cpn'],
 				'bb_attendu'=>$donnees['bb_attendu'],				
@@ -110,7 +119,7 @@ class GrossesseTable {
 		);
 	
 		return $this->tableGateway->getLastInsertValue($this->tableGateway->insert($datagrossesse));
-	
+		var_dump('tset');exit();
 	}
 	
 	//AVORTEMENT

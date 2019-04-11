@@ -58,8 +58,9 @@ class AntecedentType2Table {
         			
         	);
         
-        	
-        		return $this->tableGateway->getLastInsertValue($this->tableGateway->insert($datadonnee));
+        return	$this->tableGateway->update($datadonnee, array('id_cons'=> $donnees['id_cons']));
+        	 
+        		//return $this->tableGateway->getLastInsertValue($this->tableGateway->insert($datadonnee));
         	
         	//var_dump($datadonnee); exit();
         	//$this->tableGateway->insert ( $datadonnee );

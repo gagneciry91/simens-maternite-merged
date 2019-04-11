@@ -1,10 +1,10 @@
 <?php use Maternite\View\Helpers\DateHelper;?>
 
 <!-- MES STYLES -->
-<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleMaternite.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/styleMaternite.css');?>
 
 <!-- MES JS -->
-<?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/accouchement/jsMaternite.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/jsMaternite.js');?>
 
 <?php $Control = new DateHelper();
 use Zend\Db\ResultSet\ResultSet;
@@ -82,7 +82,7 @@ table td
 {
 	width: 14%;
 }
-#date_accouchement 
+#date_prenatale 
 {
 	width: 10%;
 }
@@ -124,9 +124,9 @@ $(window).load(function () {
 });
 </script>
 
-<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 20px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> INFORMATIONS SUR LES ACCOUCHEMENTS</div>
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 20px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> INFORMATIONS SUR LES CONSULTATIONS PRENATALES</div>
 <div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
-<div id="contenu" style='height:1000px;'>
+<div id="contenu" style='height:800px;'>
 
   <div style='width: 100%;'>
 
@@ -220,11 +220,9 @@ $(window).load(function () {
 			<tr style="height: 50px; width: 100%;">
 				<!--  <th id="nom" align="center">Num Dossier</th>-->
 				
-				<th id="num_acc" align="center">Numero Accouchement</th>
-				<!--  <th id="num_doss" align="center">Numero Dossier</th>-->
-				<th id="date_accouchement" align="center">Date d'accouchement</th>
-				<th id="type_acc" align="center" >Type D'accouchement</th>
-				<th id="nb_enf" align="center" >Nb Enfants</th>
+				 <th id="num_acc" align="center">Numero CPN</th>
+				  <th id="date_prenatale" align="center">Date CPN</th>
+				<th id="num_doss" align="center">Numero Consultation</th>
 				<th id="effectuer" align="center">Options</th>
 			</tr>
 		</thead>
@@ -232,26 +230,22 @@ $(window).load(function () {
 		<?php
 				
 				$resultSet = new ResultSet ();
-				$resultSet->initialize ( $this->donnees_acc );
+				$resultSet->initialize ( $this->donnees_pre );
 				$resultSet->buffer ();
 				?>
-		<?php foreach( $resultSet as $donnees_acc) :?>
+		<?php foreach( $resultSet as $donnees_pre) :?>
 		<?php {
 
 			?>
 					<tr>
-				     
-				           <td><?php echo $this->escapeHtml($donnees_acc['Id_cons']);?>  </td>
-				           <!--   <td><?php //echo $this->escapeHtml($donnees_acc['numero_dossier']);?>  </td>-->
-				      <td><?php echo $this->escapeHtml($donnees_acc['date_acc']);?> </td>
-				      <td><?php echo $this->escapeHtml($donnees_acc['type_acc']);?> </td>
-			          <td>  <?php 
-			   		    //if($this->$donnees_acc['bb_attendu']==0){ echo $this->escapeHtml($donnees_acc['nb_bb']);} else { echo $this->escapeHtml($donnees_acc['bb_attendu']);}
-			   		    echo $this->escapeHtml($donnees_acc['nb_bb']);
-			         ?> 		          
-			          </td>
+				                 <td><?php echo $this->escapeHtml($donnees_pre['nb_cpn']);?>  </td>
+				                  <td><?php echo $this->escapeHtml($donnees_pre['date_consultation']);?>  </td>
+				                 
+				                 <td><?php echo $this->escapeHtml($donnees_pre['Id_cons']);?>  </td>
+				           <!--   <td><?php echo $this->escapeHtml($donnees_pre['numero_dossier']);?>  </td>-->
+			         
 				      <td><a
-					     href="<?php echo $this->url('accouchement', array('action'=>'complement-accouchement'),  array('query'=>array('id_patient'=>$this->escapeHtml($donnees_acc['Id']),'id_cons'=>$this->escapeHtml($donnees_acc['Id_cons']))));?>">
+					     href="<?php echo $this->url('maternite', array('action'=>'complement-consultation'),  array('query'=>array('id_patient'=>$this->escapeHtml($donnees_pre['Id']),'id_cons'=>$this->escapeHtml($donnees_pre['Id_cons']))));?>">
 						<img style="display: inline;"
 						src='<?php echo $this->basePath().'/images_icons/transfert_droite.png'?>'
 						alt='Ouvrir Dossier' title=" Ouvrir Dossier"
@@ -266,60 +260,30 @@ $(window).load(function () {
 		   	      <div class='block' id='thoughtbot' style=' vertical-align: bottom; padding-left:60%; padding-top: 35px; font-size: 18px; font-weight: bold;'><button id='terminer'>Retour</button></div>
 		       
 		  </div>
-           
-           
-           
-           
-           
-    
-
-    
+   
      </div>
      
 		   
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script type="text/javascript">
 var base_url = window.location.toString();
 var tabUrl = base_url.split("public");
 
  $("#terminer").click(function(){
-	 vart=tabUrl[0]+'public/accouchement/liste-des-accouchements';
+	 vart=tabUrl[0]+'public/maternite/liste-des-prenatales';
      $(location).attr("href",vart);
  });
 
- function accouchement(idPatient, id_cons){
-		vart=tabUrl[0]+'public/accouchement/complement-accouchement?id_patient='+idPatient+'&id_cons='+id_cons;
+ function maternite(idPatient, id_cons){
+		vart=tabUrl[0]+'public/maternite/complement-consultation?id_patient='+idPatient+'&id_cons='+id_cons;
 	    $(location).attr("href",vart);
 	}
 
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
-$('#plus_accouchement').toggle(true);
-$("#accouchement").replaceWith("<li id='dossier_patient' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Accouchement </span></a></li>");
-dep_accouchement1();
+$('#plus_prenatale').toggle(true);
+$("#prenatale").replaceWith("<li id='dossier_patient' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> prenatale </span></a></li>");
+dep_prenatale1();
 $('#liste_dossier_patient_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
 
 </script>

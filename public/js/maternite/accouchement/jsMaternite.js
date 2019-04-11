@@ -102,6 +102,8 @@ $(function() {
             var  age_ = $("#AGE");
             var  dg = $("#duree_grossesse");
             var  dac = $("#date_accouchement");
+            var datedebut=$("#date_debutsta");
+            var datefin=$("#date_finsta");
             var  ha = $("#heure_accouchement");
             var  date_dece_ = $("#date_dece_");
     //$( "button" ).button(); // APPLICATION DU STYLE POUR LES BOUTONS
@@ -202,6 +204,63 @@ $(function() {
 
   		
   		
+  		$('#date_debutsta').datepicker(
+    			$.datepicker.regional['fr'] = {
+    					closeText: 'Fermer',
+    					changeYear: true,
+    					yearRange: 'c-80:c',
+    					prevText: '&#x3c;Préc',
+    					nextText: 'Suiv&#x3e;',
+    					currentText: 'Courant',
+    					monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
+    					'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
+    					monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Juin',
+    					'Jul','Aout','Sep','Oct','Nov','Dec'],
+    					dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+    					dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+    					dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+    					weekHeader: 'Sm',
+    					dateFormat: 'dd/mm/yy',
+    					firstDay: 1,
+    					isRTL: false,
+    					showMonthAfterYear: false,
+    					yearRange: '1900:2050',
+    					showAnim : 'bounce',
+    					changeMonth: true,
+    					changeYear: true,
+    					yearSuffix: '',
+    					maxDate: 0
+    			}
+    	);
+  		
+  		$('#date_finsta').datepicker(
+    			$.datepicker.regional['fr'] = {
+    					closeText: 'Fermer',
+    					changeYear: true,
+    					yearRange: 'c-80:c',
+    					prevText: '&#x3c;Préc',
+    					nextText: 'Suiv&#x3e;',
+    					currentText: 'Courant',
+    					monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
+    					'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
+    					monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Juin',
+    					'Jul','Aout','Sep','Oct','Nov','Dec'],
+    					dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+    					dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+    					dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+    					weekHeader: 'Sm',
+    					dateFormat: 'dd/mm/yy',
+    					firstDay: 1,
+    					isRTL: false,
+    					showMonthAfterYear: false,
+    					yearRange: '1900:2050',
+    					showAnim : 'bounce',
+    					changeMonth: true,
+    					changeYear: true,
+    					yearSuffix: '',
+    					maxDate: 0
+    			}
+    	);
   		$('#date_accouchement').datepicker(
     			$.datepicker.regional['fr'] = {
     					closeText: 'Fermer',

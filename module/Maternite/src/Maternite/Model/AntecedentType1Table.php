@@ -40,10 +40,11 @@ class AntecedentType1Table {
 	
 
     public function updateAntecedentType1($donnees) {
-     	$result = $this->tableGateway->select(array('id_patient'=> $donnees['id_patient']));
-//     	$this->tableGateway->delete ( array (
-//     			'id_cons' => $donnees ['id_cons']
-//     	) );
+    	
+     	//$result = $this->tableGateway->select(array('id_patient'=> $donnees['id_patient']));
+    	$this->tableGateway->delete ( array (
+     			'id_cons' => $donnees ['id_cons']
+     	) );
     
     	$datadonnee = array (
     			'id_cons' => $donnees ['id_cons'],
@@ -71,13 +72,11 @@ class AntecedentType1Table {
     			'note_emmel' => $donnees ['note_emmel'],
     			
     
-    	);
+    	); //var_dump('test');exit();
     
-     	if(!$result->current()){
-     		$this->tableGateway->insert($datadonnee);
-     	}else{
-    		$this->tableGateway->update($datadonnee, array('id_patient'=> $donnees['id_patient']));
-    	}
+     	
+    		return $this->tableGateway->update($datadonnee, array('id_cons'=> $donnees['id_cons']));
+    	
     	//var_dump($datadonnee); exit();
     	//$this->tableGateway->insert ( $datadonnee );
     }

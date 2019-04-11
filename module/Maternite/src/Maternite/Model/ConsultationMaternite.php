@@ -7,8 +7,8 @@ class ConsultationMaternite {
 	public $id_cons;
 	public $id_grossesse;
 	public $commentaire;
-
-	
+    public $examen_maternite_donnee1;
+	public $date_cons;
 	public $toucherVaginale;
 	public $hauteurUterine;
 	public $positionFoeutus;
@@ -16,6 +16,9 @@ class ConsultationMaternite {
 	protected $inputFilter;
 	public function exchangeArray($data) {
 		$this->id_cons = (! empty ( $data ['id_cons'] )) ? $data ['id_cons'] : null;
+		$this->examen_maternite_donnee1 = (! empty ( $data ['examen_maternite_donnee1'] )) ? $data ['examen_maternite_donnee1'] : null;
+		$this->date_cons = (! empty ( $data ['date_cons'] )) ? $data ['date_cons'] : null;
+		
 		$this->idcons_mater = (! empty ( $data ['idcons_mater'] )) ? $data ['idcons_mater'] : null;
 		$this->id_grossesse = (! empty ( $data ['id_grossesse'] )) ? $data ['id_grossesse'] : null;
 		$this->commentaire = (! empty ( $data ['commentaire'] )) ? $data ['commentaire'] : null;

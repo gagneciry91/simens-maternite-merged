@@ -5,30 +5,97 @@ $("#menu_statistiques").replaceWith("<li id='menu_statistiques' style='backgroun
 dep_menu_statistiques1();
 $('#menu_statistiques_style').css({'font-weight':'bold','color':'white','font-size':'21px'});
 </script>
+
+<style>
+#menuGeneral, #contenuInterface{ visibility: hidden; }
+</style>
+
+<script>
+$(window).load(function () {
+
+	$('#wait').toggle(false);
+	setTimeout(function(){ $('#menuGeneral').fadeIn().css({'visibility':'visible'}); });
+	 
+});
+</script>
 <!-- MES STYLES -->
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/jquery-ui.css');?>
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleAdmission.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleInformationsStatistiques.css');?>
+
 <!-- MES JS -->
-<?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');
+echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/accouchement/complementcons_accordeon_controle.js');
+echo $this->headScript()->appendFile($this->basePath().'/js/maternite/accouchement/jsMaternite.js');
+echo $this->headScript()->appendFile($this->basePath().'/js/maternite/accouchement/informationsStatistiques.js');
+echo $this->headLink ()->appendStylesheet ( $this->basePath () . '/css/facturation/DatePicker.css' );
+
+?>
+<?php use Maternite\View\Helpers\DateHelper; ?>
 
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/jquery.canvasjs.min.js');?>
 
-<?php use Maternite\View\Helpers\DateHelper;
-$Control = new DateHelper();
+<!--************************************************************************************************************-->
+<!--===================================== BLOCAGE DES JOURS NON CONSULTABLE ====================================-->
+<!--===================================== BLOCAGE DES JOURS NON CONSULTABLE ====================================-->
+<!--************************************************************************************************************-->
+<?php
+$Control = new DateHelper ();
+$today = new \DateTime ();
+$AnneeActuelle = $today->format ( 'Y' );
+
+/**
+ * ***Mois 1 ****
+ */
+$leMois1 = $today->format ( 'm' ); // C'est le mois actuel ï¿½ l'heure du calendrier
+$Dimanche1 = $Control->lePremierDimancheDuMois ();
+/**
+ * ***Mois 2 *****(Sauf pour le douxieme mois)
+ */
+$leMois2 = $leMois1 + 1;
+if ($leMois2 == 13) {
+	$leMois2 = 1;
+	$AnneeActuelle = $AnneeActuelle + 1;
+}
+$Dimanche2 = $Control->lePremierDimancheDuMoisByDate ( $leMois2, $AnneeActuelle );
+/**
+ * ***Mois 3 ****
+ */
+$leMois3 = $leMois2 + 1;
+if ($leMois3 == 13) {
+	$leMois3 = 1;
+	$AnneeActuelle = $AnneeActuelle + 1;
+}
+$Dimanche3 = $Control->lePremierDimancheDuMoisByDate ( $leMois3, $AnneeActuelle );
+/**
+ * ***Mois 4 ****
+ */
+$leMois4 = $leMois3 + 1;
+if ($leMois4 == 13) {
+	$leMois4 = 1;
+	$AnneeActuelle = $AnneeActuelle + 1;
+}
+$Dimanche4 = $Control->lePremierDimancheDuMoisByDate ( $leMois4, $AnneeActuelle );
+
+?>
+
+
+<!-- <?php //use Maternite\View\Helpers\DateHelper;
+//$Control = new DateHelper();
 $today = new \DateTime ( 'now' );
 //var_dump($today);exit();
-?>
+?>-->
 
 <?php
 $form = $this->form;
-$form->setName ( 'AVIS' );
-$form->setAttribute ( 'action', $this->url ( 'accouchement', array (
-		'action' => 'info-statistique' 
-) ) );
-$form->setAttribute ( 'target', '_blank' );
-$form->setAttribute ( 'method', 'post' );
-$form->prepare ();
-echo $this->form ()->openTag ( $form );
+//$form->setName ( 'AVIS' );
+//$form->setAttribute ( 'action', $this->url ( 'accouchement', array (
+	//	'action' => 'info-statistique' 
+//) ) );
+//$form->setAttribute ( 'target', '_blank' );
+//$form->setAttribute ( 'method', 'post' );
+//$form->prepare ();
+//echo $this->form ()->openTag ( $form );
 ?>
 
 
@@ -44,25 +111,9 @@ echo $this->form ()->openTag ( $form );
 	  border-top-right-radius: 5px;
 	   width: 10%; /* la largeur du champ input*/
 }
-#contenuInterface{ visibility: hidden; }
-#date_debut{
-  border-bottom-left-radius: 5px; 
-  border-bottom-right-radius: 5px;
-     border-top-left-radius: 5px; 
-     background-color: #eefeee;
-      border-top-right-radius: 5px;
-       width: 10%; /* la largeur du champ input*/
-}
 
-#contenuInterface{ visibility: hidden; }
-#date_fin{
-  border-bottom-left-radius: 5px; 
-  border-bottom-right-radius: 5px;
-     border-top-left-radius: 5px; 
-     background-color: #eefeee;
-      border-top-right-radius: 5px;
-       width: 10%; /* la largeur du champ input*/
-}
+
+
 #thoughtbot button
 {
     width:auto;
@@ -104,19 +155,7 @@ $(window).load(function () {
 });
 </script>
 
-<script type="text/javascript">
-$(function() {
-    $('#date_debut').datepicker( {
-        changeMonth: true,
-        changeYear: true,
-        showButtonPanel: true,
-        dateFormat: 'MM yy',
-        onClose: function(dateText, inst) {
-            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
-        }
-    });
-});
-</script>
+
 <script>
 $(window).load(function () {
 
@@ -146,33 +185,428 @@ $(window).load(function () {
      
 });
 </script>
-
-
-  <div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Veuillez selectionner une p&eacute;riode</span>   <?php //echo $this->formRow($form->get('date_stat'));?>
-</div>
-<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span > Date d&eacute;but</span>   <?php echo $this->formRow($form->get('date_debut'));?>
-</div>
-<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span >  Date Fin</span>   <?php echo $this->formRow($form->get('date_stat'));?>
-   <button id="thoughtbot" name="terminer" style=" height:35px; ">Ok</button> 
-</div>
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 30px;'><iS style='font-size: 25px;'>&curren;</iS><span id="menu_infos"> MENU INFOS STAT </span></div>
 <div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
-<div id="contenuInterface" >
-<div id="contenu" >
+
+<div id="menuGeneral">
+ <table style="width: 100%;">
+    <tr style="width: 100%; height: 50px;" >
+      <td style="width: 25%;">
+      
+            <div id="menuOption1" style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+		                   <img style="width: 40px; height: 40px; margin-top: -15px;" src='../images_icons/Folders.PNG' /> Sous Dossier 
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+      
+      <td style="width: 25%;" > 
+      
+            <div id="menuOption2" style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+   		                   <img style="width: 40px; height: 40px; margin-top: -15px;" src='../images_icons/diag.png' /> General
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+      
+      <td style="width: 25%;" >
+      
+            <div id="menuOption3" style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+		                   <img src='' > Surveillance Grossesse
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+      
+      <td style="width: 25%;" >
+      
+            <div style='width: 90%; margin: auto;'>
+		      <table style="width: 100%; border-radius: 50%;">
+		          <tr style="border-radius: 50%; height: 120px;">
+		             <th style="border-radius: 50%; ">
+		               <div>
+		                 <section>
+		                   <img src='' > Accouchement
+		                 </section>
+		               </div>
+		             </th>
+		          </tr>
+		       </table>
+		    </div>
+		    
+      </td>
+      
+    </tr>
+  </table>
+
+</div>
+
+	<div id="contenuPageA" >
+<img id="retourPageAMenuInfos" style=" width: 16px; height: 16px; cursor: pointer; " src='../images_icons/72.png' />
+
+<div style='width: 100%; height: 20px;'>
+        
+      <img onclick="imprimerRapportStatistique();" style=" cursor: pointer;" src='../images_icons/pdf.png' />
+    </div>
+	<div style='width: 100%; height: 10px; '>
+	   <script>
+    var nbPatientAccou   = <?php echo $this->nbPatientAccou;   ?> //Nombre de patientes accouchées
+    var nbPatientPost  = <?php echo $this->nbPatientPost;  ?> //Nombre de patientes postnatale
+    var nbPatientPre  = <?php echo $this->nbPatientPre;  ?> //Nombre de patientes prenatale
+    var nbPatientPla = <?php echo $this->nbPatientPla; ?> //Nombre de patientes planification
+    var nbPatientGyneco = <?php echo $this->nbPatientGyneco; ?>
+    </script>
+  
+	
+	<script type="text/javascript"> 
+     var ordonnees = [];
+     var abcisses  = [];
+     var i = 1;
+     var j = 1;
+     </script>
+     
+                                      
+     
+	<table style='width:50%; margin-left: 10px; align:center; float: left; margin-top: 15px;' class="table table-bordered tab_list_mini" id="patient">
+			<thead >
+			    <tr> 
+				    
+					<th id="date" align="center">Sous dossier</th>
+					<th id="prenom" align="center" name="date">Nombre</th>
+
+				</tr>
+
+			</thead>
+
+			     <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Prenatale </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			        <?php echo $this->nbPatientPre; ?>
+		                </td>
+		                        </tr>
+		                        <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Gynecologie </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			        <?php echo $this->nbPatientGyneco; ?>
+		                </td>
+		                        </tr>
+			
+		     <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Accouchement </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			        <?php echo $this->nbPatientAcc; ?>
+		                </td>
+		                        </tr>
+		                             <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Postnatale </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			        <?php echo $this->nbPatientPost; ?>
+		                </td>
+		                        </tr>
+		                          <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Planification </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			        <?php echo $this->nbPatientPla; ?>
+		                </td>
+		                        </tr>
+	    </table>
+	
+								
+	
+	
+	         <script >
+
+	     $(document).ready(function($) {
+
+       function SousDossier() {
+    	      var SousDossier = new CanvasJS.Chart("chartContainer",
+    	      {
+    		title:{
+    			text: "SousDossier"
+   		},
+   		data: [
+    		{
+    			type: "column",
+    			dataPoints: [
+ 		        	{  y: nbPatientPre, label: "Prenatale" },
+    				{  y: nbPatientAccou, label: "Accouchement" },
+ 		        	{  y: nbPatientPost, label: "postnatale" },
+    				{  y: nbPatientPla, label: "Planification" },
+    			]
+    		}
+    		]
+    	});
+    	      SousDossier.render();
+    }
+
+
+	
+       SousDossier();  
+	     });       
+	</script>
+
 
     
-    <div style="float:center;">
-  
+    
+       
+    
+    
     </div>
-	<div style="width: 100%;  ">
+    
+    <div style="display: none;">
+       <form id=""> <button></button> </form>
+    </div>
+</div>	
+<!-- LA DEUXIEME PAGE POUR LES SOUS DOSSIERS -->
+<div id="contenuPageB" >
+<table style="width: 100%; height: 20%;">
+	 <tr style="background: white; width: 100%;">
+	 <td colspan="2"> <img id="retourPageBMenuInfos" style="width: 16px;position: absolute; height: 16px; float: left; cursor: pointer; " src='../images_icons/72.png' > </td></tr>
+	 <tr id="interfaceStatInformationOptionnelle" style="width: 100%; height: 20%; background: white;">
+	 
+	   <!-- PREMIERE COLONNE -->
+	   <!-- PREMIERE COLONNE -->
+	 <td  style="width: 35%; height: 20%; vertical-align: top;" >
+	 <table style="width: 100%; ">
+	 <tr style="width: 100%; ">
+	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+	         </td>
+	       </tr>
+	 
+	 
+	 <tr style="width: 100%; ">
+	         <td style="width: 100%; height: 40px; background: yello; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+	          
+	             <?php $form = $this->formStatistique;
+		               echo $this->form()->openTag($form);
+		         ?>
+		         <div align="center" style='width: 100%; background: re;'>
+		           <form>
+		           <table id="form_choix" style="width:95%;">
+		            
+		             
+		              <tr style='width: 100%;'>
+		                 <td class="comment-form-choix" style='width: 46%;'><?php echo $this->formRow($form->get('date_debut'));?></td>
+		                 <td class="comment-form-choix" style='width: 46%;'><?php echo $this->formRow($form->get('date_fin'));?> </td>
+		                 <td style='width: 8%;' class="boutonAfficherInfosInervalleDateIntervention" > <img onclick="getInformationsDatedebutDatefinRapport();" style="cursor: pointer; width: 32px; height: 32px; padding-top: 25px;" src='../images_icons/right_32.png'  title="Visualiser"> </td>
+		             </tr>
+		             
+		            
+		             
+		             
+		             
+		             </table>
+		             <button style="display: none;" id="ValidationInformation"> </button>
+		             </form>
+		             </div>
+		             <?php echo $this->form()->closeTag(); ?>
+		         </td>
+		         
+		         </tr>
+	 
+	 </table>
+	 </td>
+
 	
+   <!-- DEUXIEME COLONNE -->
+   	   <!-- DEUXIEME COLONNE -->
+	   <td id="resultatOptionsChoisis" style="width: 65%; height: 20%; border-left: 3px solid #cccccc; vertical-align: top;" >
+	     <table id="resultatOptionChoisiParDefaut" style="width: 100%; background: white;">
+	     
+	       <tr id="titreResultatRapportOptionChoisi"  style="width: 100%; ">
+	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+                 <div  style="width: 100%; overflow: auto; margin-left: 15px; height: 25px; margin-left: 12px; background: yello;" >
+                       <span> Staisitique general de la maternite </span> <img onclick="imprimerRapportStatistiqueDiagnostics();" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
+                 </div>
+	         </td>
+	       </tr>
+	       
+	       <tr id="tableauResultatRapportOptionChoisi" style="width: 100%; top;">
+	         <td align="center" style="width: 100%; height: 200px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center; vertical-align: top;">
+	             <div class="contenuTableauResultatOptionChoisi" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
+	              
+	              <!-- Emplacement des infos statistiques -->
+	              
+	               <script >
+
+    var nbPatientAcc   = <?php echo $this->nbPatientAcc;   ?> //Nombre de patientes accouchées
+    var nbPatientAccCes  = <?php echo $this->nbPatientAccCes;  ?> //Nombre de patientes accouchées par cesarienne
+    var nbPatientAccN  = <?php echo $this->nbPatientAccN;  ?> //Nombre de patientes accouchées normalement
+    var nbPatientAccF = <?php echo $this->nbPatientAccF; ?> //Nombre de patientes accouchées par forceps
+    var nbPatientAccV = <?php echo $this->nbPatientAccV; ?> //Nombre de patientes accouchées par Ventouse
+    var nbPatientAccM = <?php echo $this->nbPatientAccM; ?>//Nombre de patientes accouchées par manoeuvre
+    var nbPatientAccGatPa = <?php echo $this->nbPatientAccGatPa; ?>//Nombre de patientes accouchées par GATPA
+    var nbGrossesseGemellaire = <?php echo $this->nbGrossesseGemellaire; ?>//Nombre de patientes accouchées par GATPA
+    var pourcentageAccN=(nbPatientAccN/nbPatientAcc)*100;
+    //var nbPatientAcc   = nbPatientAccCes+nbPatientAccN+nbPatientAccF+nbPatientAccV+nbPatientAccM //Nombre de patientes accouchées
+    var nbPatientAccou=<?php echo $this->nbPatientAccou;?>
+     var nbrcier=<?php echo $this->nbrcier; ?>
+    var nbinf=<?php echo $this->nbinf; ?>
+    var reanimer= <?php echo $this->reanimer; ?>
+    var enfviant = <?php echo $this->enfviant; ?>
+    var decede = <?php echo $this->decede; ?>
+    var ru = <?php echo $this->ru; ?>
+    p=pourcentageAccN.toFixed(2);
+  
+  
+    </script>
+    
+	              
+	               <table class="table table-bordered" style="width: 40%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+                                 <tr style="width: 80%; height: 40px; font-family: police2;">
+                                    <th style="width: 40%;  font-weight: bold; font-size: 15px; ">INTITULEES</th>
+                                    <th style="width: 20%; font-weight: bold; font-size: 15px; text-align: left;">NOMBRE</th>
+                                  </tr>
+                                  <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Normal </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			        <?php echo $this->nbPatientAccN; ?>
+		                </td>
+		                        </tr>
+		                           <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Ventouse </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccV; ?>
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Forceps </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccF; ?>
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Manoeuvre </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccM; ?>
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Cesarienne </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccCes; ?>
+		                </td>
+		                        </tr>
+		                        		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre d'accouchement total </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbPatientAccou; ?>
+		                </td>
+		                        </tr>
+		                             <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de bébés n'ayant pas crié à la naissance </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->nbrcier; ?>
+		                </td>
+		                        </tr>
+		                                <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de bebes dont le poids est inferieur à 2500 </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this-> nbinf; ?>
+		                </td>
+		                        </tr>
+		                       
+		                        <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre d'enfants vivants </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->  enfviant; ?>
+		                </td>
+		                        </tr>
+		                         <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre d'enfants reanimes </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->  reanimer; ?>
+		                </td>
+		                        </tr>
+		                          <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de morts nes </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->decede; ?>
+		                </td>
+		                        </tr>
+		                         <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">RU</td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+			            <?php echo $this->ru; ?>
+		                </td>
+		                        </tr>
+		                      
+                                  </table>
+
+    
+	              
+	              
+	             </div> 
+	         </td>
+	       </tr>
+	     
+	     </table> 
+	   </td>
+
+</tr>		
+</table>
+
+
+</div>						
 	
-</div>
-	
-	
+
+
+
+
+
+
+	<script type="text/javascript">
+initialisation();
+//$('#contenuInterface').toggle(false);
+setTimeout(function(){ $('#contenuPageA,#contenuPageB,#contenuPageC,#visualiserResultatParAge').toggle(false); });
+</script>
+<div align="center" id="scritpPatientConsulte"></div>
 	
 	
 	
 	         <?php echo $this->form()->closeTag(); ?>
 
-</div>
-</div>

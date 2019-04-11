@@ -29,7 +29,7 @@ class Accouchement {
 	public $note_transfusion;
 	public $suite_de_couche;
 	public function exchangeArray($data) {
-	$this->id_grossesse = (! empty ( $data ['id_grossesse'] )) ? $data ['id_grossesse'] : null;
+	    $this->id_grossesse = (! empty ( $data ['id_grossesse'] )) ? $data ['id_grossesse'] : null;
 		$this->id_admission = (! empty ( $data ['id_admission'] )) ? $data ['id_admission'] : null;
 		$this->id_cons = (! empty ( $data ['id_cons'] )) ? $data ['id_cons'] : null;
 		$this->id_type= (! empty ( $data ['id_type'] )) ? $data ['id_type'] : null;

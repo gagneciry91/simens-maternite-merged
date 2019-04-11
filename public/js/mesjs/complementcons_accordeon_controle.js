@@ -191,6 +191,21 @@ $(function () {
 
 });
 
+donnees['ddr'] = $("#ddr").val();
+donnees['date_cons'] = $("#date_cons").val();
+
+donnees['duree_grossesse'] = $("#duree_grossesse").val();
+donnees['note_ddr'] = $("#note_ddr").val();
+donnees['nb_cpn'] = $("#nb_cpn").val();
+donnees['note_cpn'] = $("#note_cpn").val();
+donnees['bb_attendu'] = $("#bb_attendu").val();
+donnees['note_bb'] = $("#note_bb").val(); 
+donnees['nombre_bb'] = $("#nombre_bb").val();
+if($("#vat_1:checked").val()){ donnees['vat_1'] = 1; }else{ donnees['vat_1'] = 0; }
+if($("#vat_2:checked").val()){ donnees['vat_2'] = 1; }else{ donnees['vat_2'] = 0; }
+if($("#vat_3:checked").val()){ donnees['vat_3'] = 1; }else{ donnees['vat_3'] = 0; }
+donnees['note_vat'] = $("#note_vat").val();
+
 //********************* RENDEZ VOUS *****************************
 //********************* RENDEZ VOUS *****************************
 $(function () {
@@ -450,9 +465,30 @@ $("#terminer,#bouton_constantes_valider, #terminer2, #terminer3, #terminer4").cl
 //Method envoi POST pour updatecomplementconsultation
 //Method envoi POST pour updatecomplementconsultation
 //Method envoi POST pour updatecomplementconsultation
+//Method envoi POST pour updatecomplementconsultation
 function updateexecuterRequetePost(donnees) {
 
+	//Le formulaire pour l'impression du certificat d'accouchement
+	var formulaireImprimCertificat = document.createElement("form");
+	formulaireImprimCertificat.setAttribute("action", tabUrl[0] + "public/maternite/impressionPdfAction");
+	formulaireImprimCertificat.setAttribute("method", "POST");   
+	formulaireImprimCertificat.setAttribute('target', '_blank');
+	
+    document.body.appendChild(formulaireImprimCertificat);    
+    
+    for (donnee in donnees) {
+        // Ajout dynamique de champs dans le formulaire
+        var champ = document.createElement("input");
+        champ.setAttribute("type", "hidden");
+        champ.setAttribute("name", donnee);
+        champ.setAttribute("value", donnees[donnee]);
+        formulaireImprimCertificat.appendChild(champ);
+    }
 
+    // Envoi de la requete
+    formulaireImprimCertificat.submit();
+	
+    setTimeout(function(){ 
 	//Le formulaire a envoyer pour enregistrer les données
 	var formulaire = document.createElement("form");
     formulaire.setAttribute("action", tabUrl[0] + "public/maternite/update-complement-consultation");
@@ -472,10 +508,10 @@ function updateexecuterRequetePost(donnees) {
      formulaire.submit(); 
     // Suppression du formulaire
     document.body.removeChild(formulaire);
-
+    
+    },1000);
     
 }
-
 
 /***LORS DU CLICK SUR 'Terminer' ****/
 /***LORS DU CLICK SUR 'Terminer' ****/
@@ -677,6 +713,8 @@ $("#terminer2, #terminer3").click(function () {
     }
     donnees['DateDebutDroguerHV'] = $("#DateDebutDroguerHV").val();
     donnees['DateFinDroguerHV'] = $("#DateFinDroguerHV").val();
+    donnees['date_cons'] = $("#date_cons").val();
+
     /*AutresHV*/
     donnees['AutresHV'] = $("#AutresHV:checked").val();
     if (!donnees['AutresHV']) {
@@ -1032,6 +1070,9 @@ function AntecedentScript() {
 
         if ($('#DateDebutDroguerHV').val() == '00/00/0000') {
             $('#DateDebutDroguerHV').val("");
+
+            if ($('#date_cons').val() == '00/00/0000') {
+                $('#date_cons').val("");
         }
         if ($('#DateFinDroguerHV').val() == '00/00/0000') {
             $('#DateFinDroguerHV').val("");
@@ -1641,7 +1682,7 @@ var tensionminimale = $("#tensionminimale");
 //Au debut on cache le bouton modifier et on affiche le bouton valider
 
 
-$('#dateDebAlcoolique input, #dateFinAlcoolique input,#date_debut input,#date_fin input, #dateDebFumeur input, #dateFinFumeur input, #dateDebDroguer input, #dateFinDroguer input').datepicker(
+$('#dateDebAlcoolique input, #dateFinAlcoolique input,#date_debut input,#date_fin input, #dateDebFumeur input, #dateFinFumeur input, #dateDebDroguer input, #dateFinDroguer input,#date_cons input').datepicker(
     $.datepicker.regional['fr'] = {
         closeText: 'Fermer',
         changeYear: true,

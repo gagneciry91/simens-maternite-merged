@@ -215,7 +215,7 @@ class AntecedentPersonnelTable {
 			}
 			
 		
-			if ($donneesDesAntecedents ['AutresHV'] == 1) {
+			/* if ($donneesDesAntecedents ['AutresHV'] == 1) {
 				$donneesAntecedents = array (
 						'ID_PERSONNE' => $id_personne,
 						'ID_ANTECEDENT' => 18,
@@ -224,7 +224,7 @@ class AntecedentPersonnelTable {
 				);
 					
 				$this->tableGateway->insert ( $donneesAntecedents );
-			}
+			} */
 			
 			// LES ANTECEDENTS MEDICAUX
 			// LES ANTECEDENTS MEDICAUX
@@ -273,7 +273,7 @@ class AntecedentPersonnelTable {
 				
 				$this->tableGateway->insert ( $donneesAntecedents );
 			}
-			if ($donneesDesAntecedents ['text_chirur']) {
+		/* 	if ($donneesDesAntecedents ['text_chirur']) {
 				$donneesAntecedents = array (
 						'ID_PERSONNE' => $id_personne,
 						'ID_ANTECEDENT' => 19,
@@ -282,7 +282,7 @@ class AntecedentPersonnelTable {
 				);
 			
 				$this->tableGateway->insert ( $donneesAntecedents );
-			}
+			} */
 			
 			$this->tableGateway->getAdapter ()->getDriver ()->getConnection ()->commit ();
 		} catch ( \Exception $e ) {

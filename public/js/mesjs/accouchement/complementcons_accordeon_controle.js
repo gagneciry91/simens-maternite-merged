@@ -980,7 +980,9 @@ $("#terminer2, #terminer3").click(function () {
    donnees['type_accouchement'] = $("#type_accouchement").val();
     donnees['motif_type'] = $("#motif_type").val();
     donnees['prenome'] = $("#prenome").val();
-    
+    donnees['date_debutsta'] = $("#date_debutsta").val();
+    donnees['date_finsta'] = $("#date_finsta").val();
+
     donnees['date_accouchement'] = $("#date_accouchement").val();
     donnees['heure_accouchement'] = $("#heure_accouchement").val();
     donnees['delivrance'] = $("#delivrance").val();

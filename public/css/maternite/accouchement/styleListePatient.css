@@ -1,5 +1,6 @@
 
 /* PIED DE PAGE*/
+
 #nom_ input[type="text"]
 { /*le input ou le textarea*/
 
@@ -71,6 +72,10 @@ width: 100%; /* la largeur du champ input*/
 }
 
 /* EN TETE*/
+#numero_dossier
+{
+	width: 20%;
+}
 #nom
 {
 	width: 13%;

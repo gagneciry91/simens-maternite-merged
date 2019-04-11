@@ -14,4 +14,17 @@ class GynecologieTable {
 			$this->tableGateway = $tableGateway;
 	
 		}
+		
+		public function updateGyneco($values) {
+		
+			$donnees = array (
+					'id_cons' => $values['id_cons'],
+					'toucherVaginal' => $values['toucherVaginal'],
+		
+					'lieu_accouchement' => $values['lieu_accouchement'],
+			); 						//var_dump($donnees);exit();
+		
+			return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $donnees ));
+			//var_dump($donnees);exit();
+		}
 }

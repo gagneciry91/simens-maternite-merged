@@ -102,8 +102,6 @@ class PostnataleTable {
 
 	public function updatePostnatale($values) {
 		
-		
-	
 		$donnees = array (
 				'id_cons' => $values['id_cons'],
 				//'etat_de_la_mere' => $values['etat_de_la_mere'],

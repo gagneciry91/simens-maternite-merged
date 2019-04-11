@@ -99,7 +99,7 @@ $(window).load(function () {
 				<td><?php echo AdresseText($this->escapeHtml($donnees['Adresse']));?></td>
 				<td><?php echo $this->escapeHtml($donnees['Nationalite']);?></td>
 				<td><a
-					href="<?php echo $this->url('consultation', array('action'=>'ajout-constantes','id_patient'=>$this->escapeHtml($donnees['Id'])));?>">
+					href="<?php echo $this->url('maternite', array('action'=>'info-prenatale','id_patient'=>$this->escapeHtml($donnees['Id'])));?>">
 						<img style="display: inline;"
 						src='<?php echo $this->basePath().'/images_icons/surveillante.PNG'?>'
 						alt='Constantes' title=" Ajouter Constantes" />
@@ -158,7 +158,7 @@ $(window).load(function () {
 						src='<?php echo $this->basePath().'/images_icons/surveillante.PNG'?>'
 						alt='Constantes' title=" Ajouter Constantes" />
 				</a>&nbsp;&nbsp; <a
-					href="<?php echo $this->url('consultation', array('action'=>'maj-consultation'), array('query'=>array('id_patient'=>$this->escapeHtml($donnees->Id),'id_cons'=>$this->escapeHtml($donneees->Id_cons))));?>">
+					href="<?php echo $this->url('maternite', array('action'=>'maj-consultation'), array('query'=>array('id_patient'=>$this->escapeHtml($donnees->Id),'id_cons'=>$this->escapeHtml($donneees->Id_cons))));?>">
 						<img style="display: inline;"
 						src='<?php echo $this->basePath().'/images_icons/modifier.PNG'?>'
 						alt='Constantes' title=" Modifier"
@@ -198,6 +198,7 @@ $(window).load(function () {
 					name="search_browser" value=" Date naissance" class="search_init" /></th>
 				<th id="sexe_" style='width: 7%;'><input type="text"
 					name="search_browser" value=" Sexe" class="search_init" /></th>
+					
 				<th id="adresse_" style='width: 28%;'><input type="text"
 					name="search_browser" value=" Adresse" class="search_init" /></th>
 				<th id="nationalite_" style='width: 15%;'><input type="text"
@@ -275,7 +276,7 @@ $(window).load(function () {
 			} );
 
 			setTimeout(function() {
-				vart='<?php echo $this->basePath().'/consultation/recherche';?>';
+				vart='<?php echo $this->basePath().'/maternite/liste-des-prenatales';?>';
 			    $(location).attr("href",vart);
 			}, 15000);
 
@@ -284,8 +285,8 @@ $(window).load(function () {
 <script>
 
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
-$('#plus_naissance').toggle(true);
-$("#naissance").replaceWith("<li id='naissance' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> Consultations </span></a></li>");
+$('#plus_prenatale').toggle(true);
+$("#prenatale").replaceWith("<li id='naissance' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.png'?>' alt='Liste' /> Prenatales </span></a></li>");
 dep1();
 $('#ajouter_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
 </script>

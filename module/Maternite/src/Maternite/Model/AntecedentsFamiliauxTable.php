@@ -127,7 +127,7 @@ class AntecedentsFamiliauxTable {
 				$this->tableGateway->insert ( $donneesAntecedents );
 			}
 			/* autre af*/
-			if ($donneesDesAntecedents ['NoteAutresAF']) {
+		/* 	if ($donneesDesAntecedents ['NoteAutresAF']) {
 				$donneesAntecedents = array (
 						'ID_PERSONNE' => $id_personne,
 						'ID_ANTECEDENT' => 20,
@@ -136,7 +136,7 @@ class AntecedentsFamiliauxTable {
 				);
 			
 				$this->tableGateway->insert ( $donneesAntecedents );
-			}
+			} */
 			$this->tableGateway->getAdapter ()->getDriver ()->getConnection ()->commit ();
 		} catch ( \Exception $e ) {
 			$this->tableGateway->getAdapter ()->getDriver ()->getConnection ()->rollback ();

@@ -18,7 +18,7 @@ function initialisation (){
 	
 	$('#retourPageAMenuInfos').click(function(){
 		if(saveStatOption1 == 1){
-			vart = tabUrl[0]+'public/accouchement/informations-statistiques';
+			vart = tabUrl[0]+'public/accouchement/statistique';
 		    $(location).attr("href",vart);
 		}else{ 
 			$('#contenuPageA').fadeOut(function(){
@@ -42,7 +42,7 @@ function initialisation (){
 
 	$('#retourPageBMenuInfos').click(function(){
 		if(saveStatOption2 == 1){
-			vart = tabUrl[0]+'public/accouchement/informations-statistiques';
+			vart = tabUrl[0]+'public/accouchement/statistique';
 		    $(location).attr("href",vart);
 		}else{
 			$('#contenuPageB').fadeOut(function(){
@@ -67,7 +67,7 @@ function initialisation (){
 
 	$('#retourPageCMenuInfos').click(function(){
 		if(saveStatOption3 == 1){
-			vart = tabUrl[0]+'public/accouchement/informations-statistiques';
+			vart = tabUrl[0]+'public/accouchement/statistique';
 		    $(location).attr("href",vart);
 		}else{
 			$('#contenuPageC').fadeOut(function(){

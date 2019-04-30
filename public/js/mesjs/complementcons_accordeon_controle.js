@@ -204,7 +204,16 @@ donnees['nombre_bb'] = $("#nombre_bb").val();
 if($("#vat_1:checked").val()){ donnees['vat_1'] = 1; }else{ donnees['vat_1'] = 0; }
 if($("#vat_2:checked").val()){ donnees['vat_2'] = 1; }else{ donnees['vat_2'] = 0; }
 if($("#vat_3:checked").val()){ donnees['vat_3'] = 1; }else{ donnees['vat_3'] = 0; }
+if($("#vat_4:checked").val()){ donnees['vat_4'] = 1; }else{ donnees['vat_4'] = 0; }
+if($("#vat_5:checked").val()){ donnees['vat_5'] = 1; }else{ donnees['vat_5'] = 0; }
 donnees['note_vat'] = $("#note_vat").val();
+
+if($("#tpi_1:checked").val()){ donnees['tpi_1'] = 1; }else{ donnees['tpi_1'] = 0; }
+if($("#tpi_2:checked").val()){ donnees['tpi_2'] = 1; }else{ donnees['tpi_2'] = 0; }
+if($("#tpi_3:checked").val()){ donnees['tpi_3'] = 1; }else{ donnees['tpi_3'] = 0; }
+if($("#tpi_4:checked").val()){ donnees['tpi_4'] = 1; }else{ donnees['tpi_4'] = 0; }
+if($("#tpi_5:checked").val()){ donnees['tpi_5'] = 1; }else{ donnees['tpi_5'] = 0; }
+donnees['note_tpi'] = $("#note_tpi").val();
 
 //********************* RENDEZ VOUS *****************************
 //********************* RENDEZ VOUS *****************************

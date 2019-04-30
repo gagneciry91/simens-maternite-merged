@@ -70,10 +70,7 @@ class GrossesseTable {
 	}
 	
 
-	public function getnbVAT1(){
-		
-	}
-
+	
 	public function updateGrossesse($donnees) {
 		
 		$Control = new DateHelper();
@@ -231,6 +228,141 @@ class GrossesseTable {
 		
 		
 	}
+
+	public function getCPN1($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getnbVAT1($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+		
+		->where ( array (
+				'gro.vat_1'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	
+	}
+	public function getnbVAT2($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.vat_2'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	
+	}
+	public function getnbVAT3($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.vat_3'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	
+	}
+	public function getnbVAT4($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.vat_4'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	
+	}
+	public function getnbVAT5($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.vat_5'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	
+	}
+	
+	
+	public function getCPN2($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>2 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN3($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>3 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN4($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>4 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	
 	
 	
 }

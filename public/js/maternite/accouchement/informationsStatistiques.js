@@ -9,7 +9,7 @@ function initialisation (){
 	//GESTION DE LA PAGE INFOS 1
 	$('#menuOption1').click(function(){ 
 		$('#menuGeneral').fadeOut(function(){
-			$('#menu_infos').html('INFOS STATISTIQUES GENERAL');
+			$('#menu_infos').html('STATISTIQUES DES SOUS DOSSIERS');
 			$('#contenuPageA').fadeIn();
 			$('#contenuInterface').css({'visibility' : 'visible'}); 
 		});
@@ -34,7 +34,7 @@ function initialisation (){
 	//GESTION DE LA PAGE INFOS 2
 	$('#menuOption2').click(function(){
 		$('#menuGeneral').fadeOut(function(){
-			$('#menu_infos').html('INFOS STATISTIQUES OPTIONNELLES-DIAGNOSTICS');
+			$('#menu_infos').html('INFOS STATISTIQUES GENERALES');
 			$('#contenuPageB').fadeIn();
 			$('#contenuInterface').css({'visibility' : 'visible'});
 		});
@@ -59,7 +59,7 @@ function initialisation (){
 	//GESTION DE LA PAGE INFOS 3
 	$('#menuOption3').click(function(){
 		$('#menuGeneral').fadeOut(function(){
-			$('#menu_infos').html('INFOS STATISTIQUES OPTIONNELLES-GENRE');
+			$('#menu_infos').html('INFOS STATISTIQUES SURVEILLANCES GROSSESSE');
 			$('#contenuPageC').fadeIn();
 			$('#contenuInterface').css({'visibility' : 'visible'});
 		});
@@ -77,6 +77,31 @@ function initialisation (){
 			});
 		}
 	});	
+	
+	
+	//GESTION DE LA PAGE INFOS 4
+	//GESTION DE LA PAGE INFOS 4
+	$('#menuOption4').click(function(){
+		$('#menuGeneral').fadeOut(function(){
+			$('#menu_infos').html('INFOS STATISTIQUES DES ACCOUCHEMENTS');
+			$('#contenuPageD').fadeIn();
+			$('#contenuInterface').css({'visibility' : 'visible'});
+		});
+	});
+
+	$('#retourPageDMenuInfos').click(function(){
+		if(saveStatOption2 == 1){
+			vart = tabUrl[0]+'public/accouchement/statistique';
+		    $(location).attr("href",vart);
+		}else{
+			$('#contenuPageD').fadeOut(function(){
+				$('#menu_infos').html('MENU INFOS');
+				$('#menuGeneral').fadeIn();
+			});
+		}
+	});
+	
+
 	
 	infosStatistiquesRapport();	
 	infosStatistiquesOptionnellesGenre();
@@ -293,22 +318,103 @@ function getInformationsSousDossierGenre(id_sous_dossier_genre){
 //Afficher les informations lors de la saisie d'une date_debut et date_fin
 //Afficher les informations lors de la saisie d'une date_debut et date_fin
 function getInformationsDatedebutDatefinRapport(){
-	var id_sous_dossier = $('#id_sous_dossier').val();
+	//alert('bonjour');
 	var date_debut_rapport = $('#date_debut_rapport').val();
-	var date_fin_rapport = $('#date_fin_rapport').val();//alert(date_fin_rapport);
-	
+	var date_fin_rapport = $('#date_fin_rapport').val();//alert(date_debut_rapport);
 	if(date_debut_rapport && date_fin_rapport){
-		$('#listeTableauInfosStatistiques').html('<table> <tr> <td style="padding-top: 10px;"> Chargement </td> </tr>  <tr> <td align="center" style="padding-bottom: 40px;"> <img style="margin-top: 20px; width: 70px; height: 70px;" src="../images/loading/Chargement_1.gif" /> </td> </tr> </table>');
+		//$('#listeTableauInfosStatistiques').html('<table> <tr> <td style="padding-top: 50px;"> Chargement </td> </tr>  <tr> <td align="center" style="padding-bottom: 40px;"> <img style="margin-top: 20px; width: 70px; height: 70px;" src="../images/loading/Chargement_1.gif" /> </td> </tr> </table>');
+//alert('bonjour');
 		$.ajax({
-			url: tabUrl[0]+"public/accouchement/get-tableau-statistiques-diagnostics-par-periode",
+			url: tabUrl[0]+"public/accouchement/get-statistiques-par-periode",
 			type: 'post',
-			data: {'id_sous_dossier' :id_sous_dossier, 'date_debut' : date_debut_rapport, 'date_fin' : date_fin_rapport},
+			data: { 'date_debut' : date_debut_rapport, 'date_fin' : date_fin_rapport},
 			success: function( data ) {
-				var resultat = jQuery.parseJSON(data); //alert(resultat);
-				$('#titreResultatRapportOptionChoisi div span').html(resultat[1]); //alert((resultat[1]));
+				var resultat = jQuery.parseJSON(data); 
 				$('#tableauResultatRapportOptionChoisi div').html(resultat[0]);
+                $("#scriptInfosStat").html(resultat[1]);
+				$("#scriptInfosStat").html(resultat[2]);
+				$("#scriptInfosStat").html(resultat[3]);
+				$("#scriptInfosStat").html(resultat[4]);
+				$("#scriptInfosStat").html(resultat[5]);
+				$("#scriptInfosStat").html(resultat[6]);
+				$("#scriptInfosStat").html(resultat[7]);
+				$("#scriptInfosStat").html(resultat[8]);
+				$("#scriptInfosStat").html(resultat[9]);
+				$("#scriptInfosStat").html(resultat[10]);
+				$("#scriptInfosStat").html(resultat[11]);
+				$("#scriptInfosStat").html(resultat[12]);
+				$("#scriptInfosStat").html(resultat[13]);
+				$("#scriptInfosStat").html(resultat[14]);
+
+				//alert(resultat);
 				
-				//$('#diagnostic_rapport').val(0);
+			}
+		});	
+
+	
+	}
+}
+function getInformationsDatedebutDatefinRapport2(){
+	//alert('bonjour');
+	var date_debut_rapport = $('#date_debut_rapport').val();
+	var date_fin_rapport = $('#date_fin_rapport').val();alert(date_debut_rapport);
+	if(date_debut_rapport && date_fin_rapport){
+
+		$.ajax({
+			url: tabUrl[0]+"public/accouchement/get-statistiques-par-periode",
+			type: 'post',
+			data: { 'date_debut' : date_debut_rapport, 'date_fin' : date_fin_rapport},
+			success: function( data ) {
+				var resultat = jQuery.parseJSON(data); 
+				$('#tableauResultatRapportOptionChoisi div').html(resultat[0]);
+                $("#scriptInfosStat").html(resultat[1]);
+                
+//alert(resultat);
+				
+			}
+		});	
+
+	}
+}
+
+//Afficher les informations lors de la saisie d'une date_debut et date_fin
+//Afficher les informations lors de la saisie d'une date_debut et date_fin
+function getInformationsDatedebutDatefinRapportGenre(){
+	var surveillance = $('#surveillance').val();
+	var date_debut_genre = $('#date_debut_genre').val();
+	var date_fin_genre = $('#date_fin_genre').val();//alert(date_fin_rapport);
+	if(date_debut_genre && date_fin_genre){
+		$.ajax({
+			url: tabUrl[0]+"public/accouchement/get-statistique-surveillance-grossesse",
+			type: 'post',
+			data: {'surveillance' :surveillance, 'date_debut' : date_debut_genre, 'date_fin' : date_fin_genre},
+			success: function( data ) {
+				var resultat = jQuery.parseJSON(data); alert(resultat);
+				$('#tableauResultatOptionGenreChoisi div').html(resultat[0]); //alert(resultat[1]);
+				$('#scriptInfosStat').html(resultat[1]);//alert(resultat);
+				$('#scriptInfosStat').html(resultat[2]);//alert(resultat);
+
+
+			}
+		});
+	
+	}
+}
+
+function getInformationsDatedebutDatefinRapportAccouchement(){
+	var date_debut_genre = $('#date_debut_genre').val();
+	var date_fin_genre = $('#date_fin_genre').val();alert(date_fin_rapport);
+	if(date_debut_genre && date_fin_genre){
+		$.ajax({
+			url: tabUrl[0]+"public/accouchement/get-statistique-surveillance-accouchement",
+			type: 'post',
+			data: { 'date_debut' : date_debut_genre, 'date_fin' : date_fin_genre},
+			success: function( data ) {
+				var resultat = jQuery.parseJSON(data); alert(resultat);
+				$('#tableauResultatOptionGenreChoisi div').html(resultat[0]); //alert(resultat[1]);
+				//$('#scriptInfosStat').html(resultat[0]);//alert(resultat);
+			   $('#scriptInfosStat').html(resultat[1]);//alert(resultat);
+
 			}
 		});
 	
@@ -316,23 +422,19 @@ function getInformationsDatedebutDatefinRapport(){
 }
 
 
-//Afficher les informations lors de la saisie d'une date_debut et date_fin
-//Afficher les informations lors de la saisie d'une date_debut et date_fin
-function getInformationsDatedebutDatefinRapportGenre(){
-	var id_sous_dossier_genre = $('#id_sous_dossier_genre').val();
-	var date_debut_genre = $('#date_debut_genre').val();
-	var date_fin_genre = $('#date_fin_genre').val();//alert(date_fin_rapport);
-	if(date_debut_genre && date_fin_genre){
-		$('#listeTableauInfosStatistiquesGenre').html('<table> <tr> <td style="padding-top: 10px;"> Chargement </td> </tr>  <tr> <td align="center" style="padding-bottom: 40px;"> <img style="margin-top: 20px; width: 70px; height: 70px;" src="../images/loading/Chargement_1.gif" /> </td> </tr> </table>');
+/*function getInformationsDatedebutDatefinRapportGossesse(){
+	var date_debut_rapport = $('#date_debut_rapport').val();
+	var date_fin_rapport = $('#date_fin_rapport').val();//alert(date_debut_rapport);
+	if(date_debut_rapport && date_fin_rapport){
 		$.ajax({
-			url: tabUrl[0]+"public/accouchement/get-informations-statistique-optionnelles-genre-par-periode",
+			getStatistiqueSurveillanceGrossesse
+			url: tabUrl[0]+"public/accouchement/get-statistique-surveillance-grossesse",
 			type: 'post',
-			data: {'id_sous_dossier_genre':id_sous_dossier_genre, 'date_debut' : date_debut_genre, 'date_fin' : date_fin_genre},
+			data: { 'date_debut' : date_debut_genre, 'date_fin' : date_fin_genre},
 			success: function( data ) {
 				var resultat = jQuery.parseJSON(data); //alert(resultat);
-				$('#titreResultatRapportOptionChoisiGenre div span').html(resultat[1]);
 				$('#tableauResultatOptionGenreChoisi div').html(resultat[0]); //alert(resultat[1]);
-				$('#scritpPatientConsulte').html(resultat[2]);//alert(resultat);
+				$('#scritpPatientConsulte').html(resultat[2]);alert(resultat);
 				
 				//$('#date_debut, #date_fin').val('').trigger('keyup');
 				//$('#diagnostic_rapport').val(0);
@@ -340,11 +442,7 @@ function getInformationsDatedebutDatefinRapportGenre(){
 		});
 	
 	}
-}
-
-
-
-
+}*/
 
 
 //AFFICHAGE STATISTIQUES LORS DE LA SELECTION DES AGES
@@ -392,7 +490,6 @@ function getInformationsStatistiquesParAge(){
 	var date_fin_genre = $('#date_fin_genre').val();//alert(date_fin_rapport);
 	var age_min = parseInt($('#age_min').val());
 	var age_max = parseInt($('#age_max').val());
-
 	
 	if(age_min <= age_max){
 		$('#listeTableauInfosStatistiquesGenre').html('<table> <tr> <td style="padding-top: 10px;"> Chargement </td> </tr>  <tr> <td align="center" style="padding-bottom: 40px;"> <img style="margin-top: 20px; width: 70px; height: 70px;" src="../images/loading/Chargement_1.gif" /> </td> </tr> </table>');
@@ -1049,7 +1146,17 @@ function getInformationsSMDI(id_medecin, date_debut, date_fin){
 
         	$('#visualiserResultatParDateIntervention').toggle(true);
         	$('#date_debut, #date_fin').attr('disabled', false); 
-        	$('#iconeReinitialiserDateIntervention').css({'visibility':'visible'});
+        	$('#iconeReinitialiserDateIntervention').css({'visibil
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	ity':'visible'});
         	
         }
     

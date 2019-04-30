@@ -127,7 +127,6 @@ class StatistiqueForm extends Form{
 				),
 				'attributes' => array (
 						'registerInArrrayValidator' => true,
-						'onchange' => 'getListeDateDebut(this.value)',
 						'id' =>'date_debut',
 						'min'  => '2016-08-24',
 						'max' => "$dateAujourdhui",
@@ -144,7 +143,6 @@ class StatistiqueForm extends Form{
 				),
 				'attributes' => array (
 						'registerInArrrayValidator' => true,
-						'onchange' => 'getListeDateFin(this.value)',
 						'id' =>'date_fin',
 						'min' => '2016-08-24',
 						'max' => "$dateAujourdhui",
@@ -199,7 +197,6 @@ class StatistiqueForm extends Form{
 				),
 				'attributes' => array (
 						'registerInArrrayValidator' => true,
-						'onchange' => 'getListeDateDebutRapport(this.value)',
 						'id' =>'date_debut_rapport',
 						'min'  => '2016-08-24',
 						'max' => "$dateAujourdhui",
@@ -215,7 +212,6 @@ class StatistiqueForm extends Form{
 				),
 				'attributes' => array (
 						'registerInArrrayValidator' => true,
-						'onchange' => 'getListeDateFinRapport(this.value)',
 						'id' =>'date_fin_rapport',
 						'min' => '2016-08-24',
 						'max' => "$dateAujourdhui",
@@ -240,6 +236,30 @@ class StatistiqueForm extends Form{
 						'required' => true,
 				)
 		) );
+		
+
+		$this->add ( array (
+				'name' => 'surveillance',
+				'type' => 'Select',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Surveillance'),
+						'value_options' => array (
+								1 => 'Vaccin',
+								2 => 'CPN',
+								3 => 'Femme',
+								4 => 'Grossesse',
+		                        5=> 'Accouchement a domicile'
+		
+		
+						)
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'surveillance',
+						'required' => true,
+				)
+		) );
+		
 		
 		$this->add ( array (
 				'name' => 'date_fin_genre',

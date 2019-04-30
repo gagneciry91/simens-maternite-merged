@@ -324,7 +324,7 @@ class ConsultationForm extends Form {
 		) );
 		$this->add ( array (
 				'name' => 'date_cons',
-				'type' => 'text',
+				'type' => 'date',
 				'attributes' => array (
 						//'readonly' => 'readonly',
 						'id' => 'date_cons'
@@ -425,6 +425,30 @@ class ConsultationForm extends Form {
 				)
 		) );
 		$this->add ( array (
+				'name' => 'vat_4',
+				'type' => 'checkbox',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8','VAT 3:')
+				),
+				'attributes' => array (
+						'id' => 'vat_4',
+						//'required' => false,
+		
+				)
+		) );
+		$this->add ( array (
+				'name' => 'vat_5',
+				'type' => 'checkbox',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8','VAT 3:')
+				),
+				'attributes' => array (
+						'id' => 'vat_5',
+						//'required' => false,
+		
+				)
+		) );
+		$this->add ( array (
 				'name' => 'note_vat',
 				'type' => 'Text',
 				'options' => array (
@@ -432,6 +456,67 @@ class ConsultationForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'note_vat',
+		
+						//'required' => true,
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'tpi_1',
+				'type' => 'checkbox',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8','tpi 1:')
+				),
+				'attributes' => array (
+						'id' => 'tpi_1',
+						//'required' => false,
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'tpi_2',
+				'type' => 'checkbox',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8','tpi 2:')
+				),
+				'attributes' => array (
+						'id' => 'tpi_2',
+						//'required' => false,
+				)
+		) );
+		$this->add ( array (
+				'name' => 'tpi_3',
+				'type' => 'checkbox',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8','tpi 3:')
+				),
+				'attributes' => array (
+						'id' => 'tpi_3',
+						//'required' => false,
+		
+				)
+		) );
+		$this->add ( array (
+				'name' => 'tpi_4',
+				'type' => 'checkbox',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8','tpi 3:')
+				),
+				'attributes' => array (
+						'id' => 'tpi_4',
+						//'required' => false,
+		
+				)
+		) );
+		$this->add ( array (
+				'name' => 'note_tpi',
+				'type' => 'Text',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8','Duree Grossesse en semaine:')
+				),
+				'attributes' => array (
+						'id' => 'note_tpi',
 		
 						//'required' => true,
 				)

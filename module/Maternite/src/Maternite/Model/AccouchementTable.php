@@ -169,141 +169,55 @@ public function addPrenomme($donne,$id_acc) {
 		return $result;
 	}
 	
-	
-	
-	
 
 	
-	
-	public function getNbPatientsAccN(){
-		
-		
+	public function getNbPatientsAcc($date_debut,$date_fin){
 		$adapter = $this->tableGateway->getAdapter();
 		$sql = new Sql($adapter);
 		$select = $sql->select();
-		$select->from(array('p' => 'patient'));
-		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
-		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type','date_accouchement'));
-	$select->where(array('id_type' => 1));
-	$stat = $sql->prepareStatementForSqlObject ( $select );
-		$result = $stat->execute();
+		$select->from(array('ad' => 'admission'));
+		$select->from(array('a' => 'accouchement') );
+		$select->where( array('a.date_accouchement  >= ?' => $date_debut, 'a.date_accouchement <= ?' => $date_fin));
 		
-		
-		$variable =array();$i=1;
-		foreach ($result as $r){
-			$variable[$i] = $r['date_accouchement'];$i++;
-		}
-		//var_dump(count($variable));exit();
-		$today = new \DateTime ();
-		$dateToday = $today->format ( 'Y-m-d' );
-		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
-		$dates=array();
-		$month=array();
-		for($i=1;$i<=count($variable);$i++){		
-			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
-			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
-				
-				$dates[$i]=$variable[$i];
-			}
-		}
-		
-
-		return count($dates);
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();//var_dump(count($result));exit();
+		return count($result);
 	}
 	
 	
-	
-	
-	
-	public function getNbPatientsAccGatPa(){
-	
-	
+	public function getNbPatientsAccN($date_debut,$date_fin){
+		
+		
 		$adapter = $this->tableGateway->getAdapter();
 		$sql = new Sql($adapter);
 		$select = $sql->select();
 		$select->from(array('p' => 'patient'));
 		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
-		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type','date_accouchement'));
-		$select->where(array('delivrance' => 'GATPA'));
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'));
+		$select->where(array('id_type' => 1,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
 		$stat = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stat->execute();
-	
-	
-		$variable =array();$i=1;
-		foreach ($result as $r){
-			$variable[$i] = $r['date_accouchement'];$i++;
-		}
-		//var_dump(count($variable));exit();
-		$today = new \DateTime ();
-		$dateToday = $today->format ( 'Y-m-d' );
-		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
-		$dates=array();
-		$month=array();
-		for($i=1;$i<=count($variable);$i++){
-			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
-			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
-	
-				$dates[$i]=$variable[$i];
-			}
-		}
-	
-	
-		return count($dates);
+		return count($result);
 	}
 	
+	public function getNbPatientsAccGatPa($date_debut,$date_fin){
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public function getNbPatientsAccF(){
-		
-		
 		$adapter = $this->tableGateway->getAdapter();
 		$sql = new Sql($adapter);
 		$select = $sql->select();
 		$select->from(array('p' => 'patient'));
 		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
 		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type','date_accouchement'));
-	$select->where(array('id_type' => 2));
-	$stat = $sql->prepareStatementForSqlObject ( $select );
+		$select->where(array('delivrance' => 'GATPA', 'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+	    $stat = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stat->execute();
-		
-		
-		$variable =array();$i=1;
-		foreach ($result as $r){
-			$variable[$i] = $r['date_accouchement'];$i++;
-		}
-		//var_dump(count($variable));exit();
-		$today = new \DateTime ();
-		$dateToday = $today->format ( 'Y-m-d' );
-		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
-		$dates=array();
-		$month=array();
-		for($i=1;$i<=count($variable);$i++){		
-			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
-			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
-				
-				$dates[$i]=$variable[$i];
-			}
-		}
-		
-
-		return count($dates);
+		return count($result);
 	}
 	
 	
-	public function getNbPatientsAccV(){
+	
+	public function getNbPatientsAccF($date_debut,$date_fin){
 		
 		
 		$adapter = $this->tableGateway->getAdapter();
@@ -311,138 +225,90 @@ public function addPrenomme($donne,$id_acc) {
 		$select = $sql->select();
 		$select->from(array('p' => 'patient'));
 		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
-		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type','date_accouchement'));
-	$select->where(array('id_type' => 3));
-	$stat = $sql->prepareStatementForSqlObject ( $select );
-		$result = $stat->execute();
-		
-		
-		$variable =array();$i=1;
-		foreach ($result as $r){
-			$variable[$i] = $r['date_accouchement'];$i++;
-		}
-		//var_dump(count($variable));exit();
-		$today = new \DateTime ();
-		$dateToday = $today->format ( 'Y-m-d' );
-		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
-		$dates=array();
-		$month=array();
-		for($i=1;$i<=count($variable);$i++){		
-			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
-			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
-				
-				$dates[$i]=$variable[$i];
-			}
-		}
-		
-
-		return count($dates);
-	}
-	
-	public function getNbPatientsAccM(){
-		
-		
-		$adapter = $this->tableGateway->getAdapter();
-		$sql = new Sql($adapter);
-		$select = $sql->select();
-		$select->from(array('p' => 'patient'));
-		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
-		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type','date_accouchement'));
-	$select->where(array('id_type' => 4));
-	$stat = $sql->prepareStatementForSqlObject ( $select );
-		$result = $stat->execute();
-		
-		
-		$variable =array();$i=1;
-		foreach ($result as $r){
-			$variable[$i] = $r['date_accouchement'];$i++;
-		}
-		//var_dump(count($variable));exit();
-		$today = new \DateTime ();
-		$dateToday = $today->format ( 'Y-m-d' );
-		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
-		$dates=array();
-		$month=array();
-		for($i=1;$i<=count($variable);$i++){		
-			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
-			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
-				
-				$dates[$i]=$variable[$i];
-			}
-		}
-		
-
-		return count($dates);
-	}
-	
-	
-	
-	
-	public function getNbPatientsAccCes(){
-	
-	
-		$adapter = $this->tableGateway->getAdapter();
-		$sql = new Sql($adapter);
-		$select = $sql->select();
-		$select->from(array('p' => 'patient'));
-		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
-		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type','date_accouchement'));
-		$select->where(array('id_type' => 5));
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'));
+		$select->where(array('id_type' => 2,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
 		$stat = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stat->execute();
+		return count($result);
+	}
 	
-	
-		$variable =array();$i=1;
-		foreach ($result as $r){
-			$variable[$i] = $r['date_accouchement'];$i++;
-		}
-		//var_dump(count($variable));exit();
-		$today = new \DateTime ();
-		$dateToday = $today->format ( 'Y-m-d' );
-		list($yearToday,$monthToday, $dayToday) = explode('-', $dateToday);
-		$dates=array();
-		$month=array();
-		for($i=1;$i<=count($variable);$i++){
-			list($year[$i],$month[$i], $day[$i]) = explode('-', $variable[$i]);
-			if(($month[$i]==$monthToday)&&($year[$i]==$yearToday)){
-	
-				$dates[$i]=$variable[$i];
-			}
-		}
-	
-	
-		return count($dates);
+	public function getNbPatientsAccV($date_debut,$date_fin){
+		
+		
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('p' => 'patient'));
+		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'));
+		$select->where(array('id_type' => 3,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+		return count($result);
+	}
+	public function getNbPatientsAccM($date_debut,$date_fin){
+		
+		
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('p' => 'patient'));
+		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'));
+		$select->where(array('id_type' => 4,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+		return count($result);
 	}
 	
 	
 	
 	
-	public function getNbAvortement(){
+	public function getNbPatientsAccCes($date_debut, $date_fin){
+	
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('p' => 'patient'));
+		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'));
+		$select->where(array('id_type' => 5,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+		
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+		return count($result);
+	}
+	
+	
+	
+	
+	public function getNbAvortement($date_debut,$date_fin){
 		$db = $this->tableGateway->getAdapter();
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('av' => 'avortement'))
 		->columns( array( '*' ))
-		;
+		
+		->join(array('c'=>'consultation'),'c.id_cons=av.id_cons')
+		->where ( array (
+				'c.DATEONLY>= ?' => $date_debut,'c.DATEONLY<= ? '=> $date_fin ) );
 		$stat = $sql->prepareStatementForSqlObject($sQuery);
 		$resultat = $stat->execute();
 		//var_dump(count($resultat));exit();
-		return $resultat;
+		return count($resultat);
 	}
-	public function getNbRU(){
+	
+	public function getNbRU($date_debut,$date_fin){
 		$db = $this->tableGateway->getAdapter();
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('acc' => 'accouchement'))
 		->columns( array( '*' ))
-		->where(array('acc.ru'=> 'Oui'
-		));
+		->where(array('acc.ru'=> 'Oui','acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin)); 
 		$stat = $sql->prepareStatementForSqlObject($sQuery);
-		//$rResultFt = $stat->execute();
 		
 		$resultat = $stat->execute();
-		//var_dump(count($resultat));exit();
-		return $resultat;
+		return count($resultat);
 		}
 	}
 	

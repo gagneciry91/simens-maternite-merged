@@ -43,12 +43,7 @@ class DevenirNouveauNeTable {
 		//var_dump($resultat);exit();
 		return $resultat;
 	}
-	
-	
-	
-	
-	
-	
+
 	public function getDevenu($id_cons) {
 		
 		$adapter = $this->tableGateway->getAdapter ();
@@ -80,15 +75,6 @@ $select->join ( array (
 	
 		return $result;//var_dump(count($result));exit();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	public function saveNouveauNe($values,$id_cons,$tabIdEnfant) {

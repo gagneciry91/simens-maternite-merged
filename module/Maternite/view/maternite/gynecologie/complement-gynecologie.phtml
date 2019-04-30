@@ -15,9 +15,10 @@ echo  $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/
 
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.css');?>
 <?php
-echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/complementcons_accordeon_controle.js');
+echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/accouchement/complementcons_accordeon_controle.js');
 echo $this->headScript()->appendFile($this->basePath() . '/js/maternite/accouchement/ajouterMedicaments.js'); 
 echo $this->headScript ()->appendFile ( $this->basePath () . '/js/maternite/jsMaternite.js' );
+ echo $this->headScript()->appendFile($this->basePath().'/js/maternite/accouchement/jsAdmissionTest.js');
 
 echo $this->headLink()->appendStylesheet($this->basePath().'/css/mescss/bloquerDate.css'); //DatePicker
 echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/bloquerDate.js'); //Pour bloquer certaines dates?>
@@ -928,7 +929,7 @@ echo $this->form ()->openTag ( $form );
 					alt="consult-motif"
 					style='float: right; margin-right: 10px; width: 28%; height: 220px;' />
 			</p>
-        <?php echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/ajouterDiagnostic.js');?>
+        <?php //echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/ajouterDiagnostic.js');?>
 
         <table id="responded" style="width: 65%;">
 				<tr id="diag1" class="form-diag" style="width: 65%; height: 40px;">
@@ -1033,7 +1034,7 @@ echo $this->form ()->openTag ( $form );
                  *=============================================================================================
                  *=============================================================================================
                  **/
-                echo  $this->headScript()->appendFile($this->basePath().'/js/consultation/ajouterMedicaments.js');
+               // echo  $this->headScript()->appendFile($this->basePath().'/js/consultation/ajouterMedicaments.js');
                 ?>
 
                 <div id="listeMedicaments" style="float:left; width: 100%;">

@@ -2612,6 +2612,38 @@ class PatientTable {
 		return $output;
 	}
 	
+	
+	public function getListePourUnePeriode($date_debut, $date_fin){
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->columns( array( '*' ));
+		$select->from( array('c' => 'consultation'));
+		$select->join( array('a' => 'accouchement'), 'c.ID_CONS = a.id_cons' , array('*'));
+		
+		$select->where(array('c.DATEONLY  >= ?' => $date_debut, 'c.DATEONLY <= ?' => $date_fin));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute ();
+		$donnees = array();
+		$tabTypeAccouchement = array();
+	
+		foreach ($result as $resultat){
+	
+			$donnees[] = $resultat['id_type'];
+	
+			if(!in_array( $resultat['nombre'], $tabTypeAccouchement)){
+				$tabTypeAccouchement[] =  $resultat['nombre'];
+				
+	
+				
+	
+			}
+		}
+	
+		return array($tabTypeAccouchement, array_count_values($donnees), );
+	
+	}
+	
 	/**
 	 * Une consultation pour laquelle tous les actes sont payées
 	 */

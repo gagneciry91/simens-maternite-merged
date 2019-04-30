@@ -46,7 +46,7 @@ class NaissanceTable {
 	
 	}
 	
-	public function getEnf($id_cons) {
+	public function getEnf($date_debut,$date_fin) {
 		$adapter = $this->tableGateway->getAdapter ();
 		$sql = new Sql ( $adapter );
 		$select = $sql->select ();
@@ -56,15 +56,10 @@ class NaissanceTable {
 		$select->from ( array (
 				'enf' => 'enfant'
 		) );
-		/* $select->join ( array (
-				'g' => 'grossesse'
-		), 'enf.id_grossesse = g.id_grossesse', array (
-					
-		) );
+		$select->join(array('c'=>'consultation'),'c.id_cons=enf.id_cons');
+		
 		$select->where ( array (
-				'g.id_cons' => $id_cons,
-	
-		) ); */
+				'c.DATEONLY>= ?' => $date_debut,'c.DATEONLY<= ? '=> $date_fin ) ); 
 		$select->order ( 'id_bebe ASC' );
 		$stat = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stat->execute ();
@@ -132,49 +127,69 @@ public function saveNaissance($values,$id_cons,$id_patient,$id_grossesse) {
 	return $tab_IdBebe;
 
 }
-public function getNbEnfantReanime(){
+public function getNbEnfantReanime($date_debut,$date_fin){
+	
+	
 	$db = $this->tableGateway->getAdapter();
 	$sql = new Sql($db);
 	$sQuery = $sql->select()
 	->from(array('enf' => 'enfant'))
 	->columns( array( '*' ))
-	//->join(array('gros' => 'grossesse'), 'enf.id_cons = gros.id_cons' , array('*'))
+	->join(array('c'=>'consultation'),'c.id_cons=enf.id_cons')
 	->where(array(
-			'enf.reanimation'=>'Oui'
-	));
+			'enf.reanimation'=>'Oui', 'c.DATEONLY>= ?' => $date_debut,'c.DATEONLY<= ? '=> $date_fin));
 	$stat = $sql->prepareStatementForSqlObject($sQuery);
 	$resultat = $stat->execute();
 	//var_dump($resultat);exit();
-	return $resultat;
+	return count($resultat);
 	
 }
-public function getNbEnfantNonCrier(){
+public function getNbEnfantNonCrier($date_debut,$date_fin){
 	$db = $this->tableGateway->getAdapter();
 	$sql = new Sql($db);
 	$sQuery = $sql->select()
 	->from(array('enf' => 'enfant'))
 	->columns( array( '*' ))
+	->join(array('c'=>'consultation'),'c.id_cons=enf.id_cons')
+	
 	->where(array(
-			'enf.cri'=>'Non'	
+			'enf.cri'=>'Non','c.DATEONLY>= ?' => $date_debut,'c.DATEONLY<= ? '=> $date_fin	
 	));
 	$stat = $sql->prepareStatementForSqlObject($sQuery);
 	$resultat = $stat->execute();
 	//var_dump($resultat);exit();
-	return $resultat;
+	return count($resultat);
 }
-public function getNbEnfantPoidsInferieur(){
+public function getNbEnfantPoidsInferieur($date_debut,$date_fin){
 	$db = $this->tableGateway->getAdapter();
 	$sql = new Sql($db);
 	$sQuery = $sql->select()
 	->from(array('enf' => 'enfant'))
 	->columns( array( '*' ))
+	->join(array('c'=>'consultation'),'c.id_cons=enf.id_cons')
+	
 	->where(array(
-			'enf.poids' <2500
+			'enf.poids' <2500,'c.DATEONLY>= ?' => $date_debut,'c.DATEONLY<= ? '=> $date_fin
 	));
 	$stat = $sql->prepareStatementForSqlObject($sQuery);
 	$resultat = $stat->execute();
 	//var_dump($resultat);exit();
-	return $resultat;
+	return count($resultat);
+}
+public function getNbEnfantPoidsSuperieur($date_debut,$date_fin){
+	$db = $this->tableGateway->getAdapter();
+	$sql = new Sql($db);
+	$sQuery = $sql->select()
+	->from(array('enf' => 'enfant'))
+	->columns( array( '*' ))
+	->join(array('c'=>'consultation'),'c.id_cons=enf.id_cons')
+
+	->where(array(
+			'enf.poids >= ?' => 4000,'c.DATEONLY>= ?' => $date_debut,'c.DATEONLY<= ? '=> $date_fin
+	));
+	$stat = $sql->prepareStatementForSqlObject($sQuery);
+	$resultat = $stat->execute();
+	return count($resultat);
 }
 
 }

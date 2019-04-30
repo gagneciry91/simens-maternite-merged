@@ -2791,6 +2791,296 @@ foreach ($Nouveau as $Nv){
   
   }
   
+public function getStatistiqueSurveillanceAccouchement (){
+	$date_debut = $this->params()->fromPost ('date_debut');
+	$date_fin   = $this->params()->fromPost ('date_fin');
+	$control = new DateHelper();
+	$infoPeriodeRapport ="Rapport du ".$control->convertDate($date_debut)." au ".$control->convertDate($date_fin);
+	$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			
+				<tr style="width: 80%; height: 40px; font-family: police2;">
+				
+		  <th colspan=4; style="width: 60%;  font-weight: bold; font-size: 15px; ">Accouchements Eutociques</th>
+	    </tr>
+					</table>';
+	$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+	return $this->getResponse ()->setContent ( Json::encode ($html) );
+	
+} 
+public function getStatistiqueSurveillanceGrossesseAction(){
+	$date_debut = $this->params()->fromPost ('date_debut');
+	$date_fin   = $this->params()->fromPost ('date_fin');
+	$surveillance=$this->params()->fromPost ('surveillance');
+	$control = new DateHelper();
+	$infoPeriodeRapport ="Rapport du ".$control->convertDate($date_debut)." au ".$control->convertDate($date_fin);
+	
+	if($surveillance == 3){
+		$cpn1=$this->getGrossesseTable()->getCPN3($date_debut,$date_fin);
+		$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			         <tr style="width: 80%; height: 40px; font-family: police2;">
+                                    <th style="width: 60%;  font-weight: bold; font-size: 15px; ">INTITULEES</th>
+                                    <th style="width: 20%; font-weight: bold; font-size: 15px; text-align: left;">NOMBRE</th>
+                                  </tr>
+			     
+	
+	     
+		               		<tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de femme presentant une MAS </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;">'.$cpn1.'</td>
+		                        </tr>
+		               		<tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de femme enceinte presentant une MAM </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn1.' 
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de femme enceinte presentant une anemie </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn1.' 
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de femme enceinte ayant recu une prescription de fer </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" > 
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de femme enceinte ayant recu une prescription de MILDA </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" > 
+		                </td>
+		                        </tr>
+		                          <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de femme enceinte ayant recu un conceling SIDA</td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" > 
+		                </td>
+		                        </tr>
+		                             <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de femme enceinte ayant accepe le depistage VIH </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" > 
+			            
+		                </td>
+		                        </tr>
+		                                <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de femme enceinte depistee </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
+		                </td>
+		                        </tr>
+		                       
+		                        <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de femme supplementees en fer </td>
+                                 						             
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" > 
+		                </td>
+		                        </tr>
+		               		</table>';
+		
+	
+	}else if($surveillance == 1){
+		$vat1=$this->getGrossesseTable()->getnbVAT1($date_debut, $date_fin);
+		$vat2=$this->getGrossesseTable()->getnbVAT2($date_debut, $date_fin);
+		$vat3=$this->getGrossesseTable()->getnbVAT3($date_debut, $date_fin);
+		$vat4=$this->getGrossesseTable()->getnbVAT4($date_debut, $date_fin);
+		$vat5=$this->getGrossesseTable()->getnbVAT5($date_debut, $date_fin);
+		$vatTotal=$vat1+$vat2+$vat3+$vat4+$vat5;
+		
+		$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			         <tr style="width: 80%; height: 40px; font-family: police2;">
+                                    <th style="width: 60%;  font-weight: bold; font-size: 15px; ">NATURE VACCIN</th>
+                                    <th style="width: 20%; font-weight: bold; font-size: 15px; text-align: left;">NOMBRE</th>
+                                  </tr>
+		
+		
+		
+		               		<tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT1 </td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;">'.$vat1.'</td>
+		                        </tr>
+		               		<tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT2 </td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat2.'
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT3 </td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat3.'
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT4 </td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat4.'
+		                </td>
+		                        </tr>
+		                            <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de VAT5 </td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		                </td>
+		                        </tr>
+		                          <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre Totalde VAT</td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vatTotal.'</td>
+		               		</tr>
+		               		  <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de TPI1 </td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		                </td>
+		                        </tr>
+		               		  <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de TPI2 </td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		                </td>
+		                        </tr>
+		               				  <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de TPI3 </td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		                </td>
+		                        </tr>
+		               				  <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de TPI24</td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		                </td>
+		                        </tr>
+		               				  <tr style="width: 80%; height: 40px; font-family: police2;">
+	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre Total de TPI </td>
+		
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		                </td>
+		                        </tr>
+		                
+		                      		               		</table>';
+		
+		/* $html1  ='<script>';
+			
+		$html1 .= "
+		
+				    	$(document).ready(function($) {
+				    		var chart = new CanvasJS.Chart('VAT', {
+		
+				    			data: [{
+				    				type: 'pie',
+				    				dataPoints: [
+		
+				    				{ y: ".$vat1.", label: 'VAT1' },
+				    				{ y: ".$vat2.", label: 'VAT2' },
+				    				{ y: ".$vat3.", label: 'VAT3' },
+				    				{ y: ".$vat4.", label: 'VAT4' },
+				    				{ y: ".$vat5.", label: 'VAT5' },
+				    						
+				    						
+				  
+				    				]
+				    			}]
+				    		});
+		
+				    		chart.render();
+				    });";
+		$html1 .="</script> ";
+				 */
+				}else if($surveillance == 4){
+					
+				
+					$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+					
+				<tr style="width: 80%; height: 40px; font-family: police2;">
+							
+		  <th colspan=4; style="width: 60%;  font-weight: bold; font-size: 15px; ">Consultation Prenatale</th>
+			
+							
+	</tr>
+		
+					
+					</table>';
+				}	else if($surveillance == 5){
+					$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			
+				<tr style="width: 80%; height: 40px; font-family: police2;">
+				
+		  <th colspan=4; style="width: 60%;  font-weight: bold; font-size: 15px; ">Primaires</th>
+	    </tr>
+					</table>';
+					$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+		
+				<tr style="width: 80%; height: 40px; font-family: police2;">
+					
+		  <th colspan=4; style="width: 60%;  font-weight: bold; font-size: 15px; ">Multipares</th>
+	    </tr>
+					</table>';
+					
+					
+				}
+					
+				
+				
+							
+	$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+	return $this->getResponse ()->setContent ( Json::encode (array($html,$infoPeriodeRapport)) );
+	
+	
+	
+}
+  public function getStatistiquesParPeriodeAction(){
+
+  	$date_debut = $this->params()->fromPost ('date_debut');
+  	$date_fin   = $this->params()->fromPost ('date_fin');
+  	$control = new DateHelper();
+  	$infoPeriodeRapport ="Rapport du ".$control->convertDate($date_debut)." au ".$control->convertDate($date_fin);
+  	 $nbPatientAccou  = $this->getAccouchementTable()->getNbPatientsAcc($date_debut,$date_fin);
+  	$nbPatientAccCes  =  $this->getAccouchementTable()->getNbPatientsAccCes($date_debut,$date_fin);
+  	$nbPatientAccN  = $this->getAccouchementTable()->getNbPatientsAccN($date_debut,$date_fin);
+  	$nbPatientAccF = $this->getAccouchementTable()->getNbPatientsAccF($date_debut,$date_fin);
+  	$nbcri=$this->getNaissanceTable()->getNbEnfantNonCrier($date_debut,$date_fin);
+  	$ru=$this->getAccouchementTable()->getNbRU($date_debut,$date_fin);
+  	$nbinf=$this->getNaissanceTable()->getNbEnfantPoidsInferieur($date_debut,$date_fin);
+  	$enfviant=count($this->getNaissanceTable()->getEnf($date_debut,$date_fin));
+  	$nbPatientAccV = $this->getAccouchementTable()->getNbPatientsAccV($date_debut,$date_fin);
+  	$nbPatientAccM = $this->getAccouchementTable()->getNbPatientsAccM($date_debut,$date_fin);
+  	$nbGatPa = $this->getAccouchementTable()->getNbPatientsAccGatPa($date_debut,$date_fin);
+  	 
+  	//var_dump($nbinf) ;exit();
+  	$decede=$this->getDevenirNouveauNeTable()->getNbMortNe($date_debut,$date_fin);
+  	$reanimer=$this->getNaissanceTable()->getNbEnfantReanime($date_debut,$date_fin); 
+  	
+  	$html1="<script> $('#nbAccouchementTotalAjax').html(".$nbPatientAccou.");</script>";
+  	$html2="<script> $('#nbAccouchementCesarienneAjax').html(".$nbPatientAccCes.");</script>";
+  	$html3="<script> $('#nbAccouchementNormalAjax').html(".$nbPatientAccN.");</script>";
+  	$html4="<script> $('#nbAccouchementForcepsAjax').html(".$nbPatientAccF.");</script>";
+  	$html5="<script> $('#nbAccouchementVentouseAjax').html(".$nbPatientAccV.");</script>";
+  	$html6="<script> $('#nbAccouchementManoeuvreAjax').html(".$nbPatientAccM.");</script>";
+  	$html7="<script> $('#nbBebeNotCriAjax').html(".$nbcri.");</script>";
+  	$html8="<script> $('#nbBebePoidInfAjax').html(".$nbinf.");</script>";
+  	$html9="<script> $('#nbBebeVivantsAjax').html(".$enfviant.");</script>";
+  	$html10="<script> $('#nbBebeVivantsAjax').html(".$enfviant.");</script>";
+  	$html11="<script> $('#nbBebeReanimesAjax').html(".$reanimer.");</script>";
+  	$html12="<script> $('#nbMortNesAjax').html(".$decede.");</script>";
+  	$html13="<script> $('#nbARuAjax').html(".$ru.");</script>";
+  	 
+  	 
+  	 
+  	 
+  	//$html2="bonjour";
+  	
+  	$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+  	return $this->getResponse ()->setContent ( Json::encode (array($html1,$html2,$html3,$html4,$html5,$html6,$html7,$html8,$html9,$html10,$html11,$html12,$html13)) );
+  	}
+  	
+ 
+   
   public function statistiqueAction(){
   	$this->getDateHelper();
   	//var_dump($this);exit();
@@ -2802,31 +3092,23 @@ foreach ($Nouveau as $Nv){
   	$nbPatientPre = $this->getConsultationTable()->getNbPatientsPre();
   	$nbPatientPla= $this->getConsultationTable()->getNbPatientsPla();
   	$nbPatientGyneco=$this->getConsultationTable()->getNbPatientsGyneco();
+  	//var_dump($nbPatientGyneco);exit();
   	$nbPatientAccou  = $this->getConsultationTable()->getNbPatientsAcc();
-  	$nbcri=$this->getNaissanceTable()->getNbEnfantNonCrier();
-  	$nbrcier=count($nbcri);
-  	$ru=count($this->getAccouchementTable()->getNbRU());
-  	$nbinf=count($this->getNaissanceTable()->getNbEnfantPoidsInferieur());
-  	$enfviant=count($this->getNaissanceTable()->getEnf($id_cons));
-  	//var_dump($nbinf) ;exit();
-  	$decede=$this->getDevenirNouveauNeTable()->getNbMortNe();
-  	$reanimer=count($this->getNaissanceTable()->getNbEnfantReanime());
-  	//var_dump($reanimer);exit();
-  	$avo=count($this->getAccouchementTable()->getNbAvortement());
-  	//var_dump($avo);exit();
-  	$nbPatientAccCes  =  $this->getAccouchementTable()->getNbPatientsAccCes();
-  	$nbPatientPost=$this->getConsultationTable()->getNbPatientsPost();
+  
+  	//ar_dump('test');exit();
+  	//$cpn1=$this->getGrossesseTable()->getCPN3('2019-01-01','2019-04-01');
   	
+  	$nbPatientPost=$this->getConsultationTable()->getNbPatientsPost();
+  	$nbinf=$this->getNaissanceTable()->getNbEnfantPoidsSuperieur('2019-01-01','2019-04-01');
+  	//var_dump($nbinf);exit();
   	$nbPatientAccou  = $this->getConsultationTable()->getNbPatientsAcc();    //var_dump($nbPatientAccou);exit();
   	 
-  	$nbPatientAccN  = $this->getAccouchementTable()->getNbPatientsAccN();
-  	$nbPatientAccF = $this->getAccouchementTable()->getNbPatientsAccF();
+  	//$nbPatientAccoup  = $this->getAccouchementTable()->getNbPatientsAcc('2019-01-01','2019-04-01');var_dump($nbPatientAccoup);exit();
+  	 
   	$nbPatientPre = $this->getConsultationTable()->getNbPatientsPre();
-  	$nbPatientAccV = $this->getAccouchementTable()->getNbPatientsAccV();
   	$nbPatientPla= $this->getConsultationTable()->getNbPatientsPla();
   	
-  	$nbPatientAccM = $this->getAccouchementTable()->getNbPatientsAccM();
-  	$nbGatPa = $this->getAccouchementTable()->getNbPatientsAccGatPa();
+ 
   	$nbGrossesseGemellaire=$this->getGrossesseTable()->getNbGrossesseGemellaire();
   	//$nbr=$nbPatientAccCes+$nbPatientAccN+$nbPatientAccF+$nbPatientAccV+$nbPatientA
   	//$acc=count( $this->getAccouchementTable()->getLesAccouchement($month,$year));
@@ -2840,20 +3122,8 @@ foreach ($Nouveau as $Nv){
   			'nbPatientPla' => $nbPatientPla,
   			'nbPatientAcc'   => $nbPatientAccou,
   			'$nbPatientAccou'=>$nbPatientAccou,
-  			'$decede'=>$decede,
-  			'$ru'=>$ru,
-  			'$nbPatientGyneco'=>$nbPatientGyneco,
-  			'$reanimer'=>$reanimer,
-  			'enfviant'=>$enfviant,
-  			'nbinf'=>$nbinf,
-  			'nbrcier'=>$nbrcier,
-  			//'nbPatientAcc'   => $nbPatientAcc,
-  			'nbPatientAccCes'  => $nbPatientAccCes,
-  			'nbPatientAccN'  => $nbPatientAccN,
-  			'nbPatientAccF' => $nbPatientAccF,
-  			'nbPatientAccV' => $nbPatientAccV,
-  			'nbPatientAccM' => $nbPatientAccM,
-  			'nbPatientAccGatPa' => $nbGatPa,
+  			'nbPatientGyneco'=>$nbPatientGyneco,
+  			
   			'nbGrossesseGemellaire' => $nbGrossesseGemellaire,
   	);
   }

@@ -959,7 +959,8 @@ $("#terminer2, #terminer3").click(function () {
     
     donnees['ddr'] = $("#ddr").val();
     donnees['duree_grossesse'] = $("#duree_grossesse").val();
-    donnees['note_ddr'] = $("#note_ddr").val();
+    donnees['note_ddr'] = $("#note_ddr").val();date_cons
+    donnees['date_cons'] = $("#date_cons").val();
     donnees['nb_cpn'] = $("#nb_cpn").val();
     donnees['note_cpn'] = $("#note_cpn").val();
     donnees['bb_attendu'] = $("#bb_attendu").val();

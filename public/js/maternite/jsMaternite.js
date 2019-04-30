@@ -100,7 +100,7 @@ $(function() {
             var  profession = $("#PROFESSION");
             var  age_ = $("#AGE");
             var  dg = $("#duree_grossesse");
-            var Date_cons=$("#Date_cons");
+            var date_cons=$("#date_cons");
     	
     //$( "button" ).button(); // APPLICATION DU STYLE POUR LES BOUTONS
     var mdclick = 0;
@@ -225,7 +225,7 @@ $(function() {
     					maxDate: 0
     			}
     	);
-  		$('#Date_cons').datepicker(
+  		$('#date_cons').datepicker(
     			$.datepicker.regional['fr'] = {
     					closeText: 'Fermer',
     					changeYear: true,

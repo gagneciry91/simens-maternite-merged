@@ -3223,9 +3223,6 @@ class FacturationController extends AbstractActionController {
 				$nbPatientFPr = $this->getPatientTable()->nbPatientConsulteParPeriodeFem($date_debut, $date_fin);
 				$nbPatientMPr = $this->getPatientTable()->nbPatientConsulteParPeriodeMas($date_debut, $date_fin);
 				
-				
-				
-				
 				$tabPatFMPr = array($nbPatientFPr, $nbPatientMPr);
 				$pourcentageSexe = $this->pourcentage_element_tab($tabPatFMPr, $nbPatientPr);
 

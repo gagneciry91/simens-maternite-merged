@@ -425,6 +425,9 @@ function ajoutNouveauNe(nbEnfants){
 			        '<div class="nvCauseDiv">'+
 				       '<label class="nvCauseLabel" >cause <input id="cause_deces_'+i+'" type="text"></input> </label>'+
 			       '</div> '+
+			       '<div  class="nvDiv1">'+
+                   '<label  class="nvDiv1label">Vivant et premature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="viv_premature_'+i+'"><option value="Non">Non</option><option value="Oui">Oui</option></select></label>'+
+                '</div>'+ 
 			          '</td>'+
 			       '</tr>'+		     
 			    ' </table>'+
@@ -574,6 +577,8 @@ function getnv(nombr){
 	   $('.tabsNv #date_deces_'+ind).val(nvArray['date_deces_'+ind]);
 	   $('.tabsNv #heure_deces_'+ind).val(nvArray['heure_deces_'+ind]);
 	   $('.tabsNv #cause_deces_'+ind).val(nvArray['cause_deces_'+ind]);
+	   $('.tabsNv #viv_premature_'+ind).val(nvArray['viv_premature_'+ind]);
+
    
 	   
       }

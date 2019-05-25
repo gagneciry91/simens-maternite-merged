@@ -542,8 +542,8 @@ function confirmation() {
 $("#annuler2").click(function(){
 	$("#annuler2").css({"border-color":"#ccc", "background":"-webkit-linear-gradient( #555, #CCC)", "box-shadow":"1px 1px 5px black inset,0 1px 0 rgba( 255, 255, 255, 0.4)"});
 	
-    vart = tabUrl[0]+'public/accouchement/accoucher';
-	vart=tabUrl[0]+'public/accouchement/complement-accouchement?id_patient='+idPatient+'&id_cons='+id_cons;
+    vart = tabUrl[0]+'public/maternite/consultation-medecin';
+	vart=tabUrl[0]+'public/maternite/complement-consultation?id_patient='+idPatient+'&id_cons='+id_cons;
     $(location).attr("href",vart);
     return false;
 });
@@ -709,9 +709,9 @@ function updateexecuterRequetePost(donnees) {
 
 	//Le formulaire pour l'impression du certificat d'accouchement
 	var formulaireImprimCertificat = document.createElement("form");
-	formulaireImprimCertificat.setAttribute("action", tabUrl[0] + "public/accouchement/imprimer-certifat-accouchement");
-	formulaireImprimCertificat.setAttribute("method", "POST");   
-	formulaireImprimCertificat.setAttribute('target', '_blank');
+	//formulaireImprimCertificat.setAttribute("action", tabUrl[0] + "public/maternite/imprimer-certifat-accouchement");
+	//formulaireImprimCertificat.setAttribute("method", "POST");   
+	//formulaireImprimCertificat.setAttribute('target', '_blank');
 	
     document.body.appendChild(formulaireImprimCertificat);    
     
@@ -730,7 +730,7 @@ function updateexecuterRequetePost(donnees) {
     setTimeout(function(){ 
 	//Le formulaire a envoyer pour enregistrer les données
 	var formulaire = document.createElement("form");
-    formulaire.setAttribute("action", tabUrl[0] + "public/accouchement/update-complement-accouchement");
+    formulaire.setAttribute("action", tabUrl[0] + "public/maternite/update-complement-consultation");
     
     formulaire.setAttribute("method", "POST");   
     document.body.appendChild(formulaire);    
@@ -989,15 +989,6 @@ $("#terminer2, #terminer3").click(function () {
     donnees['delivrance'] = $("#delivrance").val();
     donnees['ru'] = $("#ru").val();
     donnees['hemoragie'] = $("#hemoragie").val();
-    donnees['hrp'] = $("#hrp").val();
-    donnees['dystocie'] = $("#dystocie").val();
-    donnees['infection'] = $("#infection").val();
-    donnees['anemie'] = $("#anemie").val();
-    donnees['fistules'] = $("#fistules").val();
-    donnees['paludisme'] = $("#paludisme").val();
-    donnees['eclapsie'] = $("#eclapsie").val();
-
-    
     donnees['quantite_hemo'] = $("#quantite_hemo").val();
     donnees['ocytocique_per'] = $("#ocytocique_per").val();
     donnees['ocytocique_post'] = $("#ocytocique_post").val();
@@ -1009,15 +1000,10 @@ $("#terminer2, #terminer3").click(function () {
     donnees['note_accouchement'] = $("#note_accouchement").val();
     donnees['note_delivrance'] = $("#note_delivrance").val();
     donnees['note_hemorragie'] = $("#note_hemorragie").val();
-    donnees['note_hrp'] = $("#note_hrp").val();
-    donnees['note_dystocie'] = $("#note_dystocie").val();
-
     donnees['note_ocytocique'] = $("#note_ocytocique").val();
     donnees['note_antibiotique'] = $("#note_antibiotique").val();
     donnees['note_anticonv'] = $("#note_anticonv").val();
     donnees['note_transfusion'] = $("#note_transfusion").val();
-    donnees['note_eclapsie'] = $("#note_eclapsie").val();
-
     
 
     

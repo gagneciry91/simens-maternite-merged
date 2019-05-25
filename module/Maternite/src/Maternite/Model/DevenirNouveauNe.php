@@ -7,6 +7,7 @@ class DevenirNouveauNe {
 	public $id_cons;
 	public $viv_bien_portant;
 	public $viv_mal_formation;
+	public $viv_premature;
 	public $malade;
 	public $decede;
 	public $date_deces;
@@ -30,6 +31,9 @@ class DevenirNouveauNe {
 		$this->id_bebe = (! empty ( $data ['id_bebe'] )) ? $data ['id_bebe'] : null;
 		$this->id_cons = (! empty ( $data ['id_cons'] )) ? $data ['id_cons'] : null;
 		$this->viv_bien_portant= (! empty ( $data ['viv_bien_portant'] )) ? $data ['viv_bien_portant'] : null;
+		
+		$this->viv_premature= (! empty ( $data ['viv_premature'] )) ? $data ['viv_premature'] : null;
+		
 		$this->viv_mal_formation= (! empty ( $data ['viv_mal_formation'] )) ? $data ['viv_mal_formation'] : null;
 	    $this->malade= (! empty ( $data ['malade'] )) ? $data ['malade'] : null;
 	   $this->decede= (! empty ( $data ['decede'] )) ? $data ['decede'] : null;

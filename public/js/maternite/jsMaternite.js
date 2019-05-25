@@ -195,6 +195,7 @@ $(function() {
   
   //FIN VALIDATION OU MODIFICATION DU FORMULAIRE ETAT CIVIL DU PATIENT
   //FIN VALIDATION OU MODIFICATION DU FORMULAIRE ETAT CIVIL DU PATIENT
+  		
   //FIN VALIDATION OU MODIFICATION DU FORMULAIRE ETAT CIVIL DU PATIENT
   		
   		$('#ddr').datepicker(
@@ -202,6 +203,7 @@ $(function() {
     					closeText: 'Fermer',
     					changeYear: true,
     					yearRange: 'c-80:c',
+    				
     					prevText: '&#x3c;Préc',
     					nextText: 'Suiv&#x3e;',
     					currentText: 'Courant',

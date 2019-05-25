@@ -2344,6 +2344,111 @@ $this->add(array(
 				),
 		));
 		$this->add(array(
+				'name' => 'infection',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1=> 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'id' => 'infection',
+		
+						//'required' => true,
+				),
+		));
+		
+		$this->add(array(
+				'name' => 'anemie',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1=> 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'id' => 'anemie',
+		
+						//'required' => true,
+				),
+		));
+		
+		$this->add(array(
+				'name' => 'fistules',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1=> 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'id' => 'fistules',
+		
+						//'required' => true,
+				),
+		));
+		$this->add(array(
+				'name' => 'paludisme',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1=> 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'id' => 'paludisme',
+		
+						//'required' => true,
+				),
+		));
+		
+		$this->add(array(
+				'name' => 'hrp',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1=> 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'id' => 'hrp',
+		
+				),
+		));
+		$this->add(array(
+				'name' => 'dystocie',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1=> 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'id' => 'dystocie',
+		
+				),
+		));
+		$this->add(array(
+				'name' => 'eclapsie',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1=> 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'id' => 'eclapsie',
+		
+				),
+		));
+		$this->add(array(
 				'name' => 'quantite_hemo',
 				'type' => 'Number',
 				'attributes' => array(
@@ -2375,12 +2480,81 @@ $this->add(array(
 				),
 		));
 		$this->add(array(
+				'name' => 'note_eclapsie',
+				'type' => 'Text',
+				'attributes' => array(
+		
+						'id' => 'note_eclapsie',
+						//'readonly' => 'readonly',
+				),
+		));
+		$this->add(array(
+				'name' => 'note_infection',
+				'type' => 'Text',
+				'attributes' => array(
+		
+						'id' => 'note_infection',
+						//'readonly' => 'readonly',
+						//'required' => true,
+				),
+		));
+		$this->add(array(
+				'name' => 'note_anemie',
+				'type' => 'Text',
+				'attributes' => array(
+		
+						'id' => 'note_anemie',
+						//'readonly' => 'readonly',
+						//'required' => true,
+				),
+		));
+		$this->add(array(
+				'name' => 'note_fistules',
+				'type' => 'Text',
+				'attributes' => array(
+		
+						'id' => 'note_fistules',
+						//'readonly' => 'readonly',
+						//'required' => true,
+				),
+		));
+		$this->add(array(
+				'name' => 'note_paludisme',
+				'type' => 'Text',
+				'attributes' => array(
+		
+						'id' => 'note_paludisme',
+						//'readonly' => 'readonly',
+						//'required' => true,
+				),
+		));
+		$this->add(array(
+				'name' => 'note_dystocie',
+				'type' => 'Text',
+				'attributes' => array(
+		
+						'id' => 'note_dystocie',
+						
+				),
+		));
+		$this->add(array(
 				'name' => 'note_hemorragie',
 				'type' => 'Text',
 				'attributes' => array(
 						//'readonly' => 'readonly',
 						'id' => 'note_hemorragie',
 					
+						//'required' => true,
+				),
+		));
+		
+		$this->add(array(
+				'name' => 'note_hrp',
+				'type' => 'Text',
+				'attributes' => array(
+						//'readonly' => 'readonly',
+						'id' => 'note_hrp',
+							
 						//'required' => true,
 				),
 		));

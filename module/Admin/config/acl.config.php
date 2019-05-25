@@ -521,6 +521,7 @@ return array(
     								'ajouter' =>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'get-statistique-surveillance-accouchement'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'get-statistiques-par-periode' =>array('gynecologue','stagiaire','infirmier','sage_femme'),
+    								'get-statistique-pathologie'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'enregistrement'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'liste-patient'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'liste-patient-ajax'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
@@ -548,7 +549,7 @@ return array(
     								'maj-accouchement'=>array('gynecologue','infirmier','sage_femme'),
     								'maj-complement-accouchement'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'update-complement-accouchement'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
-    								'impression-Pdf'=>array('gynecologue','infirmier','sage_femme'),
+    								//'impression-Pdf'=>array('gynecologue','infirmier','sage_femme'),
     								'en-cours'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
     								'liste-patient-encours-ajax'=>array('gynecologue','infirmier','sage_femme'),
     								'liste-soins-prescrits'=>array('gynecologue','stagiaire','infirmier','sage_femme'),
@@ -589,9 +590,9 @@ return array(
     								'maj-cons-donnees' => 'surveillant',
     						
     								//============ MEDECIN =========================
-    								'consultation-medecin' => 'medecin',
+    								'consultation-medecin' => array('medecin','gynecologue'),
     								'espace-recherche-med' => 'medecin',
-    								'complement-consultation' => 'medecin',
+    								'complement-consultation' => array('medecin','gynecologue'),
     								'services' => 'medecin',
     								'update-complement-consultation' => 'medecin',
     								'maj-complement-consultation' => 'medecin',

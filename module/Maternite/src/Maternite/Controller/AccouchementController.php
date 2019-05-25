@@ -1288,7 +1288,7 @@ public function declarerDecesAction() {
 		$listeDesExamensBiologiques = $this->demandeExamensTable()->getDemandeDesExamensBiologiques();
 		$listeDesExamensMorphologiques = $this->demandeExamensTable()->getDemandeDesExamensMorphologiques();
 		$listeCausesComplicationObstetricale = $this->ConclusionTable()->getCausesComplication($id);
-		$Naissances = $this->getNaissanceTable()->getEnf($id);
+		$Naissances = $this->getNaissanceTable()->getNaissance($id);//getEnf($id);
 		$nombre=count($Naissances);
 		$Nouveau = $this->getDevenirNouveauNeTable()->getDevenu($id);
 		$listesDecesMaternel = $this->conclusionTable()->getCausesDeces($id);
@@ -1443,6 +1443,12 @@ foreach ($Nouveau as $Nv){
 				'vat_1'=>$donne_grossesses['vat_1'],
 				'vat_2'=>$donne_grossesses['vat_2'],
 				'vat_3'=>$donne_grossesses['vat_3'],
+				'vat_4'=>$donne_grossesses['vat_4'],
+				'vat_5'=>$donne_grossesses['vat_5'],
+				'tpi_1'=>$donne_grossesses['tpi_1'],
+				'tpi_2'=>$donne_grossesses['tpi_2'],
+				'tpi_4'=>$donne_grossesses['tpi_4'],
+				'tpi_3'=>$donne_grossesses['tpi_3'],
 				'note_vat'=>$donne_grossesses['note_vat'],
 		);
 	
@@ -1505,6 +1511,13 @@ foreach ($Nouveau as $Nv){
 					'antibiotique' => $donne_accouchement['antibiotique'],
 					'anticonvulsant' => $donne_accouchement ['anticonvulsant'],
 					'transfusion' => $donne_accouchement['transfusion'],
+				    'hrp' => $donne_accouchement['hrp'],
+				    'dystocie' => $donne_accouchement['dystocie'],
+				    'infection' => $donne_accouchement['infection'],
+				    'anemie' => $donne_accouchement['anemie'],
+				    'fistules' => $donne_accouchement['fistules'],
+				    'paludisme' => $donne_accouchement['paludisme'],
+				    'eclapsie' => $donne_accouchement['paludisme'],
 					'note_delivrance' => $donne_accouchement['note_delivrance'],
 					'note_hemorragie' => $donne_accouchement['note_hemorragie'],
 					'text_observation' => $donne_accouchement['text_observation'],
@@ -1512,7 +1525,18 @@ foreach ($Nouveau as $Nv){
 					'note_ocytocique' => $donne_accouchement['note_ocytocique'],
 					'note_antibiotique' => $donne_accouchement['note_antibiotique'],
 					'note_anticonv' => $donne_accouchement['note_anticonv'],
-					'note_transfusion' => $donne_accouchement['note_transfusion'],	
+					'note_transfusion' => $donne_accouchement['note_transfusion'],
+				    'note_hrp' => $donne_accouchement['note_hrp'],
+				    'note_dystocie' => $donne_accouchement['note_dystocie'],
+				    'note_infection' => $donne_accouchement['note_infection'],
+				    'note_anemie' => $donne_accouchement['note_anemie'],
+				     'note_fistules' => $donne_accouchement['note_fistules'],
+				     'note_paludisme' => $donne_accouchement['note_paludisme'],
+				
+				
+				
+				
+				
 		);
 		$form->populateValues($donnees_accouchement);
 		
@@ -1922,6 +1946,7 @@ foreach ($Nouveau as $Nv){
 	 
 	
 
+
 	public function updateComplementAccouchementAction()
 	{
 		$this->layout()->setTemplate('layout/accouchement');
@@ -2258,7 +2283,7 @@ foreach ($Nouveau as $Nv){
 				'sexeMedecin' => $sexeMedecin,
 		);
 		
-
+//var_dump('test');exit();
 		$donneesPatientOR = $this->getConsultationTable()->getInfoPatient($id_patient);
 		// R�cup�ration des donn�es
 		$donneesDemande ['prenome'] = $formData['prenome'];
@@ -2338,7 +2363,7 @@ foreach ($Nouveau as $Nv){
    
   public function impressionPdfAction()
     {
-    	 //$user =$this->layout()->setTemplate('layout/accouchement');
+    	 $user =$this->layout()->setTemplate('layout/accouchement');
         $user = $this->layout()->user;
         $serviceMedecin = $user ['NomService'];
         $nomMedecin = $user ['Nom'];
@@ -2351,7 +2376,7 @@ foreach ($Nouveau as $Nv){
         
          $formData = $this->getRequest()->getPost();
        $object=$this->params('pdf');
-     
+    
         // *************************************
         // *************************************
         // ***DONNEES COMMUNES A TOUS LES PDF***
@@ -2371,6 +2396,7 @@ foreach ($Nouveau as $Nv){
         // **********ORDONNANCE*****************
         if (isset ($_POST ['suitedecouche'])) {
         	// R�cup�ration des donn�es
+        	//var_dump('tst');exit();
         	$donneesDemande ['suite_de_couches'] = $this->params()->fromPost('suite_de_couches');
          	// CREATION DU DOCUMENT PDF
         	// Cr�er le document
@@ -2755,62 +2781,497 @@ foreach ($Nouveau as $Nv){
     
 
   
-  public function informationsStatistiquesAction() {
+
   
-  	$this->layout ()->setTemplate ( 'layout/facturation' );
-  	$patientTable = $this->getPatientTable();
-  	$infos = $this->getConsultationTable()->getInfosSousDossier();
-  	//$listeDiagnostic = $this->getPatientTable ()->getListePatientNouvelle ();
-  	//$nomDuService= $this->getPatientTable()->getServiceParId( 6 )['NOM'];
-  	$nomDuSousDossier= $this->getPatientTable()->getSousDossierParId();
-  	$formStatistique = new StatistiqueForm ();
-  	$sousDossier = $this->getConsultationTable()->fetchSousDossier();
-  	$formStatistique->get ( 'id_sous_dossier' )->setValueOptions ( $sousDossier );
-  	//$formStatistique->get ( 'id_sous_dossier_genre' )->setValueOptions ( $sousDossier );
-  		
-  	//$sexe = $this->getConsultationTable()->fetchSexe();
-  	//$formStatistique->get ( 'id_personne' )->setValueOptions ( $sexe );
-  		
-  	//      $nbPatientPA = $this->getPatientTable()->nbPatientConsulteSousDossierParAgeParPeriode('2','2017-02-12','2018-03-23','3','19');
-  	//   	var_dump($nbPatientPA);exit();
-  	 
-  		
-  		
-  		
-  		
-  		
-  
-  
-  	return array (
-  			'infos' => $infos,
-  			//'diagnostics' => $listeDiagnostic,
-  			'sousDossier' => $nomDuSousDossier,
-  			'formStatistique' => $formStatistique,
-  	);
-  
-  
-  }
-  
-public function getStatistiqueSurveillanceAccouchement (){
+public function getStatistiqueSurveillanceAccouchementAction (){
+	$date_debut = $this->params()->fromPost ('date_debut');
+	$date_fin   = $this->params()->fromPost ('date_fin');
+	$cibler=$this->params()->fromPost ('cibler');
+	$sexe=$this->params()->fromPost ('sexe');
+	$naissance=$this->params()->fromPost ('naissance');
+		$control = new DateHelper();
+	$infoPeriodeRapport ="Rapport du ".$control->convertDate($date_debut)." au ".$control->convertDate($date_fin);
+	if ($cibler==1 ){
+		if(($sexe==1)&& ($naissance==1) ){
+			$simplepre=$this->getGrossesseTable()->getNbNaissanePrematureMascSimpleEutocique($date_debut,$date_fin);
+			$simpleter=$this->getGrossesseTable()->getNbNaissanePrematureMascSimpleEutocique($date_debut, $date_fin);
+			$doublepre=$this->getGrossesseTable()->getNbNaissanePrematureMascDoubleEutocique($date_debut, $date_fin);
+			$doubleter=$this->getGrossesseTable()->getNbNaissaneTermMascDoubleEutocique($date_debut, $date_fin);
+			$triplepre=$this->getGrossesseTable()->getNbNaissanePrematureMascTriplePlusEutocique($date_debut, $date_fin);
+			$tripleter=$this->getGrossesseTable()->getNbNaissaneTermMascTriplePlusEutocique($date_debut, $date_fin);
+			 
+			 $html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+				
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+			
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+			
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+								<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >10
+		                </td>
+										<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$simpleter.'
+		                </td>
+							
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$simplepre.'
+		                </td>
+							
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+													<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >10
+		                </td>
+										<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$doubleter.'
+		                </td>
+							
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$doublepre.'
+		                </td>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+																	<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >10
+		                </td>
+										<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$tripleter.'
+		                </td>
+							
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$triplepre.'
+		                </td>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+			
+			
+						<table>';
+		} else if(($sexe==1)&& ($naissance==2) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+		
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+			
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+		
+		
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+		
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+		
+		
+						<table>';
+			
+		}else if(($sexe==2) && ($naissance==1) ){
+			$simpleterF=$this->getGrossesseTable()->getNbNaissaneTermFemSimpleEutocique($date_debut, $date_fin);
+			$simplepreF=$this->getGrossesseTable()->getNbNaissanePrematureFemSimpleEutocique($date_debut, $date_fin);
+			$doupleterF=$this->getGrossesseTable()->getNbNaissaneTermFemDoubleEutocique($date_debut, $date_fin);
+			$doublepreF=$this->getGrossesseTable()->getNbNaissanePrematureFemDoubleEutocique($date_debut, $date_fin);
+			$tripleterF=$this->getGrossesseTable()->getNbNaissaneTermFemTriplePlusEutocique($date_debut, $date_fin);
+			$triplepreF=$this->getGrossesseTable()->getNbNaissanePrematureFemTriplePlusEutocique($date_debut, $date_fin);
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+		
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+			
+			
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+			
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+										<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >10
+		                </td>
+										<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$simpleterF.'
+		                </td>
+							
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$simplepreF.'
+		                </td>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+											<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >10
+		                </td>
+										<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$doupleterF.'
+		                </td>
+							
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$doublepreF.'
+		                </td>
+					
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+																<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >10
+		                </td>
+										<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$tripleterF.'
+		                </td>
+							
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$triplepreF.'
+		                </td>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+			
+			
+						<table>';
+		
+
+		}else if(($sexe==2) && ($naissance==2) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+		
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+		
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+		
+		
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+		
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+		
+		
+						<table>';
+		}
+	
+	
+				
+	}
+	else if($cibler==2){
+		if(($sexe==1)&& ($naissance==1) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+				
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+			
+			
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+			
+			
+			
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+			
+			
+						<table>';
+		} else if(($sexe==1)&& ($naissance==2) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+		
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+			
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+		
+		
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+		
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+		
+		
+						<table>';
+			
+		}else if(($sexe==2) && ($naissance==1) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+		
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+			
+			
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+			
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+			
+			
+						<table>';
+		
+
+		}else if(($sexe==2) && ($naissance==2) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+		
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+		
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+		
+		
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+		
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+		
+		
+						<table>';
+			
+	}
+	}else if($cibler==3){
+		if(($sexe==1)&& ($naissance==1) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+				
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+			
+			
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+			
+			
+			
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+			
+			
+						<table>';
+		} else if(($sexe==1)&& ($naissance==2) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+		
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+			
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+		
+		
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+		
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+		
+		
+						<table>';
+			
+		}else if(($sexe==2) && ($naissance==1) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+		
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+			
+			
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+			
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+			
+			
+						<table>';
+		
+
+		}else if(($sexe==2) && ($naissance==2) ){
+			$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+		
+				<tr style="width: 60%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Nature Naissance</th>
+		
+		  <th  style="width: 5%;  font-weight: bold; font-size: 15px; ">Nbre</th>
+		
+		
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Terme</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Premature</th>
+						</tr>
+		
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Simple </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Double </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Triple et plus </th>
+						</tr>
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						</tr>
+		
+		
+						<table>';
+		}
+	
+	
+				
+	}
+	
+	$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+	return $this->getResponse ()->setContent ( Json::encode (array($html,$infoPeriodeRapport) ));
+	
+} 
+public function getStatistiquePathologieAction(){
 	$date_debut = $this->params()->fromPost ('date_debut');
 	$date_fin   = $this->params()->fromPost ('date_fin');
 	$control = new DateHelper();
 	$infoPeriodeRapport ="Rapport du ".$control->convertDate($date_debut)." au ".$control->convertDate($date_fin);
-	$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
-			
-				<tr style="width: 80%; height: 40px; font-family: police2;">
-				
-		  <th colspan=4; style="width: 60%;  font-weight: bold; font-size: 15px; ">Accouchements Eutociques</th>
-	    </tr>
-					</table>';
+		
+	    $hrp=$this->getAccouchementTable()->getNbhrp($date_debut,$date_fin);
+		$hpp=$this->getAccouchementTable()->getNbhpp($date_debut, $date_fin);
+		$anemie=$this->getAccouchementTable()->getNbanemie($date_debut, $date_fin);
+		$fistules=$this->getAccouchementTable()->getNbFistules($date_debut, $date_fin);
+		$paludisme=$this->getAccouchementTable()->getNbPaludisme($date_debut, $date_fin);
+		$ru=$this->getAccouchementTable()->getNbRU($date_debut,$date_fin);
+		$eclapsie=$this->getAccouchementTable()->getNbEclapsie($date_debut, $date_fin);
+		$dystocie=$this->getAccouchementTable()->getNbDystocie($date_debut, $date_fin);
+		
+		$html1="<script> $('#nbHRPAjax').html(".$hrp.");</script>";
+		$html2="<script> $('#nbHPPAjax').html(".$hpp.");</script>";
+		$html3="<script> $('#nbAnemieAjax').html(".$anemie.");</script>";
+		$html4="<script> $('#nbFistulesAjax').html(".$fistules.");</script>";
+		$html5="<script> $('#nbPaludismeAjax').html(".$paludisme.");</script>";
+		$html6="<script> $('#nbARuAjax').html(".$ru.");</script>";
+		$html7="<script> $('#nbEclapsieAjax').html(".$eclapsie.");</script>";
+		$html8="<script> $('#nbDystocieAjax').html(".$dystocie.");</script>";
+		
+		$html9  ='<script>';
+		$html9 .= "
+		
+				    	$(document).ready(function($) {
+				    		var chart = new CanvasJS.Chart('patientePatho', {
+		
+				    			data: [{
+				    				type: 'pie',
+				    				dataPoints: [
+		
+				    				{ y: ".$hrp.", label: 'HRP' },
+				    				{ y: ".$hpp.", label: 'HPP' },
+				    				{ y: ".$anemie.", label: 'Anemie' },
+				    				{ y: ".$fistules.", label: 'Fistules' },
+				    				]
+				    			}]
+				    		});
+		
+				    		chart.render();
+				    });";
+		$html9 .="</script> ";
+		
+		
 	$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
-	return $this->getResponse ()->setContent ( Json::encode ($html) );
-	
-} 
+	return $this->getResponse ()->setContent ( Json::encode (array($html1,$html2,$html3,$html4,$html5,$html6,$html7,$html8,$html9,$infoPeriodeRapport)) );
+
+}
 public function getStatistiqueSurveillanceGrossesseAction(){
 	$date_debut = $this->params()->fromPost ('date_debut');
 	$date_fin   = $this->params()->fromPost ('date_fin');
 	$surveillance=$this->params()->fromPost ('surveillance');
+	
 	$control = new DateHelper();
 	$infoPeriodeRapport ="Rapport du ".$control->convertDate($date_debut)." au ".$control->convertDate($date_fin);
 	
@@ -2891,10 +3352,12 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 		$vatTotal=$vat1+$vat2+$vat3+$vat4+$vat5;
 		
 		$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
-			         <tr style="width: 80%; height: 40px; font-family: police2;">
+                 <caption>VACCIN</caption>
+				<tr style="width: 80%; height: 40px; font-family: police2;">
                                     <th style="width: 60%;  font-weight: bold; font-size: 15px; ">NATURE VACCIN</th>
                                     <th style="width: 20%; font-weight: bold; font-size: 15px; text-align: left;">NOMBRE</th>
-                                  </tr>
+				
+				</tr>
 		
 		
 		
@@ -2965,13 +3428,13 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 		                
 		                      		               		</table>';
 		
-		/* $html1  ='<script>';
+/* 		 $html1  ="<script>";
 			
 		$html1 .= "
 		
 				    	$(document).ready(function($) {
-				    		var chart = new CanvasJS.Chart('VAT', {
-		
+				    		var chart = new CanvasJS.Chart('vaccin', {
+						
 				    			data: [{
 				    				type: 'pie',
 				    				dataPoints: [
@@ -2990,41 +3453,170 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 		
 				    		chart.render();
 				    });";
-		$html1 .="</script> ";
-				 */
+		$html1 .="</script> "; */
+				 
 				}else if($surveillance == 4){
-					
-				
-					$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+					$vat1=$this->getGrossesseTable()->getnbVAT1($date_debut, $date_fin);
+					$cpn1Pri=$this->getGrossesseTable()->getCPN1Primipare($date_debut, $date_fin);	
+					$cpn2Pri=$this->getGrossesseTable()->getCPN2Primipare($date_debut, $date_fin);
+					$cpn3Pri=$this->getGrossesseTable()->getCPN3Primipare($date_debut, $date_fin);
+					$cpn4Pri=$this->getGrossesseTable()->getCPN4Primipare($date_debut, $date_fin);
+					$cpn5Pri=$this->getGrossesseTable()->getCPNSup4Primipare($date_debut, $date_fin);
+					$cpn1Multi=$this->getGrossesseTable()->getCPN1Multipare($date_debut, $date_fin);
+					$cpn2Multi=$this->getGrossesseTable()->getCPN2Multipare($date_debut, $date_fin);
+					$cpn3Multi=$this->getGrossesseTable()->getCPN3Multipare($date_debut, $date_fin);
+					$cpn4Multi=$this->getGrossesseTable()->getCPN4Multipare($date_debut, $date_fin);
+					$cpn5Multi=$this->getGrossesseTable()->getCPNSup4Multipare($date_debut, $date_fin);
+					$total1= $cpn1Pri+ $cpn1Multi;
+					$total2= $cpn2Pri+ $cpn2Multi;
+					$total3= $cpn3Pri+ $cpn3Multi;
+					$total4= $cpn4Pri+ $cpn4Multi;
+					$total5= $cpn5Pri+ $cpn5Multi;
+						
+					$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
 					
 				<tr style="width: 80%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Cibles</th>
 							
-		  <th colspan=4; style="width: 60%;  font-weight: bold; font-size: 15px; ">Consultation Prenatale</th>
-			
-							
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">CPN1</th>
+		<th  style="width: 20%;  font-weight: bold; font-size: 15px; ">CPN2</th>
+		 <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">CPN3</th>
+		 <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">CPN4</th>
+		 <th style="width: 20%;  font-weight: bold; font-size: 15px; ">Plus4</th>
+	
 	</tr>
 		
-					
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Primipares </th>
+							<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn1Pri.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn2Pri.'
+		                </td>
+								<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn3Pri.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn4Pri.'
+		                </td>
+							<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn5Pri.'
+		                </td>
+				                        </tr>
+							<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Multipares </th>
+							<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn1Multi.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn2Multi.'
+		                </td>
+								<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn3Multi.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn4Multi.'
+		                </td>
+							<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$cpn5Multi.'
+		                </td>
+						      </tr>
+							<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+										<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total1.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total2.'
+		                </td>
+								<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total3.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total4.'
+		                </td>
+							<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total5.'
+		                </td>
+						      </tr>
 					</table>';
 				}	else if($surveillance == 5){
-					$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
-			
-				<tr style="width: 80%; height: 40px; font-family: police2;">
+						$vat1=$this->getGrossesseTable()->getnbVAT1($date_debut, $date_fin);
+						
 				
-		  <th colspan=4; style="width: 60%;  font-weight: bold; font-size: 15px; ">Primaires</th>
-	    </tr>
-					</table>';
-					$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
-		
-				<tr style="width: 80%; height: 40px; font-family: police2;">
+					$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
 					
-		  <th colspan=4; style="width: 60%;  font-weight: bold; font-size: 15px; ">Multipares</th>
-	    </tr>
+				<tr style="width: 80%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Cibles</th>
+							
+		  <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Simple</th>
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Double</th>
+		 <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Total</th>
+	
+	</tr>
+		
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Primipares </th>
+							<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat1.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat1.'
+		                </td>
+								<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat1.'
+		                </td>
+						
+				                        </tr>
+							<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Multipares </th>
+							<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat1.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat1.'
+		                </td>
+								<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat1.'
+		                </td>
+						
+						      </tr>
+							<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+						      </tr>
 					</table>';
 					
 					
 				}
-					
+				else if($surveillance == 2){
+					$vat1=$this->getGrossesseTable()->getnbVAT1($date_debut, $date_fin);
+					$PrimPatho=$this->getGrossesseTable()->getPrimiparePatho($date_debut, $date_fin);
+					$PrimRisque=$this->getGrossesseTable()->getPrimipareRisque($date_debut, $date_fin);
+				    $MultiPatho=$this->getGrossesseTable()->getMultiparePatho($date_debut, $date_fin);
+				    $MultiRisque=$this->getGrossesseTable()->getMultipareRisque($date_debut, $date_fin);
+				    $total1= $PrimPatho + $MultiPatho;
+				    $total2= $PrimRisque + $MultiRisque;
+				   
+					$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
+			
+				<tr style="width: 80%; height: 40px; font-family: police2;">
+		  <th  style="width: 20%;  font-weight: bold; font-size: 15px; ">Cibles</th>
+				
+		  <th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Patho</th>
+		<th  style="width: 30%;  font-weight: bold; font-size: 15px; ">Risque</th>
+				
+	</tr>
+				
+						<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Primipares </th>
+							<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$PrimPatho.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$PrimRisque.'
+		                </td>
+							
+				
+				                        </tr>
+							<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Multipares </th>
+							
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$MultiPatho.'
+		                </td>
+								<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$MultiRisque.'
+		                </td>
+				
+						      </tr>
+							<tr style="width: 80%; height: 40px; font-family: police2;">
+							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+										
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total1.'
+		                </td>
+								<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total2.'
+		                </td>
+						      </tr>
+					</table>';
+						
+						
+				}
 				
 				
 							
@@ -3045,7 +3637,6 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   	$nbPatientAccN  = $this->getAccouchementTable()->getNbPatientsAccN($date_debut,$date_fin);
   	$nbPatientAccF = $this->getAccouchementTable()->getNbPatientsAccF($date_debut,$date_fin);
   	$nbcri=$this->getNaissanceTable()->getNbEnfantNonCrier($date_debut,$date_fin);
-  	$ru=$this->getAccouchementTable()->getNbRU($date_debut,$date_fin);
   	$nbinf=$this->getNaissanceTable()->getNbEnfantPoidsInferieur($date_debut,$date_fin);
   	$enfviant=count($this->getNaissanceTable()->getEnf($date_debut,$date_fin));
   	$nbPatientAccV = $this->getAccouchementTable()->getNbPatientsAccV($date_debut,$date_fin);
@@ -3068,12 +3659,11 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   	$html10="<script> $('#nbBebeVivantsAjax').html(".$enfviant.");</script>";
   	$html11="<script> $('#nbBebeReanimesAjax').html(".$reanimer.");</script>";
   	$html12="<script> $('#nbMortNesAjax').html(".$decede.");</script>";
-  	$html13="<script> $('#nbARuAjax').html(".$ru.");</script>";
   	 
   	 
   	 
   	 
-  	//$html2="bonjour";
+  	
   	
   	$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
   	return $this->getResponse ()->setContent ( Json::encode (array($html1,$html2,$html3,$html4,$html5,$html6,$html7,$html8,$html9,$html10,$html11,$html12,$html13)) );
@@ -3095,24 +3685,17 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   	//var_dump($nbPatientGyneco);exit();
   	$nbPatientAccou  = $this->getConsultationTable()->getNbPatientsAcc();
   
-  	//ar_dump('test');exit();
-  	//$cpn1=$this->getGrossesseTable()->getCPN3('2019-01-01','2019-04-01');
-  	
   	$nbPatientPost=$this->getConsultationTable()->getNbPatientsPost();
-  	$nbinf=$this->getNaissanceTable()->getNbEnfantPoidsSuperieur('2019-01-01','2019-04-01');
-  	//var_dump($nbinf);exit();
+  	//$nbinf=$this->getGrossesseTable()->getNbNaissanePrematureMascSimpleEutocique('2019-01-01','2019-04-01');
+   // var_dump($nbinf);exit();
   	$nbPatientAccou  = $this->getConsultationTable()->getNbPatientsAcc();    //var_dump($nbPatientAccou);exit();
-  	 
-  	//$nbPatientAccoup  = $this->getAccouchementTable()->getNbPatientsAcc('2019-01-01','2019-04-01');var_dump($nbPatientAccoup);exit();
-  	 
+ 
   	$nbPatientPre = $this->getConsultationTable()->getNbPatientsPre();
   	$nbPatientPla= $this->getConsultationTable()->getNbPatientsPla();
   	
  
   	$nbGrossesseGemellaire=$this->getGrossesseTable()->getNbGrossesseGemellaire();
-  	//$nbr=$nbPatientAccCes+$nbPatientAccN+$nbPatientAccF+$nbPatientAccV+$nbPatientA
-  	//$acc=count( $this->getAccouchementTable()->getLesAccouchement($month,$year));
-  	//$nbPatientAcc   =$acc;
+  	
   
   	return array (
   			 

@@ -193,6 +193,8 @@ $(function () {
 
 donnees['ddr'] = $("#ddr").val();
 donnees['date_cons'] = $("#date_cons").val();
+donnees['geu'] = $("#geu").val();
+donnees['note_geu'] = $("#note_geu").val();
 
 donnees['duree_grossesse'] = $("#duree_grossesse").val();
 donnees['note_ddr'] = $("#note_ddr").val();

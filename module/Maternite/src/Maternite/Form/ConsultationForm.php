@@ -324,7 +324,7 @@ class ConsultationForm extends Form {
 		) );
 		$this->add ( array (
 				'name' => 'date_cons',
-				'type' => 'date',
+				'type' => 'Text',
 				'attributes' => array (
 						//'readonly' => 'readonly',
 						'id' => 'date_cons'
@@ -332,6 +332,8 @@ class ConsultationForm extends Form {
 		) );
 		
 	
+		
+		
 		
 		
 		$this->add ( array (
@@ -613,7 +615,21 @@ class ConsultationForm extends Form {
 				)
 		) );
 		
-		
+		$this->add(array(
+				'name' => 'geu',
+				'type' => 'select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1 => 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'registerInArrrayValidator' => true,
+						'id' => 'geu',
+						//'required' => true,
+				),
+		));
 		$this->add(array(
 				'name' => 'contraception',
 				'type' => 'select',
@@ -730,6 +746,15 @@ class ConsultationForm extends Form {
 				)
 		) );
 		
+		$this->add ( array (
+				'name' => 'note_geu',
+				'type' => 'text',
+				'attributes' => array (
+						'id' => 'note_geu'
+				)
+		) );
+		
+		
 		
 		$this->add ( array (
 				'name' => 'test_emmel',
@@ -799,13 +824,14 @@ class ConsultationForm extends Form {
 				'type' => 'radio',
 				'options' => array (
 						'value_options' => array (
-								'0' => 'Ignorer',
-								'1' => 'Normale',
+								'0' => 'Normale',
+								'1' => 'A Risque',
 								'2' => 'Pathologique' 
 						) 
 				),
 				'attributes' => array (
-						'id' => 'nouvelleGrossesse' 
+						'id' => 'nouvelleGrossesse' ,
+						'required' => true,
 				) 
 		) );
 		
@@ -1977,7 +2003,7 @@ class ConsultationForm extends Form {
 		/**
 		 * ************************* CONSTANTES *****************************************************
 		 */
-		$this->add ( array (
+		/**$this->add ( array (
 				'name' => 'date_cons',
 				'type' => 'hidden',
 				'options' => array (
@@ -1986,7 +2012,7 @@ class ConsultationForm extends Form {
 				'attributes' => array (
 						'id' => 'date_cons' 
 				) 
-		) );
+		) ); */
 		$this->add ( array (
 				'name' => 'poids',
 				'type' => 'Text',

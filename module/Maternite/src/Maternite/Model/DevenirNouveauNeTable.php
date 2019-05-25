@@ -89,6 +89,7 @@ $select->join ( array (
 					'viv_mal_formation' => $values['viv_mal_form_'. $i],
 					'note_viv_mal_formation' => $values['n_viv_mal_form_'. $i],
 					'malade' => $values['malade_'. $i],
+					'viv_premature' =>$values['viv_premature_'. $i],
 					'note_malade' => $values['n_malade_'. $i],
 					'decede' => $values ['decede_'. $i],					
 					'id_bebe' => $tabIdEnfant[$i-1],						
@@ -107,7 +108,7 @@ $select->join ( array (
 			$this->tableGateway->insert ( $datanouveauNe );
 		}
 	}
-	public function getNbMortNe(){
+	public function getNbMortNe($date_debut,$date_fin){
 			$db = $this->tableGateway->getAdapter();
 			$sql = new Sql($db);
 			$sQuery = $sql->select()
@@ -123,4 +124,5 @@ $select->join ( array (
 			return count($resultat);
 	
 	}
+
 }

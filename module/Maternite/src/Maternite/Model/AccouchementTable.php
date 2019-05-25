@@ -123,7 +123,19 @@ class AccouchementTable {
 					//'note_ocytocique' => $donnees['note_ocytocique'],
 					//'note_antibiotique' => $donnees['note_antibiotique'],
 					//'note_anticonv' => $donnees['note_anticonv'],
-					//'note_transfusion' => $donnees['note_transfusion'],				
+					//'note_transfusion' => $donnees['note_transfusion'],
+				/* 	'hrp' => $donnees['hrp'],
+					'dystocie' => $donnees['dystocie'],
+					'infection' => $donnees['infection'],
+					'anemie' => $donnees['anemie'],
+					'fistules' => $donnees['fistules'],
+					'paludisme' => $donnees['paludisme'],
+					'eclapsie'	 => $donnees['eclapsie'],
+						
+						
+						
+						
+						 */
 			);
 	
 			return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $dataac ));
@@ -199,6 +211,53 @@ public function addPrenomme($donne,$id_acc) {
 		$result = $stat->execute();
 		return count($result);
 	}
+	
+	public function getNbPatientsAccNSimple($date_debut,$date_fin){
+	
+	
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('p' => 'patient'));
+		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'));
+		$select->where(array('id_type' => 1,'gro.bb_attendu'=>1 ,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+		return count($result);
+	}
+	
+	public function getNbPatientsAccNDouble($date_debut,$date_fin){
+	
+	
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('p' => 'patient'));
+		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'));
+		$select->where(array('id_type' => 1,'gro.bb_attendu'=>2, 'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+		return count($result);
+	}
+	
+	public function getNbPatientsAccNTriplePlus($date_debut,$date_fin){
+	
+	
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('p' => 'patient'));
+		$select->join(array('gro' => 'grossesse') ,'gro.id_patient = p.id_personne');
+		$select->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'));
+		$select->where(array('id_type' => 1,'gro.bb_attendu'=>3 ,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute();
+		return count($result);
+	}
+	
+	
 	
 	public function getNbPatientsAccGatPa($date_debut,$date_fin){
 	
@@ -309,6 +368,95 @@ public function addPrenomme($donne,$id_acc) {
 		
 		$resultat = $stat->execute();
 		return count($resultat);
+		}
+		
+
+		public function getNbhrp($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('acc' => 'accouchement'))
+			->columns( array( '*' ))
+			->where(array('acc.hrp'=> 1,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+		
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		public function getNbhpp($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('acc' => 'accouchement'))
+			->columns( array( '*' ))
+			->where(array('acc.hemoragie'=> 1,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+		
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		public function getNbanemie($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('acc' => 'accouchement'))
+			->columns( array( '*' ))
+			->where(array('acc.anemie'=> 1,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+		
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		public function getNbPaludisme($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('acc' => 'accouchement'))
+			->columns( array( '*' ))
+			->where(array('acc.paludisme'=> 1,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+		
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		public function getNbFistules($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('acc' => 'accouchement'))
+			->columns( array( '*' ))
+			->where(array('acc.fistules'=> 1,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+		
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		public function getNbDystocie($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('acc' => 'accouchement'))
+				
+			->columns( array( '*' ))
+			->where(array('acc.dystocie'=> 1,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+		
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		
+		public function getNbEclapsie($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('acc' => 'accouchement'))
+		
+			->columns( array( '*' ))
+			->where(array('acc.eclapsie'=> 1,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+		
+			$resultat = $stat->execute();
+			return count($resultat);
 		}
 	}
 	

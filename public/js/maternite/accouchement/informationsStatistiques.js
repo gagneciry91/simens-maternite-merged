@@ -101,6 +101,28 @@ function initialisation (){
 		}
 	});
 	
+	//GESTION DE LA PAGE INFOS 5
+	//GESTION DE LA PAGE INFOS 5
+	$('#menuOption5').click(function(){
+		$('#menuGeneral').fadeOut(function(){
+			$('#menu_infos').html('INFOS STATISTIQUES DES PATHOLOGIE');
+			$('#contenuPageE').fadeIn();
+			$('#contenuInterface').css({'visibility' : 'visible'});
+		});
+	});
+
+	$('#retourPageEMenuInfos').click(function(){
+		if(saveStatOption2 == 1){
+			vart = tabUrl[0]+'public/accouchement/statistique';
+		    $(location).attr("href",vart);
+		}else{
+			$('#contenuPageE').fadeOut(function(){
+				$('#menu_infos').html('MENU INFOS');
+				$('#menuGeneral').fadeIn();
+			});
+		}
+	});
+	
 
 	
 	infosStatistiquesRapport();	
@@ -358,6 +380,7 @@ function getInformationsDatedebutDatefinRapport2(){
 	//alert('bonjour');
 	var date_debut_rapport = $('#date_debut_rapport').val();
 	var date_fin_rapport = $('#date_fin_rapport').val();alert(date_debut_rapport);
+	
 	if(date_debut_rapport && date_fin_rapport){
 
 		$.ajax({
@@ -369,8 +392,6 @@ function getInformationsDatedebutDatefinRapport2(){
 				$('#tableauResultatRapportOptionChoisi div').html(resultat[0]);
                 $("#scriptInfosStat").html(resultat[1]);
                 
-//alert(resultat);
-				
 			}
 		});	
 
@@ -380,7 +401,8 @@ function getInformationsDatedebutDatefinRapport2(){
 //Afficher les informations lors de la saisie d'une date_debut et date_fin
 //Afficher les informations lors de la saisie d'une date_debut et date_fin
 function getInformationsDatedebutDatefinRapportGenre(){
-	var surveillance = $('#surveillance').val();
+	var surveillance = $('#surveillance').val();//alert(surveillance);
+   // var cibler = $('#cibler').val(); //alert(cibler);
 	var date_debut_genre = $('#date_debut_genre').val();
 	var date_fin_genre = $('#date_fin_genre').val();//alert(date_fin_rapport);
 	if(date_debut_genre && date_fin_genre){
@@ -389,10 +411,11 @@ function getInformationsDatedebutDatefinRapportGenre(){
 			type: 'post',
 			data: {'surveillance' :surveillance, 'date_debut' : date_debut_genre, 'date_fin' : date_fin_genre},
 			success: function( data ) {
-				var resultat = jQuery.parseJSON(data); alert(resultat);
+				var resultat = jQuery.parseJSON(data); //alert(resultat);
 				$('#tableauResultatOptionGenreChoisi div').html(resultat[0]); //alert(resultat[1]);
 				$('#scriptInfosStat').html(resultat[1]);//alert(resultat);
 				$('#scriptInfosStat').html(resultat[2]);//alert(resultat);
+				$('#scriptInfosStat').html(resultat[3]);//alert(resultat);
 
 
 			}
@@ -402,47 +425,59 @@ function getInformationsDatedebutDatefinRapportGenre(){
 }
 
 function getInformationsDatedebutDatefinRapportAccouchement(){
-	var date_debut_genre = $('#date_debut_genre').val();
-	var date_fin_genre = $('#date_fin_genre').val();alert(date_fin_rapport);
-	if(date_debut_genre && date_fin_genre){
+	var cibler = $('#cibler').val();//alert(cibler)
+    var naissance = $('#naissance').val();//alert(naissance);
+    var sexe = $('#sexe').val();//alert(sexe);
+
+	var date_debut_accouchement = $('#date_debut_accouchement').val();
+	var date_fin_accouchement = $('#date_fin_accouchement').val();//alert(date_fin_accouchement);
+  
+	if(date_debut_accouchement && date_fin_accouchement){
 		$.ajax({
 			url: tabUrl[0]+"public/accouchement/get-statistique-surveillance-accouchement",
 			type: 'post',
-			data: { 'date_debut' : date_debut_genre, 'date_fin' : date_fin_genre},
+			data: {'cibler' :cibler,'naissance' :naissance,'sexe':sexe, 'date_debut' : date_debut_accouchement, 'date_fin' : date_fin_accouchement},
 			success: function( data ) {
-				var resultat = jQuery.parseJSON(data); alert(resultat);
-				$('#tableauResultatOptionGenreChoisi div').html(resultat[0]); //alert(resultat[1]);
-				//$('#scriptInfosStat').html(resultat[0]);//alert(resultat);
-			   $('#scriptInfosStat').html(resultat[1]);//alert(resultat);
+				var resultat = jQuery.parseJSON(data); //alert(resultat);
+				$('#tableauResultatOptionGenreChoisi div').html(resultat[0]); //alert(resultat[0]);
+				$('#scriptInfosStat').html(resultat[1]);//alert(resultat);
+				//alert(resultat);
+			//alert(resultat);
+
 
 			}
 		});
 	
 	}
 }
+	function getInformationsDatedebutDatefinRapportPathologie(){
+		var date_debut_patho = $('#date_debut_patho').val();//alert(date_debut_patho);
+		var date_fin_patho = $('#date_fin_patho').val();//alert(date_fin_patho);
+		if(date_debut_patho && date_fin_patho){
+			$.ajax({
+				url: tabUrl[0]+"public/accouchement/get-statistique-pathologie",
+				type: 'post',
+				data: { 'date_debut' : date_debut_patho, 'date_fin' : date_fin_patho},
+				success: function( data ) {
+					var resultat = jQuery.parseJSON(data); 
+					$('#scriptInfosStat').html(resultat[0]);//alert(resultat[0]);
+	                $("#scriptInfosStat").html(resultat[1]);
+					$("#scriptInfosStat").html(resultat[2]);
+					$("#scriptInfosStat").html(resultat[3]);
+					$("#scriptInfosStat").html(resultat[4]);
+					$("#scriptInfosStat").html(resultat[5]);
+					$("#scriptInfosStat").html(resultat[6]);
+					$("#scriptInfosStat").html(resultat[7]);
+					$("#scriptInfosStat").html(resultat[8]);
 
 
-/*function getInformationsDatedebutDatefinRapportGossesse(){
-	var date_debut_rapport = $('#date_debut_rapport').val();
-	var date_fin_rapport = $('#date_fin_rapport').val();//alert(date_debut_rapport);
-	if(date_debut_rapport && date_fin_rapport){
-		$.ajax({
-			getStatistiqueSurveillanceGrossesse
-			url: tabUrl[0]+"public/accouchement/get-statistique-surveillance-grossesse",
-			type: 'post',
-			data: { 'date_debut' : date_debut_genre, 'date_fin' : date_fin_genre},
-			success: function( data ) {
-				var resultat = jQuery.parseJSON(data); //alert(resultat);
-				$('#tableauResultatOptionGenreChoisi div').html(resultat[0]); //alert(resultat[1]);
-				$('#scritpPatientConsulte').html(resultat[2]);alert(resultat);
-				
-				//$('#date_debut, #date_fin').val('').trigger('keyup');
-				//$('#diagnostic_rapport').val(0);
-			}
-		});
-	
-	}
-}*/
+
+
+
+				}
+			});
+		}
+}
 
 
 //AFFICHAGE STATISTIQUES LORS DE LA SELECTION DES AGES

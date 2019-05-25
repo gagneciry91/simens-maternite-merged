@@ -180,12 +180,12 @@ class ConsultationTable {
 	
 		$donnees = array (
 				'POIDS' => $values->get ( "poids" )->getValue (),
-				'TAILLE' => $values->get ( "taille" )->getValue (),
+				//'TAILLE' => $values->get ( "taille" )->getValue (),
 				'TEMPERATURE' => $values->get ( "temperature" )->getValue (),
 				'PRESSION_ARTERIELLE' => $values->get ( "tensionmaximale" )->getValue () . '/' . $values->get ( "tensionminimale" )->getValue (),
 				'POULS' => $values->get ( "pouls" )->getValue (),
-				'FREQUENCE_RESPIRATOIRE' => $values->get ( "frequence_respiratoire" )->getValue (),
-				'GLYCEMIE_CAPILLAIRE' => $values->get ( "glycemie_capillaire" )->getValue ()
+				//'FREQUENCE_RESPIRATOIRE' => $values->get ( "frequence_respiratoire" )->getValue (),
+				//'GLYCEMIE_CAPILLAIRE' => $values->get ( "glycemie_capillaire" )->getValue ()
 		);//var_dump($donnees);exit();
 		$this->tableGateway->update ( $donnees, array (
 				'ID_CONS' => $values->get ( "id_cons" )->getValue ()
@@ -2123,14 +2123,14 @@ class ConsultationTable {
 				'cons' => 'consultation_maternite'
 		), 'c.ID_CONS = cons.id_cons', array (
 				'idconsm' => 'idcons_mater',
-				'date_consultation' => 'date_cons',
-				//'type_acc' => 'type_accouchement',
+				
 		) );
 		$select->join ( array (
 				'g' => 'grossesse'
 		), 'c.ID_CONS = g.id_cons', array (
 				'bb_attendu' => 'bb_attendu',
 				'nb_bb' => 'nombre_bb',
+				'date_consultation' => 'date_cons',
 				'nb_cpn' => 'nb_cpn',
 		) );
 		
@@ -2138,7 +2138,7 @@ class ConsultationTable {
 	
 		$select->where ( array (
 				'c.ID_PATIENT' => $id_patient,
-								'DATEONLY' => $date,
+						//		'DATEONLY' => $date,
 				// 				'a.date_cons' => $date,
 				// 				'c.ARCHIVAGE' => 0
 		) );

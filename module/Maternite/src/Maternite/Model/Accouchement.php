@@ -13,6 +13,12 @@ class Accouchement {
 	public $motif_type;
 	public $ru;
 	public $hemoragie;
+	public $hrp;
+	public $dystocie;
+	public $infection;
+	public $anemie;
+	public $fistules;
+	public $paludisme;
 	public $ocytocique_per;
 	public $ocytocique_post;
 	public $antibiotique;
@@ -39,6 +45,14 @@ class Accouchement {
 		$this->delivrance = (! empty ( $data ['delivrance'] )) ? $data ['delivrance'] : null;
 		$this->ru = (! empty ( $data ['ru'] )) ? $data ['ru'] : null;
 		$this->hemoragie= (! empty ( $data ['hemoragie'] )) ? $data ['hemoragie'] : null;
+		$this->hrp= (! empty ( $data ['hrp'] )) ? $data ['hrp'] : null;
+		$this->dystocie= (! empty ( $data ['dystocie'] )) ? $data ['dystocie'] : null;
+		$this->infection= (! empty ( $data ['infection'] )) ? $data ['infection'] : null;
+		$this->anemie= (! empty ( $data ['anemie'] )) ? $data ['anemie'] : null;
+		$this->fistules= (! empty ( $data ['fistules'] )) ? $data ['fistules'] : null;
+		$this->paludisme= (! empty ( $data ['paludisme'] )) ? $data ['paludisme'] : null;
+		
+		
 		$this->quantite_hemo= (! empty ( $data ['quantite_hemo'] )) ? $data ['quantite_hemo'] : null;
 		$this->ocytocique_per = (! empty ( $data ['ocytocique_per'] )) ? $data ['ocytocique_per'] : null;
 		$this->ocytocique_post = (! empty ( $data ['ocytocique_post'] )) ? $data ['ocytocique_post'] : null;

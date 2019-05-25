@@ -236,6 +236,93 @@ class StatistiqueForm extends Form{
 						'required' => true,
 				)
 		) );
+		$this->add ( array (
+				'name' => 'cibles',
+				'type' => 'Select',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Cibles'),
+						'value_options' => array (
+								1 => 'Accouchements Eutociques',
+								2 => 'Accouchements dystociques',
+								3 => 'Type dintervention',
+								
+						)
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'cibles',
+						'required' => true,
+				)
+		) );
+		$this->add ( array (
+				'name' => 'sexe',
+				'type' => 'Select',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Sexe'),
+						'value_options' => array (
+								1 => 'Masculin',
+								2 => 'Feminin',
+						)
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'sexe',
+						'required' => true,
+				)
+		) );
+		$this->add ( array (
+				'name' => 'naissance',
+				'type' => 'Select',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Naissance'),
+						'value_options' => array (
+								1 => 'Vivants',
+								2 => 'Deces',
+						)
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'naissance',
+						'required' => true,
+				)
+		) );
+		$this->add ( array (
+				'name' => 'cibler',
+				'type' => 'Select',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Cibles'),
+						'value_options' => array (
+								1 => 'Accouchements Eutociques',
+								2 => 'Accouchements dystociques',
+								3 => 'Type dintervention',
+								
+		
+						)
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'cibler',
+						'required' => true,
+				)
+		) );
+		$this->add ( array (
+				'name' => 'nature_naissance',
+				'type' => 'Select',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Type'),
+						'value_options' => array (
+								1 => 'Accouchements Eutociques',
+								2 => 'Accouchements dystociques',
+								3 => 'Type dintervention',
+								
+						)
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'nature_naissance',
+						'required' => true,
+				)
+		) );
 		
 
 		$this->add ( array (
@@ -245,9 +332,9 @@ class StatistiqueForm extends Form{
 						'label' => iconv('ISO-8859-1', 'UTF-8','Surveillance'),
 						'value_options' => array (
 								1 => 'Vaccin',
-								2 => 'CPN',
+								2 => 'Grossesse',
 								3 => 'Femme',
-								4 => 'Grossesse',
+								4 => 'CPN',
 		                        5=> 'Accouchement a domicile'
 		
 		
@@ -278,6 +365,66 @@ class StatistiqueForm extends Form{
 		) );
 		
 		
+		$this->add ( array (
+				'name' => 'date_debut_patho',
+				'type' => 'date',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Date fin'),
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'date_debut_patho',
+						'min' => '2016-08-24',
+						'max' => "$dateAujourdhui",
+						'required' => true,
+				)
+		) );
+		
+
+		$this->add ( array (
+				'name' => 'date_fin_patho',
+				'type' => 'date',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Date fin'),
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'date_fin_patho',
+						'min' => '2016-08-24',
+						'max' => "$dateAujourdhui",
+						'required' => true,
+				)
+		) );
+		
+
+		$this->add ( array (
+				'name' => 'date_fin_accouchement',
+				'type' => 'date',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Date fin'),
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'date_fin_accouchement',
+						'min' => '2016-08-24',
+						'max' => "$dateAujourdhui",
+						'required' => true,
+				)
+		) );
+		$this->add ( array (
+				'name' => 'date_debut_accouchement',
+				'type' => 'date',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Date Debut'),
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'date_debut_accouchement',
+						'min' => '2016-08-24',
+						'max' => "$dateAujourdhui",
+						'required' => true,
+				)
+		) );
 		
 		$this->add ( array (
 				'name' => 'diagnostic_rapport',

@@ -53,7 +53,7 @@ class DemandeVisitePreanesthesiqueTable {
 	}
 	public function updateDemandeVisitePreanesthesique($infoDemande) {
 		$demandeVpa = $this->getDemandeVPA ( $infoDemande ['ID_CONS'] );
-		
+		var_dump('test');exit();
 		$resultatVpa = null;
 		if ($demandeVpa) {
 			$resultatVpa = $this->getResultatVpa ( $demandeVpa->idVpa );

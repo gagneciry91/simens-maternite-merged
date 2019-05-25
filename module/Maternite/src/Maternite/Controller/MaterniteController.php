@@ -735,7 +735,6 @@ var_dump('test');exit();
     public function infoPrenataleAction() {
     	$this->layout ()->setTemplate ( 'layout/consultationm' );
     	$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
-      //var_dump($id_pat);exit();
     	$user = $this->layout()->user;
     	$idService = $user ['IdService'];
     	$form = new ConsultationForm ();
@@ -1020,6 +1019,15 @@ var_dump('test');exit();
         		'vat_1'=>$donne_grossesses['vat_1'],
         		'vat_2'=>$donne_grossesses['vat_2'],
         		'vat_3'=>$donne_grossesses['vat_3'],
+        		'vat_4'=>$donne_grossesses['vat_4'],
+        		'vat_5'=>$donne_grossesses['vat_5'],
+        		'tpi_1'=>$donne_grossesses['tpi_1'],
+        		'tpi_2'=>$donne_grossesses['tpi_2'],
+        		'tpi_3'=>$donne_grossesses['tpi_3'],
+        		'tpi_4'=>$donne_grossesses['tpi_4'],
+        		'geu'=>$donne_grossesses['geu'],
+        		
+        		
         		'note_vat'=>$donne_grossesses['note_vat'],
         );
         
@@ -1085,7 +1093,6 @@ var_dump('test');exit();
         $user = $this->layout()->user;
         $IdDuService = $user ['IdService'];
         $id_medecin = $user ['id_personne'];
-        //var_dump('test');exit();
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********
@@ -1112,7 +1119,6 @@ var_dump('test');exit();
         
         // mettre a jour la consultation
         $this->getConsultationTable()->updateLesConsultation($form);
-       // var_dump('test');exit();
         // Recuperer les donnees sur les bandelettes urinaires
         // Recuperer les donnees sur les bandelettes urinaires
         $bandelettes = array(
@@ -1315,9 +1321,9 @@ var_dump('test');exit();
             'observation' => $this->params()->fromPost("observation"),
             'ID_CONS' => $id_cons
         );
-
-        $this->getDemandeVisitePreanesthesiqueTable()->updateDemandeVisitePreanesthesique($infoDemande);
-
+        
+        //$this->getDemandeVisitePreanesthesiqueTable()->updateDemandeVisitePreanesthesique($infoDemande);
+        
 
         // POUR LES COMPTES RENDU DES TRAITEMENTS
         // POUR LES COMPTES RENDU DES TRAITEMENTS

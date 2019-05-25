@@ -362,7 +362,513 @@ class GrossesseTable {
 		//var_dump(count($resultat));exit();
 		return count($resultat);
 	}
+	public function getPrimiparePatho($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+		->columns( array( '*' ))
 	
+		->where ( array (
+				'gro.nouvelleGrossesse'=>2,'ant.geste'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getPrimipareRisque($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+		->columns( array( '*' ))
 	
+		->where ( array (
+				'gro.nouvelleGrossesse'=>1,'ant.geste'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getMultiparePatho($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nouvelleGrossesse'=>2,'ant.geste> ?'  => 1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getMultipareRisque($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nouvelleGrossesse'=>1,'ant.geste> ?'  => 1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN1Primipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+		
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>1 ,'ant.geste'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN2Primipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+	
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>2 ,'ant.geste'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN3Primipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+	
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>3 ,'ant.geste'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN4Primipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+	
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>4 ,'ant.geste'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	
+	public function getCPNSup4Primipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+	
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn> ?'=>4 ,'ant.geste'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN1Multipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+	
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>1 ,'ant.geste> ?'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN2Multipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+	
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>2 ,'ant.geste> ?'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN3Multipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+	
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>3 ,'ant.geste> ?'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPN4Multipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+	
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn'=>4 ,'ant.geste> ?'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getCPNSup4Multipare($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+	
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.nb_cpn> ?'=>4 ,'ant.geste> ?'=>1,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	}
+	public function getNbNaissanePrematureMascSimpleEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+			->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+		))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'nv.viv_premature'=>'Oui','enf.sexe'=>'M','gro.bb_attendu'=>1,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissanePrematureFemSimpleEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+			->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+		))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'nv.viv_premature'=>'Oui','enf.sexe'=>'F','gro.bb_attendu'=>1,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissaneTermMascSimpleEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+    	))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'enf.sexe'=>'M','nv.viv_bien_portant'=>'Oui','gro.bb_attendu'=>1,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);//var_dump('test');exit();
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissaneTermFemSimpleEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+				))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'nv.viv_bien_portant'=>'Oui','enf.sexe'=>'F','gro.bb_attendu'=>1,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	
+	public function getNbNaissanePrematureMascDoubleEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+			->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+			))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'nv.viv_premature'=>'Oui','enf.sexe'=>'M','gro.bb_attendu'=>2,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissanePrematureFemDoubleEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+       ))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'nv.viv_premature'=>'Oui','enf.sexe'=>'F','gro.bb_attendu'=>2,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissaneTermMascDoubleEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+			->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+		))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+					'id_type' => 1,'nv.viv_bien_portant'=>'Oui','enf.sexe'=>'M','gro.bb_attendu'=>2,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissaneTermFemDoubleEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+			->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+    	))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+					'id_type' => 1,'nv.viv_bien_portant'=>'Oui','enf.sexe'=>'F','gro.bb_attendu'=>2,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	
+	public function getNbNaissanePrematureMascTriplePlusEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+				->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+		))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'nv.viv_premature'=>'Oui','enf.sexe'=>'M','gro.bb_attendu>= ?'=>3,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissanePrematureFemTriplePlusEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+			->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+		))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'nv.viv_premature'=>'Oui','enf.sexe'=>'F','gro.bb_attendu>= ?'=>3,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissaneTermMascTriplePlusEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+		))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'nv.viv_bien_portant'=>'Oui','enf.sexe'=>'M','gro.bb_attendu>= ?'=>3,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissaneTermFemTriplePlusEutocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+				) )->join ( array (
+						'nv' => 'devenir_nouveau_ne'
+				), 'nv.id_bebe = enf.id_bebe', array (
+			))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+						
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type' => 1,'nv.viv_bien_portant'=>'Oui','enf.sexe'=>'F','gro.bb_attendu >= ?'=>3,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
+	public function getNbNaissanePrematureMascSimpleDystocique($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array ('enf' => 'enfant'
+		) )->join ( array (
+				'gro' => 'grossesse'
+		), 'enf.id_cons = gro.id_cons', array (
+		) )->join ( array (
+				'nv' => 'devenir_nouveau_ne'
+		), 'nv.id_bebe = enf.id_bebe', array (
+		))->join(array('acc' => 'accouchement') ,'acc.id_grossesse = gro.id_grossesse',array('id_type'
+	
+		))->columns( array( '*' ))
+		->where(array(
+				'id_type!='=> 1,'nv.viv_premature'=>'Oui','enf.sexe'=>'M','gro.bb_attendu'=>1,'gro.ddr >= ?' => $date_debut, 'gro.ddr <= ?' => $date_fin
+		));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+	
+	}
 	
 }

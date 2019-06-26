@@ -307,13 +307,14 @@ $(window).load(function () {
 $form = $this->form;
 $form->setName ( 'AVIS' );
 $form->setAttribute ( 'action', $this->url ( 'accouchement', array (
-		'action' => 'imprimer-certifat-accouchement' 
+		'action' => 'impression-Pdf' 
 ) ) );
 $form->setAttribute ( 'target', '_blank' );
 $form->setAttribute ( 'method', 'post' );
 $form->prepare ();
 echo $this->form ()->openTag ( $form );
 ?>
+
 
 
 <div id="accordions">

@@ -133,16 +133,12 @@ class ConsultationMaterniteTable {
         try {
 
             $dataconsultationMat = array(
-            		'toucher_vaginale' => $values ['examen_maternite_donnee1'],
-            		'hauteur_uterine' => $values  ['examen_maternite_donnee2'],
-            		'positionFoeutus' => $values  ['examen_maternite_donnee3'],
-            		'vitaliteFoeutus' => $values  ['examen_maternite_donnee4'],
             		
             		
-               //  'toucherVaginale' => $values->get ( "toucherVaginale" )->getValue (),
-                 //'hauteurUterine' => $values->get ( "hauteurUterine" )->getValue (),
-                 //'positionFoeutus' => $values->get ( "positionFoeutus" )->getValue (),
-                 //'vitaliteFoeutus' => $values->get ( "vitaliteFoeutus" )->getValue (),
+                'toucherVaginale' => $values->get ( "toucherVaginale" )->getValue (),
+                 'hauteurUterine' => $values->get ( "hauteurUterine" )->getValue (),
+                 'positionFoeutus' => $values->get ( "positionFoeutus" )->getValue (),
+                 'vitaliteFoeutus' => $values->get ( "vitaliteFoeutus" )->getValue (),
                // 'commentaire' => $values->get ( "commentaire" )->getValue (),
             		
               // 'idcons_mater'=> $values->get ( "idcons_mater" )->getValue (),

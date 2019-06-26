@@ -28,7 +28,7 @@ class ConsultationForm extends Form {
 				),
 				'attributes' => array (
 						'readonly' => 'readonly',
-						'value' => 'pos-' . $date ,
+						'value' =>  $date ,
 						'id' => 'id_cons' 
 				) 
 		) );

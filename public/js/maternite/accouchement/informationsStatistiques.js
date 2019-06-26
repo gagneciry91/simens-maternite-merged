@@ -365,8 +365,7 @@ function getInformationsDatedebutDatefinRapport(){
 				$("#scriptInfosStat").html(resultat[10]);
 				$("#scriptInfosStat").html(resultat[11]);
 				$("#scriptInfosStat").html(resultat[12]);
-				$("#scriptInfosStat").html(resultat[13]);
-				$("#scriptInfosStat").html(resultat[14]);
+				
 
 				//alert(resultat);
 				
@@ -459,16 +458,18 @@ function getInformationsDatedebutDatefinRapportAccouchement(){
 				type: 'post',
 				data: { 'date_debut' : date_debut_patho, 'date_fin' : date_fin_patho},
 				success: function( data ) {
-					var resultat = jQuery.parseJSON(data); 
-					$('#scriptInfosStat').html(resultat[0]);//alert(resultat[0]);
-	                $("#scriptInfosStat").html(resultat[1]);
-					$("#scriptInfosStat").html(resultat[2]);
+					var resultat = jQuery.parseJSON(data);
+					$('#tableauResultatRapportOptionChoisi div').html(resultat[0]);
+
+					$('#scriptInfosStat').html(resultat[1]);
+	                $("#scriptInfosStat").html(resultat[2]);
 					$("#scriptInfosStat").html(resultat[3]);
 					$("#scriptInfosStat").html(resultat[4]);
 					$("#scriptInfosStat").html(resultat[5]);
 					$("#scriptInfosStat").html(resultat[6]);
 					$("#scriptInfosStat").html(resultat[7]);
 					$("#scriptInfosStat").html(resultat[8]);
+					$("#scriptInfosStat").html(resultat[9]);
 
 
 
@@ -551,7 +552,44 @@ function getInformationsStatistiquesParAge(){
 };
 
 
+function imprimerRapportStatistiqueGeneral(){ 
+	
+	var date_debut = $('#date_debut_rapport').val();
+	var date_fin = $('#date_fin_rapport').val();alert(date_fin);
+	
+	var lienImpression =  tabUrl[0]+ "public/accouchement/statistiques-general-imprimees";		
+	var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
+	imprimerInformationsStatistiques.setAttribute("action", lienImpression);
+	imprimerInformationsStatistiques.setAttribute("method", "POST");
+	imprimerInformationsStatistiques.setAttribute("target", "_blank");//alert(lienImpression);
+	// Ajout dynamique de champs dans le formulaire
+	
 
+	$("#imprimerRapportInformationsStatistiques button").trigger('click');
+	
+}
+function imprimerRapportStatistiquePathologie(){ 
+	//var id_service = $('#id_service_rapport').val();
+	var date_debut = $('#date_debut_patho').val();
+	var date_fin = $('#date_fin_patho').val();
+	
+	var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-diagnostics-imprimees';
+	var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
+	imprimerInformationsStatistiques.setAttribute("action", lienImpression);
+	imprimerInformationsStatistiques.setAttribute("method", "POST");
+	imprimerInformationsStatistiques.setAttribute("target", "_blank");
+	
+	// Ajout dynamique de champs dans le formulaire
+	var champ = document.createElement("input");
+	champ.setAttribute("type", "hidden");
+	champ.setAttribute("name", 'date_debut');
+	champ.setAttribute("value", date_debut);
+	imprimerInformationsStatistiques.appendChild(champ);
+
+
+	$("#imprimerRapportInformationsStatistiques button").trigger('click');
+	
+}
 
 
 

@@ -507,7 +507,7 @@ class MaterniteController extends AbstractActionController
     public function listeDesPrenatalesAjaxAction() {
     	$id_pat = $this->params()->fromQuery('id_patient', 0);
     
-    	$output = $this->getPatientTable()->getPatientPrenatale1();
+    	$output = $this->getPatientTable()->getPatientPrenatale();
     	return $this->getResponse ()->setContent ( Json::encode ( $output, array (
     			'enableJsonExprFinder' => true
     	) ) );
@@ -741,7 +741,7 @@ var_dump('test');exit();
     
     	$formData = $this->getRequest ()->getPost ();
     	$form->setData ( $formData );
-    
+    //var_dump('test');exit();
     	$id_cons = $form->get ( "id_cons" )->getValue ();
     	$prenatale = $this->getConsultationTable()->listePrenatale($id_pat);
       
@@ -916,9 +916,7 @@ var_dump('test');exit();
         $form->get('heure_rv')->setValueOptions($heure_rv);
 
         $data = array(
-            'id_cons' => $consult->id_cons,
-            'id_medecin' => $id_medecin,
-            'id_patient' => $consult->id_patient,
+            
             'date_cons' => $consult->date,
             'poids' => $consult->poids,
             'taille' => $consult->taille,
@@ -1020,7 +1018,7 @@ var_dump('test');exit();
         		'vat_2'=>$donne_grossesses['vat_2'],
         		'vat_3'=>$donne_grossesses['vat_3'],
         		'vat_4'=>$donne_grossesses['vat_4'],
-        		'vat_5'=>$donne_grossesses['vat_5'],
+        		//'vat_5'=>$donne_grossesses['vat_5'],
         		'tpi_1'=>$donne_grossesses['tpi_1'],
         		'tpi_2'=>$donne_grossesses['tpi_2'],
         		'tpi_3'=>$donne_grossesses['tpi_3'],
@@ -1031,24 +1029,25 @@ var_dump('test');exit();
         		'note_vat'=>$donne_grossesses['note_vat'],
         );
         
+       // var_dump('test');exit();
         
         
         $form->populateValues($donne_grossesse);
-  /*       $cons=$this->getConsultationTable()->addConsultationMaternite($form,$id,$id_grossesse);
+         $datacons=$this->getConsultationMaterniteTable()->addConsultationMaternite($form,$id,$id_grossesse);//var_dump('test');exit();
         $datacons = array(
-        		'id_cons' => $cons->id_cons,
-        		'id_medecin' => $cons->id_medecin,
-        		'id_patient' => $cons->id_patient,
-        		'date_cons' => $cons->date,
-        		'toucherVaginale' => $cons->toucherVaginale,
-        		'hauteurUterine' => $cons->hauteurUterine,
-        		'vitaliteFoeutus'=>$consult->vitaliteFoeutus,
-        		'positionFoeutus' => $cons->positionFoeutus
+        	
+        		//'date_cons' => $cons->date,
+        		'toucherVaginale' => $datacons['toucherVaginale'],
+        		'hauteurUterine' => $datacons['hauteurUterine'],
+        		'vitaliteFoeutus'=>$datacons['vitaliteFoeutus'],
+        		'positionFoeutus' => $datacons['positionFoeutus'],
+        		
+        	
         );
-        //var_dump($data);exit();
+        //var_dump($datacons);exit();
         $form->populateValues($datacons);
         
-        var_dump($datacons);exit(); */
+        //var_dump($datacons);exit(); 
         
         // FIN ANTECEDENTS --- FIN ANTECEDENTS --- FIN ANTECEDENTS
         // FIN ANTECEDENTS --- FIN ANTECEDENTS --- FIN ANTECEDENTS
@@ -1139,10 +1138,10 @@ var_dump('test');exit();
         // POUR LES EXAMENS PHYSIQUES
         $info_donnees_examen_physique = array(
             'id_cons' => $id_cons,
-            'donnee1' => $this->params()->fromPost('examen_maternite_donnee1'),
-            'donnee2' => $this->params()->fromPost('examen_maternite_donnee2'),
-            'donnee3' => $this->params()->fromPost('examen_maternite_donnee3'),
-            'donnee4' => $this->params()->fromPost('examen_maternite_donnee4'),
+           // 'donnee1' => $this->params()->fromPost('examen_maternite_donnee1'),
+            //'donnee2' => $this->params()->fromPost('examen_maternite_donnee2'),
+            //'donnee3' => $this->params()->fromPost('examen_maternite_donnee3'),
+            //'donnee4' => $this->params()->fromPost('examen_maternite_donnee4'),
             'donnee5' => $this->params()->fromPost('examen_maternite_donnee5'),
             'donnee6' => $this->params()->fromPost('examen_maternite_donnee6'),
             'donnee7' => $this->params()->fromPost('examen_maternite_donnee7'),
@@ -1240,7 +1239,7 @@ var_dump('test');exit();
         		
         		
         );//var_dump($datapre);exit();
-        //$this->getPrenataleTable()->updatePrenatale($datapre);
+        $this->getConsultationMaterniteTable()->updateConsultationMaternite($datapre);
 
         // POUR LES TRAITEMENTS
         // POUR LES TRAITEMENTS
@@ -1446,7 +1445,7 @@ var_dump('test');exit();
             'glycemie_capillaire' => $consult->glycemie_capillaire
         );
         $form->populateValues($data);
-        $datacons = array(
+    /*     $datacons = array(
         		'id_cons' => $consult->id_cons,
         		'id_medecin' => $consult->id_medecin,
         		'id_patient' => $consult->id_patient,
@@ -1457,7 +1456,7 @@ var_dump('test');exit();
         		'positionFoeutus' => $consult->positionFoeutus
         		);
         //var_dump($data);exit();
-        		$form->populateValues($datacons);
+        		$form->populateValues($datacons); */
         		
         // POUR LES MOTIFS D'ADMISSION
         // POUR LES MOTIFS D'ADMISSION

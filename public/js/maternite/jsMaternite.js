@@ -87,6 +87,7 @@ $(function() {
     //VALIDATION OU MODIFICATION DU FORMULAIRE ETAT CIVIL DU PATIENT
     //VALIDATION OU MODIFICATION DU FORMULAIRE ETAT CIVIL DU PATIENT
     var      ddr = $("#ddr");
+    var  dateces= $("#dateces");
             var      nom = $("#NOM");
             var   prenom = $("#PRENOM");
             var     sexe = $("#SEXE");
@@ -101,6 +102,11 @@ $(function() {
             var  age_ = $("#AGE");
             var  dg = $("#duree_grossesse");
             var date_cons=$("#date_cons");
+            var date_cons=$("#toucherVaginale");
+            var date_cons=$("#hauteurUterine");
+            var date_cons=$("#positionFoeutus");
+            var date_cons=$("#vitaliteFoeutus");
+
     	
     //$( "button" ).button(); // APPLICATION DU STYLE POUR LES BOUTONS
     var mdclick = 0;
@@ -199,6 +205,36 @@ $(function() {
   //FIN VALIDATION OU MODIFICATION DU FORMULAIRE ETAT CIVIL DU PATIENT
   		
   		$('#ddr').datepicker(
+    			$.datepicker.regional['fr'] = {
+    					closeText: 'Fermer',
+    					changeYear: true,
+    					yearRange: 'c-80:c',
+    				
+    					prevText: '&#x3c;Préc',
+    					nextText: 'Suiv&#x3e;',
+    					currentText: 'Courant',
+    					monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
+    					'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
+    					monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Juin',
+    					'Jul','Aout','Sep','Oct','Nov','Dec'],
+    					dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+    					dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+    					dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+    					weekHeader: 'Sm',
+    					dateFormat: 'dd/mm/yy',
+    					firstDay: 1,
+    					isRTL: false,
+    					showMonthAfterYear: false,
+    					yearRange: '1900:2050',
+    					showAnim : 'bounce',
+    					changeMonth: true,
+    					changeYear: true,
+    					yearSuffix: '',
+    					maxDate: 0
+    			}
+    	);
+  		
+  		$('#dateces').datepicker(
     			$.datepicker.regional['fr'] = {
     					closeText: 'Fermer',
     					changeYear: true,

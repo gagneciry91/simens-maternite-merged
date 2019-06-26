@@ -518,7 +518,7 @@ class AdmissionController extends AbstractActionController {
 
 	public function listePatientAjaxAction() {
 	
-		$output = $this->getPatientTable()->getListePatient();
+		$output = $this->getPatientTable()->getListePatientsecretaire();
 		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
 				'enableJsonExprFinder' => true
 		) ) );

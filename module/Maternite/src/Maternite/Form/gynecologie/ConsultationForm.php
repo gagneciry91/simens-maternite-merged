@@ -28,7 +28,7 @@ class ConsultationForm extends Form {
 				),
 				'attributes' => array (
 						'readonly' => 'readonly',
-						'value' => 'pos-' . $date ,
+						'value' =>  $date ,
 						'id' => 'id_cons' 
 				) 
 		) );
@@ -828,7 +828,7 @@ class ConsultationForm extends Form {
 						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Diagnostic 1: ' ) 
 				),
 				'attributes' => array (
-						'readonly' => 'readonly',
+						//'readonly' => 'readonly',
 						'id' => 'diagnostic1' 
 				) 
 		) );
@@ -839,7 +839,7 @@ class ConsultationForm extends Form {
 						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Diagnostic 2: ' ) 
 				),
 				'attributes' => array (
-						'readonly' => 'readonly',
+						//'readonly' => 'readonly',
 						'id' => 'diagnostic2' 
 				) 
 		) );
@@ -850,7 +850,7 @@ class ConsultationForm extends Form {
 						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Diagnostic 3: ' ) 
 				),
 				'attributes' => array (
-						'readonly' => 'readonly',
+						//'readonly' => 'readonly',
 						'id' => 'diagnostic3' 
 				) 
 		) );
@@ -861,7 +861,7 @@ class ConsultationForm extends Form {
 						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Diagnostic 4: ' ) 
 				),
 				'attributes' => array (
-						'readonly' => 'readonly',
+						//'readonly' => 'readonly',
 						'id' => 'diagnostic4' 
 				) 
 		) );
@@ -1744,10 +1744,52 @@ $this->add(array(
 		) );
 		
 		$this->add ( array (
+				'name' => 'rhesus',
+				'type' => 'Zend\Form\Element\Select',
+				'options' => array (
+						'value_options' => array (
+								' -' => '-',
+								'+' => '+',
+						)
+				),
+				'attributes' => array (
+						'id' => 'rhesus'
+				)
+		) );
+		$this->add ( array (
+				'name' => 'dateces',
+				'type' => 'text',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8'),
+				),
+				'attributes' => array (
+						//'registerInArrrayValidator' => true,
+						//'onchange' => 'getListeDateDebut(this.value)',
+						'id' =>'dateces',
+		
+						//'required' => t
+				)
+		) );
+		$this->add ( array (
 				'name' => 'noteexoph',
 				'type' => 'Text',
 				'attributes' => array (
 						'id' => 'noteexoph'
+				)
+		) );
+		$this->add ( array (
+				'name' => 'indication',
+				'type' => 'Text',
+				'attributes' => array (
+						'id' => 'indication'
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'note_ces',
+				'type' => 'Text',
+				'attributes' => array (
+						'id' => 'note_ces'
 				)
 		) );
 		/*alergiecuv   */
@@ -2384,6 +2426,69 @@ $this->add(array(
 						//'required' => true,
 				),
 		));
+		$this->add(array(
+				'name' => 'ig',
+				'type' => 'select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1 => 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'registerInArrrayValidator' => true,
+						'id' => 'ig',
+						//'required' => true,
+				),
+		));
+		$this->add ( array (
+				'name' => 'note_ig',
+				'type' => 'Text',
+				'options' => array (
+		
+				),
+				'attributes' => array (
+						'id' => 'note_ig'
+				)
+		) );
+		$this->add ( array (
+				'name' => 'ddr',
+				'type' => 'date',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8','DDR:')
+				),
+				'attributes' => array (
+						'id' => 'ddr',
+						//'required' => true,
+				)
+		) );
+		
+		
+		$this->add(array(
+				'name' => 'dg',
+				'type' => 'select',
+				'options' => array (
+						'value_options' => array(
+								0 => 'Non',
+								1 => 'Oui' ,
+						),
+				),
+				'attributes' => array(
+						'registerInArrrayValidator' => true,
+						'id' => 'dg',
+						//'required' => true,
+				),
+		));
+		$this->add ( array (
+				'name' => 'note_dg',
+				'type' => 'Text',
+				'options' => array (
+		
+				),
+				'attributes' => array (
+						'id' => 'note_dg'
+				)
+		) );
 		$this->add ( array (
 				'name' => 'type_contraception',
 				'type' => 'Text',
@@ -2597,6 +2702,147 @@ $this->add(array(
 				'attributes' => array (
 						'id' => 'NoteDrepanocytoseAF' 
 				) 
+		) );
+		
+		$this->add ( array (
+				'name' => 'cancersein',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								'0' => 'Oui',
+								'1' => 'Non',
+								
+						)
+				),
+				'attributes' => array (
+						'id' => 'cancersein' ,
+						//'required' => true,
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'cancercol',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								'0' => 'Oui',
+								'1' => 'Non',
+		
+						)
+				),
+				'attributes' => array (
+						'id' => 'cancercol' ,
+						//'required' => true,
+				)
+		) );
+		
+			// clinique
+		
+		
+		$this->add(array(
+				'name' => 'eg',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => iconv ( 'ISO-8859-1', 'UTF-8','normal') ,
+								1 => iconv ( 'ISO-8859-1', 'UTF-8','anormal') ,
+						),
+				),
+				'attributes' => array(
+						'id' => 'eg',
+		
+				),
+		));
+		$this->add ( array (
+				'name' => 'muqueuse',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => iconv ( 'ISO-8859-1', 'UTF-8','légére') ,
+								1 => iconv ( 'ISO-8859-1', 'UTF-8','épaisse') ,
+						),
+				),
+				'attributes' => array (
+						'id' => 'muqueuse',
+						//'required' => true,
+				)
+		) );
+		
+		
+		$this->add(array(
+				'name' => 'oeudeme',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => iconv ( 'ISO-8859-1', 'UTF-8','discret') ,
+								1 => iconv ( 'ISO-8859-1', 'UTF-8','++') ,
+								2 => iconv ( 'ISO-8859-1', 'UTF-8','nulle') ,
+		
+						),
+				),
+				'attributes' => array(
+						'id' => 'oeudeme',
+		
+				),
+		));
+		
+		$this->add ( array (
+				'name' => 'seins',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => iconv ( 'ISO-8859-1', 'UTF-8','normal') ,
+								1 => iconv ( 'ISO-8859-1', 'UTF-8','anormal') ,
+						),
+				),
+				'attributes' => array (
+						'id' => 'seins',
+						//'required' => true,
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'inv_uterine',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array(
+								0 => iconv ( 'ISO-8859-1', 'UTF-8','bien involué') ,
+								1 => iconv ( 'ISO-8859-1', 'UTF-8','mal') ,
+						),			),
+				'attributes' => array (
+						'id' => 'inv_uterine',
+				)
+		) );
+		
+		
+		
+		$this->add ( array (
+				'name' => 'tvagin',
+				'type' => 'Text',
+				'options' => array (),
+				// 'label' => iconv('ISO-8859-1', 'UTF-8', 'Pression artï¿½rielle (mmHg)')
+				'attributes' => array (
+						'class' => 'tension_only_numeric',
+						'id' => 'tvagin'
+				)
+		) );
+		// fin cliniaue
+		
+		$this->add ( array (
+				'name' => 'antepers',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								'0' => 'Myomectomie',
+								'1' => 'Hysterectomie',
+								'2' => 'Kystectomie',
+								'3' => 'Kysteovarienne',
+						)
+				),
+				'attributes' => array (
+						'id' => 'antepers' ,
+						//'required' => true,
+				)
 		) );
 		
 		/* HTA */
@@ -3120,6 +3366,21 @@ $this->add(array(
 	) );
 	
 	
+
+	$this->add ( array (
+			'name' => 'duree_infertilite',
+			'type' => 'number',
+			'options' => array (
+			),
+			'attributes' => array (
+					'id' => 'duree_infertilite',
+					'max' => 20,
+					'min'=>0,
+			)
+	) );
+	
+	
+	
 	
 	$this->add ( array (
 			'name' => 'geste',
@@ -3260,16 +3521,13 @@ $this->add(array(
 	
 	$this->add(array(
 			'name' => 'cesar',
-			'type' => 'number',
 			
+			'type' => 'Select',
 			'options' => array (
-					
-			),
-			'attributes' => array(
-					'id' => 'cesar',
-					'max' => 20,
-					'min'=>0,
-					//'required' => true,
+					'value_options' => array(
+							0 => 'Non',
+							1=> 'Oui' ,
+					),
 			),
 	));
 	
@@ -3290,15 +3548,15 @@ $this->add(array(
 	));
 	
 	$this->add(array(
-			'name' => 'note_cesar',
+			'name' => 'nombre_cesar',
 			'type' => 'Text',
 			'options' => array (
 	
 			),
 			'attributes' => array(
-					'id' => 'note_cesar',
-					//'required' => true,
-			),
+					'id' => 'nonombre_cesar',
+                    'max' => 5,
+					'min'=>0,			),
 	));
 	
 
@@ -3316,7 +3574,30 @@ $this->add(array(
 			),
 	));
 	
+	$this->add(array(
+			'name' => 'menarchie',
+			'type' => 'checkbox',
+			'options' => array (
 	
+			),
+			'attributes' => array(
+					'registerInArrrayValidator' => true,
+					'onchange'=>' getDystocie(this.value)',
+					'id' => 'menarchie',
+					//'required' => true,
+			),
+	));
+	$this->add(array(
+			'name' => 'note_menarchie',
+			'type' => 'Text',
+			'options' => array (
+	
+			),
+			'attributes' => array(
+					'id' => 'note_menarchie',
+					//'required' => true,
+			),
+	));
 
 	$this->add(array(
 			'name' => 'note',
@@ -3386,7 +3667,51 @@ $this->add(array(
 					//'required' => true,
 			),
 	));
-
+	$this->add(array(
+			'name' => 'infertilite',
+			'type' => 'Select',
+			'options' => array (
+					//'label' => iconv('ISO-8859-1', 'UTF-8','Nombre de bébé attendu'),
+					'value_options' => array(
+							1 => 'Primaire',
+							2  => 'secondaire',
+						
+					),
+			),
+			'attributes' => array(
+					'registerInArrrayValidator' => true,
+					//'onchange'=>' getBbAttendu(this.value)',
+						
+					'id' => 'infertilite',
+					//'required' => true,
+			),
+	));
+	
+	$this->add(array(
+			'name' => 'hta',
+			'type' => 'Select',
+			'options' => array (
+					//'label' => iconv('ISO-8859-1', 'UTF-8','Nombre de bébé attendu'),
+					'value_options' => array(
+							0=> '',
+							
+							1 => 'Preecampsie',
+							2  => 'gravidique',
+							2 => 'surajoute',
+							3 => 'chronique',
+								
+	
+					),
+			),
+			'attributes' => array(
+					'registerInArrrayValidator' => true,
+					//'onchange'=>' getBbAttendu(this.value)',
+	
+					'id' => 'hta',
+					//'required' => true,
+			),
+	));
+	
 	$this->add ( array (
 			'name' => 'ddr',
 			'type' => 'Text',
@@ -3926,6 +4251,18 @@ $this->add ( array (
 					//'required' => true,
 			)
 	) );
+	$this->add ( array (
+			'name' => 'note_hta',
+			'type' => 'Text',
+			'options' => array (
+					//'label' => iconv('ISO-8859-1', 'UTF-8','Duree Grossesse en semaine:')
+			),
+			'attributes' => array (
+					'id' => 'note_hta',
+	
+					//'required' => true,
+			)
+	) );
 	
 		$this->add ( array (
 				'name' => 'poids',
@@ -4360,6 +4697,18 @@ $this->add ( array (
 					'id' => 'text_observation'
 			)
 	) );
+	$this->add ( array (
+			'name' => 'text_examen',
+			'type' => 'Textarea',
+			'options' => array (
+						
+			),
+			'attributes' => array (
+	
+					'id' => 'text_examen'
+			)
+	) );
+	
 	$this->add ( array (
 			'name' => 'suite_de_couches',
 			'type' => 'Textarea',

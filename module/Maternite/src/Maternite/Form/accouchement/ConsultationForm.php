@@ -24,7 +24,7 @@ class ConsultationForm extends Form {
 				),
 				'attributes' => array (
 						'readonly' => 'readonly',
-						'value' => 'acc-' . $date,
+						'value' => $date,
 						'id' => 'id_cons' 
 				) 
 		) );
@@ -2265,6 +2265,21 @@ $this->add(array(
 						'min'  => '2016-08-24',
 						'max' => "$dateAujourdhui",
 						'required' => true,
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'dateces',
+				'type' => 'date',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Date Ces'),
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'onchange' => 'getListeDateDebut(this.value)',
+						'id' =>'dateces',
+						
+						//'required' => true,
 				)
 		) );
 		

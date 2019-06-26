@@ -2,7 +2,7 @@
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
 $('#plus_prenatale').toggle(true);
 $("#prenatale").replaceWith("<li id='prenatale' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.png';?>' alt='Liste' /> Prenatale </span></a></li>");
-dep_accouchement1();
+dep_prenatale1();
 $('#declarer_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
 </script>
 
@@ -83,7 +83,7 @@ $(window).load(function () {
 				<tr>
 				  
 				
-				 <td><?php //echo $this->escapeHtml($donnees['numero_dossier']);?> </td>
+				<!-- <td><?php //echo $this->escapeHtml($donnees['numero_dossier']);?> </td>-->
 				 <td><?php echo $this->escapeHtml($donnees['Nom']);?> </td>
 				 
 				<td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
@@ -150,7 +150,7 @@ $(window).load(function () {
 						<img id="image-alert" style="vertical-align: top;"
 							src='<?php echo $this->basePath().'/images_icons/alert_rv_r.png'?>' />
 					</div>
-			<?php //echo $this->escapeHtml($donnees['Numero_Dossier']);?>
+		<!--<?php //echo $this->escapeHtml($donnees['Numero_Dossier']);?>-->
 				 <?php echo $this->escapeHtml($donnees['Nom']);?>  </td>
 				<td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
 				<td><?php echo $this->escapeHtml($donnees['Age']);?></td>
@@ -159,7 +159,7 @@ $(window).load(function () {
 				<td><?php echo $this->escapeHtml($donnees['Nationalite']);?></td>
 				<td><a> <img style="display: inline; color: white; opacity: 0.15;"
 						src='<?php echo $this->basePath().'/images_icons/doctor_16.PNG'?>'
-						alt='Accouchement' title="Accouchement" />
+						alt='Prenatale' title="Prenatale" />
 				</a>&nbsp; <a
 					href="<?php echo $this->url('maternite', array('action'=>'complement-consultation'), array('query'=> array('id_patient'=>$this->escapeHtml($donnees['Id']),'id_cons'=>$this->escapeHtml($donnees['Id_cons']),'id_admission'=>$this->escapeHtml($donnees['Id_admission']))));?>">
 						<img style="display: inline;"

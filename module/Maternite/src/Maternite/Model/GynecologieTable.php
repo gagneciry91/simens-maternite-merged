@@ -1,11 +1,12 @@
 <?php
+
 namespace Maternite\Model;
+
 use Zend\Db\TableGateway\TableGateway;
 
 use Zend\Db\Sql\Sql;
 
 use Maternite\View\Helpers\DateHelper;
-
 class GynecologieTable {
 	
 	
@@ -18,10 +19,11 @@ class GynecologieTable {
 		public function updateGyneco($values) {
 		
 			$donnees = array (
-					'id_cons' => $values['id_cons'],
-					'toucherVaginal' => $values['toucherVaginal'],
-		
-					'lieu_accouchement' => $values['lieu_accouchement'],
+					//'id_cons' => $values['id_cons'],
+					'infertilite' => $values['infertilite'],
+					'antepers' => $values['antepers'],
+						
+					
 			); 						//var_dump($donnees);exit();
 		
 			return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $donnees ));

@@ -455,7 +455,7 @@ $(window).load(function () {
 	       <tr id=""  style="width: 100%; ">
 	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
                  <div  style="width: 100%; overflow: auto; margin-left: 15px; height: 25px; margin-left: 12px; background: yello;" >
-                       <span> Statistique general de la maternite </span> <img onclick="imprimerRapportStatistiqueDiagnostics();" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
+                       <span> Statistique general de la maternite </span> <img onclick="imprimerRapportStatistiqueGeneral" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
                  </div>
 	         </td>
 	       </tr>
@@ -471,23 +471,9 @@ $(window).load(function () {
 	         <td align="center" style="width: 100%; height: 200px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center; vertical-align: top;">
 	             <div class="" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
 	             
-	              <!-- Emplacement des infos statistiques -->
+	              <!-- Empclass	lacement des infos statistiques -->
 	              
-	               <script >
-
-    var nbPatientAcc   = <?php //echo $this->nbPatientAcc;   ?> //Nombre de patientes accouchées
-    var nbPatientAccCes  = <?php //echo $this->nbPatientAccCes;  ?> //Nombre de patientes accouchées par cesarienne
-    var nbPatientAccN  = <?php //echo $this->nbPatientAccN;  ?> //Nombre de patientes accouchées normalement
-    var nbPatientAccF = <?php //echo $this->nbPatientAccF; ?> //Nombre de patientes accouchées par forceps
-    var nbPatientAccV = <?php //echo $this->nbPatientAccV; ?> //Nombre de patientes accouchées par Ventouse
-    var nbPatientAccM = <?php //echo $this->nbPatientAccM; ?>//Nombre de patientes accouchées par manoeuvre
-    var nbPatientAccGatPa = <?php //echo $this->nbPatientAccGatPa; ?>//Nombre de patientes accouchées par GATPA
-    var nbGrossesseGemellaire = <?php //echo $this->nbGrossesseGemellaire; ?>//Nombre de patientes accouchées par GATPA
-    var pourcentageAccN=(nbPatientAccN/nbPatientAcc)*100;
-    //var nbPatientAcc   = nbPatientAccCes+nbPatientAccN+nbPatientAccF+nbPatientAccV+nbPatientAccM //Nombre de patientes accouchées
- 
-    p=pourcentageAccN.toFixed(2);
-  
+	               <script >  
   
     </script>
     
@@ -668,7 +654,7 @@ $(window).load(function () {
 	                  </div>
 	                  </div>
 	         </td>
-	               <tr id="" style="width: 100%; top;">
+	               <tr id="tableauResultatRapportOptionChoisi" style="width: 100%; top;">
 	         <td align="center" style="width: 100%; height: 200px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center; vertical-align: top;">
 	             <div class="" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
 	             
@@ -766,7 +752,7 @@ $(window).load(function () {
                  <div class="contenuTableauResultatOptionChoisi" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
 	              </div>
 	              </div>
-	               <tr id="" style="width: 100%; top;">
+	               <tr id="tableauResultatRapportOptionChoisi" style="width: 100%; top;">
 	         <td align="center" style="width: 100%; height: 200px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center; vertical-align: top;">
 	             <div class="" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
 	             
@@ -848,16 +834,28 @@ $(window).load(function () {
 
    <!-- DEUXIEME COLONNE -->
    <!-- DEUXIEME COLONNE -->
-	   <td id="resultatOptionsChoisis" style="width: 65%; height: 20%; border-left: 3px solid #cccccc; vertical-align: top;" >
+	  <td id="resultatOptionsChoisis" style="width: 65%; height: 20%; border-left: 3px solid #cccccc; vertical-align: top;" >
 	     <table id="resultatOptionChoisiParDefaut" style="width: 100%; background: white;">
 	     
+	       <tr id=""  style="width: 100%; ">
+	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+                 <div  style="width: 100%; overflow: auto; margin-left: 15px; height: 25px; margin-left: 12px; background: yello;" >
+                       <span>  </span> <img onclick="imprimerRapportStatistiqueDiagnostics();" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
+                 </div>
+	         </td>
+	       </tr>
 	       
-	       
-	       	 <tr id="tableauResultatOptionGenreChoisi" style="width: 100%; ">
-	         <td style="width: 100%; height: 40px; font-family: Consolas; font-weight: normal; font-size: 17px; text-align: center;">
-	             <div  align="center" >
-                 <div class="contenuTableauResultatOptionChoisi" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
+	       <tr id="tableauResultatRapportOptionChoisi" style="width: 100%; top;">
+	         <td align="center" style="width: 100%; height: 50px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center; vertical-align: top;">
+	             <div class="contenuTableauResultatOptionChoisi" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
 	              
+	              </div>
+	              </td>
+	              </tr>
+	                <tr id="" style="width: 100%; top;">
+	         <td align="center" style="width: 100%; height: 200px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center; vertical-align: top;">
+	             <div class="" align="center" style="width: 100%; margin-left: 15px; margin-top: 5px; margin-bottom: 15px; min-height: 50px; " >
+	             
 	              <!-- Emplacement des infos statistiques -->
 	               <table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
                                  <tr style="width: 80%; height: 40px; font-family: police2;">
@@ -916,7 +914,7 @@ $(window).load(function () {
 		                  </table>
 	              
 	             </div> 
-	             </div> 
+	              
 	         </td>
 	       </tr>
 

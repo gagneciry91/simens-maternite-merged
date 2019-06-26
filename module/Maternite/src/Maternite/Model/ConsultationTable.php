@@ -177,7 +177,7 @@ class ConsultationTable {
 		var_dump($dataac);exit();
 	}
 	public function updateLesConsultation($values) {
-	
+	//var_dump('test');exit();
 		$donnees = array (
 				'POIDS' => $values->get ( "poids" )->getValue (),
 				//'TAILLE' => $values->get ( "taille" )->getValue (),
@@ -984,11 +984,7 @@ class ConsultationTable {
 				'Consprise' => 'CONSPRISE',
 				'date' => 'DATE' 
 		) );
-		$select->join ( array (
-				'cons_eff' => 'consultation_maternite' 
-		), 'cons_eff.ID_CONS = c.ID_CONS', array (
-				'*' 
-		) );
+		
 		$select->join ( array (
 				'a' => 'admission' 
 		), 'c.ID_PATIENT = a.id_patient', array (
@@ -2123,6 +2119,8 @@ class ConsultationTable {
 				'cons' => 'consultation_maternite'
 		), 'c.ID_CONS = cons.id_cons', array (
 				'idconsm' => 'idcons_mater',
+				'date_consultation' => 'date_cons',
+				
 				
 		) );
 		$select->join ( array (
@@ -2130,7 +2128,6 @@ class ConsultationTable {
 		), 'c.ID_CONS = g.id_cons', array (
 				'bb_attendu' => 'bb_attendu',
 				'nb_bb' => 'nombre_bb',
-				'date_consultation' => 'date_cons',
 				'nb_cpn' => 'nb_cpn',
 		) );
 		

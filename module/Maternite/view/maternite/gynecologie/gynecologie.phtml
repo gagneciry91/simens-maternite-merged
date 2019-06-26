@@ -57,7 +57,7 @@ $(window).load(function () {
 	<table class="table table-bordered  tab_list_mini" id="patient">
 	<thead>
 			<tr style="height: 50px; width: 100%;">
-				   <th id="nom" align="center">Num Dossier</th>
+				 <!--  <th id="nom" align="center">Num Dossier</th> -->
 				<th id="nom" align="center">Nom</th>
 				<th id="prenom" align="center">Pr&eacute;nom</th>
 				<th id="nom" align="center" >Age</th>
@@ -84,7 +84,7 @@ $(window).load(function () {
 				<?php if( $this->escapeHtml($donnees['Consprise']) != 1){?>
 				<tr>
 				  
-					<td><?php echo $this->escapeHtml($donnees['numero_dossier']);?></td>
+				<!--	<td><?php //echo $this->escapeHtml($donnees['numero_dossier']);?></td>-->
 				
 				 <td><?php echo $this->escapeHtml($donnees['Nom']);?> </td>
 				 
@@ -152,11 +152,10 @@ $(window).load(function () {
 						<img id="image-alert" style="vertical-align: top;"
 							src='<?php echo $this->basePath().'/images_icons/alert_rv_r.png'?>' />
 					</div>
-                  <?php echo $this->escapeHtml($donnees['numero_dossier']);?>
+                  <!--<?php //echo $this->escapeHtml($donnees['numero_dossier']);?>-->
 				 <?php echo $this->escapeHtml($donnees['Nom']);?>  </td>
 				<td><?php echo $this->escapeHtml($donnees['Prenom']);?></td>
 				<td><?php echo $this->escapeHtml($donnees['Age']);?></td>
-				<!--<td><?php //echo $this->escapeHtml($donnees['Sexe']);?></td>-->
 				<td><?php echo AdresseText($this->escapeHtml($donnees['Adresse']));?></td>
 				<td><?php echo $this->escapeHtml($donnees['Nationalite']);?></td>
 				<td><a> <img style="display: inline; color: white; opacity: 0.15;"
@@ -211,8 +210,8 @@ $(window).load(function () {
 
 	<tfoot class="foot_style">
 			<tr>
-				  <th id="nom_" style='width: 13%;'><input type="text"
-					name="search_browser" value=" Num dossier" class="search_init" /></th>
+				 <!-- <th id="nom_" style='width: 13%;'><input type="text"
+					name="search_browser" value=" Num dossier" class="search_init" /></th>-->
 				<th id="nom_" style='width: 13%;'><input type="text"
 					name="search_browser" value=" Nom" class="search_init" /></th>
 				
@@ -240,7 +239,7 @@ $(window).load(function () {
 	<ul class="dropdown-menu">
 		<li class="cm1"><a style="cursor: pointer;"><img id="consultationCTX"
 				style='margin-right: 10px; width: 16px; height: 16px;'
-				src='/simens/public/images_icons/doctor_16.png'>gynecologie</a></li>
+				src='public/images_icons/doctor_16.png'>Gynecologie</a></li>
 		<li class="divider cm1"></li>
 		<li class="cm1"><a id="quitterCTX" style="cursor: pointer;">Quitter</a></li>
 	</ul>
@@ -251,7 +250,7 @@ $(window).load(function () {
 		<li class="cm2"><a style="cursor: pointer;"><img
 				id="modifierConsultationCTX"
 				style='margin-right: 10px; width: 16px; height: 16px;'
-				src='/simens/public/images_icons/modifier.png'>Modifier</a></li>
+				src='/public/images_icons/modifier.png'>Modifier</a></li>
 		<li class="divider cm2"></li>
 		<li class="cm2"><a id="quitter2CTX" style="cursor: pointer;">Quitter</a></li>
 	</ul>

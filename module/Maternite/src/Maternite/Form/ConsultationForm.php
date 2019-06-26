@@ -322,17 +322,22 @@ class ConsultationForm extends Form {
 						//'required' => true,
 				)
 		) );
+	
+	
 		$this->add ( array (
 				'name' => 'date_cons',
-				'type' => 'Text',
+				'type' => 'date',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8',''),
+				),
 				'attributes' => array (
-						//'readonly' => 'readonly',
-						'id' => 'date_cons'
+						'registerInArrrayValidator' => true,
+						'onchange' => 'getListeDateDebut(this.value)',
+						'id' =>'date_cons',
+					
+						//'required' => true,
 				)
 		) );
-		
-	
-		
 		
 		
 		
@@ -442,11 +447,9 @@ class ConsultationForm extends Form {
 				'name' => 'vat_5',
 				'type' => 'checkbox',
 				'options' => array (
-						//'label' => iconv('ISO-8859-1', 'UTF-8','VAT 3:')
 				),
 				'attributes' => array (
 						'id' => 'vat_5',
-						//'required' => false,
 		
 				)
 		) );
@@ -1438,6 +1441,94 @@ class ConsultationForm extends Form {
 		 * ********DONNEES DE L EXAMEN PHYSIQUE***********
 		 */
 		$this->add ( array (
+				'name' => 'toucherVaginale',
+				'type' => 'Text',
+				'options' => array (
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Toucher vaginale' )
+				),
+				'attributes' => array (
+						'id' => 'toucherVaginale'
+				)
+		) );
+		$this->add ( array (
+				'name' => 'note_tv',
+				'type' => 'Text',
+				'options' => array (
+		
+				),
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'note_tv'
+				)
+		) );
+		$this->add ( array (
+				'name' => 'note_hu',
+				'type' => 'Text',
+				'options' => array (
+		
+				),
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'note_hu'
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'note_bdc',
+				'type' => 'Text',
+				'options' => array (
+		
+				),
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'note_bdc'
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'note_la',
+				'type' => 'Text',
+				'options' => array (
+		
+				),
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'note_la'
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'hauteurUterine',
+				'type' => 'Text',
+				'options' => array (
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Hauteur uterine' )
+				),
+				'attributes' => array (
+						'id' => 'hauteurUterine'
+				)
+		) );
+		$this->add ( array (
+				'name' => 'positionFoeutus',
+				'type' => 'Text',
+				'options' => array (
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Position Foeutus' )
+				),
+				'attributes' => array (
+						'id' => 'positionFoeutus'
+				)
+		) );
+		$this->add ( array (
+				'name' => 'vitaliteFoeutus',
+				'type' => 'Text',
+				'options' => array (
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Vatalite foeutus' )
+				),
+				'attributes' => array (
+						'id' => 'vitaliteFoeutus'
+				)
+		) );
+/* 		$this->add ( array (
 				'name' => 'examen_maternite_donnee1',
 				'type' => 'Text',
 				'options' => array (
@@ -1524,7 +1615,7 @@ class ConsultationForm extends Form {
 				'attributes' => array (
 						'id' => 'examen_maternite_donnee4' 
 				) 
-		) );
+		) ); */
 		$this->add ( array (
 				'name' => 'examen_maternite_donnee5',
 				'type' => 'Text',

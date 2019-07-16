@@ -119,16 +119,16 @@ $(window).load(function () {
 		<ul class="dropdown-menu">
 			<li><a style="cursor: pointer;"><img id="detailsCTX"
 					style='margin-right: 10px; margin-left: -3px; width: 19px; height: 16px;'
-					src='/simens/public/images_icons/voir.png'>D&eacute;tails</a></li>
+					src='./images_icons/voir.png'>D&eacute;tails</a></li>
 			<li class="divider2"></li>
 			<li class="lien1"><a style="cursor: pointer;"><img
 					id="administrerCTX"
 					style='margin-right: 10px; width: 16px; height: 16px;'
-					src='/simens/public/images_icons/details.png'>Administrer</a></li>
+					src='./images_icons/details.png'>Administrer</a></li>
 			<li class="divider2"></li>
 			<li class="lien1"><a style="cursor: pointer;"><img id="libererCTX"
 					style='margin-right: 10px; width: 16px; height: 16px;'
-					src='/simens/public/images_icons/edit_item_btn.png'>Lib&eacute;rer</a></li>
+					src='./images_icons/edit_item_btn.png'>Lib&eacute;rer</a></li>
 			<li class="divider"></li>
 			<li><a id="quitterCTX" style="cursor: pointer;">Quitter</a></li>
 		</ul>
@@ -820,9 +820,9 @@ $(window).load(function () {
 								style="float: right; top: 35px; bottom: 2px; right: 24px;"> <img
 									id='fleche_moins'
 									style='padding-right: 10px; heigth: 19px; width: 19px;'
-									src='/simens/public/images_icons/fleche_moins.png'> <img
+									src='./images_icons/fleche_moins.png'> <img
 									id='fleche_plus' style='heigth: 19px; width: 19px;'
-									src='/simens/public/images_icons/fleche_plus.png'>
+									src='./images_icons/fleche_plus.png'>
 							</label>
          <?php echo $this->formRow($form->get('duree'));?> 
          </td>
@@ -839,11 +839,11 @@ $(window).load(function () {
 							<td style="width: 10%;" id="ajouter"><a
 								href='javascript:ajouter()'><img
 									style='display: inline; margin-right: 10%;'
-									src='/simens/public/images_icons/112.png'
+									src='./images_icons/112.png'
 									title='ajouter le soin'></a></td>
 							<td style="width: 10%;"><a href='javascript:vider_tout()'><img
 									id='test' style='display: inline; margin-right: 10%;'
-									src='/simens/public/images_icons/118.png' title='vider tout'></a></td>
+									src='./images_icons/118.png' title='vider tout'></a></td>
 						</tr>
 					</table>
 
@@ -1023,7 +1023,7 @@ $(window).load(function () {
 	title="Prescription de l'ordonnance" style="display: none;">
 
 	<form id='Formulaire_Imprimer_Ordonnance' method='post'
-		action='/simens/public/consultation/impression-Pdf' target='_blank'>
+		action='./consultation/impression-Pdf' target='_blank'>
 
 		<div id="impressionPdf">
 			<input type="submit" title="Imprimer" name="ordonnance"

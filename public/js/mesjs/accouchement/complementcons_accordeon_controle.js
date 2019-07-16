@@ -959,8 +959,7 @@ $("#terminer2, #terminer3").click(function () {
     
     donnees['ddr'] = $("#ddr").val();
     donnees['duree_grossesse'] = $("#duree_grossesse").val();
-    donnees['note_ddr'] = $("#note_ddr").val();date_cons
-    donnees['date_cons'] = $("#date_cons").val();
+    donnees['note_ddr'] = $("#note_ddr").val();
     donnees['nb_cpn'] = $("#nb_cpn").val();
     donnees['note_cpn'] = $("#note_cpn").val();
     donnees['bb_attendu'] = $("#bb_attendu").val();
@@ -981,23 +980,12 @@ $("#terminer2, #terminer3").click(function () {
    donnees['type_accouchement'] = $("#type_accouchement").val();
     donnees['motif_type'] = $("#motif_type").val();
     donnees['prenome'] = $("#prenome").val();
-    donnees['date_debutsta'] = $("#date_debutsta").val();
-    donnees['date_finsta'] = $("#date_finsta").val();
-
+    
     donnees['date_accouchement'] = $("#date_accouchement").val();
     donnees['heure_accouchement'] = $("#heure_accouchement").val();
     donnees['delivrance'] = $("#delivrance").val();
     donnees['ru'] = $("#ru").val();
     donnees['hemoragie'] = $("#hemoragie").val();
-    donnees['hrp'] = $("#hrp").val();
-    donnees['dystocie'] = $("#dystocie").val();
-    donnees['infection'] = $("#infection").val();
-    donnees['anemie'] = $("#anemie").val();
-    donnees['fistules'] = $("#fistules").val();
-    donnees['paludisme'] = $("#paludisme").val();
-    donnees['eclapsie'] = $("#eclapsie").val();
-
-    
     donnees['quantite_hemo'] = $("#quantite_hemo").val();
     donnees['ocytocique_per'] = $("#ocytocique_per").val();
     donnees['ocytocique_post'] = $("#ocytocique_post").val();
@@ -1009,15 +997,10 @@ $("#terminer2, #terminer3").click(function () {
     donnees['note_accouchement'] = $("#note_accouchement").val();
     donnees['note_delivrance'] = $("#note_delivrance").val();
     donnees['note_hemorragie'] = $("#note_hemorragie").val();
-    donnees['note_hrp'] = $("#note_hrp").val();
-    donnees['note_dystocie'] = $("#note_dystocie").val();
-
     donnees['note_ocytocique'] = $("#note_ocytocique").val();
     donnees['note_antibiotique'] = $("#note_antibiotique").val();
     donnees['note_anticonv'] = $("#note_anticonv").val();
     donnees['note_transfusion'] = $("#note_transfusion").val();
-    donnees['note_eclapsie'] = $("#note_eclapsie").val();
-
     
 
     
@@ -2428,58 +2411,6 @@ function getAccouchement(val){
 		
 	}	
 }
-
-
-
-	
-	
-	function imprimerRapportStatistiquePathologie(){ 
-		var id_sous_dossier = $('#id_sous_dossier').val();
-		//var id_service = $('#id_service_rapport').val();
-		var date_debut = $('#date_debut_rapport').val();
-		var date_fin = $('#date_fin_rapport').val();
-		var id_diagnostic = $('#diagnostic_rapport').val();
-		
-		var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-pathologie-imprimees';
-		var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
-		imprimerInformationsStatistiques.setAttribute("action", lienImpression);
-		imprimerInformationsStatistiques.setAttribute("method", "POST");
-		imprimerInformationsStatistiques.setAttribute("target", "_blank");
-		
-		// Ajout dynamique de champs dans le formulaire
-		var champ = document.createElement("input");
-		champ.setAttribute("type", "hidden");
-		champ.setAttribute("name", 'date_debut');
-		champ.setAttribute("value", date_debut);
-		imprimerInformationsStatistiques.appendChild(champ);
-		
-		var champ2 = document.createElement("input");
-		champ2.setAttribute("type", "hidden");
-		champ2.setAttribute("name", 'date_fin');
-		champ2.setAttribute("value", date_fin);
-		imprimerInformationsStatistiques.appendChild(champ2);
-		
-		var champ3 = document.createElement("input");
-		champ3.setAttribute("type", "hidden");
-		champ3.setAttribute("name", 'id_diagnostic');
-		champ3.setAttribute("value", id_diagnostic);
-		imprimerInformationsStatistiques.appendChild(champ3);
-		
-		var champ4 = document.createElement("input");
-		champ4.setAttribute("type", "hidden");
-		champ4.setAttribute("name", 'id_sous_dossier');
-		champ4.setAttribute("value", id_sous_dossier);
-		imprimerInformationsStatistiques.appendChild(champ4);
-		
-		
-		
-
-		$("#imprimerRapportInformationsStatistiques button").trigger('click');
-		
-	}
-	
-	
-
 
 getAccouchement($('#type_accouchement').val());
 function fAddText() { 

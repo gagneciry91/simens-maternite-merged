@@ -37,7 +37,7 @@ class DiagnosticsTable {
 						'libelle_diagnostics' => $donnees ['diagnostic' . $i],
 						'id_cons' => $donnees ['id_cons'],
 						//'decision' => $donnees ['decision']
-				);
+				);//var_dump($donneeDiagnostic);exit();
 				$this->tableGateway->insert ( $donneeDiagnostic );
 			}
 		}

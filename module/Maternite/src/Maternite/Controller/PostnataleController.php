@@ -1450,7 +1450,7 @@ foreach ($Nouveau as $Nv){
 		$this->getDateHelper();
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
 		$id = $this->params()->fromPost('id_cons');
-		
+		var_dump($id);
 		$id_admission = $this->params()->fromQuery('id_admission', 0);
 		
 		$id_accouchement = $this->params()->fromPost('$id_accouchement');

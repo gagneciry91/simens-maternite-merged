@@ -9,6 +9,7 @@ use Maternite\View\Helpers\DateHelper;
 use Zend\Mvc\Controller\AbstractActionController;
 use Maternite\Form\PatientForm;
 use Zend\View\Model\ViewModel;
+
 //use Zend\Db\Sql\Sql;
 use Maternite\Form\AjoutDecesForm;
 use Maternite\Form\admission\AdmissionForm;
@@ -54,6 +55,12 @@ class GynecologieController extends AbstractActionController
 	protected $formPatient;
 	protected $formAdmission;
 	protected $diagnosticsTable;
+	protected $antecedenttype1Table;
+	protected $antecedenttype2Table;
+	protected $rvPatientConsTable;
+	protected $ordonnanceTable;
+	protected $ordonConsommableTable;
+	
 	
 	
 	
@@ -64,6 +71,38 @@ class GynecologieController extends AbstractActionController
 		}
 		return $this->admissionTable;
 	}
+	public function getAntecedentType1Table() {
+		if (! $this->antecedenttype1Table) {
+			$sm = $this->getServiceLocator ();
+			$this->antecedenttype1Table = $sm->get ( 'Maternite\Model\AntecedentType1Table' );
+		}
+		return $this->antecedenttype1Table;
+	}
+	public function getAntecedentType2Table() {
+		if (! $this->antecedenttype2Table) {
+			$sm = $this->getServiceLocator ();
+			$this->antecedenttype2Table = $sm->get ( 'Maternite\Model\AntecedentType2Table' );
+		}
+		return $this->antecedenttype2Table;
+	}
+	public function getOrdonConsommableTable()
+	{
+		if (!$this->ordonConsommableTable) {
+			$sm = $this->getServiceLocator();
+			$this->ordonConsommableTable = $sm->get('Maternite\Model\OrdonConsommableTable');
+		}
+		return $this->ordonConsommableTable;
+	}
+	
+	public function getRvPatientConsTable()
+	{
+		if (!$this->rvPatientConsTable) {
+			$sm = $this->getServiceLocator();
+			$this->rvPatientConsTable = $sm->get('Maternite\Model\RvPatientConsTable');
+		}
+		return $this->rvPatientConsTable;
+	}
+	
 	public function getGynecologieTable() {
 		if (! $this->gynecologieTable) {
 			$sm = $this->getServiceLocator ();
@@ -71,6 +110,16 @@ class GynecologieController extends AbstractActionController
 		}
 		return $this->gynecologieTable;
 	}
+
+	public function getOrdonnanceTable()
+	{
+		if (!$this->ordonnanceTable) {
+			$sm = $this->getServiceLocator();
+			$this->ordonnanceTable = $sm->get('Maternite\Model\OrdonnanceTable');
+		}
+		return $this->ordonnanceTable;
+	}
+	
 	public function getDiagnosticsTable()
 	{
 		if (!$this->diagnosticsTable) {
@@ -373,8 +422,6 @@ class GynecologieController extends AbstractActionController
 			$this->layout()->setTemplate('layout/gynecologie');
 		$user = $this->layout()->user;
 		$idService = $user ['IdService'];
-		//var_dump($user); exit();
-	
 		$lespatients = $this->getConsultationTable()->listeDesGynecologie($idService);
 		// RECUPERER TOUS LES PATIENTS AYANT UN RV aujourd'hui
 		
@@ -399,21 +446,43 @@ class GynecologieController extends AbstractActionController
 	
 		return new ViewModel ( array (
 		) );
-	}	
+	}
+	public function infoPrenataleAction() {
+		$this->layout ()->setTemplate ( 'layout/gynecologie' );
+		$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+		 
+		$user = $this->layout()->user;
+		$idService = $user ['IdService'];
+		$form = new ConsultationForm ();
+		var_dump('test');exit();
+	
+		$formData = $this->getRequest ()->getPost ();
+		$form->setData ( $formData );
+		$id_cons = $form->get ( "id_cons" )->getValue ();
+		$prenatale = $this->getConsultationTable()->listePrenatale($id_pat);
+	
+		$patient = $this->getPatientTable ();
+		$unPatient = $patient->getInformationPatient( $id_pat);
+	
+		return array (
+				'donnees_pre'=>$prenatale ,
+				'lesdetails' => $unPatient,
+				'image' => $patient->getPhoto ( $id_pat ),
+				'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
+		);
+	}
+	
+		
 	public function listeDesGynecologiesAction() {
 		
 		$layout = $this->layout ();
 		$layout->setTemplate ( 'layout/gynecologie' );
-		$output = $this->getPatientTable()->getPatientGynecologie();
-		//var_dump($output);exit();
 		$view = new ViewModel ();
-	
 		return $view;
 	}
 	
 	public function listeDesGynecologiesAjaxAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
-	
 		$output = $this->getPatientTable()->getPatientGynecologie();
 		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
 				'enableJsonExprFinder' => true
@@ -436,12 +505,7 @@ class GynecologieController extends AbstractActionController
 		//var_dump($id);exit();
 		$id_admi = $this->params()->fromQuery('id_admission', 0);
 		
-		$listeMedicament = $this->getConsultationTable()->listeDeTousLesMedicaments();
-		$listeForme = $this->getConsultationTable()->formesMedicaments();
-		$listetypeQuantiteMedicament = $this->getConsultationTable()->typeQuantiteMedicaments();
 		
-		$liste = $this->getConsultationTable()->getInfoPatient($id_pat);
-		$image = $this->getConsultationTable()->getPhoto($id_pat);
 		 
 		// RECUPERER TOUS LES PATIENTS AYANT UN RV aujourd'hui
 		$tabPatientRV = $this->getConsultationTable()->getPatientsRV($IdDuService);
@@ -451,16 +515,101 @@ class GynecologieController extends AbstractActionController
 		}
 		
 		$form = new ConsultationForm ();
+		$listeMedicament = $this->getConsultationTable()->listeDeTousLesMedicaments();
+		$listeForme = $this->getConsultationTable()->formesMedicaments();
+		$listetypeQuantiteMedicament = $this->getConsultationTable()->typeQuantiteMedicaments();
+		$donne_ante=$this->getAntecedentType1Table()->getAntecedentType1($id_pat);
+		$donne_ante2=$this->getAntecedentType2Table()->getAntecedentType2($id);
+		$liste = $this->getConsultationTable()->getInfoPatient($id_pat);
+		$image = $this->getConsultationTable()->getPhoto($id_pat);
 		
 		// instancier la consultation et r�cup�rer l'enregistrement
 		$consult = $this->getConsultationTable()->getConsult($id);
+		
+		// Les antecedents
+		
+		$donne_ant1=array(
+					
+				'enf_viv'=>$donne_ante['enf_viv'],
+				'geste'=>$donne_ante['geste'],
+				'parite'=>$donne_ante['parite'],
+				'note_enf'=>$donne_ante['note_enf'],
+				'note_geste'=>$donne_ante['note_geste'],
+				'note_parite'=>$donne_ante['note_parite'],
+				'mort_ne'=>$donne_ante['mort_ne'],
+				'note_mort_ne'=>$donne_ante['note_mort_ne'],
+				//'avortement'=>$donne_ante['avortement'],
+				//'note_avortement'=>$donne_ante['note_avortement'],
+				'cesar'=>$donne_ante['cesar'],
+				'nombre_cesar'=>$donne_ante['nombre_cesar'],
+				'indication'=>$donne_ante['indication'],
+				'hta'=>$donne_ante['hta'],
+				'NoteHtaAF'=>$donne_ante['NoteHtaAF'],
+				'menarchie'=>$donne_ante['menarchie'],
+				'groupe_sanguins'=>$donne_ante['groupe_sanguin'],
+				'rhesus'=>$donne_ante['rhesus'],
+				'note_gs'=>$donne_ante['note_gs'],
+				'test_emmel'=>$donne_ante['test_emmel'],
+				'profil_emmel'=>$donne_ante['profil_emmel'],
+				'note_emmel'=>$donne_ante['note_emmel'],
+				'duree_infertilite'=>$donne_ante['duree_infertilite'],
+				'dg'=>$donne_ante['dg'],
+				'note_dg'=>$donne_ante['note_dg'],
+				'ddr'=>$donne_ante['ddr'],
+		        'inv_uter'=>$donne_ante['inv_uter'],
+		        'muqueuse'=>$donne_ante['muqueuse'],
+		        'oeudeme'=>$donne_ante['oeudeme'],
+		        'eg'=>$donne_ante['eg'], 
+		        'seins'=>$donne_ante['seins'],
+		        'note_sein'=>$donne_ante['note_sein'],
+		        'tvagin'=>$donne_ante['tvagin'],
+				'abdomen'=>$donne_ante['abdomen'],
+				'mollets'=>$donne_ante['mollets'],
+				'enf_viv_mari'=>$donne_ante['enf_viv_mari'],		
+				'noteenf_viv'=>$donne_ante['noteenf_viv'],
+				'Vivensemble'=>$donne_ante['Vivensemble'],
+				'note_Vivensemble'=>$donne_ante['note_Vivensemble'],
+				'enf_age'=>$donne_ante['enf_age'],
+				'noteenf_age'=>$donne_ante['noteenf_age'],
+				'regime'=>$donne_ante['regime'],
+				'note_regime'=>$donne_ante['note_regime'],
+				'nouvelleMotifs'=>$donne_ante['nouvelleMotifs'],
+				'amenere'=>$donne_ante['amenere'],
+				
+				
+				
+		);
+		//var_dump($donne_ant1);exit();
+		$form->populateValues($donne_ant1);
+		
+		$donne_antecedent2=array(
+				'dystocie'=>$donne_ante2['dystocie'],
+				'eclampsie'=>$donne_ante2['eclampsie'],
+				//'cycle'=>$donne_ante2['cycle'],
+				'quantite_regle'=>$donne_ante2['quantite_regle'],
+				'duree_cycle'=>$donne_ante2['duree_cycle'],
+				'note_dystocie'=>$donne_ante2['note_dystocie'],
+				'note_eclampsie'=>$donne_ante2['note_eclampsie'],
+				'autre_go'=>$donne_ante2['autre_go'],
+				'note_autre_go'=>$donne_ante2['note_autre'],
+				'nb_garniture_jr'=>$donne_ante2['nb_garniture_jr'],
+				'contraception'=>$donne_ante2['contraception'],
+				'type_contraception'=>$donne_ante2['type_contraception'],
+				'duree_contraception'=>$donne_ante2['duree_contraception'],
+				'note_contraception'=>$donne_ante2['note_contraception'],
+				'dateces'=>$donne_ante2['dateces'],
+				
+		);//var_dump($donne_antecedent2);exit();
+		
+		//$form->populateValues($donne_antecedent2);
+		
 		
 		$infoDiagnostics = $this->getDiagnosticsTable()->getDiagnostics($id);
 		// POUR LES DIAGNOSTICS
 		$k = 1;$tabdiagons=array();
 		foreach ($infoDiagnostics as $diagnos) {
 			$tabdiagons ['diagnostic' . $k] = $diagnos ['libelle_diagnostics'];
-			$data ['decisions']=$diagnos['decision'];
+			//$data ['decisions']=$diagnos['decision'];
 			$k++;
 		}
 		$Decision = $this->getDiagnosticsTable()->getDecision($id);
@@ -484,7 +633,26 @@ class GynecologieController extends AbstractActionController
 		$motif_admission = $this->getMotifAdmissionTable()->getMotifAdmission($id);
 		$nbMotif = $this->getMotifAdmissionTable()->nbMotifs($id);
 		
-	
+		$infoOrdonnance = $this->getOrdonnanceTable()->getOrdonnanceNonHospi($id);
+		
+		if ($infoOrdonnance) {
+			$idOrdonnance = $infoOrdonnance->id_document;
+			$duree_traitement = $infoOrdonnance->duree_traitement;
+			// LISTE DES MEDICAMENTS PRESCRITS
+			$listeMedicamentsPrescrits = $this->getOrdonnanceTable()->getMedicamentsParIdOrdonnance($idOrdonnance);
+			$nbMedPrescrit = $listeMedicamentsPrescrits->count();
+		} else {
+		
+			$nbMedPrescrit = null;
+			$listeMedicamentsPrescrits = null;
+			$duree_traitement = null;
+		}
+		// instancier la consultation et r�cup�rer l'enregistrement
+		$consult = $this->getConsultationTable()->getConsult($id);
+		$pos = strpos($consult->pression_arterielle, '/');
+		$tensionmaximale = substr($consult->pression_arterielle, 0, $pos);
+		$tensionminimale = substr($consult->pression_arterielle, $pos + 1);
+		
 	
 		$data = array(
 				'id_cons' => $consult->id_cons,
@@ -493,6 +661,8 @@ class GynecologieController extends AbstractActionController
 				'date_cons' => $consult->date,
 				'poids' => $consult->poids,
 				'taille' => $consult->taille,
+				'tensionmaximale' => $tensionmaximale,
+				'tensionminimale' => $tensionminimale,
 				'temperature' => $consult->temperature,
 				'pouls' => $consult->pouls,
 				'frequence_respiratoire' => $consult->frequence_respiratoire,
@@ -504,7 +674,15 @@ class GynecologieController extends AbstractActionController
 			$data ['motif_admission' . $k] = $Motifs ['Libelle_motif'];
 			$k++;
 		}
+		$gyneco=$this->getGynecologieTable()->getGynecologie($id);
 		
+		$donne_gyn=array(
+				'infertilite'=>$gyneco['infertilite'],
+				//'traitement_recu'=>$avortement['id_traitement'],
+				//'periode_av'=>$avortement['periode_av'],
+					
+		);//var_dump($donne_av);exit();
+		$form->populateValues($donne_gyn);
 		$infoDiagnostics = $this->getDiagnosticsTable()->getDiagnostics($id);
 		// POUR LES DIAGNOSTICS
 		$k = 1;$tabdiagons=array();
@@ -529,11 +707,21 @@ class GynecologieController extends AbstractActionController
 	
 		// FIN ANTECEDENTS --- FIN ANTECEDENTS --- FIN ANTECEDENTS
 		// FIN ANTECEDENTS --- FIN ANTECEDENTS --- FIN ANTECEDENTS
+	
+		
+		$leRendezVous = $this->getRvPatientConsTable()->getRendezVous($id);
+		
+		if ($leRendezVous) {
+			$data ['heure_rv'] = $leRendezVous->heure;
+			$data ['date_rv'] = $this->controlDate->convertDate($leRendezVous->date);
+			$data ['motif_rv'] = $leRendezVous->note;
+		}
+		
 		
 		// Recuperer la liste des actes
 		// Recuperer la liste des actes
 		 
-		$form->populateValues(array_merge($data,$tabdiagons,  $donneesAntecedentsPersonnels, $donneesAntecedentsFamiliaux));
+		$form->populateValues(array_merge($data,$donne_antecedent2, $tabdiagons,  $donneesAntecedentsPersonnels, $donneesAntecedentsFamiliaux));
 		return array(
 				'lesdetails' => $liste,
 				'id_cons' => $id,
@@ -544,7 +732,9 @@ class GynecologieController extends AbstractActionController
 				'heure_cons' => $consult->heurecons,
 				'dateonly' => $consult->dateonly,
 				'liste_med' => $listeMedicament,
-				
+				'nb_med_prescrit' => $nbMedPrescrit,
+				'liste_med_prescrit' => $listeMedicamentsPrescrits,
+				'duree_traitement' => $duree_traitement,
 				// 'temoinMotifAdmission' => $motif_admission['temoinMotifAdmission'],
 				'listeForme' => $listeForme,
 				'listetypeQuantiteMedicament' => $listetypeQuantiteMedicament,
@@ -552,29 +742,66 @@ class GynecologieController extends AbstractActionController
 				'donneesAntecedentsFamiliaux' => $donneesAntecedentsFamiliaux,
 				'liste' => $listeConsultation,
 				'resultRV' => $resultRV,
+				'verifieRV' => $leRendezVous,
+				
 				'listeAntMed' => $listeAntMed,
 				'antMedPat' => $antMedPat,
 				'nbAntMedPat' => $antMedPat->count(),
 		);
 	}
+	public function majComplementGynecologieAction()
+	{$this->layout()->setTemplate('layout/gynecologie');}
+	
+	
+	
+	public function infoGynecologieAction() {
+		$this->layout ()->setTemplate ( 'layout/gynecologie' );
+		$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+		 
+		$user = $this->layout()->user;
+		$idService = $user ['IdService'];
+		$form = new ConsultationForm ();
+		var_dump('test');exit();
+	
+		$formData = $this->getRequest ()->getPost ();
+		$form->setData ( $formData );
+		$id_cons = $form->get ( "id_cons" )->getValue ();
+		$gyneco = $this->getConsultationTable()->listeGynecologie($id_pat);
+	
+		$patient = $this->getPatientTable ();
+		$unPatient = $patient->getInformationPatient( $id_pat);
+	
+		return array (
+				'donnees_gyn'=>$gyneco ,
+				'lesdetails' => $unPatient,
+				'image' => $patient->getPhoto ( $id_pat ),
+				'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
+		);
+	}
+
 	public function updateComplementGynecologieAction(){
 	
+        $this->layout()->setTemplate('layout/gynecologie');
         $this->getDateHelper();
-        $id_cons = $this->params()->fromPost('id_cons');
+        $id_cons = $this->params()->fromQuery('id_cons');
         $id_patient = $this->params()->fromPost('id_patient');
          //var_dump($id_cons);exit();
         $user = $this->layout()->user;
         $IdDuService = $user ['IdService'];
         $id_medecin = $user ['id_personne'];
-        // **********-- MODIFICATION DES CONSTANTES --********
-        // **********-- MODIFICATION DES CONSTANTES --********
-        // **********-- MODIFICATION DES CONSTANTES --********
+     
         $form = new ConsultationForm ();
         $formData = $this->getRequest()->getPost();
         $form->setData($formData);
+      
+        // **********-- MODIFICATION DES CONSTANTES --********
+        // **********-- MODIFICATION DES CONSTANTES --********
+        // **********-- MODIFICATION DES CONSTANTES --********
+ 
         // les antecedents medicaux du patient a ajouter addAntecedentMedicauxPersonne
         $this->getConsultationTable()->addAntecedentMedicaux($formData);
         $this->getConsultationTable()->addAntecedentMedicauxPersonne($formData);
+         //$this->getAntecedentType1Table()->addAntecedentType1($formData);
        
         // mettre a jour les motifs d'admission
         $this->getMotifAdmissionTable()->deleteMotifAdmission($id_cons);
@@ -586,14 +813,150 @@ class GynecologieController extends AbstractActionController
             'nouvelleGrossesse' => $this->params()->fromPost('motif_admission2')
         );
 
-        //var_dump('tesy');exit();
         
         // mettre a jour la consultation
         $this->getConsultationTable()->updateLesConsultation($form);
-        // Recuperer les donnees sur les bandelettes urinaires
-        // Recuperer les donnees sur les bandelettes urinaires
+     
+        $id_antecedent1 = $this->getAntecedentType1Table ()-> updateAntecedentType1($formData);   //var_dump('test');exit();
+        $id_antecedent2 = $this->getAntecedentType2Table ()-> updateAntecedentType2($formData);
+
+        // **=== ANTECEDENTS FAMILIAUX
+        // **=== ANTECEDENTS FAMILIAUX
+        $donneesDesAntecedents=array(
+        'DiabeteAF' => $this->params()->fromPost('DiabeteAF'),
+        'NoteDiabeteAF' => $this->params()->fromPost('NoteDiabeteAF'),
+        'DrepanocytoseAF' => $this->params()->fromPost('DrepanocytoseAF'),
+        'NoteDrepanocytoseAF' => $this->params()->fromPost('NoteDrepanocytoseAF'),
+        'htaAF' => $this->params()->fromPost('htaAF'),
+        'NoteHtaAF' => $this->params()->fromPost('NoteHtaAF')
+        );
+        //var_dump($donneesDesAntecedents);exit();
+        //$id_personne = $this->getAntecedantPersonnelTable()->getIdPersonneParIdCons($id_cons);
+        //$this->getAntecedantPersonnelTable()->addAntecedentsPersonnels($donneesDesAntecedents, $id_personne, $id_medecin);
+        $this->getAntecedantsFamiliauxTable()->addAntecedentsFamiliaux($donneesDesAntecedents, $id_patient, $id_medecin);
         
-        $this->getGynecologieTable()->updateGyneco($form);
+        // POUR LES DIAGNOSTICS
+        // POUR LES DIAGNOSTICS
+        // POUR LES DIAGNOSTICS
+        $info_diagnostics = array(
+        		'id_cons' => $id_cons,
+        		'diagnostic1' => $this->params()->fromPost('diagnostic1'),
+        		'diagnostic2' => $this->params()->fromPost('diagnostic2'),
+        		'diagnostic3' => $this->params()->fromPost('diagnostic3'),
+        		'diagnostic4' => $this->params()->fromPost('diagnostic4')
+        );
+
+        $this->getDiagnosticsTable()->updateDiagnostics($formData);  
+        //var_dump($this);exit();     
+        
+        // POUR LES TRAITEMENTS
+        // POUR LES TRAITEMENTS
+        // POUR LES TRAITEMENTS
+        /**
+         * ** MEDICAUX ***
+         */
+        /**
+         * ** MEDICAUX ***
+         */
+        $dureeTraitement = $this->params()->fromPost('duree_traitement_ord');
+        $donnees = array(
+        		'id_cons' => $id_cons,
+        		'duree_traitement' => $dureeTraitement
+        );
+        $Consommable = $this->getOrdonConsommableTable();//var_dump('test');exit();
+        $tab = array();
+        $j = 1;
+        
+        $nomMedicament = "";
+        $formeMedicament = "";
+        $quantiteMedicament = "";
+        for ($i = 1; $i < 10; $i++) {
+        	if ($this->params()->fromPost("medicament_0" . $i)) {
+        
+        		$nomMedicament = $this->params()->fromPost("medicament_0" . $i);
+        		$formeMedicament = $this->params()->fromPost("forme_" . $i);
+        		$quantiteMedicament = $this->params()->fromPost("quantite_" . $i);
+        
+        		if ($this->params()->fromPost("medicament_0" . $i)) {
+        
+        			$result = $Consommable->getMedicamentByName($this->params()->fromPost("medicament_0" . $i))['ID_MATERIEL'];
+        
+        			if ($result) {
+        				$tab [$j++] = $result;
+        				$tab [$j++] = $formeMedicament;
+        				$Consommable->addFormes($formeMedicament);
+        				$tab [$j++] = $this->params()->fromPost("nb_medicament_" . $i);
+        				$tab [$j++] = $quantiteMedicament;
+        				$Consommable->addQuantites($quantiteMedicament);
+        			} else {
+        				$idMedicaments = $Consommable->addMedicaments($nomMedicament);
+        				$tab [$j++] = $idMedicaments;
+        				$tab [$j++] = $formeMedicament;
+        				$Consommable->addFormes($formeMedicament);
+        				$tab [$j++] = $this->params()->fromPost("nb_medicament_" . $i);
+        				$tab [$j++] = $quantiteMedicament;
+        				$Consommable->addQuantites($quantiteMedicament);
+        			}
+        		}
+        	}
+        }
+        /* Mettre a jour la duree du traitement de l'ordonnance */
+        $idOrdonnance = $this->getOrdonnanceTable()->updateOrdonnance($tab, $formData);
+        
+        /* Mettre a jour les medicaments */
+        $resultat = $Consommable->updateOrdonConsommable($tab, $idOrdonnance, $nomMedicament);
+        
+        /* si aucun m�dicament n'est ajout� ($resultat = false) on supprime l'ordonnance */
+     if ($resultat == false) {
+        	$this->getOrdonnanceTable()->deleteOrdonnance($idOrdonnance);
+        }
+        
+        
+       //var_dump($donnee_ant1);exit();
+      
+        $donne_gyneco = array(
+        		'id_cons' => $this->params()->fromPost('id_cons'),
+        		'infertilite' => $this->params()->fromPost('infertilite'),
+        		'antepers' => $this->params()->fromPost('antepers'),
+        		);
+        
+        $this->getGynecologieTable()->updateGyneco($donne_gyneco);
+       // var_dump('tesy');exit();
+        // POUR LES RENDEZ VOUS
+        // POUR LES RENDEZ VOUS
+        // POUR LES RENDEZ VOUS
+        $id_patient = $this->params()->fromPost('id_patient');
+        $date_RV_Recu = $this->params()->fromPost('date_rv');
+        if ($date_RV_Recu) {
+        	$date_RV = $this->controlDate->convertDateInAnglais($date_RV_Recu);
+        } else {
+        	$date_RV = $date_RV_Recu;
+        }
+        $infos_rv = array(
+        		'ID_CONS' => $id_cons,
+        		'NOTE' => $this->params()->fromPost('motif_rv'),
+        		'HEURE' => $this->params()->fromPost('heure_rv'),
+        		'DATE' => $date_RV
+        );
+         //var_dump($infos_rv);exit();
+        $this->getRvPatientConsTable()->updateRendezVous($formData);
+        
+        
+        // POUR LA PAGE complement-consultation
+        // POUR LA PAGE complement-consultation
+        // POUR LA PAGE complement-consultation
+        if ($id_cons != 'null') {
+        
+        	// VALIDER EN METTANT '1' DANS CONSPRISE Signifiant que le medecin a consulter le patient
+        	// Ajouter l'id du medecin ayant consulter le patient
+        	$valide = array(
+        			'VALIDER' => 1,
+        			//'ID_CONS' => $id_cons,
+        			//'ID_MEDECIN' => $this->params()->fromPost('med_id_personne')
+        	);//var_dump($valide);exit();
+        	$this->getConsultationTable()->validerConsultation1($valide);
+        }
+        
 		return $this->redirect()->toRoute('gynecologie', array(
 				'action' => 'gynecologie',
 		));

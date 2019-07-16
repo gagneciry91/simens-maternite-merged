@@ -4,6 +4,7 @@ namespace Maternite\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Sql;
+use Maternite\View\Helpers\DateHelper;
 
 
 class AntecedentType2Table {
@@ -32,38 +33,41 @@ class AntecedentType2Table {
         }
 	
         public function updateAntecedentType2($donnees) {
-        	
+        	$Control = new DateHelper();
+        	 
         	$this->tableGateway->delete ( array (
         			'id_cons' => $donnees ['id_cons']
         	) );
+        	$dateces = $donnees['dateces'];
+        	
+        	if($dateces){ $dateces = $Control->convertDateInAnglais($dateces); }else{ $dateces = null;}
         
         	$datadonnee = array (
         			'id_cons' => $donnees ['id_cons'],
         			'id_patient' => $donnees ['id_patient'],
-        			'dystocie' => $donnees ['dystocie'],
+        			//'dystocie' => $donnees ['dystocie'],
         			'eclampsie' => $donnees ['eclampsie'],
-        			'cycle' => $donnees ['regularite'],
+        			'cycle' => $donnees ['cycle'],
         			'duree_cycle' => $donnees ['duree_cycle'],
         			'quantite_regle' => $donnees ['quantite_regle'],
         			'nb_garniture_jr' => $donnees ['nb_garniture_jr'],
-        			'note_dystocie' => $donnees ['note_dystocie'],
+        			//'note_dystocie' => $donnees ['note_dystocie'],
         			'note_eclampsie' => $donnees ['note_eclampsie'], 			
         			//'note_cycle' => $donnees ['note_cycle'],
         			'autre_go' => $donnees ['autre_go'],
-        			'note_autre' => $donnees ['note_autre'],
+        			//'note_autre' => $donnees ['note_autre'],
         			'contraception' => $donnees ['contraception'],
         			'type_contraception' => $donnees ['type_contraception'],
         			'duree_contraception' => $donnees ['duree_contraception'],
         			'note_contraception' => $donnees ['note_contraception'],
+        			'dateces'=>$dateces,
+        			 
         			
-        	);
+        	);//var_dump($datadonnee);exit();
         
-        return	$this->tableGateway->update($datadonnee, array('id_cons'=> $donnees['id_cons']));
+        	return $this->tableGateway->getLastInsertValue($this->tableGateway->insert( $datadonnee ));
         	 
-        		//return $this->tableGateway->getLastInsertValue($this->tableGateway->insert($datadonnee));
-        	
-        	//var_dump($datadonnee); exit();
-        	//$this->tableGateway->insert ( $datadonnee );
+
         }
         
 

@@ -1,0 +1,16 @@
+monitorId,attribute1,attribute2,attribute3,attribute4,time
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.edit.findReplace",1563282165677
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.file.save",1563282217681
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.edit.undo",1563282249811
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.edit.undo",1563282250530
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.file.save",1563282252793
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.file.save",1563282404485
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.file.save",1563282482719
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.edit.findReplace",1563282688651
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.file.save",1563282698410
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.edit.undo",1563282717481
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.edit.undo",1563282718117
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.file.save",1563284143367
+org.zend.commandUsageMonitor,executed,org.eclipse.php.editor,,"org.eclipse.ui.file.save",1563284152153
+org.zend.viewsUsageMonitor,activated,org.eclipse.ui.views.ProblemView,org.eclipse.php.perspective,"view",1563284190033
+org.zend.viewsUsageMonitor,activated,org.eclipse.ui.views.ContentOutline,org.eclipse.php.perspective,"view",1563285557156

@@ -107,17 +107,23 @@ class ConsultationMaterniteTable {
     /** --------------=============================-------------------------------*/
 
     public function updateConsultationMaternite($values)
-    {
+    {	
+		$this->tableGateway->delete ( array (
+				'id_cons' => $values ['id_cons'], 
+				
+		) );    	
+		
         $donnees = array(
-            'toucherVaginale' => $values->get ( "toucherVaginale" )->getValue (),
-            'hauteurUterine' => $values->get ( "hauteurUterine" )->getValue (),
-            'positionFoeutus' => $values->get ( "positionFoeutus" )->getValue (),
-            'vitaliteFoeutus' => $values->get ( "vitaliteFoeutus" )->getValue (),
-            'commentaire' => $values->get ( "commentaire" )->getValue (),
+        		'id_cons' => $values ['id_cons'],
+            'toucherVaginale' => $values ['toucherVaginale'],
+            'hauteurUterine' => $values ['hauteurUterine'],
+            'positionFoeutus' => $values ['positionFoeutus'] ,
+            'vitaliteFoeutus' => $values ['vitaliteFoeutus'],
+            //'commentaire' => $values ['commentaire'],
         		
-        );
-        $this->tableGateway->update( $donnees, array('idcons_mater'=> $values->get ( "idcons_mater" )->getValue ()) );
-    }
+        );//var_dump($donnees);exit();
+return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $donnees ));
+			var_dump($donnees);exit();    }
 
    /* public function validerConsultationMaternite($values){
         $donnees = array(

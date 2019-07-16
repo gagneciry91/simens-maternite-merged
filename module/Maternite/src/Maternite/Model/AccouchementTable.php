@@ -195,9 +195,108 @@ public function addPrenomme($donne,$id_acc) {
 		$result = $stat->execute();//var_dump(count($result));exit();
 		return count($result);
 	}
+	public function getNbDecesMaternelPortPartum($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('con' => 'conclusion'))
+		->columns( array( '*' ))
+		->where ( array (
+        'con.id_cause' => 3));
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		return count($resultat);
+		}
 	
 	
-	public function getNbPatientsAccN($date_debut,$date_fin){
+		public function getNbDecesMaternelAntePartum($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('con' => 'conclusion'))
+			->columns( array( '*' ))
+			->where ( array (
+					'con.id_cause' => 5));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		
+		
+		public function getNbDecesMaternelDystocie($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('con' => 'conclusion'))
+			->columns( array( '*' ))
+			->where ( array (
+					'con.id_cause' => 18));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		public function getNbDecesMaternelHypertension($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('con' => 'conclusion'))
+			->columns( array( '*' ))
+			->where ( array (
+					'con.id_cause' => 19));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+			$resultat = $stat->execute();
+			return count($resultat);
+		}	
+		public function getNbDecesMaternelInfection($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('con' => 'conclusion'))
+			->columns( array( '*' ))
+			->where ( array (
+					'con.id_cause' => 20));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		public function getNbDecesMaternelDirect($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('con' => 'conclusion'))
+			->columns( array( '*' ))
+			->where ( array (
+					'con.id_cause' => 21));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		public function getNbDecesMaternelIndirect($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('con' => 'conclusion'))
+			->columns( array( '*' ))
+			->where ( array (
+					'con.id_cause' => 22));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		public function getNbDecesMaternelIndtermine($date_debut,$date_fin){
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->select()
+			->from(array('con' => 'conclusion'))
+			->columns( array( '*' ))
+			->where ( array (
+					'con.id_cause' => 23));
+			$stat = $sql->prepareStatementForSqlObject($sQuery);
+			$resultat = $stat->execute();
+			return count($resultat);
+		}
+		
+	public  function getNbPatientsAccN($date_debut,$date_fin){
 		
 		
 		$adapter = $this->tableGateway->getAdapter();

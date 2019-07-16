@@ -180,6 +180,7 @@ return array(
     								//============ MEDECIN =========================
     								'consultation-medecin' => array('sage_femme','stagiaire', 'gynecologue'),
     								'maternite' => array('sage_femme', 'gynecologue'),
+    								'info-gynecologie' =>array('gynecologue','infirmier','sage_femme'),
     								
     								'espace-recherche-med' => array('sage_femme','stagiaire', 'gynecologue'),
     								'complement-consultation' =>array('sage_femme', 'gynecologue'),
@@ -335,6 +336,8 @@ return array(
                                     
                                     'liste-patient-ajax'=>array('gynecologue','infirmier','sage_femme'),
                                     'info-patient'=>array('gynecologue','infirmier','sage_femme'),
+                            		'info-gynecologie'=>array('gynecologue','infirmier','sage_femme'),
+                            		
                                     'infos-patient'=>array('gynecologue','infirmier','sage_femme'),
                                     'infos-patient_hospi'=>array('gynecologue','infirmier','sage_femme'),
                                     'info-patient-admis'=>array('gynecologue','infirmier','sage_femme'),
@@ -350,16 +353,12 @@ return array(
                                     'liste-admission-ajax'=>array('gynecologue','infirmier','sage_femme'),
                                     'declarer-deces'=>array('gynecologue','infirmier','sage_femme'),
                                     'admission'=>array('gynecologue','infirmier','sage_femme'),
-                                    //'liste-patients-admis'=>array('gynecologue','infirmier','sage_femme'),
                                     'vue-patient-admis'=>array('gynecologue','infirmier','sage_femme'),
                                     'gynecologie'=>array('gynecologue','infirmier','sage_femme'),
-                                    //'partogramme'=>array('gynecologue','infirmier','sage_femme'),
                                     'complement-gynecologie'=>array('gynecologue'),
-                                    
-                                    
                                     'update-complement-gynecologie'=>array('gynecologue'),
                                    
-                                    'impression-Pdf'=>array('gynecologue','infirmier','sage_femme'),
+                                    //'impression-Pdf'=>array('gynecologue','infirmier','sage_femme'),
                                     //'en-cours'=>array('gynecologue','infirmier','sage_femme'),
                                     'liste-patient-encours-ajax'=>array('gynecologue','infirmier','sage_femme'),
                                     'liste-soins-prescrits'=>array('gynecologue','infirmier','sage_femme'),
@@ -374,7 +373,6 @@ return array(
                                     'liste-examen-du-jour'=>array('gynecologue','infirmier','sage_femme'),
                                     'liberer-patient'=>array('gynecologue','infirmier','sage_femme'),
                                     'vue-examen-jour'=>array('gynecologue','infirmier','sage_femme'),
-                                    //'dossier-accouchement'=>array('sage_femme','infirmier','sage_femme'),
                                     'liste-des-gynecologies'=>array('gynecologue'),
                                     'liste-des-gynecologies-ajax'=>array('gynecologue','infirmier','sage_femme'),
                                     'enfant' =>array('infirmier', 'gynecologue','sage_femme'),
@@ -384,16 +382,16 @@ return array(
     						'Maternite\Controller\Admission' => array(
     								'creer-dossier-patiente' => array('gynecologue','infirmier','sage_femme'),
     								'ajouter-patiente' => array('gynecologue','infirmier','sage_femme'),
-    								'ajouter' =>array('gynecologue','secretaire','infirmier','sage_femme'),
+    								'ajouter' =>array('secretaire','infirmier','sage_femme'),
     								'visites' =>array('gynecologue','infirmier','sage_femme'),
     								'consultationpf' =>array('gynecologue','infirmier','sage_femme'),
-    						
+    								
     								'enregistrement'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'liste-patient'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'liste-postnatale'=>array('gynecologue','infirmier','sage_femme'),
     						
-    								'liste-patient-ajax'=>array('gynecologue','secretaire','infirmier','sage_femme'),
-    								'info-patient'=>array('gynecologue','secretaire','infirmier','sage_femme'),
+    								'liste-patient-ajax'=>array('secretaire','infirmier','sage_femme'),
+    								'info-patient'=>array('secretaire','infirmier','sage_femme'),
     								'infos-patient'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'infos-patient_hospi'=>array('gynecologue','infirmier','sage_femme'),
     								'info-patient-admis'=>array('gynecologue','secretaire','infirmier','sage_femme'),
@@ -407,8 +405,8 @@ return array(
     								'admission' =>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'enregistrer-admission' =>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'liste-admission-ajax'=>array('gynecologue','secretaire','infirmier','sage_femme'),
-    								'declarer-deces'=>array('gynecologue','infirmier','sage_femme'),
-    								'liste-patients-admis'=>array('gynecologue','secretaire','infirmier','sage_femme'),
+    								'declarer-deces'=>array('infirmier','sage_femme'),
+    								'liste-patients-admis'=>array('secretaire','infirmier','sage_femme'),
     								'vue-patient-admis'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'postnatale'=>array('gynecologue','infirmier','sage_femme'),
     								//'partogramme'=>array('gynecologue','infirmier','sage_femme'),
@@ -519,6 +517,7 @@ return array(
     								'infos-patient_hospi'=>array('gynecologue','infirmier','sage_femme'),
     								'info-patient-admis'=>array('gynecologue','secretaire','stagiaire','infirmier','sage_femme'),
     								'supprimer'=>array('gynecologue','infirmier','sage_femme'),
+    								'get-statistique-maternel'=>array('gynecologue','infirmier','sage_femme'),
     								'supprimer-patient'=>array('gynecologue','infirmier','sage_femme'),
     								'modifier'=>array('gynecologue','secretaire','stagiaire','infirmier','sage_femme'),
     								'admission-grossesse-normal'=>array('gynecologue','stagiaire','infirmier','sage_femme'),

@@ -120,7 +120,7 @@ class PatientTable {
 					}
 	
 					else if ($aColumns[$i] == 'id') {
-						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/admission/admission/".$aRow[ 'id_admission' ]."'>";
+						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/admission/".$aRow[ 'id_admission' ]."'>";
 						$html .="<img style='margin-right: 15%;' src='".$tabURI[0]."public/images_icons/doctor_16.png' title='d&eacute;tails'></a> </infoBulleVue>";
 	
 						$html .="<img style='display: inline; margin-right: 15%; color: white; opacity: 0.15;' src='".$tabURI[0]."public/images_icons/modifier.png'>";
@@ -1204,10 +1204,10 @@ class PatientTable {
 					}
 					else if ($aColumns[$i] == 'id') {
 	
-						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/admission/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a></infoBulleVue>";
 	
-						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/admission/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/pencil_16.png' title='Modifier'></a></infoBulleVue>";
 	
 						// 						if(!$this->verifierExisteAdmission($aRow[ $aColumns[$i] ])){
@@ -1507,6 +1507,7 @@ class PatientTable {
 		$iFilteredTotal = count($rResultFt);
 	
 		$rResult = $rResultFt;
+		//var_dump('test');exit();
 	
 		$output = array(
 	
@@ -1546,10 +1547,10 @@ class PatientTable {
 					}
 					else if ($aColumns[$i] == 'id') {
 	
-						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/gynecologie/info-gynecologie/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/maternite/info-gynecologie/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a></infoBulleVue>";
 	
-						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/gynecologie/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/pencil_16.png' title='Modifier'></a></infoBulleVue>";
 	
 	
@@ -1560,11 +1561,9 @@ class PatientTable {
 					}
 				}
 			}
-			$output['aaData'][] = $row;
+			$output['aaData'][] = $row;//var_dump('test');exit();
 		}
 		return $output;
-	
-	
 	}
 	
 	
@@ -1664,7 +1663,7 @@ class PatientTable {
 						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/maternite/info-prenatale/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a></infoBulleVue>";
 	
-						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/maternite/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
+						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/accouchement/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
 						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/pencil_16.png' title='Modifier'></a></infoBulleVue>";
 	
 	
@@ -3721,7 +3720,7 @@ class PatientTable {
 		$i=1;
 		foreach ($liste as $list){
 			if($i == $idLigne){
-				unlink('C:\wamp\www\simenss\public\js\plugins\jPlayer-2.9.2\examples\\'.$list['nom']);
+				unlink('.\js\plugins\jPlayer-2.9.2\examples\\'.$list['nom']);
 				
 				$db = $this->tableGateway->getAdapter();
 				$sql = new Sql($db);

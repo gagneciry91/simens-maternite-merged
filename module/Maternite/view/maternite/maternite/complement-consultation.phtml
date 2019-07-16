@@ -21,7 +21,7 @@ echo  $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/
 
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.css');?>
 <?php
-echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/complementcons_accordeon_controle.js');
+//echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/complementcons_accordeon_controle.js');
 echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/prenatale/complementcons_accordeon_controle.js');
 
 echo $this->headScript()->appendFile($this->basePath() . '/js/maternite/accouchement/ajouterMedicaments.js'); 
@@ -461,7 +461,7 @@ echo $this->form ()->openTag ( $form );
 				<tr style="width: 550px;">
 					<td style="padding-top: 5px; width: 70px; font-size: 12px;">
 						Prenatale:</td>
-					<td style="font-weight: bold;"> <?php //echo $this->id_cons;?></td>
+					<td style="font-weight: bold;"> <?php echo $this->id_cons;?></td>
 					<td style="font-weight: bold; width: 10px;">|</td>
 					<td style="padding-top: 5px; width: 80px; font-size: 12px;">Date &
 						Heure:</td>
@@ -1572,7 +1572,7 @@ echo $this->form ()->openTag ( $form );
                 <table id="examen" style="width: 100%;">
 					<tr class="form-chirurgical" style="width: 100%;">
 						<th style="width: 50%;"> <?php echo $this->formRow($form->get('toucherVaginale'));?> </th>
-						<th style="width: 50%;"> <?php echo $this->formRow($form->get('hauteurUterine'));?> </th>
+						<th style="width: 30%;"> <?php echo $this->formRow($form->get('hauteurUterine'));?> </th>
 					</tr>
 					<tr class="form-chirurgical" style="width: 100%;">
 						<th style="width: 50%;"> <?php echo $this->formRow($form->get('positionFoeutus'));?> </th>

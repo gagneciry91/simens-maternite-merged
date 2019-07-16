@@ -366,6 +366,39 @@ class StatistiqueForm extends Form{
 		
 		
 		$this->add ( array (
+				'name' => 'date_debut_maternel',
+				'type' => 'date',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Date fin'),
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'onchange' => 'getListeDateFinRapport(this.value)',
+						'id' =>'date_debut_maternel',
+						'min' => '2016-08-24',
+						'max' => "$dateAujourdhui",
+						'required' => true,
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'date_fin_maternel',
+				'type' => 'date',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Date fin'),
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'onchange' => 'getListeDateFinRapport(this.value)',
+						'id' =>'date_fin_maternel',
+						'min' => '2016-08-24',
+						'max' => "$dateAujourdhui",
+						'required' => true,
+				)
+		) );
+		
+		
+		$this->add ( array (
 				'name' => 'date_debut_patho',
 				'type' => 'date',
 				'options' => array (

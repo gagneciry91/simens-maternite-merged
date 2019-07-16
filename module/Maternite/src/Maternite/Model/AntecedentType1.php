@@ -28,6 +28,11 @@ class AntecedentType1 {
 	public $profil_emmel;
 	public $note_gs;
 	public $note_emmel;
+	public $menarchie;
+	public $hta;
+	public $nombre_cesar;
+	public $inv_uter;
+	
 
 	
 	public function exchangeArray($data) {
@@ -39,9 +44,14 @@ class AntecedentType1 {
 		$this->note_allaitement = (! empty ( $data ['note_allaitement'] )) ? $data ['note_allaitement'] : null;
 		$this->nallaitement = (! empty ( $data ['allaitement'] )) ? $data ['allaitement'] : null;
 		$this->regularite = (! empty ( $data ['regularite'] )) ? $data ['regularite'] : null;
+		$this->nombre_cesar = (! empty ( $data ['nombre_cesar'] )) ? $data ['nombre_cesar'] : null;
+		$this->inv_uter = (! empty ( $data ['inv_uter'] )) ? $data ['inv_uter'] : null;
+		
 		$this->age = (! empty ( $data ['age'] )) ? $data ['age'] : null;
 		$this->avortement = (! empty ( $data ['avortement'] )) ? $data ['avortement'] : null;
 		$this->note_avortement = (! empty ( $data ['note_avortement'] )) ? $data ['note_avortement'] : null;
+		$this->menarchie = (! empty ( $data ['menarchie'] )) ? $data ['menarchie'] : null;
+		$this->hta = (! empty ( $data ['hta'] )) ? $data ['hta'] : null;
 		
 		$this->mort_ne = (! empty ( $data ['mort_ne'] )) ? $data ['mort_ne'] : null;
 		$this->cesar = (! empty ( $data ['cesar'] )) ? $data ['cesar'] : null;

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>.org.eclipse.dltk.core.external.folders</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>.link4</name>
+			<type>2</type>
+			<location>C:/Program Files (x86)/Zend/Zend Studio 10.6.0/plugins/com.zend.php.phpunit_10.6.0.v20140128-2127/resources/vendor/phpunit/phpunit</location>
+		</link>
+	</linkedResources>
+</projectDescription>

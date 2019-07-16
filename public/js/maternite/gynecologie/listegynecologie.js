@@ -118,7 +118,7 @@
 
     
    function visualiser(id){
-    	vart=tabUrl[0]+'public/gynecologie/info-gynecologie/id_patient/'+id;
+    	vart=tabUrl[0]+'public/gynecologie/info-gynecologie/'+id;
        $(location).attr("href",vart);
     }
    

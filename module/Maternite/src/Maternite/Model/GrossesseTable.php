@@ -114,10 +114,12 @@ class GrossesseTable {
 				'note_cpn'=>$donnees['note_cpn'],
 				'note_vat'=>$donnees['note_vat'],
 		);
-	
+		//var_dump($datagrossesse);exit();
 		return $this->tableGateway->getLastInsertValue($this->tableGateway->insert($datagrossesse));
-		var_dump('tset');exit();
+		var_dump($datagrossesse);exit();
+		
 	}
+	
 	
 	//AVORTEMENT
 

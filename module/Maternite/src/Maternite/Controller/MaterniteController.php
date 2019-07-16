@@ -493,17 +493,12 @@ class MaterniteController extends AbstractActionController
     }
     public function listeDesPrenatalesAction() {
     
-    	//$output = $this->getPatientTable()->getPatientPrenatale();
-    	 //var_dump($output);exit();
     	$layout = $this->layout ();
     	$layout->setTemplate ( 'layout/consultationm' );
     	$view = new ViewModel ();
     
     	return $view;
     }
-    
-    
-    
     public function listeDesPrenatalesAjaxAction() {
     	$id_pat = $this->params()->fromQuery('id_patient', 0);
     
@@ -732,16 +727,43 @@ var_dump('test');exit();
         ));
     }
     
-    public function infoPrenataleAction() {
-    	$this->layout ()->setTemplate ( 'layout/consultationm' );
+    public function infoGynecologieAction() {
+    	$this->layout ()->setTemplate ( 'layout/gynecologie' );
     	$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+    		
     	$user = $this->layout()->user;
     	$idService = $user ['IdService'];
     	$form = new ConsultationForm ();
+    	//var_dump('test');exit();
     
     	$formData = $this->getRequest ()->getPost ();
     	$form->setData ( $formData );
-    //var_dump('test');exit();
+    	$id_cons = $form->get ( "id_cons" )->getValue ();
+    	$gyneco = $this->getConsultationTable()->listeGynecologie($id_pat);
+    
+    	$patient = $this->getPatientTable ();
+    	$unPatient = $patient->getInformationPatient( $id_pat);
+    
+    	return array (
+    			'donnees_gyn'=>$gyneco ,
+    			'lesdetails' => $unPatient,
+    			'image' => $patient->getPhoto ( $id_pat ),
+    			'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
+    	);
+    }
+    
+    
+    public function infoPrenataleAction() {
+    	$this->layout ()->setTemplate ( 'layout/consultationm' );
+    	$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+    	
+    	$user = $this->layout()->user;
+    	$idService = $user ['IdService'];
+    	$form = new ConsultationForm ();
+    	//var_dump('test');exit();
+    	 
+    	$formData = $this->getRequest ()->getPost ();
+    	$form->setData ( $formData );
     	$id_cons = $form->get ( "id_cons" )->getValue ();
     	$prenatale = $this->getConsultationTable()->listePrenatale($id_pat);
       
@@ -914,19 +936,24 @@ var_dump('test');exit();
             '16:00' => '16:00'
         );
         $form->get('heure_rv')->setValueOptions($heure_rv);
-
-        $data = array(
-            
-            'date_cons' => $consult->date,
-            'poids' => $consult->poids,
-            'taille' => $consult->taille,
-            'temperature' => $consult->temperature,
-            'pouls' => $consult->pouls,
-            'frequence_respiratoire' => $consult->frequence_respiratoire,
-            'glycemie_capillaire' => $consult->glycemie_capillaire,
-            'pressionarterielle' => $consult->pression_arterielle,
-            'hopital_accueil' => $idHopital
-        );//var_dump($data);exit();
+        $pos = strpos($consult->pression_arterielle, '/');
+        $tensionmaximale = substr($consult->pression_arterielle, 0, $pos);
+        $tensionminimale = substr($consult->pression_arterielle, $pos + 1);
+      $data = array(
+				'id_cons' => $consult->id_cons,
+				'id_medecin' => $id_medecin,
+				'id_patient' => $consult->id_patient,
+				'date_cons' => $consult->date,
+				'poids' => $consult->poids,
+				'taille' => $consult->taille,
+				'tensionmaximale' => $tensionmaximale,
+				'tensionminimale' => $tensionminimale,
+				'temperature' => $consult->temperature,
+				'pouls' => $consult->pouls,
+				'frequence_respiratoire' => $consult->frequence_respiratoire,
+				'glycemie_capillaire' => $consult->glycemie_capillaire,
+				'pressionarterielle' => $consult->pression_arterielle,
+		);
         $form->populateValues($data);
       
         $k = 1;
@@ -969,7 +996,7 @@ var_dump('test');exit();
         		'mort_ne'=>$donne_ante['mort_ne'],
         		'note_mort_ne'=>$donne_ante['note_mort_ne'],
         		'cesar'=>$donne_ante['cesar'],
-        		'note_cesar'=>$donne_ante['note_cesar'],
+        		//'note_cesar'=>$donne_ante['note_cesar'],
         		'groupe_sanguins'=>$donne_ante['groupe_sanguin'],
         		'rhesus'=>$donne_ante['rhesus'],
         		'note_gs'=>$donne_ante['note_gs'],
@@ -1034,7 +1061,8 @@ var_dump('test');exit();
         
         $form->populateValues($donne_grossesse);
          $datacons=$this->getConsultationMaterniteTable()->addConsultationMaternite($form,$id,$id_grossesse);//var_dump('test');exit();
-        $datacons = array(
+
+        $datacons1 = array(
         	
         		//'date_cons' => $cons->date,
         		'toucherVaginale' => $datacons['toucherVaginale'],
@@ -1045,7 +1073,7 @@ var_dump('test');exit();
         	
         );
         //var_dump($datacons);exit();
-        $form->populateValues($datacons);
+        $form->populateValues($datacons1);
         
         //var_dump($datacons);exit(); 
         
@@ -1088,7 +1116,6 @@ var_dump('test');exit();
         $this->getDateHelper();
         $id_cons = $this->params()->fromPost('id_cons');
         $id_patient = $this->params()->fromPost('id_patient');
-        // var_dump($id_cons);
         $user = $this->layout()->user;
         $IdDuService = $user ['IdService'];
         $id_medecin = $user ['id_personne'];
@@ -1136,6 +1163,7 @@ var_dump('test');exit();
         // POUR LES EXAMENS PHYSIQUES
         // POUR LES EXAMENS PHYSIQUES
         // POUR LES EXAMENS PHYSIQUES
+        
         $info_donnees_examen_physique = array(
             'id_cons' => $id_cons,
            // 'donnee1' => $this->params()->fromPost('examen_maternite_donnee1'),
@@ -1147,8 +1175,9 @@ var_dump('test');exit();
             'donnee7' => $this->params()->fromPost('examen_maternite_donnee7'),
             'donnee8' => $this->params()->fromPost('examen_maternite_donnee8'),
             'donnee9' => $this->params()->fromPost('examen_maternite_donnee9')
-        );
-        $this->getDonneesExamensPhysiquesTable()->updateExamenPhysiquePourCons($info_donnees_examen_physique);
+        );        
+            
+        //$this->getDonneesExamensPhysiquesTable()->updateExamenPhysiquePourCons($info_donnees_examen_physique);
         //var_dump('test');exit();
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
         // POUR LES ANTECEDENTS ANTECEDENTS ANTECEDENTS
@@ -1190,15 +1219,14 @@ var_dump('test');exit();
             'htaAF' => $this->params()->fromPost('htaAF'),
             'NoteHtaAF' => $this->params()->fromPost('NoteHtaAF')
         );
-        
         $id_personne = $this->getAntecedantPersonnelTable()->getIdPersonneParIdCons($id_cons);
         $this->getAntecedantPersonnelTable()->addAntecedentsPersonnels($donneesDesAntecedents, $id_personne, $id_medecin);
         $this->getAntecedantsFamiliauxTable()->addAntecedentsFamiliaux($donneesDesAntecedents, $id_personne, $id_medecin);
         $id_grossesse= $this->getGrossesseTable()->updateGrossesse($formData);
-        $this->getConsultationMaterniteTable()->addConsultationMaternite($formData,$id_cons,$id_grossesse);
+       // var_dump('test');exit();
+        $this->getConsultationMaterniteTable()->updateConsultationMaternite($formData);
         $id_antecedent1 = $this->getAntecedentType1Table ()-> updateAntecedentType1($formData);
         $id_antecedent2 = $this->getAntecedentType2Table ()-> updateAntecedentType2($formData);
-        
         
         // POUR LES RESULTATS DES EXAMENS MORPHOLOGIQUES
         // POUR LES RESULTATS DES EXAMENS MORPHOLOGIQUES
@@ -1225,13 +1253,12 @@ var_dump('test');exit();
             'diagnostic3' => $this->params()->fromPost('diagnostic3'),
             'diagnostic4' => $this->params()->fromPost('diagnostic4')
         );
-
+//var_dump($info_diagnostics);exit();
         $this->getDiagnosticsTable()->updateDiagnostics($info_diagnostics);
         
         //prenatale
         $datapre=array(
         		'id_cons' => $id_cons,
-        		'hauteurUterine'=> $this->params()->fromPost('hauteurUterine'),
         		'hauteurUterine'=> $this->params()->fromPost('hauteurUterine'),
         		'toucherVaginal'=> $this->params()->fromPost('toucherVaginal'),
         		'positionFoeutus'=> $this->params()->fromPost('positionFoeutus'),
@@ -1239,7 +1266,7 @@ var_dump('test');exit();
         		
         		
         );//var_dump($datapre);exit();
-        $this->getConsultationMaterniteTable()->updateConsultationMaternite($datapre);
+        $this->getConsultationMaterniteTable()->updateConsultationMaternite($formData);
 
         // POUR LES TRAITEMENTS
         // POUR LES TRAITEMENTS
@@ -1371,7 +1398,7 @@ var_dump('test');exit();
             'date_fin_prevue_hospi' => $this->controlDate->convertDateInAnglais($this->params()->fromPost('date_fin_hospitalisation_prevue')),
             'id_cons' => $id_cons
         );
-
+//var_dump($id_cons);exit();
         $this->getDemandeHospitalisationTable()->saveDemandehospitalisation($infoDemandeHospitalisation);
 
         // POUR LA PAGE complement-consultation
@@ -1385,7 +1412,7 @@ var_dump('test');exit();
                 'VALIDER' => 1,
                 'ID_CONS' => $id_cons,
                 'ID_MEDECIN' => $this->params()->fromPost('med_id_personne')
-            );
+            );//var_dump($valide);exit();
             $this->getConsultationTable()->validerConsultation($valide);
         }
 

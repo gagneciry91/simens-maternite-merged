@@ -68,7 +68,7 @@ class NaissanceTable {
 	}
 	
 
-public function saveNaissance($values,$id_cons,$id_patient,$id_grossesse) {
+public function saveNaissance($values,$id_cons,$id_patient) {
 
 	$tab_IdBebe = array();
 	for($i = 1; $i <=  $values['nombre_enfant'] ; $i ++){
@@ -117,7 +117,7 @@ public function saveNaissance($values,$id_cons,$id_patient,$id_grossesse) {
 				'type_autre_vacc' => $values['type_autre_vacc_'. $i],
 				'note_autre_vacc' => $values['n_autre_vacc_'. $i],
 				'id_cons' => $id_cons,
-				'id_grossesse' => $id_grossesse,
+				//'id_grossesse' => $id_grossesse,
 				'id_maman' => $id_patient,
 		);
 		

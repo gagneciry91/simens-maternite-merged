@@ -307,7 +307,7 @@ $(window).load(function () {
 $form = $this->form;
 $form->setName ( 'AVIS' );
 $form->setAttribute ( 'action', $this->url ( 'accouchement', array (
-		'action' => 'impression-Pdf' 
+		'action' => 'imprimer-certifat-accouchement' 
 ) ) );
 $form->setAttribute ( 'target', '_blank' );
 $form->setAttribute ( 'method', 'post' );
@@ -768,7 +768,7 @@ echo $this->form ()->openTag ( $form );
     <div style='max-height: 200px;'>
 			<div style='float: left; width: 100%;'>
                 <?php //echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/accouchement/ajouterDonnees.js');?>
-               <?php echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/accouchement/jsMaternite.js');?>
+               <?php echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/jsMaternite.js');?>
               
       	<table id="" style="width: 100%;"> 
       	<tr style="width: 100%;">
@@ -2152,7 +2152,6 @@ echo $this->form ()->openTag ( $form );
          <script type="text/javascript">
         var indice=1;
         getBbAttendu($('#bb_attendu').val());
-    
      
      </script> 
      <script type="text/javascript">

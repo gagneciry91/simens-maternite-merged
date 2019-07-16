@@ -220,6 +220,14 @@ class ConsultationTable {
 				'ID_CONS' => $values ['ID_CONS'] 
 		) );
 	}
+	public function validerConsultation1($values) {
+		$donnees = array (
+				'CONSPRISE' => $values ['VALIDER'],
+				//'ID_MEDECIN' => $values ['ID_MEDECIN']
+		);//var_dump($donnees );exit();
+		$this->tableGateway->update ( $donnees
+		);
+	}
 	public function addConsultation($values, $IdDuService) {
 		$this->tableGateway->getAdapter ()->getDriver ()->getConnection ()->beginTransaction ();
 		try {
@@ -468,11 +476,8 @@ class ConsultationTable {
 				'Consprise' => 'CONSPRISE',
 				'date' => 'DATE'
 		) );
-		// 		$select->join ( array (
-		// 				'cons_eff' => 'consultation_maternite'
-		// 		), 'cons_eff.ID_CONS = c.ID_CONS', array (
-		// 				'*'
-		// 		) );
+	
+		
 		$select->join ( array (
 				'a' => 'admission'
 		), 'c.ID_PATIENT = a.id_patient', array (
@@ -534,11 +539,7 @@ class ConsultationTable {
 				'Consprise' => 'CONSPRISE',
 				'date' => 'DATE'
 		) );
-// 		$select->join ( array (
-// 				'cons_eff' => 'consultation_maternite'
-// 		), 'cons_eff.ID_CONS = c.ID_CONS', array (
-// 				'*'
-// 		) );
+
 		$select->join ( array (
 				'a' => 'admission'
 		), 'c.ID_PATIENT = a.id_patient', array (
@@ -596,13 +597,9 @@ class ConsultationTable {
 				'Id_cons' => 'ID_CONS',
 				'dateonly' => 'DATEONLY',
 				'Consprise' => 'CONSPRISE',
-				//'date' => 'DATE'
+				'date' => 'DATE'
 		) );
-// 		$select->join ( array (
-// 				'cons_eff' => 'consultation_maternite'
-// 		), 'cons_eff.ID_CONS = c.ID_CONS', array (
-// 				'*'
-// 		) );
+
 		$select->join ( array (
 				'a' => 'admission'
 		), 'c.id_admission= a.id_admission', array (
@@ -665,11 +662,7 @@ class ConsultationTable {
 				'Consprise' => 'CONSPRISE',
 				'date' => 'DATE'
 		) );
-// 		$select->join ( array (
-// 				'cons_eff' => 'consultation_maternite'
-// 		), 'cons_eff.ID_CONS = c.ID_CONS', array (
-// 				'*'
-// 		) );
+
 		$select->join ( array (
 				'a' => 'admission'
 		), 'c.ID_PATIENT = a.id_patient', array (
@@ -727,11 +720,7 @@ class ConsultationTable {
 				'Consprise' => 'CONSPRISE',
 				'date' => 'DATE'
 		) );
-		// 		$select->join ( array (
-		// 				'cons_eff' => 'consultation_maternite'
-		// 		), 'cons_eff.ID_CONS = c.ID_CONS', array (
-		// 				'*'
-		// 		) );
+	
 		$select->join ( array (
 				'a' => 'admission'
 		), 'c.ID_PATIENT = a.id_patient', array (
@@ -1215,7 +1204,6 @@ class ConsultationTable {
 		
 		$stat = $sql->prepareStatementForSqlObject ( $sQuery );
 		$resultat = $stat->execute ()->current ();
-		//var_dump($id_cons);exit();
 		return $resultat;
 		
 	}
@@ -1393,7 +1381,7 @@ class ConsultationTable {
 		$i = 1;
 		foreach ( $liste as $list ) {
 			if ($i == $idLigne) {
-				unlink ( 'C:\wamp\www\simens-maternite\public\audios\\' . $list ['nom'] );
+				unlink ( '.\audios\\' . $list ['nom'] );
 				
 				$db = $this->tableGateway->getAdapter ();
 				$sql = new Sql ( $db );
@@ -1464,7 +1452,7 @@ class ConsultationTable {
 	}
 	public function supprimerVideo($id) {
 		$laVideo = $this->getVideoWithId ( $id );
-		$result = unlink ( 'C:\wamp\www\simens-maternite\public\videos\\' . $laVideo ['nom'] );
+		$result = unlink ( '.\public\videos\\' . $laVideo ['nom'] );
 		
 		$db = $this->tableGateway->getAdapter ();
 		$sql = new Sql ( $db );
@@ -2147,6 +2135,60 @@ class ConsultationTable {
 		return $result;
 	
 	}
+	
+	public function listeGynecologie($id_patient){
+	
+		$today = new \DateTime ();
+		$date = $today->format ( 'Y-m-d' );
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from ( array (
+				'p' => 'patient'
+	
+		) );
+		$select->columns ( array ('numero_dossier'=>'NUMERO_DOSSIER') );
+	
+		$select->join ( array (
+	
+				'pers' => 'personne'
+		), 'pers.ID_PERSONNE = p.ID_PERSONNE', array (
+				'Id' => 'ID_PERSONNE'
+	
+		) );
+	
+		$select->join ( array (
+				'c' => 'consultation'
+		), 'p.ID_PERSONNE = c.ID_PATIENT', array (
+				'Id_cons' => 'ID_CONS',
+				'date_gyn' =>'dateonly',
+		) );
+	
+		$select->join ( array (
+				'gyn' => 'gynecologie'
+		), 'c.ID_CONS = gyn.id_cons', array (
+				'id_gyn' => 'id_gynecologie',
+				//'date_gyn' => 'date_gyneco',
+				'type' => 'antepers',
+		) );
+
+	
+		$select->where ( array (
+				'c.ID_PATIENT' => $id_patient,
+				// 				'DATEONLY' => $date,
+				// 				'a.date_cons' => $date,
+				// 				'c.ARCHIVAGE' => 0
+		) );
+		$select->order ( 'id_gynecologie ASC' );
+	
+		$stmt = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stmt->execute ();
+		//var_dump(count($result));exit();
+	
+		return $result;
+	
+	}
+	
 	
 	public function nbenf($id_patient) {
 		$today = new \DateTime ( 'now' );

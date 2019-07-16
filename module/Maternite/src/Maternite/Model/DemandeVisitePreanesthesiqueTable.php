@@ -53,7 +53,7 @@ class DemandeVisitePreanesthesiqueTable {
 	}
 	public function updateDemandeVisitePreanesthesique($infoDemande) {
 		$demandeVpa = $this->getDemandeVPA ( $infoDemande ['ID_CONS'] );
-		var_dump('test');exit();
+		//var_dump('test');exit();
 		$resultatVpa = null;
 		if ($demandeVpa) {
 			$resultatVpa = $this->getResultatVpa ( $demandeVpa->idVpa );
@@ -70,11 +70,11 @@ class DemandeVisitePreanesthesiqueTable {
 			if ($infoDemande ['diagnostic'] != '' && $infoDemande ['intervention_prevue'] != '') {
 				$donneesVPA = array (
 						'ID_CONS' => $infoDemande ['ID_CONS'],
-						'DIAGNOSTIC' => $infoDemande ['diagnostic'],
-						'OBSERVATION' => $infoDemande ['observation'],
-						'INTERVENTION_PREVUE' => $infoDemande ['intervention_prevue'],
+						'DIAGNOSTIC' => $infoDemande ['diagnostic']?$infoDemande ['diagnostic']:null,
+						'OBSERVATION' => $infoDemande ['observation']?$infoDemande ['observation']:null,
+						'INTERVENTION_PREVUE' => $infoDemande ['intervention_prevue']?$infoDemande ['intervention_prevue']:null,
 						'DATE_ENREGISTREMENT' => $dateAujourdhui 
-				);
+				);//var_dump($donneesVPA);exit();
 				$this->tableGateway->insert ( $donneesVPA );
 			}
 		}

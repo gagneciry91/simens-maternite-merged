@@ -151,7 +151,7 @@ class ConclusionTable {
 	
 	public function updateConclusionComp($conclusion,$id_cons,$nbComp,$id_patient) {
 		//$Control = new DateHelper();
-		foreach ( $this->getConclusion ( $id_cons ) as $Conc ){
+	/* 	foreach ( $this->getConclusion ( $id_cons ) as $Conc ){
 			//if (! in_array ( $Conc ['id_cause'], $Conc )) {
 				if ($Conc ['id_cause'] <= 15) {
 					$this->tableGateway->delete ( array (
@@ -163,14 +163,14 @@ class ConclusionTable {
 			
 		$this->tableGateway->delete ( array (
 				'id_cons' => $conclusion ['id_cons']
-		) );			
+		) ); */			
 		for($i = 1; $i <=  $nbComp ; $i ++){
 			$datacomp = array (
-					'id_cause' => $conclusion['comp_name_'. $i],
-					'note_conclusion' => $conclusion['note_comp_' . $i],
+					'id_cause' => $conclusion['comp_name_'. $i]?$conclusion['comp_name_'. $i]:null,
+					'note_conclusion' => $conclusion['note_comp_' . $i]?$conclusion['note_comp_'. $i]:null,
 					'id_cons' => $id_cons,
 					'id_patient' => $id_patient,						
-			);
+			);//var_dump($datacomp);exit();
 			$this->tableGateway->insert ( $datacomp );}
 			
 
@@ -191,11 +191,11 @@ class ConclusionTable {
 		for($i = 1; $i <=  $nbCauseDc ; $i ++){
 	
 			$datadeces = array (
-					'id_cause' => $conclusion['deces_name_'. $i],
-					'note_conclusion' => $conclusion['note_deces_' . $i],
+					'id_cause' => $conclusion['deces_name_'. $i]?$conclusion['deces_name_'. $i]:null,
+					'note_conclusion' => $conclusion['note_deces_' . $i]?$conclusion['note_deces_'. $i]:null,
 					'id_cons' => $id_cons,
 					'id_patient' => $id_patient,
-			);
+			);//var_dump($datadeces);exit();
 			$this->tableGateway->insert ( $datadeces );}
 				
 	

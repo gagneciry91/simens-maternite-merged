@@ -462,18 +462,32 @@ class AdmissionController extends AbstractActionController {
 		) );
 	}
 	
-	public function infoPatientAction() {
-		
-		$this->layout ()->setTemplate ( 'layout/admission' );
-		$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+/* 	public function infoPatientAction() {
 		//var_dump('test');exit();
+		$this->layout ()->setTemplate ( 'layout/accouchement' );
+		$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+	
 		$patient = $this->getPatientTable ();
 		$unPatient = $patient->getInfoPatient( $id_pat );
 	
 		return array (
 				'lesdetails' => $unPatient,
 				'image' => $patient->getPhoto ( $id_pat ),
-				'id_patient' => $unPatient['ID_PERSONNE'],
+				'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
+		);
+	} */
+	public function infoPatientAction() {
+		
+		$this->layout ()->setTemplate ( 'layout/admission' );
+		$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+		var_dump('test');exit();
+		$patient = $this->getPatientTable ();
+		$unPatient = $patient->getInfoPatient( $id_pat );
+	
+		return array (
+				'lesdetails' => $unPatient,
+				'image' => $patient->getPhoto ( $id_pat ),
+				//'id_patient' => $unPatient['ID_PERSONNE'],
 				'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
 		);
 	}
@@ -512,6 +526,7 @@ class AdmissionController extends AbstractActionController {
 	public function listePatientAction() {
 		$layout = $this->layout ();
 		$layout->setTemplate ( 'layout/admission' );
+		//var_dump('test');exit();
 		$view = new ViewModel ();
 		return $view;
 	}

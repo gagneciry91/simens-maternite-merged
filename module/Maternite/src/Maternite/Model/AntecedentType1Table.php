@@ -5,6 +5,7 @@ namespace Maternite\Model;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Sql;
 
+use Maternite\View\Helpers\DateHelper;
 
 class AntecedentType1Table {
 	protected $tableGateway;
@@ -40,12 +41,15 @@ class AntecedentType1Table {
 	
 
     public function updateAntecedentType1($donnees) {
+    			$Control = new DateHelper();
     	
-     	//$result = $this->tableGateway->select(array('id_patient'=> $donnees['id_patient']));
     	$this->tableGateway->delete ( array (
      			'id_cons' => $donnees ['id_cons']
      	) );
-    
+    	$ddr = $donnees['ddr'];
+    	 
+    	if($ddr){ $ddr = $Control->convertDateInAnglais($ddr); }else{ $ddr = null;}
+    	 
     	$datadonnee = array (
     			'id_cons' => $donnees ['id_cons'],
     			'id_patient' => $donnees ['id_patient'],
@@ -58,25 +62,55 @@ class AntecedentType1Table {
     			'mort_ne' => $donnees ['mort_ne'],
     			'note_mort_ne' => $donnees ['note_mort_ne'],
     			'cesar' => $donnees ['cesar'],
-    			'avortement' => $donnees ['avortement'],
-    			'note_avortement' => $donnees ['note_avortement'],
-    			'allaitement' => $donnees ['allaitement'],
-    			'note_allaitement' => $donnees ['note_allaitement'],
-    			'age' => $donnees ['age'],
+    			'nombre_cesar'=>$donnees['nombre_cesar']?$donnees['nombre_cesar']:null,
+    			//'avortement' => $donnees ['avortement'],
+    			//'note_avortement' => $donnees ['note_avortement'],
+    			//'allaitement' => $donnees ['allaitement'],
+    			//'note_allaitement' => $donnees ['note_allaitement'],
+    			'hta' => $donnees ['hta'],
     			'regularite' => $donnees ['regularite'],
-    			'note_cesar' => $donnees ['note_cesar'],
     			'rhesus' => $donnees ['rhesus'],
     			'note_gs' => $donnees ['note_gs'],
+    			'menarchie'=> $donnees ['menarchie']?$donnees['menarchie']:null,
     			'test_emmel' => $donnees ['test_emmel'],
     			'profil_emmel' => $donnees ['profil_emmel'],
     			'note_emmel' => $donnees ['note_emmel'],
+    			'indication' => $donnees ['indication'],
+    			'duree_infertilite'=>$donnees['duree_infertilite']?$donnees['duree_infertilite']:null,
+    			'dg'=>$donnees['dg'],
+    			'note_dg'=>$donnees['note_dg'],
+    			'ddr'=>$ddr,
+    			'inv_uter' => $donnees ['inv_uter']?$donnees['inv_uter']:null,
+    			'muqueuse' => $donnees ['muqueuse'],
+    			'oeudeme'=> $donnees['oeudeme'],
+    			'eg'=> $donnees['eg'],
+    			'seins'=>$donnees['seins'],
+    			'note_sein'=>$donnees['note_sein'],
+    			'tvagin'=>$donnees['tvagin'],
+    			'abdomen'=>$donnees['abdomen'],
+    			'mollets'=>$donnees['mollets'],
+    			'NoteHtaAF'=>$donnees['NoteHtaAF'],
+    			'enf_viv_mari'=>$donnees['enf_viv_mari'],
+    			'noteenf_viv'=>$donnees['noteenf_viv'],
+    			'Vivensemble'=>$donnees['Vivensemble'],
+    			'note_Vivensemble'=>$donnees['note_Vivensemble'],
+    			'enf_age'=>$donnees['enf_age'],
+    			'noteenf_age'=>$donnees['noteenf_age'],
+    			'regime'=>$donnees['regime'],
+    			'note_regime'=>$donnees['note_regime'],
+    			'nouvelleMotifs'=>$donnees['nouvelleMotifs'],
+    			'amenere'=>$donnees['amenere'],
+    			 
+    			 
     			
-    
-    	); //var_dump('test');exit();
+    	
+    	); 
+    	
+    	//var_dump($datadonnee);exit();
     
      	
-    		return $this->tableGateway->update($datadonnee, array('id_cons'=> $donnees['id_cons']));
-    	
+    		return $this->tableGateway->getLastInsertValue($this->tableGateway->insert( $datadonnee ));
+    		
     	//var_dump($datadonnee); exit();
     	//$this->tableGateway->insert ( $datadonnee );
     }

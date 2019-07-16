@@ -79,21 +79,21 @@ $select->join ( array (
 	
 	public function saveNouveauNe($values,$id_cons,$tabIdEnfant) {
 		$Control = new DateHelper();       	
-	
 		for($i = 1; $i <= $values['nombre_enfant'] ; $i ++){
 			$date_dece = $values ['date_deces_'. $i];
 			if($date_dece){ $date_dece = $Control->convertDateInAnglais($date_dece); }else{ $date_dece = null;}
 			$datanouveauNe = array (
 					'viv_bien_portant' => $values['viv_bien_portant_'. $i],
-					'note_viv_bien_portant' => $values['n_viv_bien_portant_' . $i],
+					'note_viv_bien_portant' => $values['n_viv_bien_portant_' . $i]?$values['viv_bien_portant_'. $i]:null,
 					'viv_mal_formation' => $values['viv_mal_form_'. $i],
-					'note_viv_mal_formation' => $values['n_viv_mal_form_'. $i],
+					'note_viv_mal_formation' => $values['n_viv_mal_form_'. $i]?$values['n_viv_mal_form_'. $i]:null,
 					'malade' => $values['malade_'. $i],
 					'viv_premature' =>$values['viv_premature_'. $i],
-					'note_malade' => $values['n_malade_'. $i],
+					'note_malade' => $values['n_malade_'. $i]?$values['n_malade_'. $i]:null,
 					'decede' => $values ['decede_'. $i],					
 					'id_bebe' => $tabIdEnfant[$i-1],						
-			);			
+			);		//var_dump($datanouveauNe);exit();
+							
 					
 			
 			

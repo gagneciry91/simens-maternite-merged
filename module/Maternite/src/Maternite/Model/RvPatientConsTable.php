@@ -5,8 +5,8 @@ namespace Maternite\Model;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
-use Zend\XmlRpc\Value\String;
-use Doctrine\Tests\Common\Annotations\Null;
+//use Zend\XmlRpc\Value\String;
+//use Doctrine\Tests\Common\Annotations\Null;
 
 class RvPatientConsTable {
 	protected $tableGateway;
@@ -40,7 +40,7 @@ class RvPatientConsTable {
 	public function updateRendezVous($infos_rv) {
 		$this->tableGateway->delete ( array (
 				'ID_CONS' => $infos_rv ['ID_CONS'] 
-		) );
+		) );//var_dump('test');exit();
 		
 		if ($infos_rv ['DATE'] && $infos_rv ['HEURE']) {
 			$this->tableGateway->insert ( $infos_rv );

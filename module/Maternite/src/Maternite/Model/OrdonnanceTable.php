@@ -4,7 +4,7 @@ namespace Maternite\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Sql;
-use Zend\XmlRpc\Value\String;
+//use Zend\XmlRpc\Value\String;
 
 class OrdonnanceTable {
 	protected $tableGateway;
@@ -84,7 +84,8 @@ class OrdonnanceTable {
 	 */
 	public function updateOrdonnance($tab, $donnees) {
 		$today = new \DateTime ();
-		$date = $today->format ( 'Y-m-d H:i:s' ); 
+		$date = $today->format ( 'Y-m-d H:i:s' );           		     
+		//var_dump('test');exit();
 		/**
 		 * On v�rifie s'il y a des m�dicaments et si oui on proc�de a la modification sinon on ne fait rien
 		 * car l'ordonnance doit etre supprimer
@@ -105,14 +106,15 @@ class OrdonnanceTable {
 						'DATE_PRESCRIPTION' => $date,
 						'DUREE_TRAITEMENT' => $donnees ['duree_traitement'],
 						'ID_CONS' => $donnees ['id_cons'] 
-				);
-				$this->tableGateway->insert ( $donneesOrdonnance );var_dump('test');exit();
+				);//var_dump($donneesOrdonnance);exit();
+				$this->tableGateway->insert ( $donneesOrdonnance );//var_dump('test');exit();
+				
 			}
 		}
 		/**
 		 * Envoi de l'id de l'ordonnance pour sa suppression ou pour la mise � jour des m�dicaments de l'ordonnance
 		 */
-		$ordonnance = $this->getOrdonnance ( $donnees ['id_cons'] );
+		$ordonnance = $this->getOrdonnance ( $donnees ['id_cons'] );//var_dump('test');exit();
 		$idOrdonnance = null;
 		if ($ordonnance) {
 			$idOrdonnance = $ordonnance->id_document;

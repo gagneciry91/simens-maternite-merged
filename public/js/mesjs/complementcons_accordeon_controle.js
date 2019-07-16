@@ -1,6 +1,6 @@
 var base_url = window.location.toString();
 var tabUrl = base_url.split("public");
-
+alert(1);
 $(function () {
     $("#accordionsssss").accordion();
 });
@@ -527,7 +527,7 @@ function updateexecuterRequetePost(donnees) {
 /***LORS DU CLICK SUR 'Terminer' ****/
 /***LORS DU CLICK SUR 'Terminer' ****/
 $("#terminer2, #terminer3").click(function () {
-
+alert(1222);
     if (valid == false) {
         $('#motifsAdmissionConstanteClick').trigger('click');
         $('#constantesClick').trigger('click');
@@ -541,6 +541,7 @@ $("#terminer2, #terminer3").click(function () {
    
     // **********-- Donnees de l'examen physique --*******
     // **********-- Donnees de l'examen physique --*******
+ 
     donnees['examen_maternite_donnee1'] = $("#examen_maternite_donnee1").val();
     donnees['examen_maternite_donnee2'] = $("#examen_maternite_donnee2").val();
     donnees['examen_maternite_donnee3'] = $("#examen_maternite_donnee3").val();

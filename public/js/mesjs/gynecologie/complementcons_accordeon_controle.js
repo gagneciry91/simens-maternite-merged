@@ -4,7 +4,12 @@ var tabUrl = base_url.split("public");
 $(function () {
     $("#accordionsssss").accordion();
 });
-
+$(function () {
+    $(".accordionssssssssss").accordion();
+});
+$(function () {
+    $(".accordionssssssssssss").accordion();
+});
 $(function () {
     $("#accordionssss").accordion();
 });
@@ -54,7 +59,9 @@ $(function () {
     var scanner = $("#scanner");
     var irm = $("#irm");
 
-    //Au debut on affiche pas le bouton modifier
+    //Au debut on affiche pas le bouton 
+
+    
     $("#bouton_morpho_modifier").toggle(false);
     //Au debut on affiche le bouton valider
     $("#bouton_morpho_valider").toggle(true);
@@ -90,7 +97,7 @@ $(function () {
         return false;
     });
 
-});
+})
 
 
 //********************* TRAITEMENTS CHIRURGICAUX *****************************
@@ -150,112 +157,112 @@ $(function () {
 //********************* TRAITEMENTS INSTRUMENTAUX *****************************
 //********************* TRAITEMENTS INSTRUMENTAUX *****************************
 $(function () {
-    var endoscopieInterventionnelle = $("#endoscopieInterventionnelle");
-    var radiologieInterventionnelle = $("#radiologieInterventionnelle");
-    var cardiologieInterventionnelle = $("#cardiologieInterventionnelle");
-    var autresIntervention = $("#autresIntervention");
-
-    $("#chirurgicalImpression").click(function () {
-        endoscopieInterventionnelle.attr('readonly', true).css({'background': '#f8f8f8'});
-        radiologieInterventionnelle.attr('readonly', true).css({'background': '#f8f8f8'});
-        autresIntervention.attr('readonly', true).css({'background': '#f8f8f8'});
-        cardiologieInterventionnelle.attr('readonly', true).css({'background': '#f8f8f8'});
-
-        $("#bouton_chirurgical_modifier").toggle(true);
-        $("#bouton_chirurgical_valider").toggle(false);
-    });
-
-    $("#bouton_instrumental_modifier").toggle(false);
-    $("#bouton_instrumental_valider").toggle(true);
-
-    endoscopieInterventionnelle.attr('readonly', false).css({'background': '#fff'});
-    radiologieInterventionnelle.attr('readonly', false).css({'background': '#fff'});
-    autresIntervention.attr('readonly', false).css({'background': '#fff'});
-    cardiologieInterventionnelle.attr('readonly', false).css({'background': '#fff'});
-
-    $("#bouton_instrumental_valider").click(function () {
-        endoscopieInterventionnelle.attr('readonly', true).css({'background': '#f8f8f8'});
-        radiologieInterventionnelle.attr('readonly', true).css({'background': '#f8f8f8'});
-        autresIntervention.attr('readonly', true).css({'background': '#f8f8f8'});
-        cardiologieInterventionnelle.attr('readonly', true).css({'background': '#f8f8f8'});
-
-        $("#bouton_instrumental_modifier").toggle(true);
-        $("#bouton_instrumental_valider").toggle(false);
-
-        $('#annuler_traitement_instrumental').attr('disabled', true);
-        return false;
-    });
-
-    $("#bouton_instrumental_modifier").click(function () {
-        endoscopieInterventionnelle.attr('readonly', false).css({'background': '#fff'});
-        radiologieInterventionnelle.attr('readonly', false).css({'background': '#fff'});
-        autresIntervention.attr('readonly', false).css({'background': '#fff'});
-        cardiologieInterventionnelle.attr('readonly', false).css({'background': '#fff'});
-
-        $("#bouton_instrumental_modifier").toggle(false);
-        $("#bouton_instrumental_valider").toggle(true);
-
-        $('#annuler_traitement_instrumental').attr('disabled', false);
-        return false;
-    });
-
-
-    $('#annuler_traitement_instrumental').click(function () {
-        endoscopieInterventionnelle.val('');
-        radiologieInterventionnelle.val('');
-        autresIntervention.val('');
-        cardiologieInterventionnelle.val('');
-        return false;
-    });
-
-
-    //COMPTE RENDU OPERATOIRE CHIRURGICAL
-    //COMPTE RENDU OPERATOIRE CHIRURGICAL
-    $("#bouton_compte_rendu_chirurgical_valider").toggle(true);
-    $("#bouton_compte_rendu_chirurgical_modifier").toggle(false);
-
-    $("#bouton_compte_rendu_chirurgical_valider").click(function () {
-        $("#note_compte_rendu_operatoire").attr('readonly', true).css({'background': '#f8f8f8'});
-
-        $("#bouton_compte_rendu_chirurgical_valider").toggle(false);
-        $("#bouton_compte_rendu_chirurgical_modifier").toggle(true);
-
-        return false;
-    });
-
-    $("#bouton_compte_rendu_chirurgical_modifier").click(function () {
-        $("#note_compte_rendu_operatoire").attr('readonly', false).css({'background': '#fff'});
-
-        $("#bouton_compte_rendu_chirurgical_valider").toggle(true);
-        $("#bouton_compte_rendu_chirurgical_modifier").toggle(false);
-
-        return false;
-    });
-
-    //COMPTE RENDU OPERATOIRE INSTRUMENTAL
-    //COMPTE RENDU OPERATOIRE INSTRUMENTAL
-    $("#bouton_compte_rendu_instrumental_valider").toggle(true);
-    $("#bouton_compte_rendu_instrumental_modifier").toggle(false);
-
-
-    $("#bouton_compte_rendu_instrumental_valider").click(function () {
-        $("#note_compte_rendu_operatoire_instrumental").attr('readonly', true).css({'background': '#f8f8f8'});
-
-        $("#bouton_compte_rendu_instrumental_valider").toggle(false);
-        $("#bouton_compte_rendu_instrumental_modifier").toggle(true);
-
-        return false;
-    });
-
-    $("#bouton_compte_rendu_instrumental_modifier").click(function () {
-        $("#note_compte_rendu_operatoire_instrumental").attr('readonly', false).css({'background': '#fff'});
-
-        $("#bouton_compte_rendu_instrumental_valider").toggle(true);
-        $("#bouton_compte_rendu_instrumental_modifier").toggle(false);
-
-        return false;
-    });
-
+	var endoscopieInterventionnelle = $("#endoscopieInterventionnelle");
+	var radiologieInterventionnelle = $("#radiologieInterventionnelle");
+	var cardiologieInterventionnelle = $("#cardiologieInterventionnelle"); 
+	var autresIntervention = $("#autresIntervention");
+	
+	$("#chirurgicalImpression").click(function(){
+		endoscopieInterventionnelle.attr( 'readonly', true).css({'background':'#f8f8f8'});
+		radiologieInterventionnelle.attr( 'readonly', true).css({'background':'#f8f8f8'});
+		autresIntervention.attr( 'readonly', true).css({'background':'#f8f8f8'});
+		cardiologieInterventionnelle.attr( 'readonly', true).css({'background':'#f8f8f8'});
+		
+		$("#bouton_chirurgical_modifier").toggle(true);
+		$("#bouton_chirurgical_valider").toggle(false);	
+	});
+	
+	$("#bouton_instrumental_modifier").toggle(false);
+	$("#bouton_instrumental_valider").toggle(true);
+	
+	endoscopieInterventionnelle.attr( 'readonly', false).css({'background':'#fff'});
+	radiologieInterventionnelle.attr( 'readonly', false).css({'background':'#fff'});
+	autresIntervention.attr( 'readonly', false).css({'background':'#fff'});
+	cardiologieInterventionnelle.attr( 'readonly', false).css({'background':'#fff'});
+	
+	$("#bouton_instrumental_valider").click(function(){
+		endoscopieInterventionnelle.attr( 'readonly', true).css({'background':'#f8f8f8'});
+		radiologieInterventionnelle.attr( 'readonly', true).css({'background':'#f8f8f8'});
+		autresIntervention.attr( 'readonly', true).css({'background':'#f8f8f8'});
+		cardiologieInterventionnelle.attr( 'readonly', true).css({'background':'#f8f8f8'});
+		
+		$("#bouton_instrumental_modifier").toggle(true);
+		$("#bouton_instrumental_valider").toggle(false);
+		
+		$('#annuler_traitement_instrumental').attr('disabled', true);
+		return false;
+	});
+	
+	$("#bouton_instrumental_modifier").click(function(){
+		endoscopieInterventionnelle.attr( 'readonly', false).css({'background':'#fff'});
+		radiologieInterventionnelle.attr( 'readonly', false).css({'background':'#fff'});
+		autresIntervention.attr( 'readonly', false).css({'background':'#fff'});
+		cardiologieInterventionnelle.attr( 'readonly', false).css({'background':'#fff'});
+		
+		$("#bouton_instrumental_modifier").toggle(false);
+		$("#bouton_instrumental_valider").toggle(true);
+		
+		$('#annuler_traitement_instrumental').attr('disabled', false);
+		return false;
+	});
+	
+	
+	$('#annuler_traitement_instrumental').click(function(){
+		endoscopieInterventionnelle.val('');
+		radiologieInterventionnelle.val('');
+		autresIntervention.val('');
+		cardiologieInterventionnelle.val('');
+		return false;
+	});
+	
+	
+	//COMPTE RENDU OPERATOIRE CHIRURGICAL
+	//COMPTE RENDU OPERATOIRE CHIRURGICAL
+	$("#bouton_compte_rendu_chirurgical_valider").toggle(true);
+	$("#bouton_compte_rendu_chirurgical_modifier").toggle(false);
+	
+	$("#bouton_compte_rendu_chirurgical_valider").click(function(){
+		$("#note_compte_rendu_operatoire").attr( 'readonly', true).css({'background':'#f8f8f8'});
+		
+		$("#bouton_compte_rendu_chirurgical_valider").toggle(false);
+		$("#bouton_compte_rendu_chirurgical_modifier").toggle(true);
+		
+		return false;
+	});
+	
+	$("#bouton_compte_rendu_chirurgical_modifier").click(function(){
+		$("#note_compte_rendu_operatoire").attr( 'readonly', false).css({'background':'#fff'});
+		
+		$("#bouton_compte_rendu_chirurgical_valider").toggle(true);
+		$("#bouton_compte_rendu_chirurgical_modifier").toggle(false);
+		
+		return false;
+	});
+	
+	//COMPTE RENDU OPERATOIRE INSTRUMENTAL
+	//COMPTE RENDU OPERATOIRE INSTRUMENTAL
+	$("#bouton_compte_rendu_instrumental_valider").toggle(true);
+	$("#bouton_compte_rendu_instrumental_modifier").toggle(false);
+	
+	
+	$("#bouton_compte_rendu_instrumental_valider").click(function(){
+		$("#note_compte_rendu_operatoire_instrumental").attr( 'readonly', true).css({'background':'#f8f8f8'});
+		
+		$("#bouton_compte_rendu_instrumental_valider").toggle(false);
+		$("#bouton_compte_rendu_instrumental_modifier").toggle(true);
+		
+		return false;
+	});
+	
+	$("#bouton_compte_rendu_instrumental_modifier").click(function(){
+		$("#note_compte_rendu_operatoire_instrumental").attr( 'readonly', false).css({'background':'#fff'});
+		
+		$("#bouton_compte_rendu_instrumental_valider").toggle(true);
+		$("#bouton_compte_rendu_instrumental_modifier").toggle(false);
+		
+		return false;
+	});
+	
 });
 
 // *************Autres(Transfert/Hospitalisation/ Rendez-Vous )***************
@@ -268,15 +275,7 @@ $(function () {
     var motif_transfert = $("#motif_transfert");
     var hopital_accueil = $("#hopital_accueil");
     var service_accueil = $("#service_accueil");
-//	$("#transfert").click(function(){
-//		motif_transfert.attr( 'readonly', true).css({'background':'#f8f8f8'});
-//		$("#hopital_accueil_tampon").val(hopital_accueil.val());
-//		//hopital_accueil.attr( 'disabled', true).css({'background':'#f8f8f8'});
-//		$("#service_accueil_tampon").val(service_accueil.val());
-//		//service_accueil.attr( 'disabled', true).css({'background':'#f8f8f8'});
-//		$("#bouton_transfert_modifier").toggle(true);  //on affiche le bouton permettant de modifier les champs
-//	    $("#bouton_transfert_valider").toggle(false); //on cache le bouton permettant de valider les champs
-//	});
+
 
     $("bouton_valider_transfert").button();
     $("bouton_modifier_transfert").button();
@@ -319,18 +318,13 @@ $(function () {
     });
 });
 
+
+
 //********************* HOSPITALISATION *****************************
 //********************* HOSPITALISATION *****************************
 $(function () {
     var motif_hospitalisation = $("#motif_hospitalisation");
     var date_fin_hospitalisation = $("#date_fin_hospitalisation_prevue");
-//	$("#hospitalisation").click(function(){
-//		motif_hospitalisation.attr( 'disabled', true).css({'background':'#f8f8f8'});
-//		date_fin_hospitalisation.attr( 'disabled', true).css({'background':'#f8f8f8'});
-//		$("#bouton_hospi_modifier").toggle(true);
-//		$("#bouton_hospi_valider").toggle(false);
-//	});
-
     $("#annulerhospitalisation").click(function () {
         motif_hospitalisation.val("");
         date_fin_hospitalisation.val("");
@@ -368,6 +362,34 @@ $(function () {
 
 });
 
+$('#date_fin_hospitalisation_prevue').datepicker(
+    $.datepicker.regional['fr'] = {
+        closeText: 'Fermer',
+        changeYear: true,
+        yearRange: 'c-80:c',
+        prevText: '&#x3c;Préc',
+        nextText: 'Suiv&#x3e;',
+        currentText: 'Courant',
+        monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
+            'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun',
+            'Jul', 'Aout', 'Sep', 'Oct', 'Nov', 'Dec'],
+        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+        dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+        dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        minDate: 1,
+        showMonthAfterYear: false,
+        yearRange: '1990:2025',
+        showAnim: 'bounce',
+        changeMonth: true,
+        changeYear: true,
+        yearSuffix: '',
+    }
+);
 //********************* RENDEZ VOUS *****************************
 //********************* RENDEZ VOUS *****************************
 $(function () {
@@ -402,7 +424,7 @@ $(function () {
 
     //Valider(cach�) avec le bouton 'valider'
     $("#enable_bouton").click(function () {
-        motif_rv.attr('readonly', true).css({'background': '#f8f8f8'});     //d�sactiver le motif
+        motif_rv.attr('readonly', true).css({'background': '#f8f8f8'});     //d�sactiver le 
         $("#date_rv_tampon").val(date_rv.val()); //Placer la date dans date_rv_tampon avant la desacivation
         date_rv.attr('disabled', true).css({'background': '#f8f8f8'});     //d�sactiver la date
         $("#heure_rv_tampon").val(heure_rv.val()); //Placer l'heure dans heure_rv_tampon avant la desacivation
@@ -426,6 +448,69 @@ $(function () {
     });
 
 });
+
+
+
+//********************* RENDEZ VOUS *****************************
+//********************* RENDEZ VOUS *****************************
+$(function () {
+ var reference = $('#reference');
+ var motif_ref = $("#motif_ref");
+ var refere_de = $("#refere_de");
+ //date_rv.attr('autocomplete', 'off');
+ $("#disable").click(function () {
+     reference.attr('readonly', true).css({'background': '#f8f8f8'});     //d�sactiver le motif
+     //$("#date_rv_tampon").val(date_rv.val()); //Placer la date dans date_rv_tampon avant la desacivation
+     motif_ref.attr('disabled', true).css({'background': '#f8f8f8'});     //d�sactiver la date
+     //$("#heure_rv_tampon").val(heure_rv.val()); //Placer l'heure dans heure_rv_tampon avant la desacivation
+     refere_de.attr('disabled', true).css({'background': '#f8f8f8'});   //d�sactiver l'heure
+     $("#disable_bouton_ref").toggle(true);  //on affiche le bouton permettant de modifier les champs
+     $("#enable_bouton_ref").toggle(false); //on cache le bouton permettant de valider les champs
+
+     //date_rv.val(date);
+ });
+
+ $("button_ref").button();
+ //$( "bouton_valider" ).button();
+
+ //Au debut on affiche pas le bouton modifier, on l'affiche seulement apres impression
+ $("#disable_bouton_ref").toggle(false);
+ //Au debut on affiche le bouton valider
+ $("#enable_bouton_ref").toggle(true);
+
+ //Au debut on desactive tous les champs
+ reference.attr('readonly', false).css({'background': '#fff'});
+ motif_ref.attr('disabled', false).css({'background': '#fff'});
+ refere_de.attr('disabled', false).css({'background': '#fff'});
+
+ //Valider(cach�) avec le bouton 'valider'
+ $("#enable_bouton_ref").click(function () {
+     motif_ref.attr('readonly', true).css({'background': '#f8f8f8'});     //d�sactiver le 
+    // $("#date_rv_tampon").val(date_rv.val()); //Placer la date dans date_rv_tampon avant la desacivation
+     motif_ref.attr('disabled', true).css({'background': '#f8f8f8'});     //d�sactiver la date
+    // $("#heure_rv_tampon").val(heure_rv.val()); //Placer l'heure dans heure_rv_tampon avant la desacivation
+     refere_de.attr('disabled', true).css({'background': '#f8f8f8'});   //d�sactiver l'heure
+     $("#disable_bouton_ref").toggle(true);  //on affiche le bouton permettant de modifier les champs
+     $("#enable_bouton_ref").toggle(false); //on cache le bouton permettant de valider les champs
+
+     //$("#annulerrendezvous").attr('disabled', true);
+     return false;
+ });
+ //Activer(d�cach�) avec le bouton 'modifier'
+ $("#disable_bouton_ref").click(function () {
+     reference.attr('readonly', false).css({'background': '#fff'});      //activer le motif
+     motif_ref.attr('disabled', false).css({'background': '#fff'});      //activer la date
+     refere_de.attr('disabled', false).css({'background': '#fff'});    //activer l'heure
+     $("#disable_bouton_ref").toggle(false);   //on cache le bouton permettant de modifier les champs
+     $("#enable_bouton_ref").toggle(true);    //on affiche le bouton permettant de valider les champs
+
+     //$("#annulerrendezvous").attr('disabled', false);
+     return false;
+ });
+
+});
+
+
 
 //Boite de dialogue de confirmation d'annulation
 //Boite de dialogue de confirmation d'annulation
@@ -454,18 +539,18 @@ function confirmation() {
         }
     });
 }
-
-$("#annuler2").click(function () {
-    //event.preventDefault();
-    confirmation();
-    $("#confirmation2").dialog('open');
-
+$("#annuler2").click(function(){
+	$("#annuler2").css({"border-color":"#ccc", "background":"-webkit-linear-gradient( #555, #CCC)", "box-shadow":"1px 1px 5px black inset,0 1px 0 rgba( 255, 255, 255, 0.4)"});
+	
+    vart = tabUrl[0]+'public/gynecologie/gynecologie';
+	vart=tabUrl[0]+'public/gynecologie/complement-gynecologie?id_patient='+idPatient+'&id_cons='+id_cons;
+    $(location).attr("href",vart);
     return false;
 });
 
 var temoinHu= 0;
 var temoinTaille = 0;
-var temoinPaleur = 0;
+//var temoinPaleur = 0;
 var temoinPoids = 0;
 var temoinTemperature = 0;
 var temoinPouls = 0;
@@ -483,45 +568,12 @@ function maskSaisie() {
     $(function () {
         $("#pressionarterielle").mask("299/299");
         $("#glycemie_capillaire").mask("9,99");
+        
     });
 
-//	    $("#taille").blur(function(){
-//	    	var valeur = $('#taille').val();
-//	    	if(isNaN(valeur/1) || valeur > 250 || valeur == ""){
-//				valeur = null;
-//				$("#taille").css("border-color","#FF0000");
-//	            $("#erreur_taille").fadeIn().text("Max: 250cm").css({"color":"#ff5b5b","padding":" 0 10px 0 10px","margin-top":"-18px","font-size":"13px","font-style":"italic"});
-//	            temoinTaille = 1;
-//	    	}
-//	    	else{
-//	    		$("#taille").css("border-color","");
-//				$("#erreur_taille").fadeOut();
-//				temoinTaille = 0;
-//	    	}
-//	    	return false;
-//	    });
 
-    $("#poids").blur(function () {
-        var valeur = $('#poids').val();
-        if (isNaN(valeur / 1) || valeur > 300 || valeur == "") {
-            valeur = null;
-            $("#poids").css("border-color", "#FF0000");
-            $("#erreur_poids").fadeIn().text("Max: 300kg").css({
-                "color": "#ff5b5b",
-                "padding": " 0 10px 0 10px",
-                "margin-top": "-18px",
-                "font-size": "13px",
-                "font-style": "italic"
-            });
-            temoinPoids = 2;
-        }
-        else {
-            $("#poids").css("border-color", "");
-            $("#erreur_poids").fadeOut();
-            temoinPoids = 0;
-        }
-        return false;
-    });
+
+  
 
     $("#temperature").blur(function () {
         var valeur = $('#temperature').val();
@@ -544,18 +596,6 @@ function maskSaisie() {
         return false;
     });
 
-//	    $("#pouls").blur(function(){
-//	    	var valeur = $('#pouls').val();
-//			if(isNaN(valeur/1) || valeur > 150 || valeur == ""){
-//				$("#pouls").css("border-color","#FF0000");
-//				$("#erreur_pouls").fadeIn().text("Max: 150 battements").css({"color":"#ff5b5b","padding":" 0 10px 0 10px","margin-top":"-18px","font-size":"13px","font-style":"italic"});
-//				temoinPouls = 4;
-//			}else{
-//				$("#pouls").css("border-color","");
-//				$("#erreur_pouls").fadeOut();
-//				temoinPouls = 0;
-//			}
-//	    });
 
     $("#tensionmaximale").blur(function () {
         var valeur = $('#tensionmaximale').val();
@@ -601,34 +641,8 @@ function maskSaisie() {
 /****** CONTROLE APRES VALIDATION ********/
 
 $("#terminer,#bouton_constantes_valider, #terminer2, #terminer3, #terminer4").click(function () {
-
-    valid = true;
-//	         if( $("#taille").val() == "" || temoinTaille == 1){
-//	             $("#taille").css("border-color","#FF0000");
-//	             $("#erreur_taille").fadeIn().text("Max: 250cm").css({"color":"#ff5b5b","padding":" 0 10px 0 10px","margin-top":"-18px","font-size":"13px","font-style":"italic"});
-//	             valid = false;
-//	         }
-//	         else{
-//	         	$("#taille").css("border-color","");
-//	         	$("#erreur_taille").fadeOut();
-//	         }
-
-    if ($("#poids").val() == "" || temoinPoids == 2) {
-        $("#poids").css("border-color", "#FF0000");
-        $("#erreur_poids").fadeIn().text("Max: 300kg").css({
-            "color": "#ff5b5b",
-            "padding": " 0 10px 0 10px",
-            "margin-top": "-18px",
-            "font-size": "13px",
-            "font-style": "italic"
-        });
-        valid = false;
-    }
-    else {
-        $("#poids").css("border-color", "");
-        $("#erreur_poids").fadeOut();
-    }
-
+	
+    valid = true;    choix = true;
     if ($('#temperature').val() == "" || temoinTemperature == 3) {
         $("#temperature").css("border-color", "#FF0000");
         $("#erreur_temperature").fadeIn().text("Min: 34°C, Max: 45°C").css({
@@ -644,17 +658,6 @@ $("#terminer,#bouton_constantes_valider, #terminer2, #terminer3, #terminer4").cl
         $("#temperature").css("border-color", "");
         $("#erreur_temperature").fadeOut();
     }
-
-//	         if( $("#pouls").val() == "" || temoinPouls == 4){
-//	         	 $("#pouls").css("border-color","#FF0000");
-//	             $("#erreur_pouls").fadeIn().text("Max: 150 battements").css({"color":"#ff5b5b","padding":" 0 10px 0 10px","margin-top":"-18px","font-size":"13px","font-style":"italic"});
-//	             valid = false;
-//	         }
-//	         else{
-//	         	 $("#pouls").css("border-color", "");
-//	             $("#erreur_pouls").fadeOut();
-//	         }
-
     if ($("#tensionmaximale").val() == "" || temoinTensionMaximale == 5) {
         $("#tensionmaximale").css("border-color", "#FF0000");
         $("#erreur_tensionmaximale").fadeIn().text("300mmHg").css({
@@ -690,17 +693,46 @@ $("#terminer,#bouton_constantes_valider, #terminer2, #terminer3, #terminer4").cl
     return false;
 });
 
+
+
+
+$(" #terminer2,#terminer3").click(function (){
+	
+});
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*-*--*-*-*-*--*-*-*-*-*-**--*-**-*--**-*-*-*-*-*-*-*-*-*-*-*-*-*--**-*-*-*-*-
 //Method envoi POST pour updatecomplementconsultation
 //Method envoi POST pour updatecomplementconsultation
 //Method envoi POST pour updatecomplementconsultation
 function updateexecuterRequetePost(donnees) {
-    // Le formulaire monFormulaire existe deja dans la page
-       var formulaire = document.createElement("form");
 
+	//Le formulaire pour l'impression du certificat d'gynecologie
+	var formulaireImprimCertificat = document.createElement("form");
+	formulaireImprimCertificat.setAttribute("action", tabUrl[0] + "public/gynecologie/gynecologie");
+	formulaireImprimCertificat.setAttribute("method", "POST");   
+	formulaireImprimCertificat.setAttribute('target', '_blank');
+	
+    document.body.appendChild(formulaireImprimCertificat);    
+    
+    for (donnee in donnees) {
+        // Ajout dynamique de champs dans le formulaire
+        var champ = document.createElement("input");
+        champ.setAttribute("type", "hidden");
+        champ.setAttribute("name", donnee);
+        champ.setAttribute("value", donnees[donnee]);
+        formulaireImprimCertificat.appendChild(champ);
+    }
+
+    // Envoi de la requete
+    formulaireImprimCertificat.submit();
+	
+    setTimeout(function(){ 
+    
+	//Le formulaire a envoyer pour enregistrer les donn�es
+	var formulaire = document.createElement("form");
     formulaire.setAttribute("action", tabUrl[0] + "public/gynecologie/update-complement-gynecologie");
-    formulaire.setAttribute("method", "POST");
-
+    
+    formulaire.setAttribute("method", "POST");   
+    document.body.appendChild(formulaire);    
     for (donnee in donnees) {
         // Ajout dynamique de champs dans le formulaire
         var champ = document.createElement("input");
@@ -711,26 +743,32 @@ function updateexecuterRequetePost(donnees) {
     }
 
     // Envoi de la requete
-    formulaire.submit();
+     formulaire.submit(); 
     // Suppression du formulaire
     document.body.removeChild(formulaire);
+    
+    //},1000);
+    
 }
 
 /***LORS DU CLICK SUR 'Terminer' ****/
 /***LORS DU CLICK SUR 'Terminer' ****/
-$("#terminer2, #terminer3").click(function () {
+$("#terminer2, #terminer3").click(function () { 
 
+	//alert(55);
     if (valid == false) {
         $('#motifsAdmissionConstanteClick').trigger('click');
         $('#constantesClick').trigger('click');
+       
         return false;
     }
+   
 
-    $('#bouton_Acte_valider_demande button, #bouton_ExamenBio_valider_demande button, #bouton_morpho_valider_demande button').trigger('click');
+    $(' #bouton_ExamenBio_valider_demande button, #bouton_morpho_valider_demande button').trigger('click');
 
     var donnees = new Array();
     donnees['id_cons'] = $("#id_cons").val();
-    donnees['terminer'] = 'save';
+    donnees['terminer'] = 'save';//
 
     // **********-- Donnees de l'examen physique --*******
     // **********-- Donnees de l'examen physique --*******
@@ -741,9 +779,22 @@ $("#terminer2, #terminer3").click(function () {
     donnees['examen_maternite_donnee5'] = $("#examen_maternite_donnee5").val();
     donnees['examen_maternite_donnee6'] = $("#examen_maternite_donnee6").val();
     donnees['examen_maternite_donnee7'] = $("#examen_maternite_donnee7").val();
+    
     donnees['examen_maternite_donnee8'] = $("#examen_maternite_donnee8").val();
     donnees['examen_maternite_donnee9'] = $("#examen_maternite_donnee9").val();
-
+    donnees['examen_maternite_donnee10'] = $("#examen_maternite_donnee10").val();
+    donnees['examen_maternite_donnee11'] = $("#examen_maternite_donnee11").val(); 
+    donnees['note_tv'] = $("#note_tv").val();
+    donnees['note_hu'] = $("#note_hu").val();
+    donnees['note_bdc'] = $("#note_bdc").val();
+   // donnees['note_la'] = $("#note_la").val();
+   // donnees['note_pde'] = $("#note_pde").val();
+    donnees['examen_maternite_donnee11'] = $("#examen_maternite_donnee11").val();
+    donnees['note_bassin'] = $("#note_bassin").val();
+    
+    
+    
+    
     //**********-- ANALYSE BIOLOGIQUE --************
     //**********-- ANALYSE BIOLOGIQUE --************
     donnees['groupe_sanguin'] = $("#groupe_sanguin").val();
@@ -752,7 +803,7 @@ $("#terminer2, #terminer3").click(function () {
     donnees['bilan_hepatique'] = $("#bilan_hepatique").val();
     donnees['bilan_renal'] = $("#bilan_renal").val();
     donnees['bilan_inflammatoire'] = $("#bilan_inflammatoire").val();
-
+//alert( donnees['bilan_inflammatoire']);
     //**********-- ANALYSE MORPHOLOGIQUE --************
     //**********-- ANALYSE MORPHOLOGIQUE --************
     donnees['radio_'] = $("#radio").val();
@@ -767,7 +818,7 @@ $("#terminer2, #terminer3").click(function () {
     donnees['diagnostic2'] = $("#diagnostic2").val();
     donnees['diagnostic3'] = $("#diagnostic3").val();
     donnees['diagnostic4'] = $("#diagnostic4").val();
-
+    donnees['decisions'] = $("#decisions").val();
     //*********** ORDONNACE (M�dical) ************
     //*********** ORDONNACE (M�dical) ************
     donnees['duree_traitement_ord'] = $("#duree_traitement_ord").val();
@@ -802,6 +853,8 @@ $("#terminer2, #terminer3").click(function () {
     // **********-- Rendez Vous --*******
     // **********-- Rendez Vous --*******
     donnees['id_patient'] = $("#id_patient").val();
+    donnees['id_admission'] = $("#id_admission").val();
+    donnees['id_grossesse'] = $("#id_grossesse").val();
     //Au cas ou l'utilisateur ne valide pas ou n'imprime pas cela veut dire que le champ n'est pas d�sactiver
     if ($("#date_rv").val()) {
         $("#date_rv_tampon").val($("#date_rv").val());
@@ -850,15 +903,297 @@ $("#terminer2, #terminer3").click(function () {
     //Recuperer les valeurs des champs
     //Recuperer les valeurs des champs
     
-    donnees['geste'] = $("#geste").val();
-    donnees['parite'] = $("#parite").val();
-    donnees['enf_viv'] = $("#enf_viv").val();
-    donnees['mort_ne'] = $("#mort_ne").val();
-    donnees['cesar'] = $("#cesar").val();
-    donnees['eclampsie'] = $("#eclampsie").val();
-    donnees['dystocie'] = $("#dystocie").val();
-   
+    donnees['poids'] = $("#poids").val();
+    donnees['peser'] = $("#peser").val();
 
+    donnees['taille'] = $("#taille").val();
+    donnees['hu'] = $("#hu").val();
+    donnees['paleur'] = $("#paleur").val();
+    donnees['temperature'] = $("#temperature").val();
+    donnees['tensionmaximale'] = $("#tensionmaximale").val();
+    donnees['tensionminimale'] = $("#tensionminimale").val();
+    donnees['pouls'] = $("#pouls").val();
+    //donnees['frequence_respiratoire'] = $("#frequence_respiratoire").val();
+    donnees['glycemie_capillaire'] = $("#glycemie_capillaire").val();
+   
+    
+    
+    //Antecedent type 1
+    
+    
+    donnees['enf_viv'] = $("#enf_viv").val();
+    donnees['note_enf'] = $("#note_enf").val();
+    donnees['geste'] = $("#geste").val();
+    donnees['note_geste'] = $("#note_geste").val();
+    donnees['parite'] = $("#parite").val();
+    donnees['note_parite'] = $("#note_parite").val();
+    donnees['mort_ne'] = $("#mort_ne").val();
+    donnees['note_mort_ne'] = $("#note_mort_ne").val();
+    donnees['cesar'] = $("#cesar").val();
+    donnees['nombre_cesar'] = $("#nombre_cesar").val();
+    donnees['inv_uter'] = $("#inv_uter").val();
+
+    donnees['note_cesar'] = $("#note_cesar").val();
+    donnees['groupe_sanguins'] = $("#groupe_sanguins").val();
+    donnees['rhesus'] = $("#rhesus").val();
+    donnees['note_gs'] = $("#note_gs").val();
+    donnees['test_emmel'] = $("#test_emmel").val();
+    donnees['profil_emmel'] = $("#profil_emmel").val();
+    donnees['note_emmel'] =   $("#note_emmel").val();
+    donnees['infertilite'] = $("#infertilite").val();
+    donnees['duree_infertilite'] = $("#duree_infertilite").val();
+    donnees['dg'] = $("#dg").val();
+    donnees['dateces'] = $("#dateces").val();
+    donnees['menarchie'] = $("#menarchie").val();
+    donnees['hta'] = $("#hta").val();
+    donnees['note_hta'] = $("#note_hta").val();
+    donnees['cancercol'] = $("#cancercol").val();
+    donnees['note_cancercol'] = $("#note_cancercol").val();
+    donnees['cancersein'] = $("#cancersein").val();
+    donnees['note_cancersein'] = $("#note_cancersein").val();
+    donnees['antepers'] = $("#antepers").val();
+
+    
+    //Antecedent type 2
+    if($("#dystocie:checked").val()){ donnees['dystocie'] = 1; }else{ donnees['dystocie'] = 0; }
+    donnees['note_dystocie'] = $("#note_dystocie").val();
+    if($("#eclampsie:checked").val()){ donnees['eclampsie'] = 1; }else{ donnees['eclampsie'] = 0; }
+    donnees['note_eclampsie'] = $("#note_eclampsie").val();
+    donnees['cycle'] = $("#regularite").val();
+    donnees['quantite_regle'] = $("#quantite_regle").val();
+    donnees['nb_garniture_jr'] = $("#nb_garniture_jr").val();
+    donnees['note_cycle'] = $("#note_cycle").val();
+    donnees['duree_cycle'] = $("#duree_cycle").val();
+    donnees['regularite'] = $("#regularite").val();
+    if($("#autre_go:checked").val()){ donnees['autre_go'] = 1; }else{ donnees['autre_go'] = 0; }
+    donnees['note_autre'] = $("#note_autre_go").val();
+    donnees['contraception'] = $("#contraception").val();
+    donnees['type_contraception'] = $("#type_contraception").val();
+    donnees['duree_contraception'] = $("#duree_contraception").val();
+    donnees['note_contraception'] = $("#note_contraception").val();
+    //grosseesse
+    
+    donnees['ddr'] = $("#ddr").val();
+    donnees['duree_grossesse'] = $("#duree_grossesse").val();
+    donnees['note_ddr'] = $("#note_ddr").val();date_cons
+    donnees['date_cons'] = $("#date_cons").val();
+    donnees['nb_cpn'] = $("#nb_cpn").val();
+    donnees['note_cpn'] = $("#note_cpn").val();
+    donnees['bb_attendu'] = $("#bb_attendu").val();
+    donnees['note_bb'] = $("#note_bb").val(); 
+    donnees['nombre_bb'] = $("#nombre_bb").val();
+    donnees['date_cons'] = $("#date_cons").val();
+
+    if($("#vat_1:checked").val()){ donnees['vat_1'] = 1; }else{ donnees['vat_1'] = 0; }
+    if($("#vat_2:checked").val()){ donnees['vat_2'] = 1; }else{ donnees['vat_2'] = 0; }
+    if($("#vat_3:checked").val()){ donnees['vat_3'] = 1; }else{ donnees['vat_3'] = 0; }
+    donnees['note_vat'] = $("#note_vat").val();
+    
+    //Avortement
+    donnees['type_avortement'] = $("#type_avortement").val();
+    donnees['traitement_recu'] = $("#traitement_recu").val();
+    donnees['periode_av'] = $("#periode_av").val();
+    //**********--gynecologie --********
+    //Recuperer les valeurs des champs
+    
+   donnees['type_gynecologie'] = $("#type_gynecologie").val();
+    donnees['motif_type'] = $("#motif_type").val();
+    donnees['prenome'] = $("#prenome").val();
+    donnees['date_debutsta'] = $("#date_debutsta").val();
+    donnees['date_finsta'] = $("#date_finsta").val();
+
+    donnees['date_gynecologie'] = $("#date_gynecologie").val();
+    donnees['heure_gynecologie'] = $("#heure_gynecologie").val();
+    donnees['delivrance'] = $("#delivrance").val();
+    donnees['ru'] = $("#ru").val();
+    donnees['hemoragie'] = $("#hemoragie").val();
+    donnees['hrp'] = $("#hrp").val();
+    donnees['dystocie'] = $("#dystocie").val();
+    donnees['infection'] = $("#infection").val();
+    donnees['anemie'] = $("#anemie").val();
+    donnees['fistules'] = $("#fistules").val();
+    donnees['paludisme'] = $("#paludisme").val();
+    donnees['eclapsie'] = $("#eclapsie").val();
+
+    
+    donnees['quantite_hemo'] = $("#quantite_hemo").val();
+    donnees['ocytocique_per'] = $("#ocytocique_per").val();
+    donnees['ocytocique_post'] = $("#ocytocique_post").val();
+    donnees['antibiotique'] = $("#antibiotique").val();
+    donnees['anticonvulsant'] = $("#anticonvulsant").val();
+    donnees['transfusion'] = $("#transfusion").val();
+   donnees['text_observation'] = $("#text_observation").val();
+   donnees['suite_de_couche'] = $("#suite_de_couches").val(); 
+    donnees['note_gynecologie'] = $("#note_gynecologie").val();
+    donnees['note_delivrance'] = $("#note_delivrance").val();
+    donnees['note_hemorragie'] = $("#note_hemorragie").val();
+    donnees['note_hrp'] = $("#note_hrp").val();
+    donnees['note_dystocie'] = $("#note_dystocie").val();
+
+    donnees['note_ocytocique'] = $("#note_ocytocique").val();
+    donnees['note_antibiotique'] = $("#note_antibiotique").val();
+    donnees['note_anticonv'] = $("#note_anticonv").val();
+    donnees['note_transfusion'] = $("#note_transfusion").val();
+    donnees['note_eclapsie'] = $("#note_eclapsie").val();
+
+    
+
+    
+    
+    
+    //conclusion gynecologie
+    var nbcomp=$("Complication").length;
+	donnees['nb_comp'] = nbcomp;
+    //alert(nbcomp);
+    for(var i=1 ; i<=nbcomp ; i++){
+//    	alert($("#comp_name_"+i).val());
+//    	alert($("#noteComp_"+i).val());	
+    	donnees['comp_name_'+i] = $("#comp_name_"+i).val();
+    	donnees['note_comp_'+i] = $("#notesComp_"+i).val();
+    
+    
+    }
+    
+
+    //conclusion gynecologie
+    var nbcauseDC=$("Deces").length;
+	donnees['nbcauseDC'] = nbcauseDC;
+   //alert(nbcauseDC);
+    for(var i=1 ; i<=nbcauseDC ; i++){
+//    	alert($("#deces_name_"+i).val());
+//    	alert($("#noteDeces_"+i).val());	
+    	donnees['deces_name_'+i] = $("#deces_name_"+i).val();
+    	donnees['note_deces_'+i] = $("#notesDeces_"+i).val();
+    
+    
+    }//return false;
+    
+    
+    //**********--ENFANT-********
+
+    
+    
+    
+
+    //nbEnfant= $('#nombre_bb').val();
+
+    
+    //alert(nbEnfant);
+    
+    
+    //donnees['sexe'] = $("#sexe_1").val();
+  
+   // alert($("#sexe_1").val()); return false;
+
+    var nbBbAttenduValeur = $('#bb_attendu').val();
+    if(nbBbAttenduValeur == 0){
+    	nbBbAttenduValeur = $('#nombre_bb').val();
+    }
+   
+    donnees['nombre_enfant'] = nbBbAttenduValeur;
+  
+    for(var i=1 ; i<=nbBbAttenduValeur ; i++){
+    	//alert($("#n_poids_"+i).val());	return false;   	
+    	donnees['sexe_'+i] = $("#sexe_"+i).val();
+    	donnees['n_sexe_'+i] = $("#n_sexe_"+i).val();
+    	donnees['poids_'+i] = $("#poids_"+i).val();
+    	donnees['n_poids_'+i] = $("#n_poids_"+i).val();
+    	donnees['cri_'+i] = $("#cri_"+i).val();
+    	donnees['n_cri_'+i] = $("#n_cri_"+i).val();
+    	donnees['taille_'+i] = $("#taille_"+i).val();
+    	donnees['n_taille_'+i] = $("#n_taille_"+i).val();
+    	donnees['sat_'+i] = $("#sat_"+i).val();
+    	donnees['n_sat_'+i] = $("#n_sat_"+i).val();
+    	donnees['vitk_'+i] = $("#vitk_"+i).val();
+    	donnees['n_vitk_'+i] = $("#n_vitk_"+i).val();
+    	donnees['malf_'+i] = $("#malf_"+i).val();
+    	donnees['n_malf_'+i] = $("#n_malf_"+i).val();
+    	donnees['mt_'+i] = $("#mt_"+i).val();
+    	donnees['n_mt_'+i] = $("#n_mt_"+i).val();
+    	donnees['msp_'+i] = $("#msp_"+i).val();
+    	donnees['n_msp_'+i] = $("#n_msp_"+i).val();
+    	donnees['sc_'+i] = $("#sc_"+i).val();
+    	donnees['n_sc_'+i] = $("#n_sc_"+i).val();
+    	donnees['reanim_'+i] = $("#reanim_"+i).val();
+    	donnees['n_reanim_'+i] = $("#n_reanim_"+i).val();
+    	donnees['collyre_'+i] = $("#collyre_"+i).val();
+    	donnees['n_collyre_'+i] = $("#n_collyre_"+i).val();
+    	donnees['vpo_'+i] = $("#vpo_"+i).val();
+    	donnees['n_vpo_'+i] = $("#n_vpo_"+i).val();
+    	donnees['antiT_'+i] = $("#antiT_"+i).val();
+    	donnees['n_antiT_'+i] = $("#n_antiT_"+i).val();
+    	donnees['bcg_'+i] = $("#bcg_"+i).val();
+    	donnees['n_bcg_'+i] = $("#n_bcg_"+i).val();
+    	donnees['anti_hepa_'+i] = $("#anti_hepa_"+i).val();
+    	donnees['n_anti_hepa_'+i] = $("#n_anti_hepa_"+i).val();
+    	donnees['autre_vacc_'+i] = $("#autre_vacc_"+i).val();
+    	donnees['type_autre_vacc_'+i] = $("#type_autre_vacc_"+i).val();
+    	donnees['n_autre_vacc_'+i] = $("#n_autre_vacc_"+i).val();
+    	donnees['cranien_'+i] = $("#cranien_"+i).val();
+    	donnees['brachial_'+i] = $("#brachial_"+i).val();
+    	donnees['cephalique_'+i] = $("#cephalique_"+i).val();
+    	donnees['n_perim_'+i] = $("#n_perim_"+i).val();
+    	donnees['apgar1_'+i] = $("#apgar1_"+i).val();
+    	donnees['apgar5_'+i] = $("#apgar5_"+i).val();
+    	donnees['n_apgar_'+i] = $("#n_apgar_"+i).val();
+    	donnees['consj1j2_'+i] = $("#consj1j2_"+i).val();
+    	//nouveau ne
+    	donnees['viv_bien_portant_'+i] = $("#viv_bien_portant_"+i).val();
+    	donnees['n_viv_bien_portant_'+i] = $("#n_viv_bien_portant_"+i).val();
+    	donnees['viv_mal_form_'+i] = $("#viv_mal_form_"+i).val();
+    	donnees['n_viv_mal_form_'+i] = $("#n_viv_mal_form_"+i).val();
+    	donnees['malade_'+i] = $("#malade_"+i).val();
+    	donnees['n_malade_'+i] = $("#n_malade_"+i).val();
+    	donnees['decede_'+i] = $("#decede_"+i).val();
+    	donnees['date_deces_'+i] = $("#date_deces_"+i).val();
+    	donnees['heure_deces_'+i] = $("#heure_deces_"+i).val();
+    	donnees['cause_deces_'+i] = $("#cause_deces_"+i).val();
+    }
+
+   
+    //**********--EVACUATION et REFERENCE-********
+
+    donnees['motif_ad'] = $("#motif_ad").val();
+    donnees['motif'] = $("#motif").val();
+    donnees['service_origine'] = $("#service_origine").val();
+// antecedents cnjugaux
+    donnees['mariee'] = $('#BUcheckbox input[name=mariee]:checked').val();
+    if (!donnees['mariee']) {
+        donnees['mariee'] = 0;
+    }
+    donnees['croixalbumine'] = $('#BUcheckbox input[name=croixalbumine]:checked').val();
+    if (!donnees['croixalbumine']) {
+        donnees['croixalbumine'] = 0;
+    }
+    
+    //Recuperer les donnees sur les bandelettes urinaires
+    //Recuperer les donnees sur les bandelettes urinaires
+    donnees['albumine'] = $('#BUcheckbox input[name=albumine]:checked').val();
+    if (!donnees['albumine']) {
+        donnees['albumine'] = 0;
+    }
+    donnees['croixalbumine'] = $('#BUcheckbox input[name=croixalbumine]:checked').val();
+    if (!donnees['croixalbumine']) {
+        donnees['croixalbumine'] = 0;
+    }
+
+    donnees['sucre'] = $('#BUcheckbox input[name=sucre]:checked').val();
+    if (!donnees['sucre']) {
+        donnees['sucre'] = 0;
+    }
+    donnees['croixsucre'] = $('#BUcheckbox input[name=croixsucre]:checked').val();
+    if (!donnees['croixsucre']) {
+        donnees['croixsucre'] = 0;
+    }
+
+    donnees['corpscetonique'] = $('#BUcheckbox input[name=corpscetonique]:checked').val();
+    if (!donnees['corpscetonique']) {
+        donnees['corpscetonique'] = 0;
+    }
+    donnees['croixcorpscetonique'] = $('#BUcheckbox input[name=croixcorpscetonique]:checked').val();
+    if (!donnees['croixcorpscetonique']) {
+        donnees['croixcorpscetonique'] = 0;
+    }
     //Recuperer les donnees sur les bandelettes urinaires
     //Recuperer les donnees sur les bandelettes urinaires
    
@@ -956,76 +1291,35 @@ $("#terminer2, #terminer3").click(function () {
     }
 
     donnees['nbCheckboxAM'] = $nbCheck;
+    donnees['nbCheckboxAF'] = $nbCheck;
+    /*Ajout automatique des antecedents familiaux*/
+    var $nbCheckboxAF = ($('#nbCheckboxAF').val()) + 1;
+    var $nbCheck = 0;
+    var $ligne;
+    var $reste = ( $nbCheckboxAF - 1 ) % 5;
+    var $nbElement = parseInt(( $nbCheckboxAF - 1 ) / 5);
+    if ($reste != 0) {
+        $ligne = $nbElement + 1;
+    }
+    else {
+        $ligne = $nbElement;
+    }
 
-    //GYNECO-OBSTETRIQUE
-    /*Menarche*/
-    donnees['MenarcheGO'] = $("#MenarcheGO:checked").val();
-    if (!donnees['MenarcheGO']) {
-        donnees['MenarcheGO'] = 0;
+    var k = 0;
+    var i;
+    for (var j = 1; j <= $ligne; j++) {
+        for (i = 0; i < 5; i++) {
+            var $champValider = $('#champValider_' + j + '_' + i + ':checked').val();
+            if ($champValider == 'on') {
+                donnees['champValider_' + k] = 1;
+                donnees['champTitreLabel_' + k] = $('#champTitreLabel_' + j + '_' + i).val();
+                k++;
+                $nbCheck++;
+            }
+        }
+        i = 0;
     }
-    donnees['NoteMenarcheGO'] = $("#NoteMenarcheGO").val();
-
-    /*Enf Viv*/
-    donnees['EnfVivGO'] = $("#EnfVivGO:checked").val();
-    if (!donnees['EnfVivGO']) {
-        donnees['EnfVivGO'] = 0;
-    }
-    donnees['NoteEnfVivGO'] = $("#NoteEnfVivGO").val();
-
-    /*Eclampsie*/
-    donnees['EclampsieGO'] = $("#EclampsieGO:checked").val();
-    if (!donnees['EclampsieGO']) {
-        donnees['EclampsieGO'] = 0;
-    }
-    donnees['NoteEclampsieGO'] = $("#NoteEclampsieGO").val();
-
-    /*Cesarienne*/
-    donnees['CesarienneGO'] = $("#CesarienneGO:checked").val();
-    if (!donnees['CesarienneGO']) {
-        donnees['CesarienneGO'] = 0;
-    }
-    donnees['NoteCesarienneGO'] = $("#NoteCesarienneGO").val();
-
-    /*Mort Ne*/
-    donnees['MortNeGO'] = $("#MortNeGO:checked").val();
-    if (!donnees['MortNeGO']) {
-        donnees['MortNeGO'] = 0;
-    }
-    donnees['NoteMortNeGO'] = $("#NoteMortNeGO").val();
-
-    /*Dystocie*/
-    donnees['DystocieGO'] = $("#DystocieGO:checked").val();
-    if (!donnees['DystocieGO']) {
-        donnees['DystocieGO'] = 0;
-    }
-    donnees['NoteDystocieGO'] = $("#NoteDystocieGO").val();
-
-    /*Gestite*/
-    donnees['GestiteGO'] = $("#GestiteGO:checked").val();
-    if (!donnees['GestiteGO']) {
-        donnees['GestiteGO'] = 0;
-    }
-    donnees['NoteGestiteGO'] = $("#NoteGestiteGO").val();
-    /*Parite*/
-    donnees['PariteGO'] = $("#PariteGO:checked").val();
-    if (!donnees['PariteGO']) {
-        donnees['PariteGO'] = 0;
-    }
-    donnees['NotePariteGO'] = $("#NotePariteGO").val();
-    /*Cycle*/
-    donnees['CycleGO'] = $("#CycleGO:checked").val();
-    if (!donnees['CycleGO']) {
-        donnees['CycleGO'] = 0;
-    }
-    donnees['DureeCycleGO'] = $("#DureeCycleGO").val();
-    donnees['RegulariteCycleGO'] = $("#RegulariteCycleGO").val();
-    donnees['DysmenorrheeCycleGO'] = $("#DysmenorrheeCycleGO").val();
-    /*Autres*/
-    donnees['AutresGO'] = $("#AutresGO:checked").val();
-    if (!donnees['AutresGO']) {
-        donnees['AutresGO'] = 0;
-    }
-    donnees['NoteAutresGO'] = $("#NoteAutresGO").val();
+   
 
     //**=== ANTECEDENTS FAMILIAUX
     //**=== ANTECEDENTS FAMILIAUX
@@ -1040,21 +1334,24 @@ $("#terminer2, #terminer3").click(function () {
         donnees['DrepanocytoseAF'] = 0;
     }
     donnees['NoteDrepanocytoseAF'] = $("#NoteDrepanocytoseAF").val();
-
+//alert($("#NoteDrepanocytoseAF").val());return false;
     donnees['htaAF'] = $("#htaAF:checked").val();
     if (!donnees['htaAF']) {
         donnees['htaAF'] = 0;
     }
     donnees['NoteHtaAF'] = $("#NoteHtaAF").val();
 
-    donnees['autresAF'] = $("#autresAF:checked").val();
-    if (!donnees['autresAF']) {
-        donnees['autresAF'] = 0;
-    }
     donnees['NoteAutresAF'] = $("#NoteAutresAF").val();
 
+
+    donnees['enf_viv'] = $("#enf_viv").val();
+    
+    
+  //antecedent chirurgicaux
+    donnees['text_chirur'] = $("#text_chirur").val();
     updateexecuterRequetePost(donnees);
 });
+
 
 //Annuler le transfert au clic
 $("#annulertransfert").click(function () {
@@ -1262,7 +1559,10 @@ function AntecedentScript() {
             $("#dateDebDroguer, #dateFinDroguer").toggle(false);
         }
 
-        $("#DivNoteAutresHV").toggle(false);
+        if (temoinAutreHV != 1) {
+        	$("#DivNoteAutresHV").toggle(false);
+        }
+        
 
         if ($('#DateDebutAlcooliqueHV').val() == '00/00/0000') {
             $('#DateDebutAlcooliqueHV').val("");
@@ -1408,121 +1708,8 @@ function AntecedentScript() {
             }
         });
 
-        //GYNECO-OBSTETRIQUE TESTER SI C'EST COCHE
-        //GYNECO-OBSTETRIQUE TESTER SI C'EST COCHE
-        if (temoinMenarcheGO != 1) {
-            $("#NoteMonarche").toggle(false);
-        }
-        if (temoinGestiteGO != 1) {
-            $("#NoteGestite").toggle(false);
-        }
-        if (temoinPariteGO != 1) {
-            $("#NoteParite").toggle(false);
-        }
-        if (temoinCycleGO != 1) {
-            $("#RegulariteON, #DysmenorrheeON, #DureeGO").toggle(false);
-        }
-        $("#DivNoteAutresGO").toggle(false);
-
-        $('#GynecoObstetrique input[name=MenarcheGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=MenarcheGO]');
-            if (boutons[1].checked) {
-                $("#NoteMonarche").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#NoteMonarche").toggle(false);
-            }
-        });
-
-        $('#GynecoObstetrique input[name=EnfVivGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=EnfVivGO]');
-            if (boutons[1].checked) {
-                $("#NoteEnfViv").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#NoteEnfViv").toggle(false);
-            }
-        });
-
-        $('#GynecoObstetrique input[name=GestiteGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=GestiteGO]');
-            if (boutons[1].checked) {
-                $("#NoteGestite").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#NoteGestite").toggle(false);
-            }
-        });
-
-        $('#GynecoObstetrique input[name=PariteGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=PariteGO]');
-            if (boutons[1].checked) {
-                $("#NoteParite").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#NoteParite").toggle(false);
-            }
-        });
-
-        $('#GynecoObstetrique input[name=MortNeGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=MortNeGO]');
-            if (boutons[1].checked) {
-                $("#NoteMortNe").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#NoteMortNe").toggle(false);
-            }
-        });
-
-        $('#GynecoObstetrique input[name=DystocieGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=DystocieGO]');
-            if (boutons[1].checked) {
-                $("#NoteDystocie").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#NoteDystocie").toggle(false);
-            }
-        });
-
-        $('#GynecoObstetrique input[name=CesarienneGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=CesarienneGO]');
-            if (boutons[1].checked) {
-                $("#NoteCesarienne").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#NoteCesarienne").toggle(false);
-            }
-        });
-
-        $('#GynecoObstetrique input[name=CycleGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=CycleGO]');
-            if (boutons[1].checked) {
-                $("#RegulariteON, #DysmenorrheeON, #DureeGO").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#RegulariteON, #DysmenorrheeON, #DureeGO").toggle(false);
-            }
-        });
-
-        $('#GynecoObstetrique input[name=EclampsieGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=EclampsieGO]');
-            if (boutons[1].checked) {
-                $("#NoteEclampsie").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#NoteEclampsie").toggle(false);
-            }
-        });
-
-        $('#GynecoObstetrique input[name=AutresGO]').click(function () {
-            var boutons = $('#GynecoObstetrique input[name=AutresGO]');
-            if (boutons[1].checked) {
-                $("#DivNoteAutresGO").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#DivNoteAutresGO").toggle(false);
-            }
-        });
+        
+ 
 
         //ANTECEDENTS FAMILIAUX TESTER SI C'EST COCHE
         //ANTECEDENTS FAMILIAUX TESTER SI C'EST COCHE
@@ -1533,7 +1720,7 @@ function AntecedentScript() {
             $("#DivNoteDrepanocytoseAF").toggle(false);
         }
         if (temoinhtaAF != 1) {
-            $("#DivNoteHtaAF").toggle(false);
+            //$("#DivNoteHtaAF").toggle(false);
         }
         $("#DivNoteAutresAF").toggle(false);
 
@@ -1543,7 +1730,7 @@ function AntecedentScript() {
                 $("#DivNoteDiabeteAF").toggle(true);
             }
             if (!boutons[1].checked) {
-                $("#DivNoteDiabeteAF").toggle(false);
+                //$("#DivNoteDiabeteAF").toggle(false);
             }
         });
 
@@ -1553,7 +1740,7 @@ function AntecedentScript() {
                 $("#DivNoteDrepanocytoseAF").toggle(true);
             }
             if (!boutons[1].checked) {
-                $("#DivNoteDrepanocytoseAF").toggle(false);
+               // $("#DivNoteDrepanocytoseAF").toggle(false);
             }
         });
 
@@ -1567,15 +1754,7 @@ function AntecedentScript() {
             }
         });
 
-        $('#AntecedentsFamiliaux input[name=autresAF]').click(function () {
-            var boutons = $('#AntecedentsFamiliaux input[name=autresAF]');
-            if (boutons[1].checked) {
-                $("#DivNoteAutresAF").toggle(true);
-            }
-            if (!boutons[1].checked) {
-                $("#DivNoteAutresAF").toggle(false);
-            }
-        });
+       
         //******************************************************************************
         //******************************************************************************
         $(".image2_TP").click(function () {
@@ -1591,267 +1770,7 @@ function AntecedentScript() {
 }
 
 
-/***************************************************************************************/
 
-/**========================== PAGINATION INTERVENTION ================================**/
-
-/***************************************************************************************/
-
-function pagination() {
-    $(function () {
-        //CODE POUR INITIALISER LA LISTE
-        $('#ListeConsultationPatient').each(function () {
-            var currentPage = 0;
-            var numPerPage = 3;
-            var $table = $(this);
-            $table.find('tbody tr').hide()
-                .slice(currentPage * numPerPage, (currentPage + 1) * numPerPage)
-                .show();
-        });
-        //CODE POUR LA PAGINATION
-        $('#ListeConsultationPatient').each(function () {
-            var currentPage = 0;
-            var numPerPage = 3;
-            var $table = $(this);
-            var repaginate = function () {
-                $table.find('tbody tr').hide()
-                    .slice(currentPage * numPerPage, (currentPage + 1) * numPerPage)
-                    .show();
-            };
-            var numRows = $table.find('tbody tr').length;
-            var numPages = Math.ceil(numRows / numPerPage);
-            var $pager = $('<div class="pager"></div>');
-
-
-            for (var page = 0; page < numPages; page++) {
-                $('<a class="page-number" id="page_number" style="cursor:pointer; margin-right: 5px; background: #efefef; width:80px; height:80px; padding-left: 10px; padding-right: 10px; padding-top: 2px; padding-bottom: 2px; border: 1px solid gray;"></a>').text(page + 1)
-                    .bind('click', {newPage: page}, function (event) {
-                        currentPage = event.data['newPage'];
-                        repaginate();
-                        $(this).addClass('active').css({
-                            'background': '#8e908d',
-                            'color': 'white'
-                        }).siblings().removeClass('active').css({'background': '#efefef', 'color': 'black'});
-                    }).appendTo($pager).addClass('clickable');
-            }
-
-
-            $pager.insertAfter($table)
-                .find('a.page-number:first').addClass('active').css({'background': '#8e908d', 'color': 'white'});
-        });
-    });
-}
-
-function jsPagination() {
-    $('#ListeConsultationPatient, #ListeHospitalisation').dataTable
-    ({
-        "sPaginationType": "full_numbers",
-        "aaSorting": [], //pour trier la liste affichee
-        "oLanguage": {
-            "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
-            "sInfo": "_START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-            "sInfoEmpty": "0 &eacute;l&eacute;ment &agrave; afficher",
-            "sInfoFiltered": "",
-            "sInfoPostFix": "",
-            "sSearch": "",
-            "sUrl": "",
-            "sWidth": "30px",
-            "oPaginate": {
-                "sFirst": "|<",
-                "sPrevious": "<",
-                "sNext": ">",
-                "sLast": ">|"
-            }
-        },
-        "iDisplayLength": 3,
-        "aLengthMenu": [1, 2, 3],
-    });
-}
-
-/***************************************************************************************/
-
-/**========================== CONSTANTES CONSTANTES  ================================**/
-
-/***************************************************************************************/
-
-$('table input').attr('autocomplete', 'off');
-//*********************************************************************
-//*********************************************************************
-//*********************************************************************
-
-
-//------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
-
-
-//TESTER LEQUEL DES CHECKBOX est coch�
-//TESTER LEQUEL DES CHECKBOX est coch�
-//maskDeSaisie();
-
-
-   
-
-    //AFFICHER AU CLICK SI C'EST COCHE
-    //AFFICHER AU CLICK SI C'EST COCHE
-  
-
-
-    
-
-//CHOIX DU CROIX
-//========================================================
-
-
-//========================================================
-
-
-    
-
-//******************* VALIDER LES DONNEES DU TABLEAU DES MOTIFS ********************************
-//******************* VALIDER LES DONNEES DU TABLEAU DES MOTIFS ********************************
-
-/****** ======================================================================= *******/
-/****** ======================================================================= *******/
-/****** ======================================================================= *******/
-    //******************* VALIDER LES DONNEES DU TABLEAU DES CONSTANTES ********************************
-    //******************* VALIDER LES DONNEES DU TABLEAU DES CONSTANTES ********************************
-
-    //Au debut on d�sactive le code cons et la date de consultation qui sont non modifiables
-var id_cons = $("#id_cons");
-var date_cons = $("#date_cons");
-id_cons.attr('readonly', true);
-date_cons.attr('readonly', true);
-
-var poids = $('#poids');
-var hu = $('#hu');
-var geste = $('#geste');
-var parite = $('#parite');
-var tension = $('#enf_viv');
-//var bu = $('#bu');
-var mort_ne = $('#mort_ne');
-var cesar = $('#cesar');
-var dystocie = $('#dystocie');
-var eclampsie = $('#eclampsie');
-var tensionmaximale = $("#tensionmaximale");
-var tensionminimale = $("#tensionminimale");
-
-//Au debut on cache le bouton modifier et on affiche le bouton valider
-$("#bouton_constantes_valider").toggle(true);
-$("#bouton_constantes_modifier").toggle(false);
-
-//Au debut on active tous les champs
-hu.attr('readonly', false).css({'background': '#fff'});
-poids.attr('readonly', false).css({'background': '#fff'});
-taille.attr('readonly', false).css({'background': '#fff'});
-paleur.attr('readonly', false).css({'background': '#fff'});
-tension.attr('readonly', false).css({'background': '#fff'});
-//bu.attr('readonly', false).css({'background': '#fff'});
-temperature.attr('readonly', false).css({'background': '#fff'});
-glycemie_capillaire.attr('readonly', false).css({'background': '#fff'});
-pouls.attr('readonly', false).css({'background': '#fff'});
-frequence_respiratoire.attr('readonly', false).css({'background': '#fff'});
-tensionmaximale.attr('readonly', false).css({'background': '#fff'});
-tensionminimale.attr('readonly', false).css({'background': '#fff'});
-
-$("#bouton_constantes_valider").click(function () {
-    if (valid == true) {
-
-        hu.attr('readonly', true).css({'background': '#f8f8f8'});
-        poids.attr('readonly', true).css({'background': '#f8f8f8'});
-        taille.attr('readonly', true).css({'background': '#f8f8f8'});
-        paleur.attr('readonly', true).css({'background': '#f8f8f8'});
-        tension.attr('readonly', true).css({'background': '#f8f8f8'});
-        //bu.attr('readonly', true).css({'background': '#f8f8f8'});
-        temperature.attr('readonly', true).css({'background': '#f8f8f8'});
-        glycemie_capillaire.attr('readonly', true).css({'background': '#f8f8f8'});
-        pouls.attr('readonly', true).css({'background': '#f8f8f8'});
-        frequence_respiratoire.attr('readonly', true).css({'background': '#f8f8f8'});
-        tensionmaximale.attr('readonly', true).css({'background': '#f8f8f8'});
-        tensionminimale.attr('readonly', true).css({'background': '#f8f8f8'});
-
-        $("#bouton_constantes_modifier").toggle(true);  //on affiche le bouton permettant de modifier les champs
-        $("#bouton_constantes_valider").toggle(false); //on cache le bouton permettant de valider les champs
-    }
-    return false;
-});
-
-$("#bouton_constantes_modifier").click(function () {
-    poids.attr('readonly', false).css({'background': '#fff'});
-    taille.attr('readonly', false).css({'background': '#fff'});
-   hu.attr('readonly', false).css({'background': '#fff'});
-    paleur.attr('readonly', false).css({'background': '#fff'});
-    tension.attr('readonly', false).css({'background': '#fff'});
-   // bu.attr('readonly', false).css({'background': '#fff'});
-    temperature.attr('readonly', false).css({'background': '#fff'});
-    glycemie_capillaire.attr('readonly', false).css({'background': '#fff'});
-    pouls.attr('readonly', false).css({'background': '#fff'});
-    frequence_respiratoire.attr('readonly', false).css({'background': '#fff'});
-    tensionmaximale.attr('readonly', false).css({'background': '#fff'});
-    tensionminimale.attr('readonly', false).css({'background': '#fff'});
-
-    $("#bouton_constantes_modifier").toggle(false);   //on cache le bouton permettant de modifier les champs
-    $("#bouton_constantes_valider").toggle(true);    //on affiche le bouton permettant de valider les champs
-    return false;
-});
-
-$('#dateDebAlcoolique input, #dateFinAlcoolique input, #dateDebFumeur input, #dateFinFumeur input, #dateDebDroguer input, #dateFinDroguer input').datepicker(
-    $.datepicker.regional['fr'] = {
-        closeText: 'Fermer',
-        changeYear: true,
-        yearRange: 'c-80:c',
-        prevText: '&#x3c;Préc',
-        nextText: 'Suiv&#x3e;',
-        currentText: 'Courant',
-        monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
-            'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
-        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun',
-            'Jul', 'Aout', 'Sep', 'Oct', 'Nov', 'Dec'],
-        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-        dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-        dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
-        weekHeader: 'Sm',
-        dateFormat: 'dd/mm/yy',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearRange: '1990:2025',
-        showAnim: 'bounce',
-        changeMonth: true,
-        changeYear: true,
-        yearSuffix: ''
-    }
-);
-
-
-$('#date_fin_hospitalisation_prevue').datepicker(
-    $.datepicker.regional['fr'] = {
-        closeText: 'Fermer',
-        changeYear: true,
-        yearRange: 'c-80:c',
-        prevText: '&#x3c;Préc',
-        nextText: 'Suiv&#x3e;',
-        currentText: 'Courant',
-        monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
-            'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
-        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun',
-            'Jul', 'Aout', 'Sep', 'Oct', 'Nov', 'Dec'],
-        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-        dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-        dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
-        weekHeader: 'Sm',
-        dateFormat: 'dd/mm/yy',
-        firstDay: 1,
-        isRTL: false,
-        minDate: 1,
-        showMonthAfterYear: false,
-        yearRange: '1990:2025',
-        showAnim: 'bounce',
-        changeMonth: true,
-        changeYear: true,
-        yearSuffix: '',
-    }
-);
 
 //===================================================================================================================
 //===================================================================================================================
@@ -1903,7 +1822,13 @@ function ajouterToutLabelAntecedentsMedicaux(tableau_) {
     stopPropagation();
 }
 
+//===================================================================================================================
+//===================================================================================================================
+var itab = 1;
+var ligne = 0;
+var tableau = [];
 
+function ajouterToutLabelAntecedentsFamiliaux(tableau_) {}
 //Ajouter des labels au click sur ajouter
 //Ajouter des labels au click sur ajouter
 //Ajouter des labels au click sur ajouter
@@ -1938,7 +1863,7 @@ function ajouterLabelAntecedentsMedicaux(nomLabel) {
     scriptLabel =
         "<td id='BUcheckbox' class='label_" + ligne + "_" + i + "' style='width: 20%; '> " +
         "<div > " +
-        " <label style='width: 90%; height:30px; text-align:right; font-family: time new romans; font-size: 18px;'> " +
+        " <label style='width: 90%; height:30px; text-align:right; font-family:  new romans; font-size: 18px;'> " +
         "    <span style='padding-left: -10px;'> " +
         "       <a href='javascript:supprimerLabelAM(" + ligne + "," + i + ");' ><img class='imageSupprimerAsthmeAM' style='cursor: pointer; float: right; margin-right: -10px; width:10px; height: 10px;' src='" + tabUrl[0] + "public/images_icons/sup.png' /></a> " +
         "       <img class='imageValider_" + ligne + "_" + i + "'  style='cursor: pointer; margin-left: -15px;' src='" + tabUrl[0] + "public/images_icons/tick-icon2.png' /> " +
@@ -1968,6 +1893,16 @@ function ajouterLabelAntecedentsMedicaux(nomLabel) {
     }
 
 }
+
+
+var scriptLabel = "";
+function ajouterLabelAntecedentsFamiliaux(nomLabel) {}
+
+
+
+
+
+
 
 //Ajouter un label --- Ajouter un label
 //Ajouter un label --- Ajouter un label
@@ -2003,7 +1938,11 @@ function supprimerLabelAM(ligne, i) {
     );
 
 }
+function supprimerLabelAF(ligne, i) {
 
+  
+
+}
 //Ajout de l'auto-completion sur le champ autre
 //Ajout de l'auto-completion sur le champ autre
 
@@ -2021,6 +1960,238 @@ function affichageAntecedentsMedicauxDuPatient(nbElement, tableau_) {
     }
     tableau = tableau_;
 }
+
+
+
+
+
+
+$('.ExamenMaterniteDonnee3').toggle(false);
+function getExamenMaterniteDonnee3(val){ 
+	
+	if(val==1){
+		$("#examenMaterniteDonnee3").html("BDC");
+		$('.ExamenMaterniteDonnee3').fadeIn();
+	}else{
+		$("#examenMaterniteDonnee3 span span").html("");
+		$('.ExamenMaterniteDonnee3').fadeOut();
+	}	
+}
+
+getExamenMaterniteDonnee3($('#examen_maternite_donnee3').val());
+
+
+
+
+
+
+$('.ExamenMaterniteDonnee5').toggle(false);
+function getExamenMaterniteDonnee5(val){ 
+	
+	if(val==1){
+		$("#examenMaterniteDonnee5").html("PDE");
+		$('.ExamenMaterniteDonnee5').fadeIn();
+	}else{
+		$("#examenMaterniteDonnee5 span span").html("");
+		$('.ExamenMaterniteDonnee5').fadeOut();
+	}	
+}
+
+getExamenMaterniteDonnee5($('#examen_maternite_donnee5').val());
+
+
+$('.Test').toggle(false);
+function getTest(val){ 
+	
+	if(val==1){
+		$("#test").html("Test emmel");
+		$('.Test').fadeIn();
+		
+	}else{
+		$("#test span span").html("");
+		$('.Test').fadeOut();
+		$('.Profil').fadeOut();
+	}	
+}
+
+getTest($('#test_emmel').val());
+
+
+$('.Profil').toggle(false);
+function getProfil(val){ 
+	
+	if(val=='Autre'){
+		$("#profil").html("Profil");
+		$('.Profil').fadeIn();
+	}else{
+		$("#profil span span").html("");
+		$('.Profil').fadeOut();
+	}	
+}
+
+
+
+//pour quantite
+
+
+//function getQuantite(val){ 
+//	
+//	if(val==1){
+//		
+//		$('.Quantite').fadeIn();
+//	}else{
+//	
+//		$('.Quantite').fadeOut();
+//	}	
+//}
+
+
+
+
+
+$('.Quantite').toggle(false);
+function getQuantite(val){ 
+	
+	if(val==1){
+	
+		$('.Quantite').fadeIn();
+		
+	}else{
+
+		$('.Quantite').fadeOut();
+	}	
+}
+
+getQuantite($('#quantite_regle').val());
+
+
+
+
+
+
+$('.Cycle').toggle(false);
+function getCycle(val){ 
+	
+	if(val==1){
+	
+		$('.Cycle').fadeIn();
+		
+	}else{
+
+		$('.Cycle').fadeOut();
+		$('.Quantite').fadeOut();
+	}	
+}
+
+getCycle($('#regularite').val());
+
+
+
+
+$('.Contraception').toggle(false);
+function getContraception(val){ 
+	
+	if(val==1){
+	
+		$('.Contraception').fadeIn();
+		
+	}else{
+
+		$('.Contraception').fadeOut();
+		
+	}	
+}
+
+getContraception($('#regularite').val());
+
+
+function getMotif(val){ 
+	//alert(val);
+	if(val=='Normal'){
+	
+		$('.MotifAdmission').fadeOut();	
+	}
+		else {
+	
+		$('.MotifAdmission').fadeIn();
+		
+	
+}
+}
+
+
+//pour gynecologie
+
+$('.Typegynecologie').toggle(false);
+function getgynecologie(val){	
+	//alert(val);
+	if((val==0)||(val==1)){
+		$("#typegynecologie").html("gynecologie");
+		$('.Typegynecologie').fadeOut();
+	}else{
+		$("#typegynecologie span span").html("");
+		$('.Typegynecologie').fadeIn();
+		
+	}	
+}
+
+
+
+	
+	
+	function imprimerRapportStatistiquePathologie(){ 
+		var id_sous_dossier = $('#id_sous_dossier').val();
+		//var id_service = $('#id_service_rapport').val();
+		var date_debut = $('#date_debut_rapport').val();
+		var date_fin = $('#date_fin_rapport').val();
+		var id_diagnostic = $('#diagnostic_rapport').val();
+		
+		var lienImpression =  tabUrl[0]+'public/gynecologie/statistiques-pathologie-imprimees';
+		var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
+		imprimerInformationsStatistiques.setAttribute("action", lienImpression);
+		imprimerInformationsStatistiques.setAttribute("method", "POST");
+		imprimerInformationsStatistiques.setAttribute("target", "_blank");
+		
+		// Ajout dynamique de champs dans le formulaire
+		var champ = document.createElement("input");
+		champ.setAttribute("type", "hidden");
+		champ.setAttribute("name", 'date_debut');
+		champ.setAttribute("value", date_debut);
+		imprimerInformationsStatistiques.appendChild(champ);
+		
+		var champ2 = document.createElement("input");
+		champ2.setAttribute("type", "hidden");
+		champ2.setAttribute("name", 'date_fin');
+		champ2.setAttribute("value", date_fin);
+		imprimerInformationsStatistiques.appendChild(champ2);
+		
+		var champ3 = document.createElement("input");
+		champ3.setAttribute("type", "hidden");
+		champ3.setAttribute("name", 'id_diagnostic');
+		champ3.setAttribute("value", id_diagnostic);
+		imprimerInformationsStatistiques.appendChild(champ3);
+		
+		var champ4 = document.createElement("input");
+		champ4.setAttribute("type", "hidden");
+		champ4.setAttribute("name", 'id_sous_dossier');
+		champ4.setAttribute("value", id_sous_dossier);
+		imprimerInformationsStatistiques.appendChild(champ4);
+		
+		
+		
+
+		$("#imprimerRapportInformationsStatistiques button").trigger('click');
+		
+	}
+	
+	
+
+
+//getgynecologie($('#type_gynecologie').val());
+function fAddText() { 
+    document.getElementById('Cible').innerHTML ='<textarea cols="30" rows="20"></textarea>'; 
+} 
+
 
 //===================================================================================================================
 //===================================================================================================================

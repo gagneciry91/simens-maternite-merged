@@ -40,7 +40,7 @@ class RvPatientConsTable {
 	public function updateRendezVous($infos_rv) {
 		$this->tableGateway->delete ( array (
 				'ID_CONS' => $infos_rv ['ID_CONS'] 
-		) );//var_dump('test');exit();
+		) );//var_dump($infos_rv);exit();
 		
 		if ($infos_rv ['DATE'] && $infos_rv ['HEURE']) {
 			$this->tableGateway->insert ( $infos_rv );

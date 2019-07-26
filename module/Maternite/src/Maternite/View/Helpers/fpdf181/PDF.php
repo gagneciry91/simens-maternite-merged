@@ -1,7 +1,7 @@
 <?php
-namespace Facturation\View\Helper\fpdf181;
+namespace Maternite\View\Helpers\fpdf181;
 
-use Facturation\View\Helper\fpdf181\fpdf;
+use Maternite\View\Helpers\fpdf181\fpdf;
 
 class PDF extends fpdf
 {

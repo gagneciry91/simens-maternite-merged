@@ -439,8 +439,29 @@ class ConsultationTable {
 		return $result;
 	}
 	
-	
-	public function listeDesPrenatale($idService){
+public function getInfosSousDossier(){
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->columns( array( '*' ));
+		$select->from( array('a' => 'admission'));
+		$select->join( array('s' => 'sous_dossier'), 'a.sous_dossier = s.sous_dossier' , array('*'));
+		$stat = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stat->execute ();
+		
+		$donnees = array();
+		$tabTypePathologie = array();
+		foreach ($result as $resultat){
+			
+			$donnees[] = $resultat['type_dossier'];
+			
+			if(!in_array( $resultat['type_dossier'], $tabTypePathologie)){
+				$tabTypePathologie[] =  $resultat['type_dossier'];
+			}
+		}
+		return array($tabTypePathologie, array_count_values($donnees));
+		}
+			public function listeDesPrenatale($idService){
 	
 		$today = new \DateTime ();
 		$date = $today->format ( 'Y-m-d' );

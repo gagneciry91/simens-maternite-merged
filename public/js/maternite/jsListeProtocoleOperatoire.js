@@ -54,75 +54,84 @@
     
     /**********************************************************************************/
     
-    
+    var check_list_securite = "";
     var anesthesiste = "";
 	var indication = "";
 	var type_anesthesie = "";
 	var protocole_operatoire = "";
 	var soins_post_operatoire = "";
+	var aides_operateurs = "";
+	var complications = "";
+	var note_audio_cro = "";
 	
+	
+	var check_list_securite2 = "";
     var anesthesiste2 = "";
 	var indication2 = "";
 	var type_anesthesie2 = "";
 	var protocole_operatoire2 = "";
 	var soins_post_operatoire2 = "";
+	var aides_operateurs2 = "";
+	var complications2 = "";
+	var note_audio_cro2 = "";
+	
 	
 	function valeursChamps(){
+		check_list_securite2 = $('#check_list_securite').val();
 		anesthesiste2 = $('#anesthesiste').val();
 		indication2 = $('#indication').val();
 		type_anesthesie2 = $('#type_anesthesie').val();
 		protocole_operatoire2 = $('#protocole_operatoire').val();
 		soins_post_operatoire2 = $('#soins_post_operatoire').val();
+		aides_operateurs2 = $('#aides_operateurs').val();
+		complications2 = $('#complications').val();
+		note_audio_cro2 = $('#note_audio_cro').val();
 	}
     
     function affichervue(idPatient, idAdmission){
-
     	$("#pika2").html('<table> <tr> <td style="margin-top: 20px;"> Chargement </td> </tr>  <tr> <td align="center"> <img style="margin-top: 20px; width: 50px; height: 50px;" src="../images/loading/Chargement_1.gif" /> </td> </tr> </table>');
     	$("#AjoutImage").toggle(false);
-    	
-        var chemin = tabUrl[0]+'public/maternite/vue-patient-opere-bloc';
+    	$("#AfficherLecteur").html('<table style="width: 100%;"> <tr style="width: 100%;"> <td style="margin-top: 20px;" align="center"> Chargement </td> </tr>  <tr> <td align="center"> <img style="margin-top: 20px; width: 50px; height: 50px;" src="../images/loading/Chargement_1.gif" /> </td> </tr> </table>');
+        var chemin = tabUrl[0]+'public/orl/vue-patient-opere-bloc';
         $.ajax({
             type: 'POST',
             url: chemin ,
-            data: $(this).serialize(),  
+            //data: $(this).serialize(),  
             data:{'idPatient':idPatient, 'idAdmission':idAdmission},
             success: function(data) {
-       	    
             	     $("#titre").replaceWith("<div id='titre2' style='font-family: police2; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> COMPTE RENDU OP&Eacute;RATOIRE </div>");
             	     var result = jQuery.parseJSON(data);
         	    	 $("#vue_patient").html(result);
             	     $("#contenu").fadeOut(function(){
+            	    	 $("#VisitePreAnesthesiqueTabs a").trigger("click");
             	    	 $("#informationAdmissionBloc").fadeIn(function(){
-            	    		 getimagesExamensMorphologiques(idAdmission);
+            	    		 getimagesExamensMorphologiques(idAdmission); //Appel des images
+            	    		 AppelLecteurMp3(idAdmission); //Appel des audios
             	    	 }); 
-            	    	 
             	    	 $(".boutonTerminer button").click(function(){
             	    		 valeursChamps();
             	    		 if(
+          	    				check_list_securite != check_list_securite2 ||
             	    			anesthesiste != anesthesiste2 || indication != indication2 || type_anesthesie != type_anesthesie2 ||
-            	    			protocole_operatoire != protocole_operatoire2 || soins_post_operatoire != soins_post_operatoire2	 
+            	    			protocole_operatoire != protocole_operatoire2 || soins_post_operatoire != soins_post_operatoire2 ||	
+            	    			aides_operateurs != aides_operateurs2 || complications != complications2 || note_audio_cro != note_audio_cro2
             	    		 ){
-            	    			 
             	    			 $('#enregistrerProtocoleOperatoire').trigger('click');
-            	    			 
             	    		 }else {
-            	    			 
             	    			 $("#titre2").replaceWith("<div id='titre' style='font-family: police2; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> LISTE DES PATIENTS </div>");
                 	    		 $("#informationAdmissionBloc").fadeOut(function(){$("#contenu").fadeIn("fast"); });
                 	    		 return false;
             	    		 }
-            	    		 
             	    	 });
             	    	 
             	     }); 
-            	     
             },
-            error:function(e){console.log(e);alert("Une erreur interne est survenue!");},
+            error:function(e){console.log(e);//alert("Une erreur interne est survenue!");
+            },
             dataType: "html"
         });
 	    //return false;
     }
-    
     /**********************************************************************************/
     function initialisation(){
     	$( "#tabs" ).tabs();
@@ -150,7 +159,7 @@
     							}
     					   },
 
-    					"sAjaxSource": tabUrl[0]+"public/maternite/liste-patients-operes-bloc-ajax",
+    					"sAjaxSource": tabUrl[0]+"public/orl/liste-patients-operes-bloc-ajax",
     					"fnDrawCallback": function() 
     					{
     						//markLine();
@@ -202,17 +211,23 @@
     
     
     function desactiverChampsInit(){
+    	
     	$('#anesthesiste').attr('readonly', true).css({'background' : '#f8f8f8'});
     	$('#indication').attr('readonly', true).css({'background' : '#f8f8f8'});
     	$('#type_anesthesie').attr('readonly', true).css({'background' : '#f8f8f8'});
     	$('#protocole_operatoire').attr('readonly', true).css({'background' : '#f8f8f8'});
     	$('#soins_post_operatoire').attr('readonly', true).css({'background' : '#f8f8f8'});
     	
+    	
+    	check_list_securite = $('#check_list_securite').val();
     	anesthesiste = $('#anesthesiste').val();
     	indication = $('#indication').val();
     	type_anesthesie = $('#type_anesthesie').val();
     	protocole_operatoire = $('#protocole_operatoire').val();
     	soins_post_operatoire = $('#soins_post_operatoire').val();
+    	aides_operateurs = $('#aides_operateurs').val();
+		complications = $('#complications').val();
+		note_audio_cro = $('#note_audio_cro').val();
     }
     
     function desactiverChamps(){
@@ -231,12 +246,12 @@
     	$('#soins_post_operatoire').attr('readonly', false).css({'background' : '#ffffff'});
     }
     
-    var i = 0;
-    function modifierDonnees(){
-    	if(i == 0){
-    		activerChamps(); i = 1;
+    var indiceModificationDonnees = 0;
+    function modifierDonnees(){ 
+    	if(indiceModificationDonnees == 0){
+    		activerChamps(); indiceModificationDonnees = 1;
     	}else{
-    		desactiverChamps(); i = 0;
+    		desactiverChamps(); indiceModificationDonnees = 0;
     	}
     }
     
@@ -253,11 +268,15 @@
     	var protocole_operatoire = $('#protocole_operatoire').val();
     	var soins_post_operatoire = $('#soins_post_operatoire').val();
     	
+    	var check_list_securite = $('#check_list_securite').val();
+    	var note_audio_cro = $('#note_audio_cro').val();
+    	var aides_operateurs = $('#aides_operateurs').val();
+    	var complications = $('#complications').val();
     	
     	
-    	//alert(id_patient); return false;
     	
-    	var vart =  tabUrl[0]+'public/maternite/imprimer-protocole-operatoire';
+    	
+    	var vart =  tabUrl[0]+'public/consultation/imprimer-protocole-operatoire';
 		var FormulaireImprimerProtocoleOperatoire = document.getElementById("FormulaireImprimerProtocoleOperatoire");
 		FormulaireImprimerProtocoleOperatoire.setAttribute("action", vart);
 		FormulaireImprimerProtocoleOperatoire.setAttribute("method", "POST");
@@ -307,6 +326,30 @@
 		champ6.setAttribute("name", 'soins_post_operatoire');
 		champ6.setAttribute("value", soins_post_operatoire);
 		FormulaireImprimerProtocoleOperatoire.appendChild(champ6);
+		
+		var champ7 = document.createElement("input");
+		champ7.setAttribute("type", "hidden");
+		champ7.setAttribute("name", 'check_list_securite');
+		champ7.setAttribute("value", check_list_securite);
+		FormulaireImprimerProtocoleOperatoire.appendChild(champ7);
+		
+		var champ8 = document.createElement("input");
+		champ8.setAttribute("type", "hidden");
+		champ8.setAttribute("name", 'note_audio_cro');
+		champ8.setAttribute("value", note_audio_cro);
+		FormulaireImprimerProtocoleOperatoire.appendChild(champ8);
+		
+		var champ9 = document.createElement("input");
+		champ9.setAttribute("type", "hidden");
+		champ9.setAttribute("name", 'aides_operateurs');
+		champ9.setAttribute("value", aides_operateurs);
+		FormulaireImprimerProtocoleOperatoire.appendChild(champ9);
+		
+		var champ10 = document.createElement("input");
+		champ10.setAttribute("type", "hidden");
+		champ10.setAttribute("name", 'complications');
+		champ10.setAttribute("value", complications);
+		FormulaireImprimerProtocoleOperatoire.appendChild(champ10);
 		
 		
 		$("#ImprimerProtocoleOperatoire").trigger('click');

@@ -214,7 +214,9 @@ class AdmissionController extends AbstractActionController {
 	
 	}
 	
-	public function enregistrerAdmissionAction() {
+	
+	
+   public function enregistrerAdmissionAction() {
 	
 		$user = $this->layout()->user;
 		$id_employe = $user['id_personne'];
@@ -225,47 +227,49 @@ class AdmissionController extends AbstractActionController {
 		$today = new \DateTime ( "now" );
 		$date_cons = $today->format ( 'Y-m-d' );
 		$date_enregistrement = $today->format ( 'Y-m-d H:i:s' );
-	
+		
 		$id_patient = ( int ) $this->params ()->fromPost ( 'id_patient', 0 );
-	
-	
-	
+
+		
+
+		//pour  evacuation reference
+		
 		//donnee pour admission
-		$donnees = array (
-	
+			$donnees = array (
+		
 				'id_patient' => $id_patient,
 				'sous_dossier'=>$this->params ()->fromPost('sous_dossier'),
-				'type_admission'=>$this->params ()->fromPost('type_admission'),
-				'motif_admission'=>$this->params ()->fromPost('motif_admission'),
-				'motif_transfert_evacuation'=>$this->params ()->fromPost('motif_transfert_evacuation'),
-				'service_dorigine'=>$this->params ()->fromPost('service_dorigine'),
-				'moyen_transport'=>$this->params ()->fromPost('moyen_transport'),
+					'type_admission'=>$this->params ()->fromPost('type_admission'),
+					'motif_admission'=>$this->params ()->fromPost('motif_admission'),
+					'motif_transfert_evacuation'=>$this->params ()->fromPost('motif_transfert_evacuation'),
+					'service_dorigine'=>$this->params ()->fromPost('service_dorigine'),
+					'moyen_transport'=>$this->params ()->fromPost('moyen_transport'),
 				'id_service' => $idService,
 				'date_cons' => $date_cons,
 				'date_enregistrement' => $date_enregistrement,
 				'id_employe' => $id_employe,
 		);
-		$form = new ConsultationForm ();
-		//$this->getAdmissionTable ()-> addConsultation ( $form,$idService ,12);
-	
+			$form = new ConsultationForm ();		//var_dump($form);exit();
+			
+			$this->getAdmissionTable ()-> addConsultation ( $form,$idService ,12);
+			//var_dump($form);exit();
 		$id_admission=	$this->getAdmissionTable ()->addAdmissio($donnees);
-	
-		//var_dump($form);exit();
-	
+		
+		
 		$formData = $this->getRequest ()->getPost ();
 		$form->setData ( $formData );
-			
+	  
 		$this->getAdmissionTable ()-> addConsultation ( $form,$idService ,$id_admission);
-		//var_dump($this);exit();
+	
 		$id_cons = $form->get ( "id_cons" )->getValue ();
-	
+		
 		$this->getAdmissionTable ()->addConsultationMaternite($id_cons);
-		//var_dump($id_cons);exit();
-		return $this->redirect()->toRoute('admission', array(
-				'action' =>'admission'));
-	
+		
+ 		return $this->redirect()->toRoute('admission', array(
+ 				'action' =>'admission'));
+
 	}
-	
+		
 	public function enregistrementAction() {
 	
 		$user = $this->layout()->user;
@@ -477,10 +481,10 @@ class AdmissionController extends AbstractActionController {
 		);
 	} */
 	public function infoPatientAction() {
-		
+		//var_dump('test');exit();
 		$this->layout ()->setTemplate ( 'layout/admission' );
 		$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
-		var_dump('test');exit();
+		//var_dump('test');exit();
 		$patient = $this->getPatientTable ();
 		$unPatient = $patient->getInfoPatient( $id_pat );
 	

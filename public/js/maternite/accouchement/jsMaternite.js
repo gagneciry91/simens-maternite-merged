@@ -35,6 +35,37 @@ $(function() {
 	   }
 	  });
     }
+    //Impression statistique
+
+    function imprimerRapportStatistiqueGeneral(){ 
+    	
+    	var date_debut = $('#date_debut_rapport').val();
+    	var date_fin = $('#date_fin_rapport').val();
+    	alert(date_debut);
+    	var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-general-imprimees';
+    	var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
+    	imprimerInformationsStatistiques.setAttribute("action", lienImpression);
+    	imprimerInformationsStatistiques.setAttribute("method", "POST");
+    	imprimerInformationsStatistiques.setAttribute("target", "_blank");
+    	
+    	// Ajout dynamique de champs dans le formulaire
+    	var champ = document.createElement("input");
+    	champ.setAttribute("type", "hidden");
+    	champ.setAttribute("name", 'date_debut');
+    	champ.setAttribute("value", date_debut);
+    	imprimerInformationsStatistiques.appendChild(champ);
+    	
+    	var champ2 = document.createElement("input");
+    	champ2.setAttribute("type", "hidden");
+    	champ2.setAttribute("name", 'date_fin');
+    	champ2.setAttribute("value", date_fin);
+    	imprimerInformationsStatistiques.appendChild(champ2);
+    	
+    	
+
+    	$("#imprimerRapportInformationsStatistiques button").trigger('click');
+    	
+    }
     //FONCTION QUI RECUPERE LA PHOTO ET LA PLACE SUR L'EMPLACEMENT SOUHAITE
     function Recupererimage(){
     	$('#photo input[type="file"]').change(function() {

@@ -100,7 +100,20 @@ class AntecedentType1Table {
     			'note_regime'=>$donnees['note_regime'],
     			'nouvelleMotifs'=>$donnees['nouvelleMotifs'],
     			'amenere'=>$donnees['amenere'],
+    			'kystectomie'=>$donnees['kystectomie'],
+    			'myomectomie'=>$donnees['myomectomie'],
+    			'kysteovarienne'=>$donnees['kysteovarienne'],
+    			'hysterectomie'=>$donnees['hysterectomie'],
+    			'autrescons'=>$donnees['autrescons'],
     			 
+    			'note_kystectomie'=>$donnees['note_kystectomie'],
+    			'note_myomectomie'=>$donnees['note_myomectomie'],
+    			'note_hysterectomie'=>$donnees['note_hysterectomie'],
+    			'note_kysteovarienne'=>$donnees['note_kysteovarienne'],
+    			'note_autrescons'=>$donnees['note_autrescons'],
+    			
+    			
+    			
     			 
     			
     	

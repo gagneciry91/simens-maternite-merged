@@ -2,7 +2,7 @@
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
 $('#plus_gynecologie').toggle(true);
 $("#gynecologie").replaceWith("<li id='deces' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='<?php echo $this->basePath().'/images_icons/moin-green2.PNG';?>' alt='Liste' /> Gynecologie </span></a></li>");
-dep_deces1();
+dep_gynecologie1();
 $('#declarer_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
 </script>
 <?php use Maternite\View\Helpers\DateHelper; ?>
@@ -17,21 +17,28 @@ echo  $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/
 ?>
 
 <!-- les scripts des images dans examen morphologique   -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.js');?>
+
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.css');?>
 <?php
 echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/gynecologie/complementcons_accordeon_controle.js');
 //echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/accouchement/complementcons_accordeon_controle.js');
 
 echo $this->headLink()->appendStylesheet($this->basePath().'/css/mescss/bloquerDate.css');
+
+
  //DatePicker
 //echo $this->headScript()->appendFile($this->basePath() . '/js/maternite/accouchement/jsMaternite.js'); 
 echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/gynecologie/accordeon_controle_validation.js');
 echo $this->headScript ()->appendFile ( $this->basePath () . '/js/maternite/jsMaternite.js' );
+echo $this->headScript ()->appendFile ( $this->basePath () . '/js/maternite/jsListeProtocoleOperatoire.js' );
+
 
 echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/bloquerDate.js'); //Pour bloquer certaines dates?>
 <?php echo $this->headScript()->appendFile($this->basePath() . '/js/jquery/chung-timepicker.js'); 
 echo $this->headScript()->appendFile($this->basePath() . '/js/jquery/jquery.timepicker.js');
 echo $this->headLink()->appendStylesheet($this->basePath().'/js/jquery/jquery.timepicker.css');
-echo $this->headLink()->appendStylesheet($this->basePath().'/css/chung-timepicker.css');?>
+//echo $this->headLink()->appendStylesheet($this->basePath().'/css/chung-timepicker.css');?>
 <?php echo $this->headScript()->appendFile($this->basePath() . '/js/maternite/accouchement/ajouterMedicaments.js'); ?>
 <?php
 
@@ -586,7 +593,7 @@ echo $this->form ()->openTag ( $form );
 			       <label style="width: 90%; height: 30px; text-align: left;"> <?php echo $this->formRow($form->get('hysterectomie'));?></label>
 		       </div>
 			   <div style="float: right; width: 60%; " id="rh">
-				   <label class="" style="width: 95%; height: 30px; text-align: right;">Note&nbsp;&nbsp; <?php echo $this->formRow($form->get('note_kysteovarienne'));?> </label>
+				   <label class="" style="width: 95%; height: 30px; text-align: right;">Note&nbsp;&nbsp; <?php echo $this->formRow($form->get('note_hysterectomie'));?> </label>
 			   </div>
 								
 		    </td>
@@ -1135,7 +1142,7 @@ echo $this->form ()->openTag ( $form );
     
 
           	<div style='font-family: police2;font-size: 17px; font-weight: bold;'> Clinique </div>
-           <div style="max-height: 100px;">
+           <div style="max-height: 200px;">
 
               
                
@@ -1210,7 +1217,7 @@ echo $this->form ()->openTag ( $form );
                    </tr>
                     <tr>
                     
-					 	<td class="antecedent_go" style="width:30%;">
+					 	<td class="antecedent_go" style="width:25%;">
 								<div style="float: left;width: 33%;">
 									<label style="width: 90%; height: 30px; text-align: left;"title="Mollets">Mollets</label>
 									</div>
@@ -1219,7 +1226,7 @@ echo $this->form ()->openTag ( $form );
 								</div>	
 		      				
 					</td>
-						 	<td class="antecedent_go" style="width:30%;">
+						 	<td class="antecedent_go" style="width:25%;">
 								<div style="float: left;width: 33%;">
 									<label style="width: 90%; height: 30px; text-align: left;"title="Abdomen">Abdomen</label>
 									</div>
@@ -1473,64 +1480,20 @@ echo $this->form ()->openTag ( $form );
 		                
   <!-- ************** Traitement Chirurgical **************** -->
             <!-- **2** -->
-            <div class="hosprend" style='font-family: police2;font-size: 17px; font-weight: bold;'> Traitement Chirurgical</div>
-            <div  style="max-height: 450px;">
+            <div id='constantesClick' style='font-family: police2;font-size: 17px; font-weight: bold;'> Traitement Chirurgical</div>
+          				<div style="max-height: 400px;">
+			<div id="tabsAntecedents">
+			
+				<ul>
+					<li><a href="#tabss-1">Ant&eacute;c&eacute;dents personnels</a></li>
+					<li><a href="#tabss-3">Ant&eacute;c&eacute;dents familiaux</a></li>
+					
+				</ul>
 
-                <div id="tabs" >
-                    <ul>
-                        <li><a href="#tabs-1">Demande de visite pr&eacute;-anesth&eacute;sique</a></li>
-                        <li id='CompteRenduTabs'><a href="#tabs-2">Compte rendu op&eacute;ratoire</a></li>
-                    </ul>
-
-                    <div id="tabs-1">
-                        
-                        <!-- LE PDF POUR IMPRESSION-->
-                        <div class="rendezvous">
-                            <hass><input type="submit" alt="Constantes" title="Imprimer" name="traitement_chirurgical" id="chirurgical1"></hass>
-                        </div>
-  <div style=" padding-bottom:40px; margin-bottom: 10px; border-bottom: 1px dashed black; margin-left: 0px; margin-right: 0px;"></div>
-                       
-                        
-
-                        <table id="" style="width: 100%;">
-                            <tr class="observation" style="width: 100%;">
-                                <td><?php echo $this->formRow($form->get('traitement_chirur'));?> </td>
-                            </tr>
-                 
-                        </table>
-
-                    </div>
-
-                    <div id="tabs-2" style="min-height: 100px;">
-                        <table id="transfert" style="width: 100%; ">
-                            <tr style="width:100%;">
-                                <td style="width: 55%; vertical-align:top;">
-                                    <div id="AfficherLecteur" style='margin-right: 40px; vertical-align:top;'>
-                                        <!-- ****** EMPLACEMENT DU LECTEUR AUDIO (MP3)********* -->
-                                    </div>
-                                </td>
-                                <td class="form-transfert" style="width: 45%; vertical-align:top;">
-
-                                </td>
-                        
-                            </tr>
-                        </table>
-                        <div class="rendezvous">
-                            <hass><input type="submit" alt="Constantes" title="Imprimer" name="protocole_operatoire" id="chirurgical1"></hass>
-                        </div>
-                          <div style=" padding-bottom:40px; margin-bottom: 10px; border-bottom: 1px dashed black; margin-left: 0px; margin-right: 0px;"></div>
-                         <table id="" style="width: 100%;">
-                            <tr class="observation" style="width: 100%;">
-                                <td><?php echo $this->formRow($form->get('note_compte_rendu_operatoire'));?> </td>
-                            </tr>
-                 
-                        </table>
-                    </div>
-
-                </div>
-
-              
-            </div>
+				
+			</div>
+				
+		</div>
 		
   <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Rendez-vous</div>
             <div>
@@ -1550,7 +1513,7 @@ echo $this->form ()->openTag ( $form );
 
                         <th class="form-rendezvous2" style="width: 27%;"> <?php echo $this->formRow($form->get('date_rv')); ?> </th>
                         <th class="form-rendezvous2" style="width: 17%;"> <?php echo $this->formRow($form->get('heure_rv'));?> </th>
-                        <th style="width: 10%;"><th>
+                        <th style="width: 10%;"></th>
                         <th>
                             <input type="hidden" id="date_rv_tampon" name="date_rv_tampon">
                             <input type="hidden" id="heure_rv_tampon" name="heure_rv_tampon">

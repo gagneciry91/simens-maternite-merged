@@ -1,9 +1,12 @@
 <?php
+
 namespace Maternite\View\Helpers;
+
+use ZendPdf;
 
 use Maternite\View\Helpers\fpdf181\fpdf;
 
-class GeneralPdf extends fpdf
+class infosStatistiqueDecesPdf extends fpdf
 {
 
 	function Footer()
@@ -109,200 +112,101 @@ class GeneralPdf extends fpdf
 		$this->SetTextColor(0);
 	}
 	
-
-	protected $tabinfo ;
-	protected $nomService;
+	
+	
+	
+	
+	
+	
+	
+	protected $tabInformations ;
+	//protected $nomService;
 	protected $infosComp;
-	protected $periodeDiagnostic;
-	protected $nbPatientAccou;
-	protected $nbPatientAccCes;
-	protected $nbPatientAccN;
-	protected $nbPatientAccM;
-	protected $nbPatientAccF;
-	protected $nbPatientAccV;
-	protected $nbcri;
-	protected $nbinf;
-	protected $enfviant;
-	protected $nbGatPa;
-	protected $decede;
-	protected $reanimer;
+	protected $periode;
+	protected $indirect;
+	protected $direct;
+	protected $inf;
+	protected $hyper;
+	protected $post;
+	protected $ant;
+	protected $indeterminer;
+	protected $dystocie;
 	
-	public function setTabInformations($tabinfo)
+ 
+  	
+	public function setNombrepost($post)
 	{
-		$this->tabinfo = $tabinfo;
+		$this->post = $post;
+	}
+	public function setNombreant($ant)
+	{
+		$this->ant = $ant;
+	}
+	public function setNombredystociee($dystocie)
+	{
+		$this->dystocie = $dystocie;
+	}
+	public function setNombrehyper($hyper)
+	{
+		$this->hyper = $hyper;
+	}
+	public function setNombreinf($inf)
+	{
+		$this->inf = $inf;
+	}
+	public function setNombreindirect($indirect)
+	{
+		$this->indirect = $indirect;
+	}
+	public function setNombredirect($direct)
+	{
+		$this->direct = $direct;
+	}
+	public function setNombreindeterminer($indeterminer)
+	{
+		$this->indeterminer = $indeterminer;
 	}
 	
-	/**
-	 * @return the $enfviant
-	 */
-	public function getEnfviant() {
-		return $this->enfviant;
+	public function setTabInformations($tabInformations)
+	{
+		$this->tabInformations = $tabInformations;
 	}
-
-	/**
-	 * @return the $nbGatPa
-	 */
-	public function getNbGatPa() {
-		return $this->nbGatPa;
+	public function getNombreant()
+	{
+		return $this->ant;
 	}
-
-	/**
-	 * @return the $decede
-	 */
-	public function getDecede() {
-		return $this->decede;
+	public function getNombrepost()
+	{
+		return $this->post;
 	}
-
-	/**
-	 * @return the $reanimer
-	 */
-	public function getReanimer() {
-		return $this->reanimer;
+	public function getNombredysto()
+	{
+		return $this->dystocie;
 	}
-
-	/**
-	 * @param field_type $enfviant
-	 */
-	public function setEnfviant($enfviant) {
-		$this->enfviant = $enfviant;
+	public function getNombrehyper()
+	{
+		return $this->hyper;
 	}
-
-	/**
-	 * @param field_type $nbGatPa
-	 */
-	public function setNbGatPa($nbGatPa) {
-		$this->nbGatPa = $nbGatPa;
+	public function getNombreinf()
+	{
+		return $this->inf;
 	}
-
-	/**
-	 * @param field_type $decede
-	 */
-	public function setDecede($decede) {
-		$this->decede = $decede;
+	public function getNombredirect()
+	{
+		return $this->direct;
 	}
-
-	/**
-	 * @param field_type $reanimer
-	 */
-	public function setReanimer($reanimer) {
-		$this->reanimer = $reanimer;
+	public function getNombreindirect()
+	{
+		return $this->indirect;
 	}
-
-	/**
-	 * @return the $nbPatientAccF
-	 */
-	public function getNbPatientAccF() {
-		return $this->nbPatientAccF;
+	public function Nombreindeterminer()
+	{
+		return $this->indeterminer;
 	}
-
-	/**
-	 * @return the $nbPatientAccV
-	 */
-	public function getNbPatientAccV() {
-		return $this->nbPatientAccV;
-	}
-
-	/**
-	 * @return the $nbcri
-	 */
-	public function getNbcri() {
-		return $this->nbcri;
-	}
-
-	/**
-	 * @return the $nbinf
-	 */
-	public function getNbinf() {
-		return $this->nbinf;
-	}
-
-	/**
-	 * @param field_type $nbPatientAccF
-	 */
-	public function setNbPatientAccF($nbPatientAccF) {
-		$this->nbPatientAccF = $nbPatientAccF;
-	}
-
-	/**
-	 * @param field_type $nbPatientAccV
-	 */
-	public function setNbPatientAccV($nbPatientAccV) {
-		$this->nbPatientAccV = $nbPatientAccV;
-	}
-
-	/**
-	 * @param field_type $nbcri
-	 */
-	public function setNbcri($nbcri) {
-		$this->nbcri = $nbcri;
-	}
-
-	/**
-	 * @param field_type $nbinf
-	 */
-	public function setNbinf($nbinf) {
-		$this->nbinf = $nbinf;
-	}
-
-	/**
-	 * @return the $nbPatientAccou
-	 */
-	public function getNbPatientAccou() {
-		return $this->nbPatientAccou;
-	}
-
-	/**
-	 * @return the $nbPatientAccCes
-	 */
-	public function getNbPatientAccCes() {
-		return $this->nbPatientAccCes;
-	}
-
-	/**
-	 * @return the $nbPatientAccN
-	 */
-	public function getNbPatientAccN() {
-		return $this->nbPatientAccN;
-	}
-
-	/**
-	 * @return the $nbPatientAccM
-	 */
-	public function getNbPatientAccM() {
-		return $this->nbPatientAccM;
-	}
-
-	/**
-	 * @param field_type $nbPatientAccou
-	 */
-	public function setNbPatientAccou($nbPatientAccou) {
-		$this->nbPatientAccou = $nbPatientAccou;
-	}
-
-	/**
-	 * @param field_type $nbPatientAccCes
-	 */
-	public function setNbPatientAccCes($nbPatientAccCes) {
-		$this->nbPatientAccCes = $nbPatientAccCes;
-	}
-
-	/**
-	 * @param field_type $nbPatientAccN
-	 */
-	public function setNbPatientAccN($nbPatientAccN) {
-		$this->nbPatientAccN = $nbPatientAccN;
-	}
-
-	/**
-	 * @param field_type $nbPatientAccM
-	 */
-	public function setNbPatientAccM($nbPatientAccM) {
-		$this->nbPatientAccM = $nbPatientAccM;
-	}
-
+	
 	public function getTabInformations()
 	{
-		return $this->tabinfo;
+		return $this->tabInformations;
 	}
 	
 	public function getNomService()
@@ -317,12 +221,12 @@ class GeneralPdf extends fpdf
 	
 	public function getPeriodeDiagnostic()
 	{
-		return $this->periodeDiagnostic;
+		return $this->periode;
 	}
 	
-	public function setPeriodeDiagnostic($periodeDiagnostic)
+	public function setPeriode($periode)
 	{
-		$this->periodeDiagnostic = $periodeDiagnostic;
+		$this->periode = $periode;
 	}
 
 	public function getInfosComp()
@@ -371,7 +275,8 @@ class GeneralPdf extends fpdf
 	}
 	
 	function CorpsDocument(){
-
+		
+		
 		if($this->getPeriodeDiagnostic()){
 			$dateConvert = new DateHelper();
 			$date_debut = $dateConvert->convertDate($this->getPeriodeDiagnostic()[0]);
@@ -407,21 +312,23 @@ class GeneralPdf extends fpdf
 		
 		
 		
-
-		$tabInformations = $this->getTabInformations(); 
-		$nbacc=$this->getNbPatientAccou();
-		$nbv =$this->getNbPatientAccV();
-		$bnF=$this->getNbPatientAccF();
-		$nbM=$this->getNbPatientAccM();
-		$nbN=$this->getNbPatientAccN();
-		$nbc=$this->getNbPatientAccCes();
-		$nbcri=$this->getNbcri();
-		$nbinf=$this->getNbinf();
-		$nbviv=$this->getEnfviant();
-		$rea=$this->getReanimer();
-		$dece=$this->getDecede();
+		$tabInformations = $this->getTabInformations();
 		
-	if($nbacc||$nbv||$bnF||$nbM||$nbN||$nbc||$nbcri||$nbinf||$nbviv||$rea||$dece){
+	
+		$nombreant = $this->getNombreant();
+		$nombrepost = $this->getNombrepost();
+		$inf=$this->getNombreinf();
+		$hyper=$this->getNombrehyper();
+		$dysto=$this->getNombredysto();
+		$direct=$this->getNombredirect();
+		$indirect=$this->getNombreindirect();
+		$indeterminer=$this->getNombreindirect();
+	
+		if($nombreant||$nombrepost||$inf||$hyper||$dysto||$direct||$indirect||$indeterminer){
+	
+			//for($i=0 ; $i < count($tabInformations) ; $i++){
+	
+				//if($i%2==0){
 						
 					$this->Ln(5.4);
 					$this->SetFillColor(220,220,220);
@@ -438,8 +345,8 @@ class GeneralPdf extends fpdf
 	
 					$this->SetFont('times','',12.5);
 					
-					$this->Cell(78,7,"Accouchement Normal",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nbN),'BT',0,'L',1);
+					$this->Cell(78,7,"Hémorragie Post-Placentaire",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nombrepost),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 						
 					$this->Ln(2);
@@ -462,51 +369,12 @@ class GeneralPdf extends fpdf
 					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 	
 					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Accouchement Ventouse",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nbv ),'BT',0,'L',1);
+					$this->Cell(78,7,"Hemorragie Ante-Partum",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nombreant ),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-				
-				
-				//$this->Ln(1);
-					
-					
+					$this->Ln(6);
 					$this->SetFillColor(249,249,249);
 					$this->SetDrawColor(220,220,220);
-					$this->Ln(2.1);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					$this->Ln(5.4);
-					$this->SetFillColor(220,220,220);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					
-					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
-					
-					$this->SetFont('times','',12.5);
-						
-					$this->Cell(78,7,"Accouchement Manoeuvre",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nbM),'BT',0,'L',1);
-					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					
-					$this->Ln(2);
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-					
-					//}else {
-					
 					$this->Ln(5.4);
 					$this->SetFillColor(240,240,240);
 					$this->SetDrawColor(205,193,197);
@@ -521,8 +389,45 @@ class GeneralPdf extends fpdf
 					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 					
 					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Accouchement Forcep",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$bnF ),'BT',0,'L',1);
+					$this->Cell(78,7,"Dystocie",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $dysto),'BT',0,'L',1);
+					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+					$this->Ln(6);
+					$this->SetFillColor(249,249,249);
+					$this->SetDrawColor(220,220,220);
+					$this->Ln(5.4);
+					$this->SetFillColor(240,240,240);
+					$this->SetDrawColor(205,193,197);
+					$this->SetTextColor(0,0,0);
+					//$this->AddFont('zap','','zapfdingbats.php');
+					//$this->SetFont('zap','',13);
+					
+					$this->AddFont('timesb','','timesb.php');
+					$this->AddFont('timesi','','timesi.php');
+					$this->AddFont('times','','times.php');
+					
+					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+					$this->SetFont('times','',12.5);
+					$this->Cell(78,7,"Hypertension",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $hyper),'BT',0,'L',1);
+					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+					$this->Ln(6);
+					$this->SetFillColor(249,249,249);
+					$this->SetDrawColor(220,220,220);
+					$this->Ln(5.4);
+					$this->SetFillColor(240,240,240);
+					$this->SetDrawColor(205,193,197);
+					$this->SetTextColor(0,0,0);
+					//$this->AddFont('zap','','zapfdingbats.php');
+					//$this->SetFont('zap','',13);
+					
+					$this->AddFont('timesb','','timesb.php');
+					$this->AddFont('timesi','','timesi.php');
+					$this->AddFont('times','','times.php');
+					
+					$this->SetFont('times','',12.5);
+					$this->Cell(78,7,"Infection",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $inf),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 					$this->Ln(6);
 					$this->SetFillColor(249,249,249);
@@ -537,118 +442,28 @@ class GeneralPdf extends fpdf
 					$this->AddFont('timesb','','timesb.php');
 					$this->AddFont('timesi','','timesi.php');
 					$this->AddFont('times','','times.php');
-					
-					
-					//$this->Ln(1);
-						
-						
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-					//$this->Ln(2.1);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-						
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					//$this->Ln(2.1);
-					$this->SetFillColor(220,220,220);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-						
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
 						
 					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 						
 					$this->SetFont('times','',12.5);
-					
-					$this->Cell(78,7,"Accouchement Césarienne",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nbc),'BT',0,'L',1);
+					$this->Cell(78,7,"Causes Directes",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $direct),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-						
-					//$this->Ln(2);
+					$this->Ln(6);
 					$this->SetFillColor(249,249,249);
 					$this->SetDrawColor(220,220,220);
-						
-					//}else {
-						
-					$this->Ln(5.4);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-						
+
 					$this->AddFont('timesb','','timesb.php');
 					$this->AddFont('timesi','','timesi.php');
 					$this->AddFont('times','','times.php');
-						
-					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 						
 					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Accouchement Total",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nbacc ),'BT',0,'L',1);
+					$this->Cell(78,7,"Causes Indirectes",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $indirect),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					$this->Ln(2);
+					$this->Ln(6);
 					$this->SetFillColor(249,249,249);
 					$this->SetDrawColor(220,220,220);
-					$this->Ln(2.1);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					//$this->Ln(1);
-					
-					
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-					$this->Ln(2.1);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					//$this->Ln(2.1);
-					$this->SetFillColor(220,220,220);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					
-					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
-					
-					$this->SetFont('times','',12.5);
-						
-					$this->Cell(78,7,"Nombre de bebes n'ayant pas crie a la naissance",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nbcri),'BT',0,'L',1);
-					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					
-					$this->Ln(2);
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-					
-					//}else {
-					
 					$this->Ln(5.4);
 					$this->SetFillColor(240,240,240);
 					$this->SetDrawColor(205,193,197);
@@ -663,93 +478,38 @@ class GeneralPdf extends fpdf
 					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 					
 					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Nombre de bebes dont le poids est inferieur à 2500",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nbinf ),'BT',0,'L',1);
+					$this->Cell(78,7,"Causes Indirect",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$indirect ),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					$this->Ln(2);
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-					$this->Ln(2.1);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-						
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					//$this->Ln(1);
-					
-					
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-					$this->Ln(2.1);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					//$this->Ln(2.1);
-					$this->SetFillColor(220,220,220);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					
-					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
-					
-					$this->SetFont('times','',12.5);
-						
-					$this->Cell(78,7,"Nombre d'enfants vivants",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$nbviv),'BT',0,'L',1);
-					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					
-					//$this->Ln(2);
+					$this->Ln(6);
 					$this->SetFillColor(249,249,249);
 					$this->SetDrawColor(220,220,220);
 					
-					//}else {
-					
+					$this->Ln(6);
+					$this->SetFillColor(249,249,249);
+					$this->SetDrawColor(220,220,220);
 					$this->Ln(5.4);
 					$this->SetFillColor(240,240,240);
 					$this->SetDrawColor(205,193,197);
 					$this->SetTextColor(0,0,0);
 					//$this->AddFont('zap','','zapfdingbats.php');
 					//$this->SetFont('zap','',13);
-					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					
-					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
-					
-					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Nombre d'enfants reanimes",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$rea ),'BT',0,'L',1);
-					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					$this->Ln(2);
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-					$this->Ln(2.1);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
 						
 					$this->AddFont('timesb','','timesb.php');
 					$this->AddFont('timesi','','timesi.php');
 					$this->AddFont('times','','times.php');
-		}else {
+						
+					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+						
+					$this->SetFont('times','',12.5);
+					$this->Cell(78,7,"Causes Indéterminé",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$indeterminer ),'BT',0,'L',1);
+					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+					$this->Ln(6);
+					$this->SetFillColor(249,249,249);
+					$this->SetDrawColor(220,220,220);
+						
+		}else{
 			echo  "<div align='center' style='font-size: 30px; font-family: times new roman;'> Aucune information à afficher </div>"; exit();
 		}
 		

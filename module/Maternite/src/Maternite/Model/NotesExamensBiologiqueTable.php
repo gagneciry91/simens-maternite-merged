@@ -59,7 +59,7 @@ class NotesExamensBiologiqueTable {
 		}
 		return $tab;
 	}
-	public function updateNotesExamensBiologiques($donnees) {//var_dump('test');exit();
+	public function updateNotesExamensBiologiques($donnees) {var_dump('test');exit();
 		$this->tableGateway->delete ( array (
 				'id_cons' => $donnees ['id_cons'] 
 		) );

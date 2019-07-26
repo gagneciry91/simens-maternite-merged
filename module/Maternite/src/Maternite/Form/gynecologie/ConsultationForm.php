@@ -4551,6 +4551,17 @@ $this->add ( array (
 					//'required' => true,
 			)
 	) );
+		$this->add ( array (
+			'name' => 'note_hysterectomie',
+			'type' => 'Text',
+			'options' => array (
+			),
+			'attributes' => array (
+					'id' => 'note_hysterectomie',
+	
+					//'required' => true,
+			)
+	) );
 	$this->add ( array (
 			'name' => 'note_kysteovarienne',
 			'type' => 'Text',

@@ -19,7 +19,7 @@ echo  $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/
 <!-- les scripts des images dans examen morphologique   -->
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.js');?>
 
-<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox');?>
 <?php
 //echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/complementcons_accordeon_controle.js');
 echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/prenatale/complementcons_accordeon_controle.js');
@@ -1631,8 +1631,7 @@ echo $this->form ()->openTag ( $form );
                          *=============================================================================================
                          *=============================================================================================
                          **/
-                        echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/ajouterExamensBio.js');
-                        ?>
+                        echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/ajouterExamensBio.js');?>
 
                         <div id="lesExamensBiologiques" style="width: 100%; height:260px;" >
 
@@ -1745,7 +1744,7 @@ echo $this->form ()->openTag ( $form );
                          *=============================================================================================
                          *=============================================================================================
                          **/
-                        echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/ajouter.js');
+                       echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/ajouter.js');
                         ?>
 
                         <div id="lesElements" style="width: 100%;">

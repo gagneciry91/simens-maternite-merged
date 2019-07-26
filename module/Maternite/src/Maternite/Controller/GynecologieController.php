@@ -424,7 +424,7 @@ class GynecologieController extends AbstractActionController
 		$idService = $user ['IdService'];
 		$lespatients = $this->getConsultationTable()->listeDesGynecologie($idService);
 		// RECUPERER TOUS LES PATIENTS AYANT UN RV aujourd'hui
-		
+		//var_dump(count($lespatients));exit();
 		$tabPatientRV = $this->getConsultationTable()->getPatientsRV($idService);
 		return new ViewModel (array(
 				'donnees' => $lespatients,
@@ -575,6 +575,17 @@ class GynecologieController extends AbstractActionController
 				'note_regime'=>$donne_ante['note_regime'],
 				'nouvelleMotifs'=>$donne_ante['nouvelleMotifs'],
 				'amenere'=>$donne_ante['amenere'],
+				'kystectomie'=>$donne_ante['kystectomie'],
+				'myomectomie'=>$donne_ante['myomectomie'],
+				'kysteovarienne'=>$donne_ante['kysteovarienne'],
+				'hysterectomie'=>$donne_ante['hysterectomie'],
+				'autrescons'=>$donne_ante['autrescons'],
+				'note_kystectomie'=>$donne_ante['note_kystectomie'],
+				'note_myomectomie'=>$donne_ante['note_myomectomie'],
+				'note_hysterectomie'=>$donne_ante['note_hysterectomie'],
+				'note_kysteovarienne'=>$donne_ante['note_kysteovarienne'],
+				'note_autrescons'=>$donne_ante['note_autrescons'],
+				
 				
 				
 				
@@ -962,6 +973,105 @@ class GynecologieController extends AbstractActionController
 		));
 		
 	}
+	public function vuePatientOpereBlocAction()
+	{
+		$this->getDateHelper();
+	
+		$chemin = $this->getServiceLocator()->get('Request')->getBasePath();
+		$idPatient = ( int )$this->params()->fromPost('idPatient');
+		$idAdmission = ( int )$this->params()->fromPost('idAdmission');
+	
+		$unPatient = $this->getPatientTable()->getInfoPatient($idPatient);
+		$photo = $this->getPatientTable()->getPhoto($idPatient);
+	
+		// Informations sur l'admission
+		$InfoAdmis = $this->getAdmissionTable()->getPatientAdmisBloc($idAdmission);
+	
+		// Informations sur le protocole op�ratoire
+		$InfoProtocoleOperatoire = $this->getAdmissionTable()->getProtocoleOperatoireBloc($idAdmission);
+	
+		// Verifier si le patient a un rendez-vous et si oui dans quel service et a quel heure
+		$today = new \DateTime ();
+		$dateAujourdhui = $today->format('Y-m-d');
+	
+		$controle = new DateHelper ();
+		$date = $unPatient ['DATE_NAISSANCE'];
+		if ($date) {
+			$date = $controle->convertDate($unPatient ['DATE_NAISSANCE']);
+		} else {
+			$date = null;
+		}
+	
+		$html = "<div style='width:100%;'>";
+	
+		$html .= "<div style='width: 18%; height: 210px; float:left;'>";
+		$html .= "<div id='photo' style='float:left; margin-left:40px; margin-top:10px; margin-right:30px;'> <img style='width:105px; height:105px;' src='" . $this->baseUrl() . "public/img/photos_patients/" . $photo . "' ></div>";
+		$html .= "<div style='margin-left:60px; margin-top: 150px;'> <div style='text-decoration:none; font-size:14px; float:left; padding-right: 7px; '>Age:</div>  <div style='font-weight:bold; font-size:19px; font-family: time new romans; color: green; font-weight: bold;'>" . $unPatient ['AGE'] . " ans</div></div>";
+		$html .= "</div>";
+	
+		$html .= "<div style='width: 70%; height: 210px; float:left;'>";
+		$html .= "<table id='vuePatientAdmission' style='margin-top:10px; float:left'>";
+	
+		$html .= "<tr style='width: 100%;'>";
+		$html .= "<td style='width: 19%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nom:</a><br><div style='width: 150px; max-width: 160px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:17px;'>" . $unPatient ['NOM'] . "</p></div></td>";
+		$html .= "<td style='width: 29%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Lieu de naissance:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:17px;'>" . $unPatient ['LIEU_NAISSANCE'] . "</p></div></td>";
+		$html .= "<td style='width: 23%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nationalit&eacute;  d'origine:</a><br><div style='width: 95%; '><p style=' font-weight:bold; font-size:17px;'>" . $unPatient ['NATIONALITE_ORIGINE'] . "</p></div></td>";
+		$html .= "<td style='width: 29%; '></td>";
+	
+		$html .= "</tr><tr style='width: 100%;'>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Pr&eacute;nom:</a><br><div style='width: 95%; max-width: 130px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:17px;'>" . $unPatient ['PRENOM'] . "</p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>T&eacute;l&eacute;phone:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:17px;'>" . $unPatient ['TELEPHONE'] . "</p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nationalit&eacute; actuelle:</a><br><div style='width: 95%; max-width: 135px; overflow:auto; '><p style=' font-weight:bold; font-size:17px;'>" . $unPatient ['NATIONALITE_ACTUELLE'] . "</p></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Email:</a><br><div style='width: 100%; max-width: 235px; height:40px; overflow:auto;'><p style='font-weight:bold; font-size:17px;'>" . $unPatient ['EMAIL'] . "</p></div></td>";
+	
+		$html .= "</tr><tr style='width: 100%;'>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Date de naissance:</a><br><div style='width: 95%; max-width: 130px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:17px;'>" . $date . "</p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Adresse:</a><br><div style='width: 97%; max-width: 250px; height:50px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:17px;'>" . $unPatient ['ADRESSE'] . " </p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Profession:</a><br><div style='width: 95%; max-width: 235px; height:40px; overflow:auto; '><p style=' font-weight:bold; font-size:17px;'>" . $unPatient ['PROFESSION'] . "</p></div></td>";
+	
+		$html .= "</td>";
+		$html .= "</tr>";
+		$html .= "</table>";
+		$html .= "</div>";
+	
+		$html .= "<div style='width: 12%; height: 210px; float:left; '>";
+		$html .= "<div id='' style='color: white; opacity: 0.09; float:left; margin-right:0px; margin-left:0px; margin-top:5px;'> <img style='width:105px; height:105px;' src='" . $this->baseUrl() . "public/img/photos_patients/" . $photo . "'></div>";
+		$html .= "</div>";
+	
+		$html .= "</div>";
+	
+		$html .= "<script> $('#id_patient').val('" . $idPatient . "');  $('#id_admission').val('" . $idAdmission . "'); </script>";
+	
+		$visitePA = '<span id="semaineDebutFin" style="cursor:pointer; padding-right: 20px; text-decoration: none;">  Re&ccedil;u le ' . $this->controlDate->convertDate($InfoAdmis ['date']) . ' &agrave; ' . $InfoAdmis ['heure'] . '</span>';
+		$visitePA .= '<div style="border-bottom: 1px solid gray; margin-top: 10px; margin-bottom: 20px;"></div>';
+	
+		$visitePA .= '<table style="width: 100%;">';
+		$visitePA .= '<tr style="width: 100%; ">';
+		$visitePA .= '<td style="width: 35%; padding-top: 15px; padding-right: 15px;"><span style="text-decoration:underline; font-weight:bold; font-size:17px; color: #065d10; font-family: Times  New Roman;">Diagnostic</span><br><p id="zoneChampInfo1" style="background:#f8faf8; font-size:19px; padding-left: 5px;"> ' . str_replace("'", "\'", $InfoAdmis ['diagnostic']) . ' </p></td>';
+		$visitePA .= '<td style="width: 30%; padding-top: 15px; padding-right: 15px;"><span style="text-decoration:underline; font-weight:bold; font-size:17px; color: #065d10; font-family: Times  New Roman;">Intervention pr&eacute;vue</span><br><p id="zoneChampInfo1" style="background:#f8faf8; font-size:19px; padding-left: 5px;"> ' . str_replace("'", "\'", $InfoAdmis ['intervention_prevue']) . ' </p></td>';
+		$visitePA .= '<td style="width: 20%; padding-top: 15px;"><span style="text-decoration:underline; font-weight:bold; font-size:17px; color: #065d10; font-family: Times  New Roman;">VPA</span><br><p id="zoneChampInfo1" style="background:#f8faf8; font-size:19px; padding-left: 5px;"> ' . str_replace("'", "\'", $InfoAdmis ['vpa']) . ' </p></td>';
+		$visitePA .= '<td style="width: 15%; padding-top: 15px;"><span style="text-decoration:underline; font-weight:bold; font-size:17px; color: #065d10; font-family: Times  New Roman;">Salle</span><br><p id="zoneChampInfo1" style="background:#f8faf8; font-size:19px; padding-left: 5px;"> ' . str_replace("'", "\'", $InfoAdmis ['salle']) . ' </p></td>';
+		$visitePA .= '</tr>';
+	
+		$visitePA .= '</table>';
+	
+		$protocole_operatoire = str_replace("'", "\'", $InfoProtocoleOperatoire ['protocole_operatoire']);
+		$soins_post_operatoire = str_replace("'", "\'", $InfoProtocoleOperatoire ['soins_post_operatoire']);
+	
+		$html .= "<script> $('#anesthesiste').val('" . str_replace("'", "\'", $InfoProtocoleOperatoire ['anesthesiste']) . "'); </script>";
+		$html .= "<script> $('#indication').val('" . str_replace("'", "\'", $InfoProtocoleOperatoire ['indication']) . "'); </script>";
+		$html .= "<script> $('#type_anesthesie').val('" . str_replace("'", "\'", $InfoProtocoleOperatoire ['type_anesthesie']) . "'); </script>";
+		$html .= "<script> $('#protocole_operatoire').val('" . preg_replace("/(\r\n|\n|\r)/", "\\n", $protocole_operatoire) . "'); </script>";
+		$html .= "<script> $('#soins_post_operatoire').val('" . preg_replace("/(\r\n|\n|\r)/", "", $soins_post_operatoire) . "'); </script>";
+		$html .= "<script> $('#id_protocole').val(" . ( int )$InfoProtocoleOperatoire ['id_protocole'] . "); </script>";
+	
+		$html .= "<script> setTimeout(function(){ $('#tabs-1').html('" . $visitePA . "'); desactiverChampsInit(); }); </script>";
+		$html .= "<script> $('#dateEnregistrement').html('Enregistr&eacute; le " . $this->controlDate->convertDate($InfoProtocoleOperatoire ['date']) . " &agrave; " . $InfoProtocoleOperatoire ['heure'] . "'); </script>";
+	
+		$this->getResponse()->getHeaders()->addHeaderLine('Content-Type', 'application/html; charset=utf-8');
+		return $this->getResponse()->setContent(Json::encode($html));
+	}
+	
 	public function impressionPdfAction()
 	{
 		//$user =$this->layout()->setTemplate('layout/accouchement');

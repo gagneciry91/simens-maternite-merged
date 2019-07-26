@@ -8,7 +8,8 @@ use ZendPdf\Font;
 use Maternite\Model\Consultation;
 use Maternite\View\Helpers\DateHelper;
 
-class CertificatPdf {
+
+class CertificatPdf  {
 	protected $_page;
 	protected $_yPosition;
 	protected $_leftMargin;
@@ -35,6 +36,12 @@ class CertificatPdf {
 	protected $_newPolice;
 	protected $_Service;
 	protected $_newStyle;
+	protected $tabInformations ;
+	protected $nomService;
+	protected $infosComp;
+	protected $periodeIntervention;
+	
+	
 	
 	public function __construct() {
 		$this->_page = new Page ( Page::SIZE_A4 );
@@ -70,6 +77,25 @@ class CertificatPdf {
 		$this->getPiedPage ();
 		
 		$this->_page->restoreGS ();
+	}
+	
+	public function setTabInformations($tabInformations)
+	{
+		$this->tabInformations = $tabInformations;
+	}
+	
+	public function getTabInformations()
+	{
+		return $this->tabInformations;
+	}
+	
+	public function setNomService($nomService)
+	{
+		$this->nomService = $nomService;
+	}
+	public function setInfosComp($infosComp)
+	{
+		$this->infosComp = $infosComp;
 	}
 public function setEnTete() {
 		$baseUrl = $_SERVER ['SCRIPT_FILENAME'];
@@ -354,5 +380,77 @@ $this->_page->setFont ( $this->_newStyle, 12 );
 		$this->_page->drawText ( 'SIMENS+: ', $this->_leftMargin + 355, $this->_pageWidth - (100 + 390) );
 		$this->_page->setFont ( $this->_newTimeGras, 11 );
 		$this->_page->drawText ( 'www.simens.sn', $this->_leftMargin + 405, $this->_pageWidth - (100 + 390) );
+	}
+
+	function CorpsDocument(){
+	
+		$tabInformations = $this->getTabInformations();
+	
+		if($tabInformations){
+	
+			for($i=0 ; $i < count($tabInformations) ; $i++){
+	
+				if($i%2==0){
+						
+					$this->Ln(5.4);
+					$this->SetFillColor(220,220,220);
+					$this->SetDrawColor(205,193,197);
+					$this->SetTextColor(0,0,0);
+					//$this->AddFont('zap','','zapfdingbats.php');
+					//$this->SetFont('zap','',13);
+	
+					$this->AddFont('timesb','','timesb.php');
+					$this->AddFont('timesi','','timesi.php');
+					$this->AddFont('times','','times.php');
+						
+					$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+	
+					$this->SetFont('times','',12.5);
+					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[0][$i]),'BT',0,'L',1);
+					$this->Cell(80,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][$i]]),'BT',0,'L',1);
+						
+					$this->Ln(2);
+					$this->SetFillColor(249,249,249);
+					$this->SetDrawColor(220,220,220);
+						
+				}else {
+						
+					$this->Ln(5.4);
+					$this->SetFillColor(240,240,240);
+					$this->SetDrawColor(205,193,197);
+					$this->SetTextColor(0,0,0);
+					//$this->AddFont('zap','','zapfdingbats.php');
+					//$this->SetFont('zap','',13);
+	
+					$this->AddFont('timesb','','timesb.php');
+					$this->AddFont('timesi','','timesi.php');
+					$this->AddFont('times','','times.php');
+						
+					$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+	
+					$this->SetFont('times','',12.5);
+					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[0][$i]),'BT',0,'L',1);
+					$this->Cell(80,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][$i]]),'BT',0,'L',1);
+	
+					$this->Ln(2);
+					$this->SetFillColor(249,249,249);
+					$this->SetDrawColor(220,220,220);
+				}
+					
+			}
+				
+		}else{
+			echo  "<div align='center' style='font-size: 30px; font-family: times new roman;'> Aucune information à afficher </div>"; exit();
+		}
+	
+	
+	}
+	//IMPRESSION DES INFOS STATISTIQUES
+	//IMPRESSION DES INFOS STATISTIQUES
+	function ImpressionInfosStatistiques()
+	{
+		//$this->AddPage();
+		//$this->setEnTete();
+		//$this->CorpsDocument();
 	}
 }

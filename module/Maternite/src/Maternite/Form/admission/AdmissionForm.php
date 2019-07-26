@@ -178,8 +178,9 @@ class AdmissionForm extends Form{
 							'value_options' => array (
 								1 => 'Prenatales',
 								2 => 'Accouchement',
-							
-							    3=> 'gynecologie',
+							    3=>'Postnatale',
+								4=>'Planification',	
+							    5=> 'gynecologie',
 										
 										
 														)

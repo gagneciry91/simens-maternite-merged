@@ -3391,7 +3391,7 @@
 		_alert: function(message) {
 			var msg = "jPlayer " + this.version.script + " : id='" + this.internal.self.id +"' : " + message;
 			if(!this.options.consoleAlerts) {
-				alert(msg);
+				//alert(msg);
 			} else if(window.console && window.console.log) {
 				window.console.log(msg);
 			}

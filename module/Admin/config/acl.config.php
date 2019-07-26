@@ -378,19 +378,18 @@ return array(
                                     'enfant' =>array('infirmier', 'gynecologue','sage_femme'),
                             ),
     						
-    						// postnatale Admission
+    						//  Admission
     						'Maternite\Controller\Admission' => array(
     								'creer-dossier-patiente' => array('gynecologue','infirmier','sage_femme'),
     								'ajouter-patiente' => array('gynecologue','infirmier','sage_femme'),
-    								'ajouter' =>array('secretaire','infirmier','sage_femme'),
+    								'ajouter' =>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'visites' =>array('gynecologue','infirmier','sage_femme'),
     								'consultationpf' =>array('gynecologue','infirmier','sage_femme'),
     								
     								'enregistrement'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'liste-patient'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'liste-postnatale'=>array('gynecologue','infirmier','sage_femme'),
-    						
-    								'liste-patient-ajax'=>array('secretaire','infirmier','sage_femme'),
+    								'liste-patient-ajax'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'info-patient'=>array('secretaire','infirmier','sage_femme'),
     								'infos-patient'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'infos-patient_hospi'=>array('gynecologue','infirmier','sage_femme'),
@@ -406,7 +405,7 @@ return array(
     								'enregistrer-admission' =>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'liste-admission-ajax'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'declarer-deces'=>array('infirmier','sage_femme'),
-    								'liste-patients-admis'=>array('secretaire','infirmier','sage_femme'),
+    								'liste-patients-admis'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'vue-patient-admis'=>array('gynecologue','secretaire','infirmier','sage_femme'),
     								'postnatale'=>array('gynecologue','infirmier','sage_femme'),
     								//'partogramme'=>array('gynecologue','infirmier','sage_femme'),
@@ -562,7 +561,10 @@ return array(
     								'enfant' =>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
     								'imprimer-certifat-accouchement' =>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
     								'statistiques-general-imprimees' =>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
-    								
+    								'statistiques-imprimees'=>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
+    								'statistiques-general-imprimees'=>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
+    								'statistiques-pathologies-imprimees'=>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
+    								'statistiques-deces-imprimees'=>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
     						),
     						
     						/***

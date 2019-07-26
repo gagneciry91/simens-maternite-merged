@@ -124,7 +124,7 @@ class AccouchementTable {
 					//'note_antibiotique' => $donnees['note_antibiotique'],
 					//'note_anticonv' => $donnees['note_anticonv'],
 					//'note_transfusion' => $donnees['note_transfusion'],
-				/* 	'hrp' => $donnees['hrp'],
+				 	'hrp' => $donnees['hrp'],
 					'dystocie' => $donnees['dystocie'],
 					'infection' => $donnees['infection'],
 					'anemie' => $donnees['anemie'],
@@ -135,8 +135,8 @@ class AccouchementTable {
 						
 						
 						
-						 */
-			);
+						
+			);//var_dump($dataac);exit();
 	
 			return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $dataac ));
 			var_dump($dataac);exit();

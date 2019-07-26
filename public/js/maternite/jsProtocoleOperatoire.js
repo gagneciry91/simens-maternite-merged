@@ -114,7 +114,8 @@
             		}
             	}); 
             },
-            error:function(e){console.log(e);alert("Une erreur interne est survenue!");},
+            error:function(e){console.log(e);//alert("Une erreur interne est survenue!");
+            },
             dataType: "html"
         });
         

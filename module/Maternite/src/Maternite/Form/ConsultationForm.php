@@ -2625,7 +2625,7 @@ class ConsultationForm extends Form {
 						'id' => 'antecedent_familial4' 
 				) 
 		) );
-		$this->add ( array (
+	$this->add ( array (
 				'name' => 'date_rv',
 				'type' => 'Text',
 				'options' => array (

@@ -4,7 +4,7 @@ namespace Maternite\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Sql;
-use Zend\XmlRpc\Value\String;
+//use Zend\XmlRpc\Value\String;
 use Consultation\Model;
 
 class OrdonConsommableTable {

@@ -18,11 +18,10 @@ echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/bloquerDate.js
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/admission/styleAdmission.css');?>
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/mescss/bloquerDate.css'); //DatePicker;?>
 <!-- MES JS -->
-<?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/admission/jsAdmissionTest.js');
-echo $this->headScript ()->appendFile ( $this->basePath () . '/js/maternite/admission/jsMaternite.js' );
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/accouchement/jsAdmissionTest.js');
+echo $this->headScript ()->appendFile ( $this->basePath () . '/js/maternite/accouchement/jsMaternite.js' );
 
 ?>
-
 <?php use  Maternite\View\Helpers\DateHelper;
 $Control = new DateHelper();?>
 

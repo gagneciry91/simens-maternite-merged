@@ -23,6 +23,18 @@ $(window).load(function () {
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleAdmission.css');?>
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/accouchement/styleInformationsStatistiques.css');?>
 
+<style type='text/css'>
+/*** Bouton input submit***/
+/*** Bouton input submit***/
+/*** Bouton input submit***/
+.transf,.rendezvous,.ordonnance {
+	width: 32px;
+	height: 32px;
+	background: url(<?php echo  $this->basePath()."/images_icons/pdf.PNG"?>)
+		no-repeat right top;
+}
+</style>
+
 <!-- MES JS -->
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');
 echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/accouchement/complementcons_accordeon_controle.js');
@@ -277,7 +289,7 @@ $(window).load(function () {
 		             <th style="border-radius: 50%; ">
 		               <div>
 		                 <section>
-   		                     D�ces maternel
+   		                     Décés maternel
 		                 </section>
 		               </div>
 		             </th>
@@ -308,111 +320,110 @@ $(window).load(function () {
     var nbPatientGyneco = <?php echo $this->nbPatientGyneco; ?>
     </script>
   
-	
+		
 	<script type="text/javascript"> 
      var ordonnees = [];
      var abcisses  = [];
      var i = 1;
      var j = 1;
      </script>
-     
-                                      
+                                 
      
 	<table style='width:50%; margin-left: 10px; align:center; float: left; margin-top: 15px;' class="table table-bordered tab_list_mini" id="patient">
 			<thead >
 			    <tr> 
-				    
+				   <th id="nom" align="center">Num&eacute;ro ordre</th>
 					<th id="date" align="center">Sous dossier</th>
-					<th id="prenom" align="center" name="date">Nombre</th>
+					<th id="prenom" align="center" >Nombre</th>
 
 				</tr>
 
 			</thead>
 
-			     <tr style="width: 80%; height: 40px; font-family: police2;">
-	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Prenatale </td>
-                                 						             
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
-			        <?php echo $this->nbPatientPre; ?>
-		                </td>
-		                        </tr>
-		                        <tr style="width: 80%; height: 40px; font-family: police2;">
-	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Gynecologie </td>
-                                 						             
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
-			        <?php echo $this->nbPatientGyneco; ?>
-		                </td>
-		                        </tr>
-			
-		     <tr style="width: 80%; height: 40px; font-family: police2;">
-	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Accouchement </td>
-                                 						             
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
-			        <?php echo $this->nbPatientAcc; ?>
-		                </td>
-		                        </tr>
-		                             <tr style="width: 80%; height: 40px; font-family: police2;">
-	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Postnatale </td>
-                                 						             
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
-			        <?php echo $this->nbPatientPost; ?>
-		                </td>
-		                        </tr>
-		                          <tr style="width: 80%; height: 40px; font-family: police2;">
-	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Planification </td>
-                                 						             
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;"> 
-			        <?php echo $this->nbPatientPla; ?>
-		                </td>
-		                        </tr>
+
+                                      
+     
+		
+		                        
+		  	<tbody id="donnees" class="liste_patient">
+
+	          <?php $tabDonnees = $this->listeSousDossier;?>
+	          <?php for($i=0 ; $i<count($tabDonnees[0]) ; $i++) { ?>
+	          <tr >
+					<td>
+					  <?php echo $i+1; ?> 
+					  
+					  <script type="text/javascript"> ordonnees  [i++] = "<?php echo $tabDonnees[0][$i]; ?>"; </script>
+					  <script type="text/javascript"> abcisses [j++] = <?php echo $tabDonnees[1][$tabDonnees[0][$i]]; ?>; </script>
+					</td>
+					<td><?php echo $tabDonnees[0][$i]; ?></td>
+					<td><?php echo $tabDonnees[1][$tabDonnees[0][$i]]; ?></td>
+			  </tr>
+			  <?php } ?>
+
+			</tbody>
+		                        
+	  
+	
+   </table>
+  
+		<script type="text/javascript">
+		var Pile = [];
+
+    	for(var k = 1 ; k < ordonnees.length ; k++){
+    		var tabValeur = { y: abcisses[k], label: ordonnees[k] };
+    		Pile.push(tabValeur);
+    	}
+
+		</script>
+		
+	    <table id="AntecedentMedicaux" style="width: 48%; height: 220px;  float: left;">
+	      <tr style="width: 100%; height: 150px;">
+	         <td style="width: 100%; height: 100px; vertical-align: top; ">
+	            <div id="chartContainerDiv" style="height: 400px; width: 100%;">   </div>
+	         </td>
+          </tr>
+          
+           <tr class="form-rendezvous" style="width: 100%;">
+                                                
+                            
+            </tr>
 	    </table>
+ 
+<script>    
+
+$(window).load(function () {
+	$('#wait').toggle(false);
+	$('#contenu').fadeIn().css({'visibility':'visible'});
 	
-								
-	
-	
-	         <script >
+	      
+	$(document).ready(function($) {
+		var chart = new CanvasJS.Chart("chartContainerDiv", {
+/*
+			title: {
+				text: "Basic Column Chart"
+			},
+			*/
+			data: [{
+				type: "column",
+				dataPoints: Pile 
+			}]
+		});
+		
+		chart.render();
 
-	     $(document).ready(function($) {
-
-       function SousDossier() {
-    	      var SousDossier = new CanvasJS.Chart("chartContainer",
-    	      {
-    		title:{
-    			text: "SousDossier"
-   		},
-   		data: [
-    		{
-    			type: "column",
-    			dataPoints: [
- 		        	{  y: nbPatientPre, label: "Prenatale" },
-    				{  y: nbPatientAccou, label: "Accouchement" },
- 		        	{  y: nbPatientPost, label: "postnatale" },
-    				{  y: nbPatientPla, label: "Planification" },
-    			]
-    		}
-    		]
-    	});
-    	      SousDossier.render();
-    }
-
-
-	
-       SousDossier();  
-	     });       
-	</script>
-
-
+		
+	 });
+});    
     
-    
-       
-    
-    
-    </div>
+</script>  
+</div>
     
     <div style="display: none;">
-       <form id=""> <button></button> </form>
+       <form id="imprimerRapportInformationsStatistiques"> <button></button> </form>
     </div>
-</div>	
+</div>
+	    
 <!-- LA DEUXIEME PAGE POUR LES SOUS DOSSIERS -->
 <div id="contenuPageB" >
 <table style="width: 100%; height: 20%;">
@@ -470,11 +481,13 @@ $(window).load(function () {
 	     <table id="resultatOptionChoisiParDefaut" style="width: 100%; background: white;">
 	     
 	       <tr id=""  style="width: 100%; ">
-	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+	       
+  <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
                  <div  style="width: 100%; overflow: auto; margin-left: 15px; height: 25px; margin-left: 12px; background: yello;" >
-                       <span> Statistique general de la maternite </span> <img onclick="imprimerRapportStatistiqueGeneral" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
+                       <span>Statistiques general  </span> <img onclick="imprimerRapportStatistiqueGeneral();" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
                  </div>
-	         </td>
+	         </td>        
+    
 	       </tr>
 	       
 	       <tr id="tableauResultatRapportOptionChoisi" style="width: 100%; top;">
@@ -857,7 +870,7 @@ $(window).load(function () {
 	       <tr id=""  style="width: 100%; ">
 	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
                  <div  style="width: 100%; overflow: auto; margin-left: 15px; height: 25px; margin-left: 12px; background: yello;" >
-                       <span>  </span> <img onclick="imprimerRapportStatistiqueDiagnostics();" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
+                       <span>  </span> <img onclick="imprimerRapportStatistiquePathologie();" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
                  </div>
 	         </td>
 	       </tr>
@@ -1008,8 +1021,15 @@ $(window).load(function () {
    <!-- DEUXIEME COLONNE -->
 	   <td id="resultatOptionsChoisis" style="width: 65%; height: 20%; border-left: 3px solid #cccccc; vertical-align: top;" >
 	     <table id="resultatOptionChoisiParDefaut" style="width: 100%; background: white;">
+	    
 	     
-	       
+	       <tr id=""  style="width: 100%; ">
+	         <td style="width: 100%; height: 20px; font-family: Consolas; font-weight: bold; font-size: 17px; text-align: center;">
+                 <div  style="width: 100%; overflow: auto; margin-left: 15px; height: 25px; margin-left: 12px; background: yello;" >
+                       <span>  </span> <img onclick="imprimerRapportStatistiqueDeces();" style="width: 24px; height: 24px; float: right; cursor: pointer;" src='../images_icons/pdf.png' />
+                 </div>
+	         </td>
+	       </tr>
 	       
 	       	 <tr id="tableauResultatOptionGenreChoisi" style="width: 100%; ">
 	         <td style="width: 100%; height: 40px; font-family: Consolas; font-weight: normal; font-size: 17px; text-align: center;">

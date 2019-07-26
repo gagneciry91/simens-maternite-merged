@@ -90,7 +90,7 @@ function initialisation (){
 	});
 
 	$('#retourPageDMenuInfos').click(function(){
-		if(saveStatOption2 == 1){
+		if(saveStatOption4 == 1){
 			vart = tabUrl[0]+'public/accouchement/statistique';
 		    $(location).attr("href",vart);
 		}else{
@@ -112,7 +112,7 @@ function initialisation (){
 	});
 
 	$('#retourPageEMenuInfos').click(function(){
-		if(saveStatOption2 == 1){
+		if(saveStatOption5 == 1){
 			vart = tabUrl[0]+'public/accouchement/statistique';
 		    $(location).attr("href",vart);
 		}else{
@@ -134,7 +134,7 @@ function initialisation (){
 	});
 
 	$('#retourPageFMenuInfos').click(function(){
-		if(saveStatOption2 == 1){
+		if(saveStatOption6 == 1){
 			vart = tabUrl[0]+'public/accouchement/statistique';
 		    $(location).attr("href",vart);
 		}else{
@@ -602,29 +602,69 @@ function getInformationsStatistiquesParAge(){
 
 };
 
-
-function imprimerRapportStatistiqueGeneral(){ 
-	
+function imprimerRapportStatistique(){ 
+	//alert('bonjou');
+	var id_service = $('#id_service_rapport').val();
 	var date_debut = $('#date_debut_rapport').val();
-	var date_fin = $('#date_fin_rapport').val();alert(date_fin);
+	var date_fin = $('#date_fin_rapport').val();
+	var id_diagnostic = $('#diagnostic_rapport').val();
 	
-	var lienImpression =  tabUrl[0]+ "public/accouchement/statistiques-general-imprimees";		
+	var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-imprimees';
 	var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
 	imprimerInformationsStatistiques.setAttribute("action", lienImpression);
 	imprimerInformationsStatistiques.setAttribute("method", "POST");
-	imprimerInformationsStatistiques.setAttribute("target", "_blank");//alert(lienImpression);
-	// Ajout dynamique de champs dans le formulaire
+	imprimerInformationsStatistiques.setAttribute("target", "_blank");
 	
+	// Ajout dynamique de champs dans le formulaire
+	var champ = document.createElement("input");
+	champ.setAttribute("type", "hidden");
+	champ.setAttribute("name", 'date_debut');
+	champ.setAttribute("value", date_debut);
+	imprimerInformationsStatistiques.appendChild(champ);
+	
+	var champ2 = document.createElement("input");
+	champ2.setAttribute("type", "hidden");
+	champ2.setAttribute("name", 'date_fin');
+	champ2.setAttribute("value", date_fin);
+	imprimerInformationsStatistiques.appendChild(champ2);
+	
+	
+	$("#imprimerRapportInformationsStatistiques button").trigger('click');
+	
+}
+
+function imprimerRapportStatistiqueGeneral(){ 
+	var date_debut = $('#date_debut_rapport').val();
+	var date_fin = $('#date_fin_rapport').val();
+	//alert(date_debut_rapport);
+	var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-general-imprimees';
+	var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
+	imprimerInformationsStatistiques.setAttribute("action", lienImpression);
+	imprimerInformationsStatistiques.setAttribute("method", "POST");
+	imprimerInformationsStatistiques.setAttribute("target", "_blank");
+	
+	// Ajout dynamique de champs dans le formulaire
+	var champ = document.createElement("input");
+	champ.setAttribute("type", "hidden");
+	champ.setAttribute("name", 'date_debut');
+	champ.setAttribute("value", date_debut);
+	imprimerInformationsStatistiques.appendChild(champ);
+	
+	var champ2 = document.createElement("input");
+	champ2.setAttribute("type", "hidden");
+	champ2.setAttribute("name", 'date_fin');
+	champ2.setAttribute("value", date_fin);
+	imprimerInformationsStatistiques.appendChild(champ2);
+
 
 	$("#imprimerRapportInformationsStatistiques button").trigger('click');
 	
 }
-function imprimerRapportStatistiquePathologie(){ 
-	//var id_service = $('#id_service_rapport').val();
-	var date_debut = $('#date_debut_patho').val();
-	var date_fin = $('#date_fin_patho').val();
-	
-	var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-diagnostics-imprimees';
+function imprimerRapportStatistiqueDecesMat(){
+	var date_debut = $('#date_debut_maternel').val();
+	var date_fin = $('#date_fin_maternel').val();
+	//alert(date_fin );
+	var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-deces-imprimees';
 	var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
 	imprimerInformationsStatistiques.setAttribute("action", lienImpression);
 	imprimerInformationsStatistiques.setAttribute("method", "POST");
@@ -637,6 +677,62 @@ function imprimerRapportStatistiquePathologie(){
 	champ.setAttribute("value", date_debut);
 	imprimerInformationsStatistiques.appendChild(champ);
 
+	var champ2 = document.createElement("input");
+	champ2.setAttribute("type", "hidden");
+	champ2.setAttribute("name", 'date_fin');
+	champ2.setAttribute("value", date_fin);
+	imprimerInformationsStatistiques.appendChild(champ2);
+
+	$("#imprimerRapportInformationsStatistiques button").trigger('click');	
+}
+function imprimerRapportStatistiqueDeces(){
+	var date_debut = $('#date_debut_maternel').val();
+	var date_fin = $('#date_fin_maternel').val();
+	//alert(date_fin );
+	var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-deces-imprimees';
+	var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
+	imprimerInformationsStatistiques.setAttribute("action", lienImpression);
+	imprimerInformationsStatistiques.setAttribute("method", "POST");
+	imprimerInformationsStatistiques.setAttribute("target", "_blank");
+	
+	// Ajout dynamique de champs dans le formulaire
+	var champ = document.createElement("input");
+	champ.setAttribute("type", "hidden");
+	champ.setAttribute("name", 'date_debut');
+	champ.setAttribute("value", date_debut);
+	imprimerInformationsStatistiques.appendChild(champ);
+
+	var champ2 = document.createElement("input");
+	champ2.setAttribute("type", "hidden");
+	champ2.setAttribute("name", 'date_fin');
+	champ2.setAttribute("value", date_fin);
+	imprimerInformationsStatistiques.appendChild(champ2);
+
+	$("#imprimerRapportInformationsStatistiques button").trigger('click');	
+}
+function imprimerRapportStatistiquePathologie(){ 
+	//var id_service = $('#id_service_rapport').val();
+	var date_debut = $('#date_debut_patho').val();
+	var date_fin = $('#date_fin_patho').val();
+	//alert(date_fin );
+	var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-pathologies-imprimees';
+	var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
+	imprimerInformationsStatistiques.setAttribute("action", lienImpression);
+	imprimerInformationsStatistiques.setAttribute("method", "POST");
+	imprimerInformationsStatistiques.setAttribute("target", "_blank");
+	
+	// Ajout dynamique de champs dans le formulaire
+	var champ = document.createElement("input");
+	champ.setAttribute("type", "hidden");
+	champ.setAttribute("name", 'date_debut');
+	champ.setAttribute("value", date_debut);
+	imprimerInformationsStatistiques.appendChild(champ);
+
+	var champ2 = document.createElement("input");
+	champ2.setAttribute("type", "hidden");
+	champ2.setAttribute("name", 'date_fin');
+	champ2.setAttribute("value", date_fin);
+	imprimerInformationsStatistiques.appendChild(champ2);
 
 	$("#imprimerRapportInformationsStatistiques button").trigger('click');
 	

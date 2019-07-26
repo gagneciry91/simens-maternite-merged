@@ -210,7 +210,7 @@ class AdminController extends AbstractActionController
     	}
     	else if($user['role'] == "sage_femme")
     	{
-    		return $this->redirect()->toRoute('maternite', array('action' => 'consultation-medecin'));
+    		return $this->redirect()->toRoute('accouchement', array('action' => 'accoucher'));
     	}
     	else if($user['role'] == "gynecologue")
     	{
@@ -226,7 +226,7 @@ class AdminController extends AbstractActionController
     	}
     	
     	echo '<div style="font-size: 25px; color: green; padding-bottom: 15px;" >vous n\'avez aucun privil�ge. Contacter l\'administrateur ----> Merci !!! </div>'; 
-    	echo '<a style="font-size: 20px; color: red;" href="http://localhost/simens-maternite/public/admin/logout">Terminer</a>';
+    	echo '<a style="font-size: 20px; color: red;" href="../public/admin/logout">Terminer</a>';
     	exit();
     }
     
@@ -555,7 +555,7 @@ class AdminController extends AbstractActionController
                           <table id='VueDetailsHopital' style='width: 95%; margin-top: 7px; border: 1px solid #cccccc; box-shadow: 0pt 1pt 8px rgba(0, 0, 1, 0.4);'>
                             
     			            <tr style='vertical-align: top; background: #efefef; border: 1px solid #cccccc;'>
-                               <td colspan='3' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> D&eacute;tails des infos sur l'h&ocirc;pital <img id='PlusFormulaireAjouterHopitaux' style='float: right; cursor:pointer;' src='/simens/public/images_icons/Add14X14.png' title='Ajouter' /></td>
+                               <td colspan='3' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> D&eacute;tails des infos sur l'h&ocirc;pital <img id='PlusFormulaireAjouterHopitaux' style='float: right; cursor:pointer;' src='./images_icons/Add14X14.png' title='Ajouter' /></td>
                             </tr>
     			
     			            <tr style='vertical-align: top; background: white;'>
@@ -602,7 +602,7 @@ class AdminController extends AbstractActionController
     			           <table style='width: 95%; border: 1px solid #cccccc; margin-top: 7px; box-shadow: 0pt 1pt 5px rgba(0, 0, 0, 0.4);'>
     			            
     			            <tr style='width: 100%; vertical-align: top; background: #efefef; border-bottom: 1px solid #cccccc;'>
-                               <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> <span id='labelInfos'> Cr&eacute;ation d'un nouvel h&ocirc;pital </span> <img style='float: right; cursor:pointer;' src='/simens/public/images_icons/infos.png'/></td>
+                               <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> <span id='labelInfos'> Cr&eacute;ation d'un nouvel h&ocirc;pital </span> <img style='float: right; cursor:pointer;' src='./images_icons/infos.png'/></td>
                             </tr>
     			
     			            <tr id='form_patient' style='vertical-align: top; background: white;'>
@@ -838,7 +838,7 @@ class AdminController extends AbstractActionController
                           <table id='VueDetailsService' style='width: 95%; margin-top: 7px; border: 1px solid #cccccc; box-shadow: 0pt 1pt 8px rgba(0, 0, 1, 0.4);'>
     	
     			            <tr style='vertical-align: top; background: #efefef; border: 1px solid #cccccc;'>
-                               <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> D&eacute;tails des infos sur le service <img id='PlusFormulaireAjouterService' style='float: right; cursor:pointer;' src='/simens/public/images_icons/Add14X14.png' title='Ajouter' /></td>
+                               <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> D&eacute;tails des infos sur le service <img id='PlusFormulaireAjouterService' style='float: right; cursor:pointer;' src='./images_icons/Add14X14.png' title='Ajouter' /></td>
                             </tr>
     
     			            <tr style='vertical-align: top; background: white;'>
@@ -879,7 +879,7 @@ class AdminController extends AbstractActionController
     			   <table style='width: 95%; border: 1px solid #cccccc; margin-top: 7px; box-shadow: 0pt 1pt 5px rgba(0, 0, 0, 0.4);'>
     			   
     			     <tr style='width: 100%; vertical-align: top; background: #efefef; border-bottom: 1px solid #cccccc;'>
-                         <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> <span id='labelInfos'> Cr&eacute;ation d'un nouveau service </span> <img style='float: right; cursor:pointer;' src='/simens/public/images_icons/infos.png'/></td>
+                         <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> <span id='labelInfos'> Cr&eacute;ation d'un nouveau service </span> <img style='float: right; cursor:pointer;' src='./images_icons/infos.png'/></td>
                      </tr>
     
     			     <tr id='form_patient' style='vertical-align: top; background: white;'>
@@ -1092,7 +1092,7 @@ class AdminController extends AbstractActionController
                           <table id='VueDetailsActe' style='width: 95%; margin-top: 7px; border: 1px solid #cccccc; box-shadow: 0pt 1pt 8px rgba(0, 0, 1, 0.4);'>
    
     			            <tr style='vertical-align: top; background: #efefef; border: 1px solid #cccccc;'>
-                               <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> D&eacute;tails des infos sur l'acte <img id='PlusFormulaireAjouterActe' style='float: right; cursor:pointer;' src='/simens/public/images_icons/Add14X14.png' title='Ajouter' /></td>
+                               <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> D&eacute;tails des infos sur l'acte <img id='PlusFormulaireAjouterActe' style='float: right; cursor:pointer;' src='./images_icons/Add14X14.png' title='Ajouter' /></td>
                             </tr>
     	
     			            <tr style='vertical-align: top; background: white;'>
@@ -1133,7 +1133,7 @@ class AdminController extends AbstractActionController
     			   <table style='width: 95%; border: 1px solid #cccccc; margin-top: 7px; box-shadow: 0pt 1pt 5px rgba(0, 0, 0, 0.4);'>
     	
     			     <tr style='width: 100%; vertical-align: top; background: #efefef; border-bottom: 1px solid #cccccc;'>
-                         <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> <span id='labelInfos'> Cr&eacute;ation d'un nouvel acte </span> <img style='float: right; cursor:pointer;' src='/simens/public/images_icons/infos.png'/></td>
+                         <td colspan='2' style='font-size: 15px; padding: 7px; font-family: times new roman; color: green; font-weight: bold;'> <span id='labelInfos'> Cr&eacute;ation d'un nouvel acte </span> <img style='float: right; cursor:pointer;' src='./images_icons/infos.png'/></td>
                      </tr>
     	
     			     <tr id='form_patient' style='vertical-align: top; background: white;'>

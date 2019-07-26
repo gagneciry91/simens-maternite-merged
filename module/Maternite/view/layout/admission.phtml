@@ -84,7 +84,7 @@ if ($sexe == 'Masculin') {
 						<b class="caret"></b> <span
 						style="font-size: 15px; color: white; font-family: Times New Roman;"><?php echo $prenom.'  '.$nom;?></span></a>
 				</li>
-				 <?php if(($user['role'] == 'gynecologue')){ ?>
+				 <?php if(($user['role'] == 'secretaire')){ ?>
  <li style="width: 15%;"><a title="" style="" href="<?php //echo $this->url('maternite', array('action'=>'consultation-medecin'));?>">
       <i><img src="<?php //echo $this->basePath().'/img/light/bended_arrow_left.png';?>"/></i> <span style="color: white; font-size: 14px; font-family: Times  New Roman;"><i><!-- consultation --></i></span></a>
     </li> <?php }?>
@@ -92,12 +92,24 @@ if ($sexe == 'Masculin') {
 					<div style='width: 30%; padding-top: 11px; float: left;'>
          <?php  if($user['role'] == 'medecin' || $user ['role'] == 'gynecologue'){ ?>
          <a style="padding-right: 6px;"
-							href="<?php echo $this->url('hospitalisation', array('action'=>'demande-hospitalisation'));?>">
+							href="<?php echo $this->url('gynecologie', array('action'=>'gynecologie'));?>">
 							<img src="<?php echo $this->basePath().'/img/light/list.png';?>"
-							title="Hospitaliser" />
+							title="consultation" />
 						</a> 
          <?php  } ?>
+         
       </div>
+      					<div style='width: 30%; padding-top: 11px; float: left;'>
+         <?php   if($user['role'] == 'sage_femme' ){ ?>
+         <a style="padding-right: 6px;"
+							href="<?php echo $this->url('accouchement', array('action'=>'accoucher'));?>">
+							<img src="<?php echo $this->basePath().'/img/light/list.png';?>"
+							title="consultation" />
+						</a> 
+         <?php  } ?>
+         
+      </div>
+      
 					<div style='width: 70%; padding-top: 10px; float: right;'>
 						<a
 							href="<?php echo $this->url('admin', array('action'=>'logout'));?>">

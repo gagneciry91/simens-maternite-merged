@@ -29,7 +29,7 @@ img{max-width:100%;}
 /*end reset*/
 /****-----start-body----****/       /**#1f262d**/
 body{
-	background: url(/simens-maternite/public/img/ugb_sanar3.jpg)  no-repeat center fixed; 
+	background: url(../../img/ugb_sanar3.jpg)  no-repeat center fixed; 
 	background-color: white;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;

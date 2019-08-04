@@ -12,6 +12,9 @@ class Grossesse {
 	public $vat_1;
 	public $vat_2;
 	public $vat_3;
+	public $vat_4;
+	public $vat_5;
+	
 	public $tpi_1;
 	public $tpi_2;
 	public $tpi_3;
@@ -28,6 +31,8 @@ class Grossesse {
 		$this->vat_1 = (! empty ( $data ['vat_1'] )) ? $data ['vat_1'] : null;
 		$this->vat_2 = (! empty ( $data ['vat_2'] )) ? $data ['vat_2'] : null;
 		$this->vat_3= (! empty ( $data ['vat_3'] )) ? $data ['vat_3'] : null;
+		$this->vat_4 = (! empty ( $data ['vat_4'] )) ? $data ['vat_4'] : null;
+		$this->vat_5= (! empty ( $data ['vat_5'] )) ? $data ['vat_5'] : null;
 		$this->tpi_1 = (! empty ( $data ['tpi_1'] )) ? $data ['tpi_1'] : null;
 		$this->tpi_2 = (! empty ( $data ['tpi_2'] )) ? $data ['tpi_2'] : null;
 		$this->tpi_3= (! empty ( $data ['tpi_3'] )) ? $data ['tpi_3'] : null;

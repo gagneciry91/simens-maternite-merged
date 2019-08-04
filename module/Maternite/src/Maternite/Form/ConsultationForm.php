@@ -834,7 +834,7 @@ class ConsultationForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'nouvelleGrossesse' ,
-						'required' => true,
+						//'required' => true,
 				) 
 		) );
 		

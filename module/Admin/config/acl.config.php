@@ -565,6 +565,7 @@ return array(
     								'statistiques-general-imprimees'=>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
     								'statistiques-pathologies-imprimees'=>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
     								'statistiques-deces-imprimees'=>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
+    								'statistiques-grossesses-imprimees'=>array('infirmier','stagiaire', 'gynecologue','sage_femme'),
     						),
     						
     						/***

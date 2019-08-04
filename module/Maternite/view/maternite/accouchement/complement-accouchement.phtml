@@ -12,7 +12,7 @@ echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/accouchement/c
 
 echo $this->headLink()->appendStylesheet($this->basePath().'/css/mescss/bloquerDate.css');
  //DatePicker
-echo $this->headScript()->appendFile($this->basePath() . '/js/maternite/accouchement/jsMaternite.js'); 
+//echo $this->headScript()->appendFile($this->basePath() . '/js/maternite/accouchement/jsMaternite.js'); 
 
 echo $this->headScript()->appendFile($this->basePath().'/js/mesjs/bloquerDate.js'); //Pour bloquer certaines dates?>
 <?php echo $this->headScript()->appendFile($this->basePath() . '/js/jquery/chung-timepicker.js'); 
@@ -768,7 +768,7 @@ echo $this->form ()->openTag ( $form );
     <div style='max-height: 200px;'>
 			<div style='float: left; width: 100%;'>
                 <?php //echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/accouchement/ajouterDonnees.js');?>
-               <?php echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/jsMaternite.js');?>
+               <?php // echo  $this->headScript()->appendFile($this->basePath().'/js/maternite/jsMaternite.js');?>
               
       	<table id="" style="width: 100%;"> 
       	<tr style="width: 100%;">
@@ -2425,7 +2425,7 @@ echo $this->form ()->openTag ( $form );
                     <tr class="form-rendezvous" style="width: 100%;">
                         <th style="width: 46%;"> <?php echo $this->formRow($form->get('motif_rv'));?> </th>
 
-                        <th class="form-rendezvous2" style="width: 27%;"> <?php echo $this->formRow($form->get('date_rv')); ?> </th>
+                        <th class="form-rendezvous2" style="width: 27%;"> <?php echo $this->formRow($form->get('date_rv_gyn')); ?> </th>
                         <th class="form-rendezvous2" style="width: 17%;"> <?php echo $this->formRow($form->get('heure_rv'));?> </th>
                         <th style="width: 10%;"><th>
                         <th>

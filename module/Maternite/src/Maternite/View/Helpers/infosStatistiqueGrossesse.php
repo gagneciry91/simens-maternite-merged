@@ -5,7 +5,7 @@ namespace Maternite\View\Helpers;
 use ZendPdf;
 use Maternite\View\Helpers\fpdf181\fpdf;
 
-class infosStatistiquePathologiePdf extends fpdf
+class infosStatistiqueGrossessePdf extends fpdf
 {
 
 	function Footer()
@@ -122,84 +122,71 @@ class infosStatistiquePathologiePdf extends fpdf
 	//protected $nomService;
 	protected $infosComp;
 	protected $periode;
-	protected $hrp;
-	protected $anemie;
-	protected $fistules;
-	protected $paludisme;
-	protected $ru;
-	protected $eclapsie;
-	protected $dystocie;
+	protected $vat1;
+	protected $vat2;
+	protected $vat4;
+	protected $vat3;
+
 	
-	public function setNombrehrp($hrp)
-	{
-		$this->hrp = $hrp;
-	}
-	public function setNombrehpp($hpp)
-	{
-		$this->hpp = $hpp;
-	}
-	public function setNombreanemie($anemie)
-	{
-		$this->anemie = $anemie;
-	}
-	public function setNombrefistule($fistules)
-	{
-		$this->fistules = $fistules;
-	}
-	public function setNombrepaludisme($paludisme)
-	{
-		$this->paludisme = $paludisme;
-	}
-	public function setNombreru($ru)
-	{
-		$this->ru = $ru;
-	}
-	public function setNombreeclapsie($eclapsie)
-	{
-		$this->eclapsie = $eclapsie;
-	}
-	public function setNombredystocie($dystocie)
-	{
-		$this->dystocie = $dystocie;
-	}
 	
-	public function setTabInformations($tabInformations)
-	{
-		$this->tabInformations = $tabInformations;
-	}
-	public function getNombrehrp()
-	{
-		return $this->hrp;
-	}
-	public function getNombrehpp()
-	{
-		return $this->hpp;
-	}
-	public function getNombreanemie()
-	{
-		return $this->anemie;
-	}
-	public function getNombrefistule()
-	{
-		return $this->fistules;
-	}
-	public function getNombrepaludisme()
-	{
-		return $this->paludisme;
-	}
-	public function getNombreru()
-	{
-		return $this->ru;
-	}
-	public function getNombreeclapsie()
-	{
-		return $this->eclapsie;
-	}
-	public function getNombredystocie()
-	{
-		return $this->dystocie;
-	}
 	
+	
+	/**
+	 * @return the $vat1
+	 */
+	public function getVat1() {
+		return $this->vat1;
+	}
+
+	/**
+	 * @return the $vat2
+	 */
+	public function getVat2() {
+		return $this->vat2;
+	}
+
+	/**
+	 * @return the $vat4
+	 */
+	public function getVat4() {
+		return $this->vat4;
+	}
+
+	/**
+	 * @return the $vat3
+	 */
+	public function getVat3() {
+		return $this->vat3;
+	}
+
+	/**
+	 * @param field_type $vat1
+	 */
+	public function setVat1($vat1) {
+		$this->vat1 = $vat1;
+	}
+
+	/**
+	 * @param field_type $vat2
+	 */
+	public function setVat2($vat2) {
+		$this->vat2 = $vat2;
+	}
+
+	/**
+	 * @param field_type $vat4
+	 */
+	public function setVat4($vat4) {
+		$this->vat4 = $vat4;
+	}
+
+	/**
+	 * @param field_type $vat3
+	 */
+	public function setVat3($vat3) {
+		$this->vat3 = $vat3;
+	}
+
 	public function getTabInformations()
 	{
 		return $this->tabInformations;
@@ -275,7 +262,6 @@ class infosStatistiquePathologiePdf extends fpdf
 		
 		
 		
-		
 		if($this->getPeriodeDiagnostic()){
 			$dateConvert = new DateHelper();
 			$date_debut = $dateConvert->convertDate($this->getPeriodeDiagnostic()[0]);
@@ -314,16 +300,12 @@ class infosStatistiquePathologiePdf extends fpdf
 		$tabInformations = $this->getTabInformations();
 		
 	
-		$nombrehrp = $this->getNombrehrp();
-		$nombrehpp = $this->getNombrehpp();
-		$anemie=$this->getNombreanemie();
-		$fistue=$this->getNombrefistule();
-		$paludisme=$this->getNombrepaludisme();
-		$ru=$this->getNombreru();
-		$eclapsie=$this->getNombreeclapsie();
-		$dystocie=$this->getNombredystocie();
+	   $vat1=$this->getVat1();
+	   $vat2=$this->getVat2();
+	   $vat3=$this->getVat3();
+	   $vat4=$this->getVat4();
 	
-		if($nombrehrp || $nombrehpp ||$anemie||$fistue||$paludisme||$ru){
+		if($vat1 || $vat2 ||$vat3||$vat4){
 	
 			//for($i=0 ; $i < count($tabInformations) ; $i++){
 	
@@ -344,8 +326,8 @@ class infosStatistiquePathologiePdf extends fpdf
 	
 					$this->SetFont('times','',12.5);
 					
-					$this->Cell(78,7,"Hémorragie Retro Placentaire",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $nombrehrp),'BT',0,'L',1);
+					$this->Cell(78,7,"VAT1  ",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat1),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 						
 					$this->Ln(2);
@@ -368,8 +350,8 @@ class infosStatistiquePathologiePdf extends fpdf
 					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 	
 					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Hemorragie Post Partum",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $nombrehpp),'BT',0,'L',1);
+					$this->Cell(78,7,"VAT2  ",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat2),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 					$this->Ln(6);
 					$this->SetFillColor(249,249,249);
@@ -388,8 +370,8 @@ class infosStatistiquePathologiePdf extends fpdf
 					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 					
 					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Anemie",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $anemie),'BT',0,'L',1);
+					$this->Cell(78,7,"VAT3",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat3),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 					$this->Ln(6);
 					$this->SetFillColor(249,249,249);
@@ -407,8 +389,8 @@ class infosStatistiquePathologiePdf extends fpdf
 					
 					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Fistule",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $fistue),'BT',0,'L',1);
+					$this->Cell(78,7,"VAT4",'BT',0,'L',1);
+					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat4),'BT',0,'L',1);
 					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 					$this->Ln(6);
 					$this->SetFillColor(249,249,249);
@@ -420,69 +402,7 @@ class infosStatistiquePathologiePdf extends fpdf
 					//$this->AddFont('zap','','zapfdingbats.php');
 					//$this->SetFont('zap','',13);
 					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
 					
-					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Paludisme",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $paludisme),'BT',0,'L',1);
-					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					$this->Ln(6);
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-					$this->Ln(5.4);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-						
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-						
-					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
-						
-					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"RU",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $ru),'BT',0,'L',1);
-					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					$this->Ln(6);
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-						
-					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Dystocie",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $dystocie),'BT',0,'L',1);
-					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					$this->Ln(6);
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
-					$this->Ln(5.4);
-					$this->SetFillColor(240,240,240);
-					$this->SetDrawColor(205,193,197);
-					$this->SetTextColor(0,0,0);
-					//$this->AddFont('zap','','zapfdingbats.php');
-					//$this->SetFont('zap','',13);
-					
-					$this->AddFont('timesb','','timesb.php');
-					$this->AddFont('timesi','','timesi.php');
-					$this->AddFont('times','','times.php');
-					
-					//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
-					
-					$this->SetFont('times','',12.5);
-					$this->Cell(78,7,"Eclapsie",'BT',0,'L',1);
-					$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252',$eclapsie ),'BT',0,'L',1);
-					$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-					$this->Ln(6);
-					$this->SetFillColor(249,249,249);
-					$this->SetDrawColor(220,220,220);
 						
 		}else{
 			echo  "<div align='center' style='font-size: 30px; font-family: times new roman;'> Aucune information à afficher </div>"; exit();

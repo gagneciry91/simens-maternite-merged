@@ -220,9 +220,8 @@ $(window).load(function () {
 			<tr style="height: 50px; width: 100%;">
 				<!--  <th id="nom" align="center">Num Dossier</th>-->
 				
-				 <th id="num_acc" align="center">Numero CPN</th>
-				  <th id="date_prenatale" align="center">Date CPN</th>
-				<th id="num_doss" align="center">Numero Consultation</th>
+				  <th id="date_prenatale" align="center">Numero CPN</th>
+				<th id="num_doss" align="center">Date CPN</th>
 				<th id="effectuer" align="center">Options</th>
 			</tr>
 		</thead>
@@ -241,8 +240,6 @@ $(window).load(function () {
 				                 <td><?php echo $this->escapeHtml($donnees_pre['nb_cpn']);?>  </td>
 				                  <td><?php echo $this->escapeHtml($donnees_pre['date_consultation']);?>  </td>
 				                 
-				                 <td><?php echo $this->escapeHtml($donnees_pre['Id_cons']);?>  </td>
-				           <!--   <td><?php echo $this->escapeHtml($donnees_pre['numero_dossier']);?>  </td>-->
 			         
 				      <td><a
 					     href="<?php echo $this->url('maternite', array('action'=>'complement-consultation'),  array('query'=>array('id_patient'=>$this->escapeHtml($donnees_pre['Id']),'id_cons'=>$this->escapeHtml($donnees_pre['Id_cons']))));?>">

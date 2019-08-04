@@ -109,6 +109,12 @@ class GrossesseTable {
 				'vat_1'=>$donnees['vat_1'],
 				'vat_2'=>$donnees['vat_2'],
 				'vat_3'=>$donnees['vat_3'],
+				'vat_4'=>$donnees['vat_4'],
+				'vat_5'=>$donnees['vat_5'],
+				'tpi_1'=>$donnees['tpi_1'],
+				'tpi_2'=>$donnees['tpi_2'],
+				'tpi_3'=>$donnees['tpi_3'],
+				'tpi_4'=>$donnees['tpi_4'],
 				'note_ddr'=>$donnees['note_ddr'],
 				'note_bb'=>$donnees['note_bb'],
 				'note_cpn'=>$donnees['note_cpn'],
@@ -321,7 +327,66 @@ class GrossesseTable {
 	
 	}
 	
+	public function getnbTPI1($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
 	
+		->where ( array (
+				'gro.tpi_1'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	
+	}
+	public function getnbTPI2($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.tpi_2'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	
+	}
+	public function getnbTPI3($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.tpi_3'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	
+	}
+	public function getnbTPI4($date_debut,$date_fin){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('gro' => 'grossesse'))
+		->columns( array( '*' ))
+	
+		->where ( array (
+				'gro.tpi_4'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$resultat = $stat->execute();
+		//var_dump(count($resultat));exit();
+		return count($resultat);
+	
+	}
 	public function getCPN2($date_debut,$date_fin){
 		$db = $this->tableGateway->getAdapter();
 		$sql = new Sql($db);
@@ -383,12 +448,12 @@ class GrossesseTable {
 		$db = $this->tableGateway->getAdapter();
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
-		->from(array('gro' => 'grossesse'))
-		->join(array('ant' => 'antecedent_type_1') ,'gro.id_cons = ant.id_cons')
+		->from(array('ant' => 'antecedent_type_1'))
+		->join(array('gro' => 'grossesse') ,'gro.id_cons = ant.id_cons')
 		->columns( array( '*' ))
 	
 		->where ( array (
-				'gro.nouvelleGrossesse'=>1,'ant.geste'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
+				'ant.geste'=>1 ,'gro.ddr>= ?' => $date_debut,'gro.ddr<= ? '=> $date_fin ) );
 		$stat = $sql->prepareStatementForSqlObject($sQuery);
 		$resultat = $stat->execute();
 		//var_dump(count($resultat));exit();

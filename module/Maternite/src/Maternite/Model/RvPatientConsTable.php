@@ -42,7 +42,7 @@ class RvPatientConsTable {
 				'ID_CONS' => $infos_rv ['ID_CONS'] 
 		) );//var_dump($infos_rv);exit();
 		
-		if ($infos_rv ['DATE'] && $infos_rv ['HEURE']) {
+		if ($infos_rv ['DATE'] || $infos_rv ['HEURE']) {
 			$this->tableGateway->insert ( $infos_rv );
 		}
 	}

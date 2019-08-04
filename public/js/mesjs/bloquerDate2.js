@@ -1,5 +1,6 @@
 function bloquerDate(){
   $(function () {
+	 
     var daysToDisable = [];
     var j = 0;
 

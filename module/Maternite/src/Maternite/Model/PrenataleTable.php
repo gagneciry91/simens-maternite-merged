@@ -4,7 +4,6 @@ namespace Maternite\Model;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
-
 class PrenataleTable {
 	protected $tableGateway;
 	public function __construct(TableGateway $tableGateway) {

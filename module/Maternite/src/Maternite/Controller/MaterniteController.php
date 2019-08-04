@@ -875,6 +875,7 @@ var_dump('test');exit();
         $IdDuService = $user ['IdService'];
         $id_medecin = $user ['id_personne'];
         $id_grossesse=$this->params()->fromQuery('id_grossesse');
+    
         $id_pat = $this->params()->fromQuery('id_patient', 0);
         $id = $this->params()->fromQuery('id_cons');
      
@@ -1045,18 +1046,17 @@ var_dump('test');exit();
         		'vat_2'=>$donne_grossesses['vat_2'],
         		'vat_3'=>$donne_grossesses['vat_3'],
         		'vat_4'=>$donne_grossesses['vat_4'],
-        		//'vat_5'=>$donne_grossesses['vat_5'],
+        		'vat_5'=>$donne_grossesses['vat_5'],
         		'tpi_1'=>$donne_grossesses['tpi_1'],
         		'tpi_2'=>$donne_grossesses['tpi_2'],
         		'tpi_3'=>$donne_grossesses['tpi_3'],
         		'tpi_4'=>$donne_grossesses['tpi_4'],
         		'geu'=>$donne_grossesses['geu'],
         		
-        		
         		'note_vat'=>$donne_grossesses['note_vat'],
         );
         
-       // var_dump('test');exit();
+       //var_dump($donne_grossesse);exit();
         
         
         $form->populateValues($donne_grossesse);
@@ -1074,7 +1074,7 @@ var_dump('test');exit();
         );
         //var_dump($datacons);exit();
         $form->populateValues($datacons1);
-        
+        //var_dump('test');exit();
         //var_dump($datacons);exit(); 
         
         // FIN ANTECEDENTS --- FIN ANTECEDENTS --- FIN ANTECEDENTS
@@ -1107,7 +1107,7 @@ var_dump('test');exit();
             'listeAntMed' => $listeAntMed,
             'antMedPat' => $antMedPat,
             'nbAntMedPat' => $antMedPat->count(),
-        ); //var_dump('test');exit();
+        ); 
     }
 
     // ***$$$$***
@@ -1128,7 +1128,6 @@ var_dump('test');exit();
         // les antecedents medicaux du patient a ajouter addAntecedentMedicauxPersonne
         $this->getConsultationTable()->addAntecedentMedicaux($formData);
         $this->getConsultationTable()->addAntecedentMedicauxPersonne($formData);
-       
         // mettre a jour les motifs d'admission
         $this->getMotifAdmissionTable()->deleteMotifAdmission($id_cons);
         //$this->getConsultationTable()->updateConsultation($form);
@@ -1256,18 +1255,7 @@ var_dump('test');exit();
 //var_dump($info_diagnostics);exit();
         $this->getDiagnosticsTable()->updateDiagnostics($info_diagnostics);
         
-        //prenatale
-        $datapre=array(
-        		'id_cons' => $id_cons,
-        		'hauteurUterine'=> $this->params()->fromPost('hauteurUterine'),
-        		'toucherVaginal'=> $this->params()->fromPost('toucherVaginal'),
-        		'positionFoeutus'=> $this->params()->fromPost('positionFoeutus'),
-        		'vitaliteFoeutus'=> $this->params()->fromPost('vitaliteFoeutus'),
-        		
-        		
-        );//var_dump($datapre);exit();
-        $this->getConsultationMaterniteTable()->updateConsultationMaternite($formData);
-
+        
         // POUR LES TRAITEMENTS
         // POUR LES TRAITEMENTS
         // POUR LES TRAITEMENTS

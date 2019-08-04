@@ -1577,10 +1577,53 @@ $this->add(array(
 				'name' => 'date_rv',
 				'type' => 'Text',
 				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Date' )
+						'label' => 'Date :' 
 				),
 				'attributes' => array (
 						'id' => 'date_rv' 
+				) 
+		) );
+		$this->add ( array (
+				'name' => 'date_rv_gyn',
+				'type' => 'Text',
+				'options' => array (
+						'label' => 'Date :'
+				),
+				'attributes' => array (
+						'id' => 'date_rv_gyn'
+				)
+		) );
+		$this->add ( array (
+				'name' => 'date_debut',
+				'type' => 'date',
+				'options' => array (
+						'label' => iconv('ISO-8859-1', 'UTF-8','Date RV'),
+				),
+				'attributes' => array (
+						'registerInArrrayValidator' => true,
+						'id' =>'date_debut',
+						'min'  => '2016-08-24',
+						'max' => "$dateAujourdhui",
+						'required' => true,
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'heure_rv',
+				'type' => 'Zend\Form\Element\Select',
+				'options' => array (
+						'label' => 'Heure :',
+						'empty_option' => 'Choisir',
+						'value_options' => array (
+								'08:00' => '08:00',
+								'09:00' => '09:00',
+								'10:00' => '10:00',
+								'15:00' => '15:00',
+								'16:00' => '16:00' 
+						) 
+				),
+				'attributes' => array (
+						'id' => 'heure_rv' 
 				) 
 		) );
 		$this->add ( array (
@@ -2915,7 +2958,7 @@ $this->add(array(
 				'options' => array (),
 				// 'label' => iconv('ISO-8859-1', 'UTF-8', 'Pression art�rielle (mmHg)')
 				'attributes' => array (
-						'class' => 'tension_only_numeric',
+						//'class' => 'tension_only_numeric',
 						'id' => 'tvagin'
 				)
 		) );
@@ -4115,7 +4158,7 @@ $this->add ( array (
 			),
 			'attributes' => array (
 					'id' => 'inv_uter',
-					'max' => 20,
+					'max' => 1000,
 					'min'=>0,
 					//'required' => true,numero_d_ordre
 			)

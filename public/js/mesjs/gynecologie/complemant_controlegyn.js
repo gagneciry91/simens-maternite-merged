@@ -640,7 +640,7 @@ function maskSaisie() {
 /****** CONTROLE APRES VALIDATION ********/
 /****** CONTROLE APRES VALIDATION ********/
 
-$("#terminer,#bouton_constantes_valider, #terminer2, #terminer3, #terminer4").click(function () {
+$("#terminer,#bouton_constantes_valider, #terminer4").click(function () {
 
     valid = true;    choix = true;
     if ($('#temperature').val() == "" || temoinTemperature == 3) {
@@ -697,8 +697,6 @@ $("#terminer,#bouton_constantes_valider, #terminer2, #terminer3, #terminer4").cl
 
 
 
-$(" #terminer2,#terminer3").click(function (){});
-
 
 
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*-*--*-*-*-*--*-*-*-*-*-**--*-**-*--**-*-*-*-*-*-*-*-*-*-*-*-*-*--**-*-*-*-*-
@@ -707,48 +705,7 @@ $(" #terminer2,#terminer3").click(function (){});
 //Method envoi POST pour updatecomplementconsultation
 function updateexecuterRequetePost(donnees) {
 
-	//Le formulaire pour l'impression du certificat d'accouchement
-	//var formulaireImprimCertificat = document.createElement("form");
-	//formulaireImprimCertificat.setAttribute("action", tabUrl[0] + "public/maternite/imprimer-certifat-accouchement");
-	//formulaireImprimCertificat.setAttribute("method", "POST");   
-	//formulaireImprimCertificat.setAttribute('target', '_blank');
-	
-    //document.body.appendChild(formulaireImprimCertificat);    
-    
-    //for (donnee in donnees) {
-        // Ajout dynamique de champs dans le formulaire
-        //var champ = document.createElement("input");
-        //champ.setAttribute("type", "hidden");
-        //champ.setAttribute("name", donnee);
-        //champ.setAttribute("value", donnees[donnee]);
-      //  formulaireImprimCertificat.appendChild(champ);
-    //}
 
-    // Envoi de la requete
-    //formulaireImprimCertificat.submit();
-	
-    setTimeout(function(){ 
-	//Le formulaire a envoyer pour enregistrer les données
-	var formulaire = document.createElement("form");
-    formulaire.setAttribute("action", tabUrl[0] + "public/maternite/update-complement-consultation");
-    
-    formulaire.setAttribute("method", "POST");   
-    document.body.appendChild(formulaire);    
-    for (donnee in donnees) {
-        // Ajout dynamique de champs dans le formulaire
-        var champ = document.createElement("input");
-        champ.setAttribute("type", "hidden");
-        champ.setAttribute("name", donnee);
-        champ.setAttribute("value", donnees[donnee]);
-        formulaire.appendChild(champ);
-    }
-
-    // Envoi de la requete
-     formulaire.submit(); 
-    // Suppression du formulaire
-    document.body.removeChild(formulaire);
-    
-    },1000);
     
 }
 
@@ -757,7 +714,7 @@ function updateexecuterRequetePost(donnees) {
 $("#terminer2, #terminer3").click(function () { 
 
     if (valid == false) {
-       // $('#motifsAdmissionConstanteClick').trigger('click');
+        $('#motifsAdmissionConstanteClick').trigger('click');
         $('#constantesClick').trigger('click');
        
         return false;

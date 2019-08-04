@@ -60,6 +60,9 @@ class GynecologieController extends AbstractActionController
 	protected $rvPatientConsTable;
 	protected $ordonnanceTable;
 	protected $ordonConsommableTable;
+	protected $transfererPatientServiceTable;
+	protected $demandeExamensTable;
+	
 	
 	
 	
@@ -93,6 +96,16 @@ class GynecologieController extends AbstractActionController
 		}
 		return $this->ordonConsommableTable;
 	}
+	
+	public function demandeExamensTable()
+	{
+		if (!$this->demandeExamensTable) {
+			$sm = $this->getServiceLocator();
+			$this->demandeExamensTable = $sm->get('Maternite\Model\DemandeTable');
+		}
+		return $this->demandeExamensTable;
+	}
+	
 	
 	public function getRvPatientConsTable()
 	{
@@ -719,8 +732,27 @@ class GynecologieController extends AbstractActionController
 		// FIN ANTECEDENTS --- FIN ANTECEDENTS --- FIN ANTECEDENTS
 		// FIN ANTECEDENTS --- FIN ANTECEDENTS --- FIN ANTECEDENTS
 	
+		// Liste des examens biologiques
+		$listeDesExamensBiologiques = $this->demandeExamensTable()->getDemandeDesExamensBiologiques();
+		// Liste des examens Morphologiques
+		$listeDesExamensMorphologiques = $this->demandeExamensTable()->getDemandeDesExamensMorphologiques();
 		
 		$leRendezVous = $this->getRvPatientConsTable()->getRendezVous($id);
+		//$heure= array(	$leRendezVous->heure);
+	 
+		if ($leRendezVous) {
+			$data ['heure_rv'] = $leRendezVous->heure;
+			$data ['date_rv'] = $this->controlDate->convertDate($leRendezVous->date);
+			$data ['motif_rv'] = $leRendezVous->note;
+		}
+		
+		
+		
+		$Tranfer = $this->getTransfererPatientServiceTable()->getServicePatientTransfert($id);
+			if ($Tranfer) {
+			$data ['motif_transfert'] = $Tranfer['MOTIF_TRANSFERT'];
+			$data ['service_accueil'] = $Tranfer['ID_SERVICE'];
+		}
 		
 		if ($leRendezVous) {
 			$data ['heure_rv'] = $leRendezVous->heure;
@@ -758,6 +790,8 @@ class GynecologieController extends AbstractActionController
 				'listeAntMed' => $listeAntMed,
 				'antMedPat' => $antMedPat,
 				'nbAntMedPat' => $antMedPat->count(),
+				'listeDesExamensBiologiques' => $listeDesExamensBiologiques,
+				'listeDesExamensMorphologiques' => $listeDesExamensMorphologiques
 		);
 	}
 	public function majComplementGynecologieAction()
@@ -794,17 +828,18 @@ class GynecologieController extends AbstractActionController
 	
         $this->layout()->setTemplate('layout/gynecologie');
         $this->getDateHelper();
-        $id_cons = $this->params()->fromQuery('id_cons');
         $id_patient = $this->params()->fromPost('id_patient');
-         //var_dump($id_cons);exit();
         $user = $this->layout()->user;
         $IdDuService = $user ['IdService'];
         $id_medecin = $user ['id_personne'];
-     
+        $id_cons = $this->params()->fromPost('id_cons');
+        
         $form = new ConsultationForm ();
+        
         $formData = $this->getRequest()->getPost();
         $form->setData($formData);
-      
+        //var_dump($id_cons);exit();
+        
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********
@@ -912,6 +947,7 @@ class GynecologieController extends AbstractActionController
         	}
         }
         /* Mettre a jour la duree du traitement de l'ordonnance */
+        
         $idOrdonnance = $this->getOrdonnanceTable()->updateOrdonnance($tab, $formData);
         
         /* Mettre a jour les medicaments */
@@ -933,26 +969,24 @@ class GynecologieController extends AbstractActionController
         
         $this->getGynecologieTable()->updateGyneco($donne_gyneco);
        // var_dump('tesy');exit();
-        // POUR LES RENDEZ VOUS
+      // POUR LES RENDEZ VOUS
         // POUR LES RENDEZ VOUS
         // POUR LES RENDEZ VOUS
         $id_patient = $this->params()->fromPost('id_patient');
         $date_RV_Recu = $this->params()->fromPost('date_rv');
         if ($date_RV_Recu) {
-        	$date_RV = $this->controlDate->convertDateInAnglais($date_RV_Recu);
+            $date_RV = $this->controlDate->convertDateInAnglais($date_RV_Recu);
         } else {
-        	$date_RV = $date_RV_Recu;
+            $date_RV = $date_RV_Recu;
         }
         $infos_rv = array(
-        		'ID_CONS' => $id_cons,
-        		'NOTE' => $this->params()->fromPost('motif_rv'),
-        		'HEURE' => $this->params()->fromPost('heure_rv'),
-        		'DATE' => $date_RV
+            'ID_CONS' => $id_cons,
+            'NOTE' => $this->params()->fromPost('motif_rv'),
+            'HEURE' => $this->params()->fromPost('heure_rv'),
+            'DATE' => $date_RV
         );
-         //var_dump($infos_rv);exit();
-        $this->getRvPatientConsTable()->updateRendezVous($formData);
-        
-        
+     //var_dump($infos_rv);exit(); 
+        $this->getRvPatientConsTable()->updateRendezVous($infos_rv);
         // POUR LA PAGE complement-consultation
         // POUR LA PAGE complement-consultation
         // POUR LA PAGE complement-consultation
@@ -962,7 +996,7 @@ class GynecologieController extends AbstractActionController
         	// Ajouter l'id du medecin ayant consulter le patient
         	$valide = array(
         			'VALIDER' => 1,
-        			//'ID_CONS' => $id_cons,
+        			'ID_CONS' => $id_cons,
         			//'ID_MEDECIN' => $this->params()->fromPost('med_id_personne')
         	);//var_dump($valide);exit();
         	$this->getConsultationTable()->validerConsultation1($valide);

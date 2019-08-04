@@ -1457,13 +1457,13 @@ $this->add(array(
 				) 
 		) );
 		$this->add ( array (
-				'name' => 'date_rv',
+				'name' => 'date_rv_gyn',
 				'type' => 'Text',
 				'options' => array (
 						'label' => 'Date :' 
 				),
 				'attributes' => array (
-						'id' => 'date_rv' 
+						'id' => 'date_rv_gyn' 
 				) 
 		) );
 		$this->add ( array (

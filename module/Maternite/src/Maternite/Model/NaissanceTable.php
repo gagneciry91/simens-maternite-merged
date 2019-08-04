@@ -46,7 +46,7 @@ class NaissanceTable {
 	
 	}
 	
-	public function getEnf($date_debut,$date_fin) {
+	/* public function getEnf($date_debut,$date_fin) {
 		$adapter = $this->tableGateway->getAdapter ();
 		$sql = new Sql ( $adapter );
 		$select = $sql->select ();
@@ -65,7 +65,7 @@ class NaissanceTable {
 		$result = $stat->execute ();
 	
 		return $result;
-	}
+	} */
 	
 
 public function saveNaissance($values,$id_cons,$id_patient) {

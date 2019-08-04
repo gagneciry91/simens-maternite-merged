@@ -79,7 +79,7 @@ class AntecedentType1Table {
     			'duree_infertilite'=>$donnees['duree_infertilite']?$donnees['duree_infertilite']:null,
     			'dg'=>$donnees['dg'],
     			'note_dg'=>$donnees['note_dg'],
-    			'ddr'=>$ddr,
+    			//'ddr'=>$ddr,
     			'inv_uter' => $donnees ['inv_uter']?$donnees['inv_uter']:null,
     			'muqueuse' => $donnees ['muqueuse'],
     			'oeudeme'=> $donnees['oeudeme'],
@@ -128,8 +128,64 @@ class AntecedentType1Table {
     	//$this->tableGateway->insert ( $datadonnee );
     }
     
+    public function getPrimipareRisque($date_debut,$date_fin){
+    	$db = $this->tableGateway->getAdapter();
+    	$sql = new Sql($db);
+    	$sQuery = $sql->select()
+    	->from(array('ant' => 'antecedent_type_1'))
+    	->join ( array (
+    			'c' => 'consultation'
+    	), 'ant.id_cons = c.ID_CONS', array (
+    
+    	))
+    	->columns( array( '*' ))
+    
+    	->where ( array (
+    			'ant.geste'=>1 ,'c.DATEONLY>= ?' => $date_debut,'c.DATEONLY<= ? '=> $date_fin ) );
+    	$stat = $sql->prepareStatementForSqlObject($sQuery);
+    	$resultat = $stat->execute();
+    	//var_dump(count($resultat));exit();
+    	return count($resultat);
+    }
 	
-	
+    public function getMultiparePatho($date_debut,$date_fin){
+    	$db = $this->tableGateway->getAdapter();
+    	$sql = new Sql($db);
+    	$sQuery = $sql->select()
+    	->from(array('ant' => 'antecedent_type_1') )
+    	->join ( array (
+    			'c' => 'consultation'
+    	), 'ant.id_cons = c.ID_CONS', array (
+    	
+    	))
+    	->columns( array( '*' ))
+    
+    	->where ( array (
+    			'ant.geste> ?'  => 1 ,'c.DATEONLY>= ?' => $date_debut,'c.DATEONLY<= ? '=> $date_fin ) );
+    	$stat = $sql->prepareStatementForSqlObject($sQuery);
+    	$resultat = $stat->execute();
+    	//var_dump(count($resultat));exit();
+    	return count($resultat);
+    }
+    public function getMultipareRisque($date_debut,$date_fin){
+    	$db = $this->tableGateway->getAdapter();
+    	$sql = new Sql($db);
+    	$sQuery = $sql->select()
+    	->from(array('ant' => 'antecedent_type_1'))
+    	->join ( array (
+    			'c' => 'consultation'
+    	), 'ant.id_cons = c.ID_CONS', array (
+    	
+    	))
+    	->columns( array( '*' ))
+    
+    	->where ( array (
+    			'ant.geste> ?'  => 1 ,'c.DATEONLY>= ?' => $date_debut,'c.DATEONLY<= ? '=> $date_fin ) );
+    	$stat = $sql->prepareStatementForSqlObject($sQuery);
+    	$resultat = $stat->execute();
+    	//var_dump(count($resultat));exit();
+    	return count($resultat);
+    }
     public function getAntecedentType1($id_pat) {
     
     	//$adapter = $this->tableGateway->getAdapter ();

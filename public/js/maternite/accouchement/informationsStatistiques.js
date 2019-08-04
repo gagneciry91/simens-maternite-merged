@@ -3,6 +3,9 @@ var tabUrl = base_url.split("public");
 var saveStatOption1 = 0;
 var saveStatOption2 = 0;
 var saveStatOption3 = 0;
+var saveStatOption4 = 0;
+var saveStatOption5 = 0 ;
+var saveStatOption6 = 0;
 function initialisation (){
 
 	//GESTION DE LA PAGE INFOS 1
@@ -496,7 +499,6 @@ function getInformationsDatedebutDatefinRapportAccouchement(){
 
 
 
-
 				}
 			});
 		}
@@ -738,6 +740,40 @@ function imprimerRapportStatistiquePathologie(){
 	
 }
 
+function imprimerRapportStatistiqueGrossesse(){ 
+	//var id_service = $('#id_service_rapport').val();
+	var date_debut = $('#date_debut_genre').val();
+	var date_fin = $('#date_fin_genre').val();
+	var surveillance= $('#surveillance').val();
+	//alert(date_fin );
+	var lienImpression =  tabUrl[0]+'public/accouchement/statistiques-grossesses-imprimees';
+	var imprimerInformationsStatistiques = document.getElementById("imprimerRapportInformationsStatistiques");
+	imprimerInformationsStatistiques.setAttribute("action", lienImpression);
+	imprimerInformationsStatistiques.setAttribute("method", "POST");
+	imprimerInformationsStatistiques.setAttribute("target", "_blank");
+	
+	// Ajout dynamique de champs dans le formulaire
+	var champ = document.createElement("input");
+	champ.setAttribute("type", "hidden");
+	champ.setAttribute("name", 'date_debut');
+	champ.setAttribute("value", date_debut);
+	imprimerInformationsStatistiques.appendChild(champ);
+
+	var champ2 = document.createElement("input");
+	champ2.setAttribute("type", "hidden");
+	champ2.setAttribute("name", 'date_fin');
+	champ2.setAttribute("value", date_fin);
+	imprimerInformationsStatistiques.appendChild(champ2);
+	
+	var champ3 = document.createElement("input");
+	champ3.setAttribute("type", "hidden");
+	champ3.setAttribute("name", 'surveillance');
+	champ3.setAttribute("value", surveillance);
+	imprimerInformationsStatistiques.appendChild(champ3);
+
+	$("#imprimerRapportInformationsStatistiques button").trigger('click');
+	
+}
 
 
 

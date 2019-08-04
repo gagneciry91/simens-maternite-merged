@@ -28,11 +28,12 @@ use Maternite\View\Helpers\infosStatistiquePdf;
 use Maternite\View\Helpers\infosStatistiquePathologiePdf;
 use Maternite\View\Helpers\infosStatistiqueDecesPdf;
 use Maternite\View\Helpers\RendezVousPdf;
-
+use Maternite\View\Helpers\statistiqueGrossesse;
 use Maternite\View\Helpers\TransfertPdf;
 use Maternite\View\Helpers\HospitalisationPdf;
 use Maternite\View\Helpers\SuiteDeCouchePdf;
 use Maternite\View\Helpers\ObservationPdf;
+use Maternite\View\Helpers\infosStatistiqueGrossessePdf;
 
 class AccouchementController extends AbstractActionController
 
@@ -1948,10 +1949,8 @@ foreach ($Nouveau as $Nv){
 
 	 public function majComplementAccouchementAction()
 	{$this->layout()->setTemplate('layout/accouchement');}
-	 
+
 	
-
-
 	public function updateComplementAccouchementAction()
 	{
 		$this->layout()->setTemplate('layout/accouchement');
@@ -1979,7 +1978,6 @@ foreach ($Nouveau as $Nv){
       
         $this->getConsultationTable()->updateConsultation($form);
         
-        // Recuperer les donnees sur les bandelettes urinaires
         // Recuperer les donnees sur les bandelettes urinaires
         $bandelettes = array(
             'id_cons' => $id_cons,
@@ -2195,7 +2193,6 @@ foreach ($Nouveau as $Nv){
 
         $this->getConsultationTable()->addCompteRenduOperatoire($note_compte_rendu1, 1, $id_cons);
         $this->getConsultationTable()->addCompteRenduOperatoire($note_compte_rendu2, 2, $id_cons);
-
         // POUR LES RENDEZ VOUS
         // POUR LES RENDEZ VOUS
         // POUR LES RENDEZ VOUS
@@ -2212,7 +2209,7 @@ foreach ($Nouveau as $Nv){
             'HEURE' => $this->params()->fromPost('heure_rv'),
             'DATE' => $date_RV
         );
-     
+     //var_dump($infos_rv);exit();
         $this->getRvPatientConsTable()->updateRendezVous($infos_rv);
 
         // POUR LES TRANSFERT
@@ -3286,7 +3283,7 @@ public function getStatistiquePathologieAction(){
 		$html7="<script> $('#nbEclapsieAjax').html(".$eclapsie.");</script>";
 		$html8="<script> $('#nbDystocieAjax').html(".$dystocie.");</script>";
 		
-		$html9  ='<script>';
+		$html9  .='<script>';
 		$html9 .= "
 		
 				    	$(document).ready(function($) {
@@ -3395,7 +3392,12 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 		$vat3=$this->getGrossesseTable()->getnbVAT3($date_debut, $date_fin);
 		$vat4=$this->getGrossesseTable()->getnbVAT4($date_debut, $date_fin);
 		$vat5=$this->getGrossesseTable()->getnbVAT5($date_debut, $date_fin);
+		$tpi1=$this->getGrossesseTable()->getnbTPI1($date_debut, $date_fin);
+		$tpi2=$this->getGrossesseTable()->getnbTPI2($date_debut, $date_fin);
+		$tpi3=$this->getGrossesseTable()->getnbTPI3($date_debut, $date_fin);
+		$tpi4=$this->getGrossesseTable()->getnbTPI4($date_debut, $date_fin);
 		$vatTotal=$vat1+$vat2+$vat3+$vat4+$vat5;
+		$totalTPI=$tpi1+$tpi2+$tpi3+$tpi4;
 		
 		$html ='<table class="table table-bordered" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
                  <caption>VACCIN</caption>
@@ -3444,31 +3446,31 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 		               		  <tr style="width: 80%; height: 40px; font-family: police2;">
 	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de TPI1 </td>
 		
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$tpi1.'
 		                </td>
 		                        </tr>
 		               		  <tr style="width: 80%; height: 40px; font-family: police2;">
 	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de TPI2 </td>
 		
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$tpi2.'
 		                </td>
 		                        </tr>
 		               				  <tr style="width: 80%; height: 40px; font-family: police2;">
 	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de TPI3 </td>
 		
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$tpi3.'
 		                </td>
 		                        </tr>
 		               				  <tr style="width: 80%; height: 40px; font-family: police2;">
 	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre de TPI24</td>
 		
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$tpi4.'
 		                </td>
 		                        </tr>
 		               				  <tr style="width: 80%; height: 40px; font-family: police2;">
 	                          <td style="width: 3%; border: 2px solid #cccccc; padding-left: 10px;">Nombre Total de TPI </td>
 		
-		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$vat5.'
+		               <td style="width: 33%; border: 2px solid #cccccc; padding-left: 10px;" >'.$totalTPI.'
 		                </td>
 		                        </tr>
 		                
@@ -3617,7 +3619,7 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 				else if($surveillance == 2){
 					$vat1=$this->getGrossesseTable()->getnbVAT1($date_debut, $date_fin);
 					$PrimPatho=$this->getGrossesseTable()->getPrimiparePatho($date_debut, $date_fin);
-					$PrimRisque=$this->getGrossesseTable()->getPrimipareRisque($date_debut, $date_fin);
+					$PrimRisque=$this->getAntecedentType1Table()->getPrimipareRisque($date_debut, $date_fin);
 				    $MultiPatho=$this->getGrossesseTable()->getMultiparePatho($date_debut, $date_fin);
 				    $MultiRisque=$this->getGrossesseTable()->getMultipareRisque($date_debut, $date_fin);
 				    $total1= $PrimPatho + $MultiPatho;
@@ -3684,7 +3686,7 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   	$nbPatientAccF = $this->getAccouchementTable()->getNbPatientsAccF($date_debut,$date_fin);
   	$nbcri=$this->getNaissanceTable()->getNbEnfantNonCrier($date_debut,$date_fin);
   	$nbinf=$this->getNaissanceTable()->getNbEnfantPoidsInferieur($date_debut,$date_fin);
-  	$enfviant=count($this->getNaissanceTable()->getEnf($date_debut,$date_fin));
+  	//$enfviant=count($this->getNaissanceTable()->getEnf($date_debut,$date_fin));
   	$nbPatientAccV = $this->getAccouchementTable()->getNbPatientsAccV($date_debut,$date_fin);
   	$nbPatientAccM = $this->getAccouchementTable()->getNbPatientsAccM($date_debut,$date_fin);
   	$nbGatPa = $this->getAccouchementTable()->getNbPatientsAccGatPa($date_debut,$date_fin);
@@ -3700,14 +3702,14 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   	$html6="<script> $('#nbAccouchementManoeuvreAjax').html(".$nbPatientAccM.");</script>";
   	$html7="<script> $('#nbBebeNotCriAjax').html(".$nbcri.");</script>";
   	$html8="<script> $('#nbBebePoidInfAjax').html(".$nbinf.");</script>";
-  	$html9="<script> $('#nbBebeVivantsAjax').html(".$enfviant.");</script>";
-  	$html10="<script> $('#nbBebeVivantsAjax').html(".$enfviant.");</script>";
+  	//$html9="<script> $('#nbBebeVivantsAjax').html(".$enfviant.");</script>";
+  	//$html10="<script> $('#nbBebeVivantsAjax').html(".$enfviant.");</script>";
   	$html11="<script> $('#nbBebeReanimesAjax').html(".$reanimer.");</script>";
   	$html12="<script> $('#nbMortNesAjax').html(".$decede.");</script>";
   
   	
   	$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
-  	return $this->getResponse ()->setContent ( Json::encode (array($infoPeriodeRapport,$html1,$html2,$html3,$html4,$html5,$html6,$html7,$html8,$html9,$html10,$html11,$html12)) );
+  	return $this->getResponse ()->setContent ( Json::encode (array($infoPeriodeRapport,$html1,$html2,$html3,$html4,$html5,$html6,$html7,$html8,$html11,$html12)) );
   	}
   	
  
@@ -3729,7 +3731,10 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   
   	$nbPatientPost=$this->getConsultationTable()->getNbPatientsPost();
   	//$ant=$this->getAccouchementTable()->getNbDecesMaternelAntePartum('2017-01-01','2019-07-15');
-  	 
+  	//$PrimRisque=$this->getAntecedentType1Table()->getPrimipareRisque('2017-01-01','2019-08-01');
+  	//var_dump($PrimRisque);exit();
+  	//$vat3=$this->getGrossesseTable()->getnbTPI1('2017-01-01','2019-08-03');
+  	//var_dump($vat3);exit();
   	//$nbpat=$this->getAccouchementTable()->getNbDecesMaternelPortPartum('2017-01-01','2019-07-15');
     //var_dump($nbpat);exit();
   	$nbPatientAccou  = $this->getConsultationTable()->getNbPatientsAcc();    //var_dump($nbPatientAccou);exit();
@@ -3766,34 +3771,68 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   	 
   	
   }
- /*  public function statistiquesGeneralImprimeesAction(){
-  	$control = new DateHelper();
+  public function statistiquesGrossessesImprimeesAction(){
   	
-  	$id_service = (int) $this->params()->fromPost ('id_service');
-  	//$id_diagnostic = (int) $this->params()->fromPost ('id_diagnostic');
   	$date_debut = $this->params()->fromPost ('date_debut');
   	$date_fin   = $this->params()->fromPost ('date_fin');
-  	
-  	$periodeIntervention = array();
-  	
-  	$listeSousDossier = $this->getConsultationTable()->getInfosSousDossier();
+  	$surveillance=$this->params()->fromPost ('surveillance');
+  	 
+  	$periodeStat = array();
+  	if($date_debut && $date_fin){ /*Une période est selectionnée*/
+  			
+  		/**=======================*/
+  		$periodeStat[0] = $date_debut;
+  		$periodeStat[1] = $date_fin;
+  		
+  		
+  			$vat1=$this->getGrossesseTable()->getnbVAT1($date_debut, $date_fin);
+  			$vat2=$this->getGrossesseTable()->getnbVAT2($date_debut, $date_fin);
+  			$vat3=$this->getGrossesseTable()->getnbVAT3($date_debut, $date_fin);
+  			$vat4=$this->getGrossesseTable()->getnbVAT4($date_debut, $date_fin);
+  			$vat5=$this->getGrossesseTable()->getnbVAT5($date_debut, $date_fin);
+  			$tpi1=$this->getGrossesseTable()->getnbTPI1($date_debut, $date_fin);
+  			$tpi2=$this->getGrossesseTable()->getnbTPI2($date_debut, $date_fin);
+  			$tpi3=$this->getGrossesseTable()->getnbTPI3($date_debut, $date_fin);
+  			$tpi4=$this->getGrossesseTable()->getnbTPI4($date_debut, $date_fin);
+  			$PrimPatho=$this->getGrossesseTable()->getPrimiparePatho($date_debut, $date_fin);
+  			$PrimRisque=$this->getAntecedentType1Table()->getPrimipareRisque($date_debut, $date_fin);
+  			$MultiPatho=$this->getGrossesseTable()->getMultiparePatho($date_debut, $date_fin);
+  			$MultiRisque=$this->getGrossesseTable()->getMultipareRisque($date_debut, $date_fin);
+  			$total1= $PrimPatho + $MultiPatho;
+  			$total2= $PrimRisque + $MultiRisque;
+  		
+  		
+  	}
   	
   	$user = $this->layout()->user;
   	$nomService = $user['NomService'];
-  	$infosComp['dateImpression'] = (new \DateTime ())->format( 'd/m/Y' );
-  	
-  	$pdf = new infosStatistiquePdf();
-  	$pdf->SetMargins(13.5,13.5,13.5);
-  	$pdf->setTabInformations($listeSousDossier);
   	 
-  	$pdf->setService($nomService);
+  	$infosComp['dateImpression'] = (new \DateTime ())->format( 'd/m/Y' );//var_dump($date_fin);exit();
+  	$pdf = new statistiqueGrossesse();
+  	$pdf->SetMargins(13.5,13.5,13.5);
+  	//$pdf->setTabInformations($liste);
+   $pdf->setVat1($vat1);
+   $pdf->setVat2($vat2);
+   $pdf->setVat3($vat3);
+   $pdf->setVat4($vat3);
+   $pdf->setVat5($vat5);
+   $pdf->setTpi1($tpi1);
+   $pdf->setTpi2($tpi2);
+   $pdf->setTpi3($tpi3);
+   $pdf->setTpi4($tpi4);
+    
+   $pdf->setPrimPatho($PrimPatho);
+   $pdf->setPrimRisque($PrimRisque);
+   $pdf->setMultiPatho($MultiPatho);
+   $pdf->setMultiRisque($MultiRisque);
   	$pdf->setInfosComp($infosComp);
-  	//$pdf->setPeriodeIntervention($periodeIntervention);
-  	
+  	$pdf->setPeriode($periodeStat);
+  	$pdf-> setsurveillance($surveillance);
+  	 
   	$pdf->ImpressionInfosStatistiques();
   	$pdf->Output('I');
   	
-  } */
+  }
   public function statistiquesImprimeesAction() {
   
   	$control = new DateHelper();
@@ -4034,7 +4073,7 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 				$nbPatientAccF = $this->getAccouchementTable()->getNbPatientsAccF($date_debut,$date_fin);
 				$nbcri=$this->getNaissanceTable()->getNbEnfantNonCrier($date_debut,$date_fin);
 				$nbinf=$this->getNaissanceTable()->getNbEnfantPoidsInferieur($date_debut,$date_fin);
-				$enfviant=count($this->getNaissanceTable()->getEnf($date_debut,$date_fin));
+				//$enfviant=count($this->getNaissanceTable()->getEnf($date_debut,$date_fin));
 				$nbPatientAccV = $this->getAccouchementTable()->getNbPatientsAccV($date_debut,$date_fin);
 				$nbPatientAccM = $this->getAccouchementTable()->getNbPatientsAccM($date_debut,$date_fin);
 				$nbGatPa = $this->getAccouchementTable()->getNbPatientsAccGatPa($date_debut,$date_fin);
@@ -4069,7 +4108,7 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 			$pdf->setNbPatientAccV($nbPatientAccV);
 			$pdf->setNbcri($nbcri);
 			$pdf->setNbinf($nbinf);
-			$pdf->setEnfviant($enfviant);
+			//$pdf->setEnfviant($enfviant);
 			$pdf->setNbGatPa($nbGatPa);
 			$pdf->setDecede($decede);
 			$pdf->setReanimer($reanimer);

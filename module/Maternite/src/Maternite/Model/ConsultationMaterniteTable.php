@@ -119,7 +119,6 @@ class ConsultationMaterniteTable {
             'hauteurUterine' => $values ['hauteurUterine'],
             'positionFoeutus' => $values ['positionFoeutus'] ,
             'vitaliteFoeutus' => $values ['vitaliteFoeutus'],
-            //'commentaire' => $values ['commentaire'],
         		
         );//var_dump($donnees);exit();
 return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $donnees ));

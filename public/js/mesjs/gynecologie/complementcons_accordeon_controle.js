@@ -1,6 +1,8 @@
 var base_url = window.location.toString();
 var tabUrl = base_url.split("public");
 
+
+
 $(function () {
     $("#accordionsssss").accordion();
 });
@@ -361,7 +363,34 @@ $(function () {
 
 
 });
-
+$('#date_rv').datepicker(
+		$.datepicker.regional['fr'] = {
+				closeText: 'Fermer',
+				changeYear: true,
+				yearRange: 'c-80:c',
+				prevText: '&#x3c;Préc',
+				nextText: 'Suiv&#x3e;',
+				currentText: 'Courant',
+				monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
+				'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
+				monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Juin',
+				'Jul','Aout','Sep','Oct','Nov','Dec'],
+				dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+				dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+				dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+				weekHeader: 'Sm',
+				dateFormat: 'dd/mm/yy',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: false,
+				yearRange: '1900:2050',
+				showAnim : 'bounce',
+				changeMonth: true,
+				changeYear: true,
+				yearSuffix: '',
+				maxDate: 0
+		}
+);
 $('#date_fin_hospitalisation_prevue').datepicker(
     $.datepicker.regional['fr'] = {
         closeText: 'Fermer',
@@ -395,7 +424,10 @@ $('#date_fin_hospitalisation_prevue').datepicker(
 $(function () {
     var motif_rv = $('#motif_rv');
     var date_rv = $("#date_rv");
+    var date_rv_gyn=$("date_rv_gyn");
     var heure_rv = $("#heure_rv");
+    date_rv_gyn.attr('autocomplete', 'off');
+
     date_rv.attr('autocomplete', 'off');
     $("#disable").click(function () {
         motif_rv.attr('readonly', true).css({'background': '#f8f8f8'});     //d�sactiver le motif
@@ -408,6 +440,19 @@ $(function () {
 
         date_rv.val(date);
     });
+    $("#disable").click(function () {
+        motif_rv.attr('readonly', true).css({'background': '#f8f8f8'});     //d�sactiver le motif
+        $("#date_rv_gyn_tampon").val(date_rv_gyn.val()); //Placer la date dans date_rv_tampon avant la desacivation
+        date_rv_gyn.attr('disabled', true).css({'background': '#f8f8f8'});     //d�sactiver la date
+        $("#heure_rv_tampon").val(heure_rv.val()); //Placer l'heure dans heure_rv_tampon avant la desacivation
+        heure_rv.attr('disabled', true).css({'background': '#f8f8f8'});   //d�sactiver l'heure
+        $("#disable_bouton").toggle(true);  //on affiche le bouton permettant de modifier les champs
+        $("#enable_bouton").toggle(false); //on cache le bouton permettant de valider les champs
+
+        date_rv_gyn.val(date);
+    });
+    
+    
 
     $("button").button();
     //$( "bouton_valider" ).button();
@@ -856,12 +901,17 @@ $("#terminer2, #terminer3").click(function () {
     donnees['id_admission'] = $("#id_admission").val();
     donnees['id_grossesse'] = $("#id_grossesse").val();
     //Au cas ou l'utilisateur ne valide pas ou n'imprime pas cela veut dire que le champ n'est pas d�sactiver
+    if ($("#date_rv_gyn").val()) {
+        $("#date_rv_gyn_tampon").val($("#date_rv_gyn").val());
+    }
     if ($("#date_rv").val()) {
         $("#date_rv_tampon").val($("#date_rv").val());
     }
     donnees['date_rv'] = $("#date_rv_tampon").val();
     donnees['motif_rv'] = $("#motif_rv").val();
     donnees['heure_rv'] = $("#heure_rv").val();
+    donnees['date_rv_gyn'] = $("#date_rv_gyn").val();
+
 
     // **********-- Hospitalisation --*******
     // **********-- Hospitalisation --*******
@@ -1364,6 +1414,13 @@ $("#annulertransfert").click(function () {
 $("#annulerrendezvous").click(function () {
     $("#motif_rv").val("");
     $("#date_rv").val("");
+    document.getElementById('heure_rv').value = "";
+    return false;
+});
+
+$("#annulerrendezvous").click(function () {
+    $("#motif_rv").val("");
+    $("#date_rv_gyn").val("");
     document.getElementById('heure_rv').value = "";
     return false;
 });

@@ -148,7 +148,7 @@ class AdminController extends AbstractActionController
     public function bienvenueAction() 
     {
     	$uAuth = $this->getServiceLocator()->get('Admin\Controller\Plugin\UserAuthentication'); //@todo - We must use PluginLoader $this->userAuthentication()!!
-    	
+    	//var_dump($uAuth);exit();
     	$username = $uAuth->getAuthService()->getIdentity();
     	
     	$user = $this->getUtilisateurTable()->getUtilisateursWithUsername($username);

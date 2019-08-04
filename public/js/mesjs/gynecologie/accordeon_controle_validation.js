@@ -101,7 +101,10 @@ function maskDeSaisie(){
 //		}
 //    });
     
-}            
+}           
+
+
+
 
 function supprimer_dernier_caractere(elm) {
 	  var val = $(elm).val();

@@ -2001,12 +2001,12 @@ foreach ($Nouveau as $Nv){
         //$id_antecedent1 = $this->getAntecedentType1Table ()-> updateAntecedentType1($formData);         
         
    // $id_antecegetAntecedentType2Table ()-> updateAntecedentType2($formData);
-    $this->getDonneesExamensPhysiquesTable()->updateExamenPhysique($formData);//var_dump('test');exit(); 
+    $this->getDonneesExamensPhysiquesTable()->updateExamenPhysique($formData);
     
    $id_acc= $this->getAccouchementTable()->updateAccouchement($formData,$id_cons); //var_dump('test');exit(); 
-  
+   //var_dump('test');exit();
    $this->getAccouchementTable()->addPrenomme($formData['prenome'],$id_acc);    
-   
+ 
     // var_dump($formData['prenome']); exit();
         $enfant=$formData['nombre_enfant'];
        	$tab_bebes = $this->getNaissanceTable()->saveNaissance($formData,$id_cons,$id_patient);
@@ -3576,6 +3576,9 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 					</table>';
 				}	else if($surveillance == 5){
 						$vat1=$this->getGrossesseTable()->getnbVAT1($date_debut, $date_fin);
+						$total1=$vat1+$vat1;
+						$total2=$vat1+$vat1;
+						$total3=$vat1+$vat1;
 						
 				
 					$html ='<table class="table table-bordered tab_list_mini" style="width: 80%; height: 36px; border: 1px solid #cccccc;">  <thead style="width: 80%;">
@@ -3611,6 +3614,12 @@ public function getStatistiqueSurveillanceGrossesseAction(){
 						      </tr>
 							<tr style="width: 80%; height: 40px; font-family: police2;">
 							 <th  style="width: 20%;  font-weight: bold; font-size: 15px;">Total </th>
+											<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total1.'
+		                </td>
+									<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total2.'
+		                </td>
+								<td style="width: 20%; border: 2px solid #cccccc; padding-left: 10px;" >'.$total3.'
+		                </td>
 						      </tr>
 					</table>';
 					

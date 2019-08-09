@@ -481,6 +481,10 @@ class statistiqueGrossesse extends fpdf {
 		$vat3=$this->getVat3();
 		$vat4=$this->getVat4();
 		$vat5=$this->getVat5();
+		$tpi1=$this->getTpi1();
+		$tpi2=$this->getTpi2();
+		$tpi3=$this->getTpi3();
+		$tpi4=$this->getTpi4();
 	    $pathoprim=$this->getPrimPatho();
 	    $pathomul=$this->getPrimRisque();
 	    $risquepri=$this->getMultiPatho();
@@ -537,7 +541,7 @@ class statistiqueGrossesse extends fpdf {
 			$this->Cell(78,7,"VAT2  ",'BT',0,'L',1);
 			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat2),'BT',0,'L',1);
 			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-			$this->Ln(6);
+			$this->Ln(2);
 			$this->SetFillColor(249,249,249);
 			$this->SetDrawColor(220,220,220);
 			$this->Ln(5.4);
@@ -557,7 +561,7 @@ class statistiqueGrossesse extends fpdf {
 			$this->Cell(78,7,"VAT3",'BT',0,'L',1);
 			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat3),'BT',0,'L',1);
 			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
-			$this->Ln(6);
+			$this->Ln(2);
 			$this->SetFillColor(249,249,249);
 			$this->SetDrawColor(220,220,220);
 			$this->Ln(5.4);
@@ -576,7 +580,72 @@ class statistiqueGrossesse extends fpdf {
 			$this->Cell(78,7,"VAT4",'BT',0,'L',1);
 			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat4),'BT',0,'L',1);
 			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			$this->Ln(2);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+		
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			$this->SetFont('times','',12.5);
+			$this->Cell(78,7,"VAT5",'BT',0,'L',1);
+			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat5),'BT',0,'L',1);
+			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 			$this->Ln(6);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			
+			
+			//$this->Ln(5.4);
+			$this->SetFillColor(220,220,220);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+			
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			
+			$this->SetFont('times','',12.5);
+			
+			$this->Cell(78,7,"TPI1  ",'BT',0,'L',1);
+			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $tpi1),'BT',0,'L',1);
+			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			
+			$this->Ln(2);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			
+			//}else {
+			
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+			
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			
+			$this->SetFont('times','',12.5);
+			$this->Cell(78,7,"TPI2  ",'BT',0,'L',1);
+			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $tpi2),'BT',0,'L',1);
+			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			$this->Ln(2);
 			$this->SetFillColor(249,249,249);
 			$this->SetDrawColor(220,220,220);
 			$this->Ln(5.4);
@@ -585,7 +654,46 @@ class statistiqueGrossesse extends fpdf {
 			$this->SetTextColor(0,0,0);
 			//$this->AddFont('zap','','zapfdingbats.php');
 			//$this->SetFont('zap','',13);
+			
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			
+			$this->SetFont('times','',12.5);
+			$this->Cell(78,7,"TPI3",'BT',0,'L',1);
+			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $tpi3),'BT',0,'L',1);
+			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			$this->Ln(2);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+			
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			$this->SetFont('times','',12.5);
+			$this->Cell(78,7,"TPI4",'BT',0,'L',1);
+			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $tpi4),'BT',0,'L',1);
+			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			$this->Ln(2);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+		
 				
+			
 				
 	
 		}else if($surveillance==2){
@@ -662,8 +770,6 @@ class statistiqueGrossesse extends fpdf {
 			$this->SetFillColor(240,240,240);
 			$this->SetDrawColor(205,193,197);
 			$this->SetTextColor(0,0,0);
-			//$this->AddFont('zap','','zapfdingbats.php');
-			//$this->SetFont('zap','',13);
 			
 		}
 		else if($surveillance==3){
@@ -684,7 +790,7 @@ class statistiqueGrossesse extends fpdf {
 	
 			$this->SetFont('times','',12.5);
 				
-			$this->Cell(78,7,"VAT1  ",'BT',0,'L',1);
+			$this->Cell(78,7,"Nombre de femme enceinte ayant recu une prescription de MILDA ",'BT',0,'L',1);
 			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat1),'BT',0,'L',1);
 			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 	
@@ -692,7 +798,6 @@ class statistiqueGrossesse extends fpdf {
 			$this->SetFillColor(249,249,249);
 			$this->SetDrawColor(220,220,220);
 	
-			//}else {
 	
 			$this->Ln(5.4);
 			$this->SetFillColor(240,240,240);
@@ -708,7 +813,7 @@ class statistiqueGrossesse extends fpdf {
 			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 	
 			$this->SetFont('times','',12.5);
-			$this->Cell(78,7,"VAT2  ",'BT',0,'L',1);
+			$this->Cell(78,7,"Nombre de femme enceinte ayant recu un conceling SIDA ",'BT',0,'L',1);
 			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat2),'BT',0,'L',1);
 			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 			$this->Ln(6);
@@ -728,7 +833,7 @@ class statistiqueGrossesse extends fpdf {
 			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 				
 			$this->SetFont('times','',12.5);
-			$this->Cell(78,7,"VAT3",'BT',0,'L',1);
+			$this->Cell(78,7,"Nombre de femme enceinte presentant une anemie",'BT',0,'L',1);
 			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat3),'BT',0,'L',1);
 			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 			$this->Ln(6);
@@ -747,8 +852,58 @@ class statistiqueGrossesse extends fpdf {
 				
 			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
 			$this->SetFont('times','',12.5);
-			$this->Cell(78,7,"VAT4",'BT',0,'L',1);
+			$this->Cell(78,7,"Nombre de femme enceinte ayant recu une prescription de fer",'BT',0,'L',1);
 			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat4),'BT',0,'L',1);
+			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			$this->Ln(6);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			
+			$this->Ln(5.4);
+			$this->SetFillColor(220,220,220);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+			
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			
+			$this->SetFont('times','',12.5);
+			
+			$this->Cell(78,7,"Nombre de femme presentant une MAS ",'BT',0,'L',1);
+			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat1),'BT',0,'L',1);
+			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			
+			$this->Ln(2);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			
+			//}else {
+			
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+			
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			
+			$this->SetFont('times','',12.5);
+			$this->Cell(78,7,"Nombre de femme enceinte presentant une MAM ",'BT',0,'L',1);
+			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat2),'BT',0,'L',1);
 			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
 			$this->Ln(6);
 			$this->SetFillColor(249,249,249);
@@ -759,6 +914,231 @@ class statistiqueGrossesse extends fpdf {
 			$this->SetTextColor(0,0,0);
 			//$this->AddFont('zap','','zapfdingbats.php');
 			//$this->SetFont('zap','',13);
+			
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			
+			$this->SetFont('times','',12.5);
+			$this->Cell(78,7,"Nombre de femme enceinte presentant une anemie",'BT',0,'L',1);
+			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat3),'BT',0,'L',1);
+			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			$this->Ln(6);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+			
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			$this->SetFont('times','',12.5);
+			$this->Cell(78,7,"Nombre de femme enceinte ayant recu une prescription de fer",'BT',0,'L',1);
+			$this->Cell(27,7,iconv ('UTF-8' , 'windows-1252', $vat4),'BT',0,'L',1);
+			$this->Cell(78,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			$this->Ln(6);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+				
+			
+		}
+		else if($surveillance==4){
+			$this->Ln(5.4);
+			$this->SetFillColor(220,220,220);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+			
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+			
+			$this->SetFont('times','',12.5);
+				
+			$this->Cell(38,7,"Cibles ",'BT',0,'L',1);	
+			$this->Cell(38,7,"CPN1 ",'BT',0,'L',1);
+			$this->Cell(38,7,"CPN2 ",'BT',0,'L',1);
+			$this->Cell(38,7,"CPN3 ",'BT',0,'L',1);
+			$this->Cell(28,7,"CPN4 ",'BT',0,'L',1);
+			$this->Cell(28,7,"Plus4 ",'BT',0,'L',1);
+			$this->Ln(6.4);
+				
+			$this->SetFont('times','',12.5);
+				
+			$this->Cell(38,7,"Primipares  ",'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $risquepri),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(28,7,iconv ('UTF-8' , 'windows-1252', $risquepri),'BT',0,'L',1);
+			$this->Cell(28,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			
+			$this->Cell(40,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			
+			$this->Ln(2);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+				
+			//}else {
+				
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+				
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+				
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+				
+			$this->SetFont('times','',12.5);
+			$this->Cell(38,7,"Multipares  ",'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $risquepri),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(28,7,iconv ('UTF-8' , 'windows-1252', $risquepri),'BT',0,'L',1);
+			$this->Cell(28,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);			
+			$this->Cell(40,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			//$this->Ln(6);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(6.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+				
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+				
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+				
+			$this->SetFont('times','',12.5);
+			$this->Cell(38,7,"Total",'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $risquepri),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(28,7,iconv ('UTF-8' , 'windows-1252', $risquepri),'BT',0,'L',1);
+			$this->Cell(28,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(40,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+				
+				
+				
+		
+		}
+		else if($surveillance==5){
+			$this->Ln(5.4);
+			$this->SetFillColor(220,220,220);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+				
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+				
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+				
+			$this->SetFont('times','',12.5);
+		
+			$this->Cell(38,7,"Cibles ",'BT',0,'L',1);
+			$this->Cell(38,7,"Simple ",'BT',0,'L',1);
+			$this->Cell(38,7,"Double ",'BT',0,'L',1);
+			$this->Cell(38,7,"Total ",'BT',0,'L',1);
+			$this->Ln(6.4);
+		
+			$this->SetFont('times','',12.5);
+		
+			$this->Cell(38,7,"Primipares  ",'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $risquepri),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			
+			$this->Cell(40,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+				
+			$this->Ln(2);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+		
+			//}else {
+		
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+		
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+		
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+		
+			$this->SetFont('times','',12.5);
+			$this->Cell(38,7,"Multipares  ",'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $risquepri),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+		$this->Cell(40,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			//$this->Ln(6);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(6.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+			//$this->AddFont('zap','','zapfdingbats.php');
+			//$this->SetFont('zap','',13);
+		
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+		
+			//$this->Cell(25,7,($i+1).')','BT',0,'L',1);
+		
+			$this->SetFont('times','',12.5);
+			$this->Cell(38,7,"Total",'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $risquepri),'BT',0,'L',1);
+			$this->Cell(38,7,iconv ('UTF-8' , 'windows-1252', $pathoprim),'BT',0,'L',1);
+				$this->Cell(40,7,iconv ('UTF-8' , 'windows-1252', $tabInformations[1][$tabInformations[0][0]]),'BT',0,'R',1);
+			$this->SetFillColor(249,249,249);
+			$this->SetDrawColor(220,220,220);
+			$this->Ln(5.4);
+			$this->SetFillColor(240,240,240);
+			$this->SetDrawColor(205,193,197);
+			$this->SetTextColor(0,0,0);
+		
+		
+		
+		
 		}
 				
 		else{

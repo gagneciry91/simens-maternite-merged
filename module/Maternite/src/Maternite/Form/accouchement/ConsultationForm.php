@@ -795,7 +795,7 @@ class ConsultationForm extends Form {
 						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Diagnostic 1: ' ) 
 				),
 				'attributes' => array (
-						'readonly' => 'readonly',
+						//'readonly' => 'readonly',
 						'id' => 'diagnostic1' 
 				) 
 		) );
@@ -806,7 +806,7 @@ class ConsultationForm extends Form {
 						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Diagnostic 2: ' ) 
 				),
 				'attributes' => array (
-						'readonly' => 'readonly',
+						//'readonly' => 'readonly',
 						'id' => 'diagnostic2' 
 				) 
 		) );
@@ -817,7 +817,7 @@ class ConsultationForm extends Form {
 						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Diagnostic 3: ' ) 
 				),
 				'attributes' => array (
-						'readonly' => 'readonly',
+						//'readonly' => 'readonly',
 						'id' => 'diagnostic3' 
 				) 
 		) );
@@ -828,7 +828,7 @@ class ConsultationForm extends Form {
 						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Diagnostic 4: ' ) 
 				),
 				'attributes' => array (
-						'readonly' => 'readonly',
+						//'readonly' => 'readonly',
 						'id' => 'diagnostic4' 
 				) 
 		) );
@@ -2228,7 +2228,8 @@ $this->add(array(
 		
 		$this->add ( array (
 				'name' => 'date_accouchement',
-				'type' => 'text',
+				'type' => 'Text',
+			
 				'attributes' => array (
 						//'readonly' => 'readonly',
 						'id' => 'date_accouchement'

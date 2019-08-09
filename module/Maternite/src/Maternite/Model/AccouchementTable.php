@@ -131,8 +131,11 @@ class AccouchementTable {
 					'fistules' => $donnees['fistules'],
 					'paludisme' => $donnees['paludisme'],
 					'eclapsie'	 => $donnees['eclapsie'],
-						
-						
+					'note_dystocie' => $donnees['note_dystocie'],
+					'note_infection' => $donnees['note_infection'],
+					'note_anemie' => $donnees['note_anemie'],
+					'note_fistules' => $donnees['note_fistules'],
+					'note_paludisme' => $donnees['note_paludisme'],
 						
 						
 						
@@ -146,7 +149,8 @@ class AccouchementTable {
 	
 	
 public function addPrenomme($donne,$id_acc) {
-		$db = $this->tableGateway->getAdapter ();
+		
+	$db = $this->tableGateway->getAdapter ();
 		$sql = new Sql ( $db );
 		$sQuery = $sql->insert ()->into ( 'prenomme_des_bb' )->values ( array (
 				'id_accouchement' => $id_acc,

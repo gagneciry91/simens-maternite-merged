@@ -317,7 +317,7 @@ $(function() {
     					changeMonth: true,
     					changeYear: true,
     					yearSuffix: '',
-    					maxDate: 0
+    					minDate: 0
     			}
     	);
   		

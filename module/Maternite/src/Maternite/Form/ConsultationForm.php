@@ -366,19 +366,43 @@ class ConsultationForm extends Form {
 						//'required' => true,
 				)
 		) );
+
+		$this->add ( array (
+				'name' => 'inv_uter',
+				'type' => 'number',
+				'options' => array (
+						//'label' => iconv('ISO-8859-1', 'UTF-8','PARITE')
+				),
+				'attributes' => array (
+						'id' => 'inv_uter',
+						'max' => 1000,
+						'min'=>0,
+						//'required' => true,numero_d_ordre
+				)
+		) );
 		
 		
 		$this->add ( array (
 				'name' => 'nb_cpn',
-				'type' => 'Text',
+				'type' => 'number',
 				'options' => array (
 						//'label' => iconv('ISO-8859-1', 'UTF-8','Nombre CPN:')
 				),
 				'attributes' => array (
 						'id' => 'nb_cpn',
-						'max' => 5,
+						'max' => 10,
 						'min'=>0,
 						'required' => true,
+				)
+		) );
+
+		$this->add ( array (
+				'name' => 'tvagin',
+				'type' => 'Text',
+				'options' => array (),
+				'attributes' => array (
+						//'class' => 'tension_only_numeric',
+						'id' => 'tvagin'
 				)
 		) );
 		
@@ -535,8 +559,8 @@ class ConsultationForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'nombre_bb',
-						'max' => 20,
-						'min'=>0,
+						'max' => 10,
+						'min'=>1,
 						//'required' => true,
 				)
 		) );
@@ -1519,13 +1543,34 @@ class ConsultationForm extends Form {
 				)
 		) );
 		$this->add ( array (
+				'name' => 'position',
+				'type' => 'Text',
+				'options' => array (
+						//'label' => iconv ( 'ISO-8859-1', 'UTF-8' )
+				),
+				'attributes' => array (
+						'id' => 'position'
+				)
+		) );
+		
+		$this->add ( array (
 				'name' => 'vitaliteFoeutus',
 				'type' => 'Text',
 				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Vatalite foeutus' )
+						//'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Vatalite foeutus' )
 				),
 				'attributes' => array (
 						'id' => 'vitaliteFoeutus'
+				)
+		) );
+		$this->add ( array (
+				'name' => 'vitalite',
+				'type' => 'Text',
+				'options' => array (
+						//'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Vatalite foeutus' )
+				),
+				'attributes' => array (
+						'id' => 'vitalite'
 				)
 		) );
 /* 		$this->add ( array (

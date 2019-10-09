@@ -204,7 +204,7 @@ div .dataTables_paginate
     box-shadow: 0pt 0pt 12px rgba(0, 0, 0, 0.5);
 }
 
-#contenuPageA, #contenuPageB, #contenuPageC {
+#contenuPageA, #contenuPageB, #contenuPageC, #contenuPageD, #contenuPageE, #contenuPageF{
     background: #fff; 
 	min-height: 450px;
     max-height: 1000px;
@@ -427,19 +427,18 @@ p{
               display: inline;float:left;border:transparent; margin-bottom: 10px;
          } 
 .vider_formulaire {
-	          background: url("/simens_derniereversion/public/images_icons/annuler1.PNG") no-repeat right top;
-               
+	          background: url("../../images_icons/annuler1.PNG") no-repeat right top;
          }
 .modifer_donnees {
-	          background: url("/simens_derniereversion/public/images_icons/modifier.png") no-repeat right top;
+	          background: url("../../images_icons/modifier.png") no-repeat right top;
                
          }
 .supprimer_photo {
-	          background: url("/simens_derniereversion/public/images_icons/mod.png") no-repeat right top;
+	          background: url("../../images_icons/mod.png") no-repeat right top;
                
          }
 .ajouter_photo {
-	          background: url("/simens_derniereversion/public/images_icons/ajouterphoto.png") no-repeat right top;
+	          background: url("../../images_icons/ajouterphoto.png") no-repeat right top;
                
          }
 .vider_formulaire input, .modifer_donnees input, .ajouter_photo input, .supprimer_photo input{

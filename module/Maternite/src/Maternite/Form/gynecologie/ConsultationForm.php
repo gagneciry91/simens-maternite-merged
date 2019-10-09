@@ -838,7 +838,7 @@ class ConsultationForm extends Form {
 				'name' => 'diagnostic2',
 				'type' => 'Text',
 				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Decsion: ' ) 
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Diagnostic 2: ' ) 
 				),
 				'attributes' => array (
 						//'readonly' => 'readonly',
@@ -865,6 +865,16 @@ class ConsultationForm extends Form {
 				'attributes' => array (
 						//'readonly' => 'readonly',
 						'id' => 'diagnostic4' 
+				) 
+		) );		$this->add ( array (
+				'name' => 'diagnostic5',
+				'type' => 'Text',
+				'options' => array (
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Decision: ' ) 
+				),
+				'attributes' => array (
+						//'readonly' => 'readonly',
+						'id' => 'diagnostic5' 
 				) 
 		) );
 		$this->add ( array (
@@ -2956,7 +2966,6 @@ $this->add(array(
 				'name' => 'tvagin',
 				'type' => 'Text',
 				'options' => array (),
-				// 'label' => iconv('ISO-8859-1', 'UTF-8', 'Pression art�rielle (mmHg)')
 				'attributes' => array (
 						//'class' => 'tension_only_numeric',
 						'id' => 'tvagin'
@@ -3836,8 +3845,8 @@ $this->add(array(
 			),
 			'attributes' => array (
 					'id' => 'menarchie',
-					'max' => 15,
-					'min'=>11,
+					'max' => 18,
+					'min'=>7,
 			)
 	) );
 	

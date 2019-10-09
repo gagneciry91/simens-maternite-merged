@@ -604,7 +604,7 @@ class GynecologieController extends AbstractActionController
 				
 		);
 		//var_dump($donne_ant1);exit();
-		$form->populateValues($donne_ant1);
+		//$form->populateValues($donne_ant1);
 		
 		$donne_antecedent2=array(
 				'dystocie'=>$donne_ante2['dystocie'],
@@ -764,7 +764,7 @@ class GynecologieController extends AbstractActionController
 		// Recuperer la liste des actes
 		// Recuperer la liste des actes
 		 
-		$form->populateValues(array_merge($data,$donne_antecedent2, $tabdiagons,  $donneesAntecedentsPersonnels, $donneesAntecedentsFamiliaux));
+		$form->populateValues(array_merge($data,$donne_ant1,$donne_antecedent2, $tabdiagons,  $donneesAntecedentsPersonnels, $donneesAntecedentsFamiliaux));
 		return array(
 				'lesdetails' => $liste,
 				'id_cons' => $id,
@@ -786,7 +786,7 @@ class GynecologieController extends AbstractActionController
 				'liste' => $listeConsultation,
 				'resultRV' => $resultRV,
 				'verifieRV' => $leRendezVous,
-				
+				'donne_ant1'=>$donne_ant1,
 				'listeAntMed' => $listeAntMed,
 				'antMedPat' => $antMedPat,
 				'nbAntMedPat' => $antMedPat->count(),

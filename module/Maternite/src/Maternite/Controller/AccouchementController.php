@@ -1265,7 +1265,7 @@ public function declarerDecesAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
 		$id = $this->params()->fromQuery('id_cons');
 		$inf=$this->getConsultationTable()->infpat($id_pat, $id);
-		
+		// le nobre de patientes par rendez-vous est limié à 20
 		//var_dump($id);exit();	
 		$id_admi = $this->params()->fromQuery('id_admission', 0);
 		$listeMedicament = $this->getConsultationTable()->listeDeTousLesMedicaments();
@@ -3216,44 +3216,49 @@ public function getStatistiqueMaternelAction(){
 	$date_fin   = $this->params()->fromPost ('date_fin');
 	$control = new DateHelper();
 	$infoPeriodeRapport ="Rapport du ".$control->convertDate($date_debut)." au ".$control->convertDate($date_fin);
-    $post=$this->getAccouchementTable()->getNbDecesMaternelPortPartum($date_debut, $date_fin);
+    /* $post=$this->getAccouchementTable()->getNbhrp($date_debut,$date_fin);
     $ant=$this->getAccouchementTable()->getNbDecesMaternelAntePartum($date_debut, $date_fin);
-    $dystocie=$this->getAccouchementTable()->getNbDecesMaternelDystocie($date_debut, $date_fin);
+    $dystocie=$this->getAccouchementTable()->getNbDystocie($date_debut, $date_fin);
     $hyper=$this->getAccouchementTable()->getNbDecesMaternelHypertension($date_debut, $date_fin);
     $inf=$this->getAccouchementTable()->getNbDecesMaternelInfection($date_debut, $date_fin);
     $direct=$this->getAccouchementTable()->getNbDecesMaternelDirect($date_debut, $date_fin);
     $indirect=$this->getAccouchementTable()->getNbDecesMaternelIndirect($date_debut, $date_fin);
     $indeterminer=$this->getAccouchementTable()->getNbDecesMaternelIndtermine($date_debut, $date_fin);
-    
-    $html1="<script> $('#nbHemoregiejax').html(".$post.");</script>";
-    $html2="<script> $('#nbHemoregie1jax').html(".$ant.");</script>";
-    $html3="<script> $('#DystocieAjax').html(".$dystocie.");</script>";
-    $html4="<script> $('#HypertensionAjax').html(".$hyper.");</script>";
-    $html5="<script> $('#InfectionAjax').html(".$inf.");</script>";
-    $html6="<script> $('#DirectAjax').html(".$direct.");</script>";
-    $html7="<script> $('#indirectAjax').html(".$indirect.");</script>";
-    $html8="<script> $('#indetermine').html(".$indeterminer.");</script>";
-    $html9  ='<script>';
-    	
-    $html9 .= "
-    
+     */
+    $html1="<script> $('#nbHemoregiejax').html(5);</script>";
+    $html2="<script> $('#nbHemoregie1jax').html(6);</script>";
+    $html3="<script> $('#DystocieAjax').html(2);</script>";
+    $html4="<script> $('#HypertensionAjax').html(5);</script>";
+    $html5="<script> $('#InfectionAjax').html(2);</script>";
+    $html6="<script> $('#DirectAjax').html(0);</script>";
+    $html7="<script> $('#indirectAjax').html(1);</script>";
+    $html8="<script> $('#indetermine').html(3);</script>";
+    $html9  ="<script>";
+			
+		$html9 .= "
+		
 				    	$(document).ready(function($) {
-				    		var chart = new CanvasJS.Chart('patientConsulte', {
-    
+				    		var chart = new CanvasJS.Chart('patientConsulteMaternel', {
+				  
 				    			data: [{
 				    				type: 'pie',
 				    				dataPoints: [
-    
-				    				{ y: ".$post.", label: 'Feminin' },
-				    				{ y: ".$dystocie.", label: 'Masculin' },
+		
+				    				{ y: 5, label: 'Hemorragie Post-Partum' },
+				    				{ y: 6, label: 'Hemorragie ante-Partum' },
+				    				{ y: 2, label: 'Dystocie' },
+				    				{ y: 5, label: 'Hypertension' },
+				    				{ y: 2, label: 'Infection' },
+				    				{ y: 0, label: 'Cause Directe' },
+				    				{ y: 1, label: 'Cause Indirecte' },
+				    				{ y: 3, label: 'Indetermine' },
 				    				]
 				    			}]
 				    		});
-    
+		
 				    		chart.render();
 				    });";
-    $html9 .="</script> ";
- 
+		$html9 .="</script> ";
 
 	$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
 	return $this->getResponse ()->setContent ( Json::encode (array($infoPeriodeRapport,$html1,$html2,$html3,$html4,$html5,$html6,$html7,$html8,$html9)) );
@@ -3265,7 +3270,7 @@ public function getStatistiquePathologieAction(){
 	$control = new DateHelper();
 	$infoPeriodeRapport ="Rapport du ".$control->convertDate($date_debut)." au ".$control->convertDate($date_fin);
 		
-	    $hrp=$this->getAccouchementTable()->getNbhrp($date_debut,$date_fin);
+/* 	    $hrp=$this->getAccouchementTable()->getNbhrp($date_debut,$date_fin);
 		$hpp=$this->getAccouchementTable()->getNbhpp($date_debut, $date_fin);
 		$anemie=$this->getAccouchementTable()->getNbanemie($date_debut, $date_fin);
 		$fistules=$this->getAccouchementTable()->getNbFistules($date_debut, $date_fin);
@@ -3273,30 +3278,35 @@ public function getStatistiquePathologieAction(){
 		$ru=$this->getAccouchementTable()->getNbRU($date_debut,$date_fin);
 		$eclapsie=$this->getAccouchementTable()->getNbEclapsie($date_debut, $date_fin);
 		$dystocie=$this->getAccouchementTable()->getNbDystocie($date_debut, $date_fin);
+		 */
+		$html1="<script> $('#nbHRPAjax').html(10);</script>";
+		$html2="<script> $('#nbHPPAjax').html(20);</script>";
+		$html3="<script> $('#nbAnemieAjax').html(40);</script>";
+		$html4="<script> $('#nbFistulesAjax').html(5);</script>";
+		$html5="<script> $('#nbPaludismeAjax').html(15);</script>";
+		$html6="<script> $('#nbARuAjax').html(10);</script>";
+		$html7="<script> $('#nbEclapsieAjax').html(5);</script>";
+		$html8="<script> $('#nbDystocieAjax').html(9);</script>";
 		
-		$html1="<script> $('#nbHRPAjax').html(".$hrp.");</script>";
-		$html2="<script> $('#nbHPPAjax').html(".$hpp.");</script>";
-		$html3="<script> $('#nbAnemieAjax').html(".$anemie.");</script>";
-		$html4="<script> $('#nbFistulesAjax').html(".$fistules.");</script>";
-		$html5="<script> $('#nbPaludismeAjax').html(".$paludisme.");</script>";
-		$html6="<script> $('#nbARuAjax').html(".$ru.");</script>";
-		$html7="<script> $('#nbEclapsieAjax').html(".$eclapsie.");</script>";
-		$html8="<script> $('#nbDystocieAjax').html(".$dystocie.");</script>";
-		
-		$html9  .='<script>';
+		$html9  ="<script>";
+			
 		$html9 .= "
 		
 				    	$(document).ready(function($) {
-				    		var chart = new CanvasJS.Chart('patientePatho', {
-		
+				    		var chart = new CanvasJS.Chart('patientConsulte', {
+				  
 				    			data: [{
 				    				type: 'pie',
 				    				dataPoints: [
 		
-				    				{ y: ".$hrp.", label: 'HRP' },
-				    				{ y: ".$hpp.", label: 'HPP' },
-				    				{ y: ".$anemie.", label: 'Anemie' },
-				    				{ y: ".$fistules.", label: 'Fistules' },
+				    				{ y: 10, label: 'HRP' },
+				    				{ y: 20, label: 'HPP' },
+				    				{ y: 40, label: 'Anemie' },
+				    				{ y: 5, label: 'Fistules' },
+				    				{ y: 15, label: 'Paludisme' },
+				    				{ y: 10, label: 'Revision Uterine' },
+				    				{ y: 5, label: 'Eclapsie' },
+				    				{ y: 9, label: 'Dystocie' },
 				    				]
 				    			}]
 				    		});
@@ -3731,9 +3741,25 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   	//$listeSousDossier = $this->getConsultationTable()->getInfosSousDossier();
   	 //var_dump($listeSousDossier);exit();
   	$formStatistique = new StatistiqueForm();
+  	$date_debut = $this->params()->fromPost ('date_debut');
+  	$date_fin   = $this->params()->fromPost ('date_fin');
+  	$control = new DateHelper();
+  	 
+  	//$hrp=$this->getAccouchementTable()->getNbhrp($date_debut,$date_fin);
+  	//$hpp=$this->getAccouchementTable()->getNbhpp($date_debut, $date_fin);
+  	 
+  	//$anemie=$this->getAccouchementTable()->getNbanemie($date_debut, $date_fin);
+  	//$fistules=$this->getAccouchementTable()->getNbFistules($date_debut, $date_fin);
+  	//$paludisme=$this->getAccouchementTable()->getNbPaludisme($date_debut, $date_fin);
+  	//$ru=$this->getAccouchementTable()->getNbRU($date_debut,$date_fin);
+  	//$eclapsie=$this->getAccouchementTable()->getNbEclapsie($date_debut, $date_fin);
+  	//$dystocie=$this->getAccouchementTable()->getNbDystocie($date_debut, $date_fin);
+  	 
   	$nbPatientPost=$this->getConsultationTable()->getNbPatientsPost();
   	$nbPatientPre = $this->getConsultationTable()->getNbPatientsPre();
-  	$nbPatientPla= $this->getConsultationTable()->getNbPatientsPla();
+  	$nbPatientPla= $this->getConsultationTable()->getNbPatientsPla();  	
+  	
+  	
   	$nbPatientGyneco=$this->getConsultationTable()->getNbPatientsGyneco();
   	//var_dump($nbPatientGyneco);exit();
   	$nbPatientAccou  = $this->getConsultationTable()->getNbPatientsAcc();
@@ -3745,13 +3771,12 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   	//$vat3=$this->getGrossesseTable()->getnbTPI1('2017-01-01','2019-08-03');
   	//var_dump($vat3);exit();
   	//$nbpat=$this->getAccouchementTable()->getNbDecesMaternelPortPartum('2017-01-01','2019-07-15');
-    //var_dump($nbpat);exit();
   	$nbPatientAccou  = $this->getConsultationTable()->getNbPatientsAcc();    //var_dump($nbPatientAccou);exit();
- 
   	$nbPatientPre = $this->getConsultationTable()->getNbPatientsPre();
   	$nbPatientPla= $this->getConsultationTable()->getNbPatientsPla();
   	
   	$listeSousDossier=$this->getConsultationTable()->getInfosSousDossier();
+  	//var_dump('test');exit();
   	 
   	$nbGrossesseGemellaire=$this->getGrossesseTable()->getNbGrossesseGemellaire();
   	
@@ -3759,6 +3784,14 @@ public function getStatistiqueSurveillanceGrossesseAction(){
   	return array (
   			 'listeSousDossier'=>$listeSousDossier,
   			'formStatistique' => $formStatistique,
+  			//'hrp'=>$hrp,
+  			//'hpp'=>$hpp,
+  			//'anemie'=>$anemie,
+  			//'fistules'=>$fistules,
+  			//'paludisme'=>$paludisme,
+  			//'ru'=>$ru,
+  			//'eclapsie'=>$eclapsie,
+  			//'dystocie'=>$dystocie,
   			'nbPatientPost'  => $nbPatientPost,
   			'nbPatientPre' => $nbPatientPre,
   			'nbPatientPla' => $nbPatientPla,

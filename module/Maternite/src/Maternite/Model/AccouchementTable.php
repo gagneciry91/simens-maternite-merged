@@ -482,7 +482,6 @@ public function addPrenomme($donne,$id_acc) {
 			->columns( array( '*' ))
 			->where(array('acc.hrp'=> 1,'acc.date_accouchement  >= ?' => $date_debut, 'acc.date_accouchement <= ?' => $date_fin));
 			$stat = $sql->prepareStatementForSqlObject($sQuery);
-		
 			$resultat = $stat->execute();
 			return count($resultat);
 		}

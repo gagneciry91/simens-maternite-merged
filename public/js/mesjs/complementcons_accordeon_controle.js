@@ -541,7 +541,12 @@ alert(1222);
    
     // **********-- Donnees de l'examen physique --*******
     // **********-- Donnees de l'examen physique --*******
- 
+    
+    donnees['toucherVaginale'] = $("#toucherVaginale").val();
+    donnees['hauteurUterine'] = $("#hauteurUterine").val();
+    donnees['positionFoeutus'] = $("#positionFoeutus").val();
+    donnees['vitaliteFoeutus'] = $("#vitaliteFoeutus").val();
+
     donnees['examen_maternite_donnee1'] = $("#examen_maternite_donnee1").val();
     donnees['examen_maternite_donnee2'] = $("#examen_maternite_donnee2").val();
     donnees['examen_maternite_donnee3'] = $("#examen_maternite_donnee3").val();

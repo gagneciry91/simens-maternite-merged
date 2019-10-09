@@ -495,6 +495,7 @@ class MaterniteController extends AbstractActionController
     
     	$layout = $this->layout ();
     	$layout->setTemplate ( 'layout/consultationm' );
+    	
     	$view = new ViewModel ();
     
     	return $view;
@@ -1003,7 +1004,14 @@ var_dump('test');exit();
         		'note_gs'=>$donne_ante['note_gs'],
         		'test_emmel'=>$donne_ante['test_emmel'],
         		'profil_emmel'=>$donne_ante['profil_emmel'],
-        		'note_emmel'=>$donne_ante['note_emmel'],
+        		'note_emmel'=>$donne_ante['note_emmel'],        
+        		'tvagin'=>$donne_ante['tvagin'],
+        		'inv_uter'=>$donne_ante['inv_uter'],
+        		'position'=>$donne_ante['position'],
+        		'vitalite'=>$donne_ante['vitalite'],
+        		
+        		
+        		
         
         			
         			
@@ -1123,6 +1131,7 @@ var_dump('test');exit();
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********
         $form = new ConsultationForm ();
+        
         $formData = $this->getRequest()->getPost();
         $form->setData($formData);
         // les antecedents medicaux du patient a ajouter addAntecedentMedicauxPersonne
@@ -1219,11 +1228,14 @@ var_dump('test');exit();
             'NoteHtaAF' => $this->params()->fromPost('NoteHtaAF')
         );
         $id_personne = $this->getAntecedantPersonnelTable()->getIdPersonneParIdCons($id_cons);
+        
         $this->getAntecedantPersonnelTable()->addAntecedentsPersonnels($donneesDesAntecedents, $id_personne, $id_medecin);
         $this->getAntecedantsFamiliauxTable()->addAntecedentsFamiliaux($donneesDesAntecedents, $id_personne, $id_medecin);
         $id_grossesse= $this->getGrossesseTable()->updateGrossesse($formData);
-       // var_dump('test');exit();
+        //var_dump('test');exit();
         $this->getConsultationMaterniteTable()->updateConsultationMaternite($formData);
+        //var_dump('test');exit();
+        
         $id_antecedent1 = $this->getAntecedentType1Table ()-> updateAntecedentType1($formData);
         $id_antecedent2 = $this->getAntecedentType2Table ()-> updateAntecedentType2($formData);
         
@@ -1386,14 +1398,14 @@ var_dump('test');exit();
             'date_fin_prevue_hospi' => $this->controlDate->convertDateInAnglais($this->params()->fromPost('date_fin_hospitalisation_prevue')),
             'id_cons' => $id_cons
         );
-//var_dump($id_cons);exit();
+//
         $this->getDemandeHospitalisationTable()->saveDemandehospitalisation($infoDemandeHospitalisation);
 
         // POUR LA PAGE complement-consultation
         // POUR LA PAGE complement-consultation
         // POUR LA PAGE complement-consultation
-        if ($this->params()->fromPost('terminer') == 'save') {
-
+        if ($id_cons!=NULL) {
+        	//var_dump($id_cons);exit();
             // VALIDER EN METTANT '1' DANS CONSPRISE Signifiant que le medecin a consulter le patient
             // Ajouter l'id du medecin ayant consulter le patient
             $valide = array(
@@ -1401,7 +1413,7 @@ var_dump('test');exit();
                 'ID_CONS' => $id_cons,
                 'ID_MEDECIN' => $this->params()->fromPost('med_id_personne')
             );//var_dump($valide);exit();
-            $this->getConsultationTable()->validerConsultation($valide);
+            $this->getConsultationTable()->validerConsultation1($valide);
         }
 
         return $this->redirect()->toRoute('maternite', array(

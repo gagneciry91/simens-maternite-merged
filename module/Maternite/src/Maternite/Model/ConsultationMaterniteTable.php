@@ -121,8 +121,11 @@ class ConsultationMaterniteTable {
             'vitaliteFoeutus' => $values ['vitaliteFoeutus'],
         		
         );//var_dump($donnees);exit();
-return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $donnees ));
-			var_dump($donnees);exit();    }
+        $this->tableGateway->insert ( $donnees );
+        
+/* return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $donnees ));
+			var_dump($donnees);exit(); */ 
+       }
 
    /* public function validerConsultationMaternite($values){
         $donnees = array(

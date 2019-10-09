@@ -88,6 +88,8 @@ class AntecedentType1Table {
     			'note_sein'=>$donnees['note_sein'],
     			'tvagin'=>$donnees['tvagin'],
     			'abdomen'=>$donnees['abdomen'],
+    			'position'=>$donnees['position'],
+    			'vitalite'=>$donnees['vitalite'],
     			'mollets'=>$donnees['mollets'],
     			'NoteHtaAF'=>$donnees['NoteHtaAF'],
     			'enf_viv_mari'=>$donnees['enf_viv_mari'],
@@ -111,7 +113,9 @@ class AntecedentType1Table {
     			'note_hysterectomie'=>$donnees['note_hysterectomie'],
     			'note_kysteovarienne'=>$donnees['note_kysteovarienne'],
     			'note_autrescons'=>$donnees['note_autrescons'],
-    			
+    			'vitalite'=>$donnees['vitalite'],
+    			'position'=>$donnees['position'],
+    			 
     			
     			
     			 
@@ -186,6 +190,7 @@ class AntecedentType1Table {
     	//var_dump(count($resultat));exit();
     	return count($resultat);
     }
+    
     public function getAntecedentType1($id_pat) {
     
     	//$adapter = $this->tableGateway->getAdapter ();

@@ -108,7 +108,7 @@ function initialisation (){
 	//GESTION DE LA PAGE INFOS 5
 	$('#menuOption5').click(function(){
 		$('#menuGeneral').fadeOut(function(){
-			$('#menu_infos').html('INFOS STATISTIQUES DES PATHOLOGIE');
+			$('#menu_infos').html('INFOS STATISTIQUES DES PATHOLOGIES');
 			$('#contenuPageE').fadeIn();
 			$('#contenuInterface').css({'visibility' : 'visible'});
 		});
@@ -130,7 +130,7 @@ function initialisation (){
 	//GESTION DE LA PAGE INFOS 6
 	$('#menuOption6').click(function(){
 		$('#menuGeneral').fadeOut(function(){
-			$('#menu_infos').html('INFOS STATISTIQUES GENERALES');
+			$('#menu_infos').html('INFOS STATISTIQUES CAUSES DECES MATERNELS');
 			$('#contenuPageF').fadeIn();
 			$('#contenuInterface').css({'visibility' : 'visible'});
 		});
@@ -475,7 +475,7 @@ function getInformationsDatedebutDatefinRapportAccouchement(){
 	}
 }
 	function getInformationsDatedebutDatefinRapportPathologie(){
-		var date_debut_patho = $('#date_debut_patho').val();//alert(date_debut_patho);
+		var date_debut_patho = $('#date_debut_patho').val();//
 		var date_fin_patho = $('#date_fin_patho').val();//alert(date_fin_patho);
 		if(date_debut_patho && date_fin_patho){
 			$.ajax({
@@ -485,7 +485,7 @@ function getInformationsDatedebutDatefinRapportAccouchement(){
 				success: function( data ) {
 					var resultat = jQuery.parseJSON(data);
 					$('#tableauResultatRapportOptionChoisi div').html(resultat[0]);
-
+					alert(date_debut_patho);
 					$('#scriptInfosStat').html(resultat[1]);
 	                $("#scriptInfosStat").html(resultat[2]);
 					$("#scriptInfosStat").html(resultat[3]);
@@ -500,7 +500,7 @@ function getInformationsDatedebutDatefinRapportAccouchement(){
 
 
 				}
-			});
+			});alert(resultat);
 		}
 }
 
@@ -518,13 +518,16 @@ function getInformationsDatedebutDatefinRapportAccouchement(){
 					var resultat = jQuery.parseJSON(data); //alert(resultat);
 					$('#tableauResultatOptionGenreChoisi div').html(resultat[0]); //alert(resultat[0]);
 					$('#scriptInfosStat').html(resultat[1]);//alert(resultat);
-					$('#scriptInfosStat').html(resultat[2]);$('#scriptInfosStat').html(resultat[3]);
+					$('#scriptInfosStat').html(resultat[2]);
+					$('#scriptInfosStat').html(resultat[3]);
 					$('#scriptInfosStat').html(resultat[4]);
 					$('#scriptInfosStat').html(resultat[5]);
 					$('#scriptInfosStat').html(resultat[6]);
 					$('#scriptInfosStat').html(resultat[7]);
 					$('#scriptInfosStat').html(resultat[8]);
-					//alert(resultat);
+					$('#scriptInfosStat').html(resultat[9]);
+
+					alert(resultat);
 				//alert(resultat);
 
 

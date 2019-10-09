@@ -427,6 +427,7 @@ class ConsultationTable {
 	}
 	
 public function getInfosSousDossier(){
+	
 		$adapter = $this->tableGateway->getAdapter ();
 		$sql = new Sql ( $adapter );
 		$select = $sql->select ();

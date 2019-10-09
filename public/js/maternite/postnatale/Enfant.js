@@ -83,7 +83,7 @@ function ajoutEnfant(nbEnfant){
 		          '<td  class="antecedent_go">'+
                   
                   '<div  class="div3">'+
-                     '<label   class="label3" title="Perimetre Cranien">Etat cordon</label>'+
+                     '<label   class="label3" title="Perimetre Cranien">Cordon</label>'+
                   '</div>'+ 
                   '<div  class="styleEnfDiv5">'+
                   '<label   class="styleLabel5" ><select id="bcg_'+i+'"><option value="Normal">Normal</option><option value="Anormal">anormal</option></select></label>'+
@@ -97,7 +97,7 @@ function ajoutEnfant(nbEnfant){
 		         '<td  class="antecedent_go">'+
             
                    '<div  class="div3">'+
-                     '<label   class="label3" title="Perimetre Cranien">Etat Enfant</label>'+
+                     '<label   class="label3" title="Perimetre Cranien">Etat</label>'+
                    '</div>'+ 
                    '<div  class="styleEnfDiv5">'+
                      '<label   class="styleLabel5" ><select id="bcg_'+i+'"><option value="Normal">Normal</option><option value="Anormal">anormal</option></select></label>'+

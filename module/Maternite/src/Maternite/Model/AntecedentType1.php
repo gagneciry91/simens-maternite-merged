@@ -32,6 +32,8 @@ class AntecedentType1 {
 	public $hta;
 	public $nombre_cesar;
 	public $inv_uter;
+	public $tvagin;
+	
 	
 
 	
@@ -52,6 +54,8 @@ class AntecedentType1 {
 		$this->note_avortement = (! empty ( $data ['note_avortement'] )) ? $data ['note_avortement'] : null;
 		$this->menarchie = (! empty ( $data ['menarchie'] )) ? $data ['menarchie'] : null;
 		$this->hta = (! empty ( $data ['hta'] )) ? $data ['hta'] : null;
+		
+		$this->tvagin = (! empty ( $data ['tvagin'] )) ? $data ['tvagin'] : null;
 		
 		$this->mort_ne = (! empty ( $data ['mort_ne'] )) ? $data ['mort_ne'] : null;
 		$this->cesar = (! empty ( $data ['cesar'] )) ? $data ['cesar'] : null;

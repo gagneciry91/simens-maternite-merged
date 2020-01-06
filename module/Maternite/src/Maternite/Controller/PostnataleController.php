@@ -904,16 +904,11 @@ public function enregistrementAction() {
 		
 	$layout = $this->layout ();
 		$layout->setTemplate ( 'layout/postnatale' );
-		//$output = $this->getPatientTable()->getPatientPostnatale();
-		//var_dump($output);exit();
-		$view = new ViewModel ();
-		
-		return $view;
+    	$view = new ViewModel ();
+    
+    	return $view;
 	}
 
-	
-	
-	
 	public function listeDesPostnatalesAjaxAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
 		
@@ -1427,7 +1422,7 @@ foreach ($Nouveau as $Nv){
 				
 				  'Naissances'   =>$tabEnf,
 				'Nouveau'   =>$tabNv,
-				 'nombre_enf' => $nombre,
+				// 'nombre_enf' => $nombre,
 				//'listesDecesMaternel'=>$listesDecesMaternel,
 				//'listeDesExamensMorphologiques' => $listeDesExamensMorphologiques,
 				'listeAntMed' => $listeAntMed,
@@ -1783,7 +1778,7 @@ foreach ($Nouveau as $Nv){
 		$this->getDemandeHospitalisationTable()->saveDemandehospitalisation($infoDemandeHospitalisation);
 	
 		// POUR LA PAGE complement-accouchement
-		if ($this->params()->fromPost('terminer') == 'save') {
+/* 		if ($this->params()->fromPost('terminer') == 'save') {
 	
 			// VALIDER EN METTANT '1' DANS CONSPRISE Signifiant que le medecin a consulter le patient
 			// Ajouter l'id du medecin ayant consulter le patient
@@ -1794,6 +1789,17 @@ foreach ($Nouveau as $Nv){
 			);
 			$this->getConsultationTable()->validerConsultation($valide);
 				
+		} */
+		if ($id != 'null') {
+		
+			// VALIDER EN METTANT '1' DANS CONSPRISE Signifiant que le medecin a consulter le patient
+			// Ajouter l'id du medecin ayant consulter le patient
+			$valide = array(
+					'VALIDER' => 1,
+					'ID_CONS' => $id,
+					//'ID_MEDECIN' => $this->params()->fromPost('med_id_personne')
+			);//var_dump($valide);exit();
+			$this->getConsultationTable()->validerConsultation1($valide);
 		}
 	
 		return $this->redirect()->toRoute('postnatale', array(

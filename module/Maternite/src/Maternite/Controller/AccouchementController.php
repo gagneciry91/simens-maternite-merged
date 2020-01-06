@@ -1242,9 +1242,7 @@ public function declarerDecesAction() {
 		
 		return $view;
 	}
-	
-	
-	
+
 	public function listeDesAccouchementsAjaxAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
 		

@@ -171,11 +171,11 @@ class ConsultationTable {
 				'PRESSION_ARTERIELLE' => $values->get ( "tensionmaximale" )->getValue () . '/' . $values->get ( "tensionminimale" )->getValue (),
 				'POULS' => $values->get ( "pouls" )->getValue (),
 				'FREQUENCE_RESPIRATOIRE' => $values->get ( "frequence_respiratoire" )->getValue (),
-				'GLYCEMIE_CAPILLAIRE' => $values->get ( "glycemie_capillaire" )->getValue ()
+				//'GLYCEMIE_CAPILLAIRE' => $values->get ( "glycemie_capillaire" )->getValue ()
 		);//var_dump($donnees);exit();
 		$this->tableGateway->update ( $donnees, array (
 				'ID_CONS' => $values->get ( "id_cons" )->getValue ()
-		) );//var_dump($donnees);exit();
+		) );var_dump($donnees);exit();
 	}
 	
 	
@@ -1873,7 +1873,7 @@ public function getInfosSousDossier(){
 	
 	
 	
-	public function listePostnatale($id_patient){
+	public function listePostnatale1($id_patient){
 
 		$today = new \DateTime ();
 		$date = $today->format ( 'Y-m-d' );
@@ -1900,45 +1900,19 @@ public function getInfosSousDossier(){
 				'Id_cons' => 'ID_CONS',
 			
 		) );
-		
-
-// 		$select->join ( array (
-// 				'a' => 'admission'
-// 		), 'p.ID_PERSONNE = a.id_patient', array (
-// 				'Id_admission' => 'id_admission',
-					
-// 		) );
-		
+				
 		$select->join ( array (
 				'post' => 'postnatale'
 		), 'c.ID_CONS = post.ID_CONS', array (
 				'id_pos' => 'id_postnatale',
-				//'date_acc' => 'date_accouchement',
-				//'type_acc' => 'type_accouchement',
+				
 		) );//var_dump('test'); exit();
 		
-	/* 	$select->join ( array (
-				'acc' => 'accouchement'
-		), 'c.ID_CONS = acc.id_cons', array (
-				'id_acc' => 'id_accouchement',
-				'date_acc' => 'date_accouchement',
-				//'type_acc' => 'type_accouchement',
-		) );
-		
-		
-		
-		$select->join ( array (
-				'ta' => 'type_accouchement'
-		), 'ta.id_type = acc.id_type', array (
-				'type_acc' => 'type_accouch'
-		) );
-		
-	 */
 
 		
 		$select->where ( array (
 				'c.ID_PATIENT' => $id_patient,
-// 				'DATEONLY' => $date,
+				'DATEONLY' => $date,
 // 				'a.date_cons' => $date,
 // 				'c.ARCHIVAGE' => 0
 		) );
@@ -1983,9 +1957,9 @@ public function getInfosSousDossier(){
 	
 	
 		$select->join ( array (
-				'post' => 'postnatale'
-		), 'c.ID_CONS = post.ID_CONS', array (
-				'id_pos' => 'id_postnatale',
+				'pla' => 'planification'
+		), 'c.ID_CONS = pla.ID_CONS', array (
+				'id_pos' => '	id_Planification',
 				//'date_acc' => 'date_accouchement',
 				//'type_acc' => 'type_accouchement',
 		) );//var_dump('test'); exit();
@@ -2141,6 +2115,59 @@ public function getInfosSousDossier(){
 	
 		$stmt = $sql->prepareStatementForSqlObject ( $select );
 		$result = $stmt->execute ();
+	
+		return $result;
+	
+	}
+
+	public function listePostnatale($id_patient){
+	
+		$today = new \DateTime ();
+		$date = $today->format ( 'Y-m-d' );
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from ( array (
+				'p' => 'patient'
+	
+		) );
+		$select->columns ( array ('numero_dossier'=>'NUMERO_DOSSIER') );
+	
+		$select->join ( array (
+	
+				'pers' => 'personne'
+		), 'pers.ID_PERSONNE = p.ID_PERSONNE', array (
+				'Id' => 'ID_PERSONNE'
+	
+		) );
+	
+		$select->join ( array (
+				'c' => 'consultation'
+		), 'p.ID_PERSONNE = c.ID_PATIENT', array (
+				'Id_cons' => 'ID_CONS',
+				'date_pos' =>'dateonly',
+		) );
+	
+		$select->join ( array (
+				'pos' => 'postnatale'
+		), 'c.ID_CONS = pos.id_cons', array (
+				'id_pos' => 'id_postnatale',
+				//'date_gyn' => 'date_gyneco',
+				//'type' => 'antepers',
+		) );
+	
+	
+		$select->where ( array (
+				'c.ID_PATIENT' => $id_patient,
+				// 				'DATEONLY' => $date,
+				// 				'a.date_cons' => $date,
+				// 				'c.ARCHIVAGE' => 0
+		) );
+		$select->order ( 'id_postnatale ASC' );
+	
+		$stmt = $sql->prepareStatementForSqlObject ( $select );
+		$result = $stmt->execute ();
+		//var_dump(count($result));exit();
 	
 		return $result;
 	

@@ -1116,10 +1116,9 @@ $this->add(array(
 				'name' => 'temperature',
 				'type' => 'Number',
 				'options' => array (),
-				// 'label' => iconv ( 'UTF-8','ISO-8859-1', 'Température (°C)' )
 				'attributes' => array (
 						'class' => 'temperature_only_numeric',
-						//'readonly' => 'readonly',
+						
 						'min'=>34,
 						'id' => 'temperature',
 						'required' => true,
@@ -1174,7 +1173,6 @@ $this->add(array(
 				'name' => 'pouls',
 				'type' => 'Text',
 				'options' => array (
-						//'label' => 'Pouls (bat/min)' 
 				),
 				'attributes' => array (
 						'class' => 'pouls_only_numeric',
@@ -1186,7 +1184,6 @@ $this->add(array(
 				'name' => 'frequence_respiratoire',
 				'type' => 'Text',
 				'options' => array (),
-				// 'label' => iconv('ISO-8859-1', 'UTF-8','Fréquence respiratoire')
 				'attributes' => array (
 						'class' => 'frequence_only_numeric',
 						'readonly' => 'readonly',
@@ -1311,10 +1308,8 @@ $this->add(array(
 				'name' => 'observations',
 				'type' => 'Textarea',
 				'options' => array (
-						//'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Observation :' ) 
 				),
 				'attributes' => array (
-						//'readonly' => 'readonly',
 						'id' => 'observations' 
 				) 
 		) );

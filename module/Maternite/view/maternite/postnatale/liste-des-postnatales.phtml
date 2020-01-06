@@ -1,9 +1,9 @@
 <!-- MES STYLES -->
-<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/postnatale/styleListePatient.css');?>
-<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/postnatale/styleAdmission.css');
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/styleListePatient.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/maternite/styleAdmission.css');
 ?>
 <!-- MES JS -->
-<?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/postnatale/listePostnatale.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/maternite/postnatale/listepostenatale.js');?>
 
 <style>
 #contenu{ visibility: hidden };
@@ -18,7 +18,7 @@ $(window).load(function () {
 <div id="titre"
 	style='font-family: police2; text-decoration: none; color: green; font-size: 20px; font-weight: bold; padding-left: 20px;'>
 	<iS style='font-size: 25px;'>&curren;</iS>
-	LISTE DES PATIENTES AYANT ETE CONSULTEES APRES L'ACCOUCHEMENT
+	L'HISTORIQUE  DES CONSULTATIONS POSTNATALES
 </div>
 <div id="wait"
 	style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;">
@@ -38,8 +38,8 @@ $(window).load(function () {
 					name="search_browser" value=" Pr&eacute;nom" class="search_init" /></th>
 				<th id="date_" style='width: 7%;'><input type="text"
 					name="search_browser" value=" Age" class="search_init" /></th>
-				<th id="sexe_" style='width: 9%;'><input type="text"
-					name="search_browser" value=" Sexe" class="search_init" /></th> 
+				<!-- <th id="sexe_" style='width: 9%;'><input type="text"
+					name="search_browser" value=" Sexe" class="search_init" /></th> -->
 				<th id="adresse_" style='width: 20%;'><input type="text"
 					name="search_browser" value=" Adresse" class="search_init" /></th>
 				

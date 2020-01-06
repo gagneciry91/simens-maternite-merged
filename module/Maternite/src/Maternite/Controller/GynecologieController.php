@@ -778,7 +778,6 @@ class GynecologieController extends AbstractActionController
 				'nb_med_prescrit' => $nbMedPrescrit,
 				'liste_med_prescrit' => $listeMedicamentsPrescrits,
 				'duree_traitement' => $duree_traitement,
-				// 'temoinMotifAdmission' => $motif_admission['temoinMotifAdmission'],
 				'listeForme' => $listeForme,
 				'listetypeQuantiteMedicament' => $listetypeQuantiteMedicament,
 				'donneesAntecedentsPersonnels' => $donneesAntecedentsPersonnels,
@@ -838,7 +837,7 @@ class GynecologieController extends AbstractActionController
         
         $formData = $this->getRequest()->getPost();
         $form->setData($formData);
-        //var_dump($id_cons);exit();
+       
         
         // **********-- MODIFICATION DES CONSTANTES --********
         // **********-- MODIFICATION DES CONSTANTES --********

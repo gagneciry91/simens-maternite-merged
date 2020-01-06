@@ -708,7 +708,7 @@ function updateexecuterRequetePost(donnees) {
 
 	//Le formulaire pour l'impression du certificat d'accouchement
 	var formulaireImprimCertificat = document.createElement("form");
-	formulaireImprimCertificat.setAttribute("action", tabUrl[0] + "public/planification/imprimer-certifat-accouchement");
+	formulaireImprimCertificat.setAttribute("action", tabUrl[0] + "public/planification/planification");
 	formulaireImprimCertificat.setAttribute("method", "POST");   
 	formulaireImprimCertificat.setAttribute('target', '_blank');
 	
@@ -919,7 +919,7 @@ $("#terminer2, #terminer3").click(function () {
     //Recuperer les valeurs des champs
     
     donnees['poids'] = $("#poids").val();
-   // donnees['taille'] = $("#taille").val();
+   //donnees['taille'] = $("#taille").val();
     donnees['hu'] = $("#hu").val();
     donnees['paleur'] = $("#paleur").val();
     donnees['temperature'] = $("#temperature").val();

@@ -24,9 +24,9 @@ class PlanificationTable {
 				//'type_accouchement' => $values['type_accouchement'],
 				//'lieu_accouchement' => $values['lieu_accouchement'],
 				//'numero_d_ordre' => $values['numero_d_ordre'],
-		);
+		);//var_dump($donnees);exit();
 		return $this->tableGateway->getLastInsertValue($this->tableGateway->insert ( $donnees ));
-		var_dump($donnees);exit();
+		//var_dump($donnees);exit();
 	}
 	
 }

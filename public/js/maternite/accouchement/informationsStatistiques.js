@@ -475,8 +475,8 @@ function getInformationsDatedebutDatefinRapportAccouchement(){
 	}
 }
 	function getInformationsDatedebutDatefinRapportPathologie(){
-		var date_debut_patho = $('#date_debut_patho').val();//
-		var date_fin_patho = $('#date_fin_patho').val();//alert(date_fin_patho);
+		var date_debut_patho = $('#date_debut_patho').val();
+		var date_fin_patho = $('#date_fin_patho').val();
 		if(date_debut_patho && date_fin_patho){
 			$.ajax({
 				url: tabUrl[0]+"public/accouchement/get-statistique-pathologie",
@@ -500,7 +500,7 @@ function getInformationsDatedebutDatefinRapportAccouchement(){
 
 
 				}
-			});alert(resultat);
+			});
 		}
 }
 
@@ -527,7 +527,7 @@ function getInformationsDatedebutDatefinRapportAccouchement(){
 					$('#scriptInfosStat').html(resultat[8]);
 					$('#scriptInfosStat').html(resultat[9]);
 
-					alert(resultat);
+					
 				//alert(resultat);
 
 

@@ -727,6 +727,58 @@ var_dump('test');exit();
             'donnees' => $tab
         ));
     }
+
+    public function infoPlanificationAction() {
+    	//var_dump('test');exit();
+    	$this->layout ()->setTemplate ( 'layout/planification' );
+    	$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+    
+    	$user = $this->layout()->user;
+    	$idService = $user ['IdService'];
+    	$form = new ConsultationForm ();
+    
+    	//var_dump($form);exit();
+    	$formData = $this->getRequest ()->getPost ();
+    	$form->setData ( $formData );
+    
+    	$id_cons = $form->get ( "id_cons" )->getValue ();//var_dump($inf);exit();
+    	$accouchement = $this->getConsultationTable()->listePlanification($id_pat);
+    
+    	$patient = $this->getPatientTable ();
+    	$unPatient = $patient->getInformationPatient( $id_pat);
+    
+    	return array (
+    			//'nb_enf'=>$nb,
+    			'donnees_acc'=>$accouchement,
+    			'lesdetails' => $unPatient,
+    			'image' => $patient->getPhoto ( $id_pat ),
+    			'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
+    	);
+    }
+    public function infoPostnataleAction() {
+    	$this->layout ()->setTemplate ( 'layout/postnatale' );
+    	$id_pat = $this->params ()->fromRoute ( 'id_patient', 0 );
+    
+    	$user = $this->layout()->user;
+    	$idService = $user ['IdService'];
+    	$form = new ConsultationForm ();
+    
+    	$formData = $this->getRequest ()->getPost ();
+    	$form->setData ( $formData );
+    	$id_cons = $form->get ( "id_cons" )->getValue ();
+    	$postnatale = $this->getConsultationTable()->listePostnatale($id_pat);
+    	//var_dump($id_cons);exit();
+    	$patient = $this->getPatientTable ();
+    	$unPatient = $patient->getInformationPatient( $id_pat);
+    
+    	return array (
+    			//'nb_enf'=>$nb,
+    			'donnees_pos'=>$postnatale,
+    			'lesdetails' => $unPatient,
+    			'image' => $patient->getPhoto ( $id_pat ),
+    			'date_enregistrement' => $unPatient['DATE_ENREGISTREMENT']
+    	);
+    }
     
     public function infoGynecologieAction() {
     	$this->layout ()->setTemplate ( 'layout/gynecologie' );
@@ -735,7 +787,6 @@ var_dump('test');exit();
     	$user = $this->layout()->user;
     	$idService = $user ['IdService'];
     	$form = new ConsultationForm ();
-    	//var_dump('test');exit();
     
     	$formData = $this->getRequest ()->getPost ();
     	$form->setData ( $formData );

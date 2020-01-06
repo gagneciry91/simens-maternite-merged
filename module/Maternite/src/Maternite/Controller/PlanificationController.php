@@ -36,7 +36,8 @@ class PlanificationController extends AbstractActionController{
 	protected $controlDate;
 	protected $patientTable;
 	protected $planificationTable;
-	
+	protected $antecedenttype1Table;
+	protected $antecedenttype2Table;
 	protected $evacuationTable;
 	protected $consultationTable;
 	protected $formPatient;
@@ -58,6 +59,21 @@ class PlanificationController extends AbstractActionController{
 		}
 		return $this->planificationTable;
 	}
+	public function getAntecedentType1Table() {
+		if (! $this->antecedenttype1Table) {
+			$sm = $this->getServiceLocator ();
+			$this->antecedenttype1Table = $sm->get ( 'Maternite\Model\AntecedentType1Table' );
+		}
+		return $this->antecedenttype1Table;
+	}
+	public function getAntecedentType2Table() {
+		if (! $this->antecedenttype2Table) {
+			$sm = $this->getServiceLocator ();
+			$this->antecedenttype2Table = $sm->get ( 'Maternite\Model\AntecedentType2Table' );
+		}
+		return $this->antecedenttype2Table;
+	}
+	
 	public function getForm() {
 		if (! $this->formPatient) {
 			$this->formPatient = new PatientForm();
@@ -317,15 +333,12 @@ public function admissionAction() {
 				'donnees' => $lespatients,
 				'tabPatientRV' => $tabPatientRV
 		));
-	
-	
-	
+
 	}
 	
 	
 	public function listeDesPlanificationsAction() {
-				$output = $this->getPatientTable()->getPatientPlanification();
-//var_dump($output);exit();
+		 
 		$layout = $this->layout ();
 		$layout->setTemplate ( 'layout/planification' );
 		$view = new ViewModel ();
@@ -356,7 +369,6 @@ public function admissionAction() {
 		$id_pat = $this->params()->fromQuery('id_patient', 0);
 		$id = $this->params()->fromQuery('id_cons');
 		$inf=$this->getConsultationTable()->infpat($id_pat, $id);
-		//var_dump($id);exit();
 		$id_admi = $this->params()->fromQuery('id_admission', 0);
 		
 		$liste = $this->getConsultationTable()->getInfoPatient($id_pat);
@@ -364,7 +376,7 @@ public function admissionAction() {
 		$consult = $this->getConsultationTable()->getConsult($id);
 		
 		$image = $this->getConsultationTable()->getPhoto($id_pat);
-		//$this->getDateHelper();
+	
 		/* $donne_ante=$this->getAntecedentType1Table()->getAntecedentType1($id_pat);
 		$donne_ante2=$this->getAntecedentType2Table()->getAntecedentType2($id);
 		$donneesAntecedentsPersonnels = $this->getAntecedantPersonnelTable()->getTableauAntecedentsPersonnels($id_pat);
@@ -389,32 +401,23 @@ public function admissionAction() {
 		// *** Liste des consultations
 		$listeConsultation = $this->getConsultationTable()->getConsultationPatient($id_pat, $id);
 		
-		
 		$data = array(
-					
 				'id_cons' => $consult->id_cons,
 				'id_medecin' => $id_medecin,
 				'id_patient' => $consult->id_patient,
 				'date_cons' => $consult->date,
+				'poids' => $consult->poids,
+				'taille' => $consult->taille,
 				'tensionmaximale' => $tensionmaximale,
 				'tensionminimale' => $tensionminimale,
-				'glycemie_capillaire' => $consult->glycemie_capillaire,
 				'temperature' => $consult->temperature,
-				'paleur' => $consult->paleur,
 				'pouls' => $consult->pouls,
-				'poids' => $consult->poids,
-		
+				'frequence_respiratoire' => $consult->frequence_respiratoire,
+				'glycemie_capillaire' => $consult->glycemie_capillaire,
 				'pressionarterielle' => $consult->pression_arterielle,
-				//'hopital_accueil' => $idHopital,
-				'id_admission' => $id_admission,
-		
 		);
 		
-		//var_dump($listedates);exit();
-		
-		
-	//	$this->getDateHelper();		
-		//var_dump('test'); exit();
+
 		
 		
 		return array(
@@ -426,6 +429,7 @@ public function admissionAction() {
 				'listeForme' => $listedates,
 				'heure_cons' => $consult->heurecons,
 				'dateonly' => $consult->dateonly,
+				'liste' => $listeConsultation,
 				//'donneesAntecedentsPersonnels' => $donneesAntecedentsPersonnels,
 				//'donneesAntecedentsFamiliaux' => $donneesAntecedentsFamiliaux,
 				//'liste_med' => $listeMedicament,
@@ -607,6 +611,13 @@ public function admissionAction() {
 		// **********-- MODIFICATION DES CONSTANTES --********
 		// **********-- MODIFICATION DES CONSTANTES --********
 		// **********-- MODIFICATION DES CONSTANTES --********
+		
+        // mettre a jour la consultation
+        $this->getConsultationTable()->updateConsultation($form);
+         
+        $id_antecedent1 = $this->getAntecedentType1Table ()-> updateAntecedentType1($formData);   //var_dump('test');exit();
+        $id_antecedent2 = $this->getAntecedentType2Table ()-> updateAntecedentType2($formData);
+        
 	
 		// les antecedents medicaux du patient a ajouter addAntecedentMedicauxPersonne
 		$this->getConsultationTable()->addAntecedentMedicaux($formData);
@@ -614,7 +625,7 @@ public function admissionAction() {
 		// $this->getMotifAdmissionTable()->deleteMotifAdmission($id_cons);
 	
 	
-		$this->getConsultationTable()->updateConsultation($form);//var_dump('test');exit();
+		//$this->getConsultationTable()->updateConsultation($form);
 
 		$info_planification = array(
 				'pilule' => $this->params()->fromPost('pilule'),
@@ -625,10 +636,22 @@ public function admissionAction() {
 				//'id_accouchement' => $id_accouchement,
 				'ID_CONS' => $id_cons
 		); //
-		//var_dump($info_planification);exit();
 		$this->getPlanificationTable()->updatePlanification($info_planification);
 		// Recuperer les donnees sur les bandelettes urinaires
 		// Recuperer les donnees sur les bandelettes urinaires
+		var_dump($id_cons);exit();
+		if ($id_cons != 'null') {
+		
+			// VALIDER EN METTANT '1' DANS CONSPRISE Signifiant que le medecin a consulter le patient
+			// Ajouter l'id du medecin ayant consulter le patient
+			$valide = array(
+					'VALIDER' => 1,
+					'ID_CONS' => $id_cons,
+					
+			);//var_dump($valide);exit();
+			$this->getConsultationTable()->validerConsultation1($valide);
+		}
+		
 		return $this->redirect()->toRoute('planification', array(
 				'action' => 'planification',
 		));
